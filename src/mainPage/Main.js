@@ -1,6 +1,7 @@
 import React ,{css, useState}from "react";
 import styled from "styled-components";
 import bckimg from "../img/fog.jpg"
+import side from "../img/side.png"
 
 const Sidemenu = [
     //버튼을 카테고리로 분류하여 값을 쉽게 가져오기 위해 name으로 설정한다.
@@ -8,7 +9,7 @@ const Sidemenu = [
     { name : "CONTENTS"},
     { name : "BRAND"},
     { name : "LOOKBOOK"},
-    { name : "MOTICE"}
+    { name : "NOTICE"}
   ]
 
 const SideButton = styled.div`
@@ -47,7 +48,6 @@ const Side=styled.div`
     position: fixed;
     transition: transform 1.3s ease-in-out;
     left: -300px;
-
 `
 
 
@@ -60,10 +60,7 @@ const MainBody=styled.div`
     overflow:scroll;
     ::-webkit-scrollbar {
 	display:none
-    }
-    
-
-
+    } 
 `
 const Head = styled.div`
     width: 100%;
@@ -81,8 +78,11 @@ const Head = styled.div`
         font-size: 50px;
     }
     .top2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         color: rgb(100,100,100);
-        font-size: 12px;
+        font-size: 13px;
     }
     .bottom{
         color: rgb(100,100,100);
@@ -93,6 +93,10 @@ const ToggleButton = styled.button`
     background: none;
     border: none;
     font-size: 17px;
+    img{
+        padding: 0 0 0 5px;
+        width: 25px;
+    }
 `;
 
 const Body = styled.div`
@@ -171,7 +175,7 @@ const Main= () =>{
                         </div>
                     </div>
                     <div className="bottom" >
-                        <ToggleButton onClick={toggleSidebar}>Menu</ToggleButton> 
+                        <ToggleButton onClick={toggleSidebar}><img src={side}/> </ToggleButton> 
                     </div>
                 </Head>
                 <Body>                
