@@ -6,6 +6,7 @@ const Container =styled.div`
     width: 100%;
     height: 100vh;
     display: flex;
+    
 `
 const Side=styled.div`
     width: 300px;
@@ -16,18 +17,11 @@ const Side=styled.div`
     background-color: rgba(0,0,0,0.5);
     z-index: 1;
     position: fixed;
-    left:-280px;
-    transition: transform 0.5s ease-in-out;
-    &:hover{
-        transform: translateX(280px);
-    }
-
-    /* transition: transform 0.3s ease-in-out;
-    transform: translateX(-300px);
-    ${props => props.active && css`
-        transform: translateX(300px); 
-    `} */
+    transition: transform 1.3s ease-in-out;
+    left: -300px;
 `
+
+
 
 const MainBody=styled.div`
     width: 100%;
@@ -38,6 +32,7 @@ const MainBody=styled.div`
     ::-webkit-scrollbar {
 	display:none
     }
+    
 
 
 `
@@ -106,18 +101,25 @@ const Foot = styled.div`
 `
 
 const Main= () =>{
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(0);
+   
+    
 
     const toggleSidebar = () => {
-        setIsOpen(!isOpen)
-        console.log(isOpen)
-            
+        if(isOpen===300){
+            setIsOpen(0);
+        }else if(isOpen=== 0){
+            setIsOpen(300);
+        }
+        console.log(isOpen) ; 
       };
     
     return(
         <Container>
-            <Side>           
+            <Side style={{transform: `translateX(${isOpen}px)`}}> 
+                <ToggleButton onClick={toggleSidebar}>Menu</ToggleButton> 
             </Side>
+          
             <MainBody>
                 <Head>
                     <div className="top">
