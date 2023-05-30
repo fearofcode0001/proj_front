@@ -2,23 +2,52 @@ import React ,{css, useState}from "react";
 import styled from "styled-components";
 import bckimg from "../img/fog.jpg"
 
+const Sidemenu = [
+    //버튼을 카테고리로 분류하여 값을 쉽게 가져오기 위해 name으로 설정한다.
+    { name : "SHOP"},
+    { name : "CONTENTS"},
+    { name : "BRAND"},
+    { name : "LOOKBOOK"},
+    { name : "MOTICE"}
+  ]
+
+const SideButton = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width:300px;
+    height: 90px;
+    min-height: 40px;
+    border: none;
+    font-size: 17px;
+    &:hover{
+        background-color: rgba(190,190,190,0.5);
+    }
+    ${props => props.active && css`   // *&* props가 active이면 css를 재정의 한다.
+        background-color: rgba(190,190,190,0.5);
+          
+     `}
+
+`
+
 const Container =styled.div`
     width: 100%;
     height: 100vh;
-    display: flex;
-    
+    display: flex;    
 `
 const Side=styled.div`
     width: 300px;
     height: 100vh;
     display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content: space-evenly;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(255,255,255,0.9);
     z-index: 1;
     position: fixed;
     transition: transform 1.3s ease-in-out;
     left: -300px;
+
 `
 
 
@@ -78,7 +107,7 @@ const Body = styled.div`
     animation-iteration-count: infinite;
     @keyframes transX {
         0% {
-          transform: translateX(800px); // 이 top 기준으로 400px 내려간 곳에서 시작할거다
+          transform: translateX(800px); // 이 top 기준으로 400px 내려간 곳에서 시작
         }
         100% {
           transform: translateX(-800px);   // 그리고 도착지는 원래 지점
@@ -117,7 +146,18 @@ const Main= () =>{
     return(
         <Container>
             <Side style={{transform: `translateX(${isOpen}px)`}}> 
-                <ToggleButton onClick={toggleSidebar}>Menu</ToggleButton> 
+                <div className="sideMenu">
+                    {Sidemenu.map(s=>(
+                        <SideButton key={s.name}>
+                            {s.name}
+                        </SideButton>
+                    ))}
+                </div>
+                
+                <div className="closeButton">
+                    <ToggleButton ToggleButton onClick={toggleSidebar}>close</ToggleButton> 
+                </div>
+                
             </Side>
           
             <MainBody>
