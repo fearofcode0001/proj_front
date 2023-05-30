@@ -7,6 +7,10 @@ const Container =styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
+    //이미지를 사용 하려면  ${0}양식 사용
+    background-image:url(${bckimg});
+    background-size: contain;
+    background-repeat: no-repeat;
 `
 const Head = styled.div`
     width: 100%;
