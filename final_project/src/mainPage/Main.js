@@ -1,8 +1,35 @@
-import React from "react";
+import React ,{css, useState}from "react";
 import styled from "styled-components";
 import bckimg from "../img/fog.jpg"
 
 const Container =styled.div`
+    width: 100%;
+    height: 100vh;
+    display: flex;
+`
+const Side=styled.div`
+    width: 300px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
+    position: fixed;
+    left:-280px;
+    transition: transform 0.5s ease-in-out;
+    &:hover{
+        transform: translateX(280px);
+    }
+
+    /* transition: transform 0.3s ease-in-out;
+    transform: translateX(-300px);
+    ${props => props.active && css`
+        transform: translateX(300px); 
+    `} */
+`
+
+const MainBody=styled.div`
     width: 100%;
     height: 100vh;
     display: flex;
@@ -11,26 +38,38 @@ const Container =styled.div`
     ::-webkit-scrollbar {
 	display:none
     }
-`
 
+
+`
 const Head = styled.div`
     width: 100%;
     height: 180px;
     display: flex;
     flex-direction: column;
-    padding: 0 0 0 20px;
     .top{
+        padding: 0 20px 0 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .top1{
         height: 70px;
         font-weight: bolder;
         font-size: 50px;
     }
+    .top2{
+        color: rgb(100,100,100);
+        font-size: 12px;
+    }
     .bottom{
         color: rgb(100,100,100);
-        font-weight: bolder;
-        cursor: pointer;
-        
     }
 `
+
+const ToggleButton = styled.button`
+    background: none;
+    border: none;
+    font-size: 17px;
+`;
 
 const Body = styled.div`
     width: 100%;
@@ -39,7 +78,7 @@ const Body = styled.div`
     background-image:url(${bckimg});
     background-size: contain;
     background-repeat: none;
-    animation: transX 10s; 
+    animation: transX 15s linear; 
     //애니메이션 무한반복
     animation-iteration-count: infinite;
     @keyframes transX {
@@ -67,22 +106,38 @@ const Foot = styled.div`
 `
 
 const Main= () =>{
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsOpen(!isOpen)
+        console.log(isOpen)
+            
+      };
     
     return(
         <Container>
-            <Head>
-                <div className="top">
-                    iMMUTABLE
-                </div>
-                <div className="bottom">
-                   menu
-                </div>
-            </Head>
-            <Body>                
-            </Body>
-            <Foot>
-                copyrightsⓒ
-            </Foot>
+            <Side>           
+            </Side>
+            <MainBody>
+                <Head>
+                    <div className="top">
+                        <div className="top1">
+                            iMMUTABLE
+                        </div>
+                        <div className="top2">
+                            login
+                        </div>
+                    </div>
+                    <div className="bottom" >
+                        <ToggleButton onClick={toggleSidebar}>Menu</ToggleButton> 
+                    </div>
+                </Head>
+                <Body>                
+                </Body>
+                <Foot>
+                    copyrightsⓒ iMMUTABLE allrights reserved
+                </Foot>
+            </MainBody>
         </Container>
 
     );
