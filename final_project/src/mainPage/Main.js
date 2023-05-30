@@ -21,17 +21,17 @@ const Body = styled.div`
     //이미지를 사용 하려면  ${0}양식 사용
     background-image:url(${bckimg});
     background-size: contain;
-    animation: transY 2s ease-in-out; 
+    animation: transX 3s ease-in-out; 
     //애니메이션 무한반복
     animation-iteration-count: infinite;
-    @keyframes transY {
+    @keyframes transX {
         0% {
-          transform: translateY(400px); // 이 top 기준으로 400px 내려간 곳에서 시작할거다
-          opacity: 0; // 처음에는 가려놓고 
+          transform: translateX(400px); // 이 top 기준으로 400px 내려간 곳에서 시작할거다
+
         }
         100% {
-          transform: translateY(0px);   // 그리고 도착지는 원래 지점
-          opacity: 1; // 마지막에 슬슬 보여주기
+          transform: translateX(0px);   // 그리고 도착지는 원래 지점
+
         }
       }
    
