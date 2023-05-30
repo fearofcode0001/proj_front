@@ -12,7 +12,17 @@ const Sidemenu = [
     { name : "NOTICE"}
   ]
 
-const SideButton = styled.div`
+  const IsLoginFalse = [
+    { name : "login"}
+  ]
+  const IsLoginTrue = [
+    { name : "logout"},
+    { name : "mypage"},    
+    { name : "cart"},    
+    { name : "FAQ"}
+  ]
+
+const SideButton = styled.button`
     display:flex;
     align-items: center;
     justify-content: center;
@@ -25,10 +35,15 @@ const SideButton = styled.div`
         background-color: rgba(190,190,190,0.5);
     }
     ${props => props.active && css`   // *&* props가 active이면 css를 재정의 한다.
-        background-color: rgba(190,190,190,0.5);
-          
+        background-color: rgba(190,190,190,0.5);        
      `}
-
+`
+const TopButton = styled.button`
+    border: none;
+    background-color: white;
+    &:hover{
+        color: rgba(0,0,0,0.5);
+    }
 `
 
 const Container =styled.div`
@@ -36,6 +51,8 @@ const Container =styled.div`
     height: 100vh;
     display: flex;    
 `
+
+
 const Side=styled.div`
     width: 300px;
     height: 100vh;
@@ -135,7 +152,7 @@ const Foot = styled.div`
 
 const Main= () =>{
     const [isOpen, setIsOpen] = useState(0);
-   
+    const [isLogin, setIsLogin] = useState(true);
     
 
     const toggleSidebar = () => {
@@ -171,7 +188,17 @@ const Main= () =>{
                             iMMUTABLE
                         </div>
                         <div className="top2">
-                            login
+                          {IsLoginFalse.map(s=>( isLogin===false &&
+                                        <TopButton key={s.name}>
+                                            {s.name}
+                                        </TopButton>
+                                    ))}
+                          {IsLoginTrue.map(s=>( isLogin===true &&
+                                        <TopButton key={s.name}>
+                                            {s.name}
+                                        </TopButton>
+                                    ))}
+                            
                         </div>
                     </div>
                     <div className="bottom" >
