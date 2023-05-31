@@ -161,18 +161,18 @@ const Chat =styled.div`
     top: 13rem;
     right: 2rem;
     background-color: white;
+    background-color: rgba(255,255,255,0.8);
     border-radius: 20px;
     .topChat{
         height: 50px;
-        border: 1px solid black;
-        border-radius: 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.5);       
     }
     .midChat{
         height: 400px;
-        border: 1px solid black;
+        border-bottom: 1px solid rgba(0,0,0,0.5);
     }
     .bottomChat{
-        height: 50px;
+        height: 45px;
         border-radius: 20px;
         display: flex;
         justify-content: center;
@@ -184,12 +184,14 @@ const Chat =styled.div`
         border: none;
         border-radius: 10px;
         outline: none;
+        background-color: rgba(0,0,0,0);
     }
     .sendButton{
         width: 18%;
         height: 30px;
         border: none;
         border-radius: 5px;
+        background-color: rgba(0,0,0,0);    
     }
 
 `
@@ -280,7 +282,7 @@ const Main= () =>{
                             chat message
                         </div>
                         <div className="bottomChat">
-                            <input type="text" className="chatInput"/>
+                            <input type="text" className="chatInput" placeholder="내용을 입력하세요"/>
                             <input type="button" className="sendButton" value="send"/>
                         </div>
                     </Chat>} 
