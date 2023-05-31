@@ -149,10 +149,37 @@ const Foot = styled.div`
     width: 100%;
     height: 180px;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     font-size: 9px;
     color: rgb(100,100,100);
+    .topFoot{
+        width: 50%;    
+        display:flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    .bottomFoot{
+        width: 50%;    
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .footInput{
+        outline: none;
+        width: 170px;
+        border-top: none;
+        border-left: none;
+        border-right:none;
+        border-bottom: 1px solid;
+        font-size:5px;
+        ::placeholder{
+            font-size: 5px;
+            opacity: 0.5;
+        }
+    }
 `
 const Chat =styled.div`
     width: 240px;
@@ -287,7 +314,11 @@ const Main= () =>{
                         </div>
                     </Chat>} 
                 <Foot>
-                    copyrightsⓒ iMMUTABLE allrights reserved
+                    <div className="topFoot">
+                        join the Conversation
+                        <input type="text"className="footInput" placeholder="email address"></input>
+                    </div>
+                    <div className="bottomFoot">copyrightsⓒ iMMUTABLE allrights reserved</div>
                 </Foot>
             </MainBody>
         </Container>
