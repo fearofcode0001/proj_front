@@ -2,6 +2,7 @@ import React ,{css, useState}from "react";
 import styled from "styled-components";
 import bckimg from "../img/fog.jpg"
 import side from "../img/side.png"
+import chat from "../img/chat.png"
 
 const Sidemenu = [
     //버튼을 카테고리로 분류하여 값을 쉽게 가져오기 위해 name으로 설정한다.
@@ -153,11 +154,67 @@ const Foot = styled.div`
     font-size: 9px;
     color: rgb(100,100,100);
 `
+const Chat =styled.div`
+    width: 240px;
+    height: 500px;
+    position: absolute;
+    top: 13rem;
+    right: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    .topChat{
+        height: 50px;
+        border: 1px solid black;
+        border-radius: 20px;
+    }
+    .midChat{
+        height: 400px;
+        border: 1px solid black;
+    }
+    .bottomChat{
+        height: 50px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .chatInput{
+        width: 78%;
+        height: 35px;
+        border: none;
+        border-radius: 10px;
+        outline: none;
+    }
+    .sendButton{
+        width: 18%;
+        height: 30px;
+        border: none;
+        border-radius: 5px;
+    }
+
+`
+const ChatButton=styled.button`
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    right: 2rem;
+    bottom: 3rem;
+    background-image: url(${chat});
+    background-size: 85%;
+    background-repeat: no-repeat;
+    background-position: 40%;
+    border: none;
+    background-color: white;
+`
 
 const Main= () =>{
     const [isOpen, setIsOpen] = useState(0);
     const [isLogin, setIsLogin] = useState(true);
-    
+    const [openChat, setOpenChat] = useState(true);
+    const onChat=()=>{
+        setOpenChat(!openChat);
+    }
 
     const toggleSidebar = () => {
         if(isOpen===300){
@@ -184,7 +241,6 @@ const Main= () =>{
                 </div>
                 
             </Side>
-          
             <MainBody>
                 <Head>
                     <div className="top">
@@ -208,9 +264,26 @@ const Main= () =>{
                     <div className="bottom" >
                         <ToggleButton onClick={toggleSidebar}><img src={side}/> </ToggleButton> 
                     </div>
+                     
                 </Head>
-                <Body>                
+               
+                <Body>
+                            
                 </Body>
+                <ChatButton onClick={onChat}/>
+                {openChat  && 
+                    <Chat>
+                        <div className="topChat">
+                            head & img
+                        </div>
+                        <div className="midChat">
+                            chat message
+                        </div>
+                        <div className="bottomChat">
+                            <input type="text" className="chatInput"/>
+                            <input type="button" className="sendButton" value="send"/>
+                        </div>
+                    </Chat>} 
                 <Foot>
                     copyrightsⓒ iMMUTABLE allrights reserved
                 </Foot>
