@@ -29,6 +29,7 @@ const SideButton = styled.button`
     width:300px;
     height: 90px;
     min-height: 40px;
+    background-color:rgba(255,255,255,0);
     border: none;
     font-size: 17px;
     &:hover{
@@ -113,6 +114,9 @@ const ToggleButton = styled.button`
     img{
         padding: 0 0 0 5px;
         width: 25px;
+    }
+    &:hover{
+        color: rgb(120,120,120);
     }
 `;
 
