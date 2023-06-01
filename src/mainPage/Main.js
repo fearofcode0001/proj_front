@@ -1,5 +1,6 @@
 import React ,{css, useState}from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import bckimg from "../img/fog.jpg"
 import side from "../img/side.png"
 import chat from "../img/chat.png"
@@ -51,7 +52,14 @@ const TopButton = styled.button`
 const Container =styled.div`
     width: 100%;
     height: 100vh;
-    display: flex;    
+    display: flex;   
+    a{
+        text-decoration: none;
+        color: black;
+        &:hover{
+            color: rgba(0,0,0,0.5);
+        }
+    } 
 `
 
 
@@ -167,6 +175,7 @@ const Foot = styled.div`
         justify-content: center;
         align-items: center;
     }
+    //홈페이지 하단 이메일 입력
     .footInput{
         outline: none;
         width: 170px;
@@ -181,6 +190,7 @@ const Foot = styled.div`
         }
     }
 `
+//채팅
 const Chat =styled.div`
     width: 240px;
     height: 500px;
@@ -205,6 +215,7 @@ const Chat =styled.div`
         justify-content: center;
         align-items: center;
     }
+    //채팅타이핑input
     .chatInput{
         width: 78%;
         height: 35px;
@@ -213,6 +224,7 @@ const Chat =styled.div`
         outline: none;
         background-color: rgba(0,0,0,0);
     }
+    //채팅 send기능 버튼
     .sendButton{
         width: 18%;
         height: 30px;
@@ -222,6 +234,7 @@ const Chat =styled.div`
     }
 
 `
+//채팅 on/off버튼
 const ChatButton=styled.button`
     position: absolute;
     width: 50px;
@@ -239,8 +252,8 @@ const ChatButton=styled.button`
 
 const Main= () =>{
     const [isOpen, setIsOpen] = useState(0);
-    const [isLogin, setIsLogin] = useState(true);
-    const [openChat, setOpenChat] = useState(true);
+    const [isLogin, setIsLogin] = useState(false);
+    const [openChat, setOpenChat] = useState(false);
     const onChat=()=>{
         setOpenChat(!openChat);
     }
@@ -279,7 +292,7 @@ const Main= () =>{
                         <div className="top2">
                           {IsLoginFalse.map(s=>( isLogin===false &&
                                         <TopButton key={s.name}>
-                                            {s.name}
+                                            <Link to="/Login">{s.name}</Link>
                                         </TopButton>
                                     ))}
                           {IsLoginTrue.map(s=>( isLogin===true &&
