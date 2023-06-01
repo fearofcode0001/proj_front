@@ -195,7 +195,7 @@ const Chat =styled.div`
     width: 240px;
     height: 500px;
     position: absolute;
-    top: 13rem;
+    bottom: 8rem;
     right: 2rem;
     background-color: white;
     background-color: rgba(255,255,255,0.8);
