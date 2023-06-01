@@ -32,6 +32,7 @@ const Body = styled.div`
         }
     }
     button{
+        width: 500px;
         margin: 20px 0 0 0;
         height: 40px;
         font-size: 10px;
@@ -43,14 +44,15 @@ const Body = styled.div`
         }        
     }
     a{  
-        width: 128px;
+        width: 100%;
         margin: 20px 0 0 0;
         height: 15px;
         font-size: 10px;
         cursor: pointer;
         text-decoration: none;
         color: black;
-    }    
+    }
+
 `
 
 const Login =()=>{
@@ -64,7 +66,7 @@ const Login =()=>{
                     <input type="text" placeholder="PASSWORD"/>                 
                     <button>SIGN IN</button>
                     <Link to="/">FORGOT YOUR PASSWORD?</Link>
-                    <button>RESISTER AN ACCOUNT</button>
+                    <Link to="/SignUp"><button>RESISTER AN ACCOUNT</button></Link>
                 </div>
 
             </Body>

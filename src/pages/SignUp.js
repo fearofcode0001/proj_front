@@ -54,6 +54,7 @@ input {
     
 }
 .singUp {
+    font-size: 10px;
     width: 100%;
     height: 38px;
     margin-top: 20px;
@@ -68,6 +69,7 @@ input {
     width: 100%;
     height: 38px;
     margin-top: 50px;
+    font-size: 10px;
     border: 1px solid black;
     background-color: white;
     &:hover{
