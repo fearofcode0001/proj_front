@@ -16,7 +16,6 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-/* border: 1px solid black; */
 width: 450px;
 .top{
     font-weight: bolder;
@@ -44,8 +43,9 @@ input {
 
 .emailBtn,
 .verifyBtn { // 위치가 안맞아요 고쳐주세요 ;(
+    text-align: right;
     width: 50px;   
-    font-size: 12px;
+    font-size: 10px;
     background-color: white;
     border: none;
     &:hover{
@@ -116,11 +116,11 @@ const SignUp = () => {
                 
                     <div className="item1">
                         <input className="email" type="email" placeholder="EMAIL"/>
-                        <button className="emailBtn">send</button>
+                        <button className="emailBtn">SEND</button>
                     </div>
                     <div className="item1">
                         <input className="verify" type="text" placeholder="VERIFYCODE"/>
-                        <button className="verifyBtn">verify</button>
+                        <button className="verifyBtn">VERIFY</button>
                     </div>
 
                     <div className="item">
