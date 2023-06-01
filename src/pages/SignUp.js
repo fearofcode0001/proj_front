@@ -47,7 +47,7 @@ input {
 }
 
 .emailBtn,
-.verifyBtn { // 위치가 안맞아요 고쳐주세요 ;(
+.verifyBtn {
     text-align: right;
     width: 50px;   
     font-size: 10px;
