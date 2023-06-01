@@ -19,10 +19,10 @@ align-items: center;
 width: 450px;
 .top{
     font-weight: bolder;
-    font-size: 50px;
+    font-size: 30px;
 }
 .input {
-    margin-top: 30px;
+    margin-top: 5px;
 }
 input {
     width: 450px;
