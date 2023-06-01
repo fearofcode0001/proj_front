@@ -46,7 +46,6 @@ input {
 .verifyBtn { // 위치가 안맞아요 고쳐주세요 ;(
     width: 50px;   
     font-size: 12px;
-    font-weight: bolder;
     background-color: white;
     border: none;
     &:hover{
