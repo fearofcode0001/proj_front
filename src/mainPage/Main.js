@@ -193,7 +193,7 @@ const Foot = styled.div`
 //채팅
 const Chat =styled.div`
     width: 240px;
-    height: 70%;
+    height: 650px;
     position: absolute;
     bottom: 6rem;
     right: 2rem;
@@ -206,6 +206,10 @@ const Chat =styled.div`
     }
     .midChat{
         height: 85%;
+        overflow-y: scroll;
+        ::-webkit-scrollbar {
+        display: none;
+        }
         border-bottom: 1px solid rgba(0,0,0,0.5);
     }
     .bottomChat{
