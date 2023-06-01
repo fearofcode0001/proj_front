@@ -5,24 +5,29 @@ import { useNavigate,Link }  from "react-router-dom";
 
 
 const Container = styled.div`
-height: 100vh;
-display: flex;
-justify-content: center;
-text-align: center;
-overflow-y: scroll;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    overflow-y: scroll;
 `;
 const InerContainer = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 450px; 
+a{
+    text-decoration: none;
+    color: black;
+    }
 .top{
     font-weight: bolder;
     font-size: 30px;
 }
 .input {
     margin-top: 5px;
+   
 }
 input {
     width: 450px;
@@ -107,7 +112,7 @@ const SignUp = () => {
         <Container>
             <InerContainer>
                 <div className="top">
-                    iMMUTABLE
+                    <Link to="/">iMMUTABLE</Link>
                 </div>
                 <div className="input">
                     <div className="item">
