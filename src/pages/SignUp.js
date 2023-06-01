@@ -7,15 +7,18 @@ import { useNavigate } from "react-router-dom";
 const Container = styled.div`
 height: 100vh;
 display: flex;
-justify-content: space-evenly;
+justify-content: center;
 text-align: center;
 overflow-y: scroll;
 `;
 const InerContainer = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
 align-items: center;
-width: 400px;
+/* border: 1px solid black; */
+width: 450px;
 .top{
-    margin-top: 150px;
     font-weight: bolder;
     font-size: 50px;
 }
@@ -23,44 +26,55 @@ width: 400px;
     margin-top: 30px;
 }
 input {
-    width: 100%;
+    width: 450px;
     height: 40px;
     margin-top: 20px;
-    font-weight: bolder;
     font-size: 10px;
     border: 1px solid #ccc;
     &::placeholder {
         padding: 5px;
-        font-size: 12px;
+        font-size: 10px;
     };
 }
 
 .email,
 .verify {
-    width: 80%;
+    width: 400px;
 }
 
 .emailBtn,
 .verifyBtn { // 위치가 안맞아요 고쳐주세요 ;(
-    width: 15%;
-    height: 40px;
-    margin-left: 5px;
+    width: 50px;   
     font-size: 12px;
     font-weight: bolder;
     background-color: white;
-    border: 1px solid #ccc;
+    border: none;
+    &:hover{
+        color: #CCC;
+    }
+    
 }
 .singUp {
     width: 100%;
     height: 38px;
     margin-top: 20px;
     background-color: white;
+    border: 1px solid black;
+    &:hover{
+        color: white;
+        background-color: black;
+    }
 }
 .goToLogin {
     width: 100%;
     height: 38px;
     margin-top: 50px;
+    border: 1px solid black;
     background-color: white;
+    &:hover{
+        color: white;
+        background-color: black;
+    }
 }
 .enable-button {
 
@@ -101,11 +115,11 @@ const SignUp = () => {
                 
                     <div className="item1">
                         <input className="email" type="email" placeholder="EMAIL"/>
-                        <button className="emailBtn">전송</button>
+                        <button className="emailBtn">send</button>
                     </div>
                     <div className="item1">
                         <input className="verify" type="text" placeholder="VERIFYCODE"/>
-                        <button className="verifyBtn">인증</button>
+                        <button className="verifyBtn">verify</button>
                     </div>
 
                     <div className="item">
