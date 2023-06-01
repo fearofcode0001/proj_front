@@ -189,7 +189,7 @@ const Chat =styled.div`
     right: 2rem;
     background-color: white;
     background-color: rgba(255,255,255,0.8);
-    border-radius: 20px;
+    border-radius: 4px;
     .topChat{
         height: 50px;
         border-bottom: 1px solid rgba(0,0,0,0.5);       
@@ -217,7 +217,7 @@ const Chat =styled.div`
         width: 18%;
         height: 30px;
         border: none;
-        border-radius: 5px;
+        border-radius: 4px;
         background-color: rgba(0,0,0,0);    
     }
 
