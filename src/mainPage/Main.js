@@ -193,19 +193,19 @@ const Foot = styled.div`
 //채팅
 const Chat =styled.div`
     width: 240px;
-    height: 500px;
+    height: 70%;
     position: absolute;
-    bottom: 8rem;
+    bottom: 6rem;
     right: 2rem;
     background-color: white;
     background-color: rgba(255,255,255,0.8);
-    border-radius: 4px;
+    border: 1px solid black;
     .topChat{
         height: 50px;
         border-bottom: 1px solid rgba(0,0,0,0.5);       
     }
     .midChat{
-        height: 400px;
+        height: 85%;
         border-bottom: 1px solid rgba(0,0,0,0.5);
     }
     .bottomChat{
@@ -239,7 +239,6 @@ const ChatButton=styled.button`
     position: absolute;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
     right: 2rem;
     bottom: 3rem;
     background-image: url(${chat});

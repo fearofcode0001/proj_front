@@ -1,6 +1,6 @@
 import React, { useState ,useContext } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link }  from "react-router-dom";
 
 
 
@@ -139,7 +139,7 @@ const SignUp = () => {
                         <button className="singUp">CREATE</button>
                     </div>
                     <div>
-                        <button className="goToLogin">LOGIN</button>
+                        <Link to="/Login"><button className="goToLogin">LOGIN</button></Link>
                     </div>
                 </div>
                 
