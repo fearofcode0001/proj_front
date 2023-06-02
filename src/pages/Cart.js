@@ -121,6 +121,9 @@ const OrderInfo=styled.div`
         justify-content: center;
         align-items: flex-start;
         flex-direction: column;
+        .name{
+            margin: 20px 0 0 0;
+        }
         .addr{
             margin: 10px 0 10px 0;
         }
@@ -254,8 +257,9 @@ const Cart=()=>{
                     </div>
                     
                 </Total>
-                <OrderInfo>
+                <OrderInfo>                    
                     <div className="shippingInfo">
+                            ACCOUNT DETAIL
                             <div className="name">leetaetae</div>
                             <div className="addr">46, Samosil-gil,Nam-myeon, Gimcheon-si, <br/> Gyeongsangbuk-do, Republic of Korea</div>
                             <div className="phone">+821010004000</div>
