@@ -9,17 +9,18 @@ const Container=styled.div`
     align-items: center;
 `
 const MainBody=styled.div`
+
+    border-top: 1px solid #ccc;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px solid black;
     width: 80%;
     height: 90%;
 `
 const Products = styled.div`
     width: 100%;
-    height: 50%;
+    height: 100%;
     overflow-y:scroll;
     ::-webkit-scrollbar {
     display: none;
@@ -28,7 +29,7 @@ const Products = styled.div`
 `
 const Products_in=styled.div`
     width: 100%;    
-    height: 150px;
+    height: 110px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -94,37 +95,64 @@ const Products_in=styled.div`
 `
 const Total=styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    border: 1px solid black;
-    height: 20%;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    height: 80px;
+    font-size: 12px;
 `
+
 const OrderInfo=styled.div`
     display: flex;
-    align-items: center;
+    flex-direction: row;    
     width: 100%;
-    height: 30%;
+    height: 300px;
+    border-bottom: 1px solid #ccc;
+    color:rgba(80,80,80);
+    font-size: 12px;
+    .shippingInfo{
+        /* border: 1px solid black; */
+        padding: 0 0 0 10px;
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        .addr{
+            margin: 10px 0 10px 0;
+        }
+    }
 `
 
 
 const Cart=()=>{
     const[number,setNumber]=useState(1);
-
+    //가격 임의 설정
+    const price = 1000;
+    //토탈 가격 임의 설정
+    const[totalPrice,setTotalPrice]=useState(1);
+    //상품 수량 늘리는 버튼
     const countPlus=()=>{
         setNumber(number+1);
+        setTotalPrice(price*number);
     }
+    //상품 수량 줄이는 버튼
     const countMinus=()=>{
         setNumber(number-1);
         if(number <= 1){
             setNumber(1);
         }
+        setTotalPrice(price*number);
     }
+
     return(
         <Container>        
             <MainBody>
                 <Products>
-                    <Products_in>
+                <Products_in>
                         <div className="checkBox">
                             <input type="checkbox"/></div>
                         <div className="product_image">
@@ -137,16 +165,101 @@ const Cart=()=>{
                                 <button className="minus" onClick={countMinus}>∨</button>
                             </div>
                         </div>
-                        <div className="price">159,000 won</div>
-                    </Products_in>
+                        <div className="price">{totalPrice} won</div>
+                    </Products_in>   <Products_in>
+                        <div className="checkBox">
+                            <input type="checkbox"/></div>
+                        <div className="product_image">
+                            <img src ="#"/></div>                        
+                        <div className="itemName">Sweat Shirts</div>
+                        <div className="count">
+                            <input type="text" value={number}/>
+                            <div className="countbutton">
+                                <button className="plus" onClick={countPlus}>∧</button>
+                                <button className="minus" onClick={countMinus}>∨</button>
+                            </div>
+                        </div>
+                        <div className="price">{totalPrice} won</div>
+                    </Products_in>   <Products_in>
+                        <div className="checkBox">
+                            <input type="checkbox"/></div>
+                        <div className="product_image">
+                            <img src ="#"/></div>                        
+                        <div className="itemName">Sweat Shirts</div>
+                        <div className="count">
+                            <input type="text" value={number}/>
+                            <div className="countbutton">
+                                <button className="plus" onClick={countPlus}>∧</button>
+                                <button className="minus" onClick={countMinus}>∨</button>
+                            </div>
+                        </div>
+                        <div className="price">{totalPrice} won</div>
+                    </Products_in>   <Products_in>
+                        <div className="checkBox">
+                            <input type="checkbox"/></div>
+                        <div className="product_image">
+                            <img src ="#"/></div>                        
+                        <div className="itemName">Sweat Shirts</div>
+                        <div className="count">
+                            <input type="text" value={number}/>
+                            <div className="countbutton">
+                                <button className="plus" onClick={countPlus}>∧</button>
+                                <button className="minus" onClick={countMinus}>∨</button>
+                            </div>
+                        </div>
+                        <div className="price">{totalPrice} won</div>
+                    </Products_in>   <Products_in>
+                        <div className="checkBox">
+                            <input type="checkbox"/></div>
+                        <div className="product_image">
+                            <img src ="#"/></div>                        
+                        <div className="itemName">Sweat Shirts</div>
+                        <div className="count">
+                            <input type="text" value={number}/>
+                            <div className="countbutton">
+                                <button className="plus" onClick={countPlus}>∧</button>
+                                <button className="minus" onClick={countMinus}>∨</button>
+                            </div>
+                        </div>
+                        <div className="price">{totalPrice} won</div>
+                    </Products_in>   <Products_in>
+                        <div className="checkBox">
+                            <input type="checkbox"/></div>
+                        <div className="product_image">
+                            <img src ="#"/></div>                        
+                        <div className="itemName">Sweat Shirts</div>
+                        <div className="count">
+                            <input type="text" value={number}/>
+                            <div className="countbutton">
+                                <button className="plus" onClick={countPlus}>∧</button>
+                                <button className="minus" onClick={countMinus}>∨</button>
+                            </div>
+                        </div>
+                        <div className="price">{totalPrice} won</div>
+                    </Products_in>     
 
-                   
+
                 </Products>
                 <Total>
+                    <div>
+                    {totalPrice}
+                    </div>
+                    - 
+                    <div>
+                        6000원
+                    </div>
+                    = 
+                    <div>
+                    {totalPrice-6000}
+                    </div>
                     
                 </Total>
                 <OrderInfo>
-
+                    <div className="shippingInfo">
+                            <div className="name">leetaetae</div>
+                            <div className="addr">46, Samosil-gil,Nam-myeon, Gimcheon-si, <br/> Gyeongsangbuk-do, Republic of Korea</div>
+                            <div className="phone">+821010004000</div>
+                    </div>
                 </OrderInfo>
             </MainBody>        
         </Container>
