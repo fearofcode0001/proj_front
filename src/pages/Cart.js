@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container=styled.div`
     width: 100%;
@@ -8,8 +9,13 @@ const Container=styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    .chkBtn{
+    .contTop{
         width: 80%;
+        display: flex;
+        flex-direction: row;
+    }
+    .chkBtn{
+        width: 100%;
         height: 30px;
         display: flex;
         justify-content: flex-start;
@@ -26,6 +32,14 @@ const Container=styled.div`
             background-color: black;
             color: white;
         }
+    }
+    a{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        text-decoration: none;
+        color:rgb(50,50,50);
+        font-size: 12px;
     }
 `
 const MainBody=styled.div`
@@ -198,10 +212,13 @@ const Cart=()=>{
 
     return(
         <Container>
-            <div className="chkBtn">
-                <button className="chkAll">전체 선택</button>       
-                <button className="chkDel">선택 삭제</button>       
-            </div>                 
+            <div className="contTop">
+                <div className="chkBtn">
+                    <button className="chkAll">전체 선택</button>       
+                    <button className="chkDel">선택 삭제</button>   
+                </div>
+                <Link to="/">home</Link>   
+            </div>               
             <MainBody>
                 <Products>
                 <Products_in>
