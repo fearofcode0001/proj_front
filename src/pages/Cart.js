@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import PopupPostCode from "../api/PopupPostCode";
 
 const Container=styled.div`
     width: 100%;
@@ -208,6 +209,17 @@ const Cart=()=>{
             setNumber(1);
         }
         setTotalPrice(price*number);
+    }  
+
+     //주소찾기 영역
+     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    // 팝업창 열기
+    const openPostCode = () => {
+        setIsPopupOpen(true);
+    }         
+    // 팝업창 닫기
+    const closePostCode = (e) => {
+       setIsPopupOpen(false);    
     }
 
     return(
@@ -258,7 +270,10 @@ const Cart=()=>{
                             <div className="addr">46, Samosil-gil,Nam-myeon, Gimcheon-si, <br/> Gyeongsangbuk-do, Republic of Korea</div>
                             <div className="phone">+821010004000</div>
                     </div>
-                    <button className="addrChange">배송지 변경</button>
+                    <button className="addrChange" onClick={openPostCode}>배송지 변경</button>
+                    {isPopupOpen && (                    
+                        <PopupPostCode onClose={closePostCode} />
+                 )} 
                 </OrderInfo>
                 <button className="paymentBtn">{totalPrice-6000}won payment</button>
             </MainBody>        
