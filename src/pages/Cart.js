@@ -107,6 +107,7 @@ const Total=styled.div`
 const OrderInfo=styled.div`
     display: flex;
     flex-direction: row;    
+    align-items: center;
     width: 100%;
     height: 300px;
     border-bottom: 1px solid #ccc;
@@ -126,6 +127,16 @@ const OrderInfo=styled.div`
         }
         .addr{
             margin: 10px 0 10px 0;
+        }
+    }
+    .addrChange{
+        font-size: 12px;
+        background-color: white;
+        border: 1px solid #CCC;
+        height: 30px;
+        &:hover{
+            background-color: black;
+            color: white;
         }
     }
 `
@@ -264,6 +275,7 @@ const Cart=()=>{
                             <div className="addr">46, Samosil-gil,Nam-myeon, Gimcheon-si, <br/> Gyeongsangbuk-do, Republic of Korea</div>
                             <div className="phone">+821010004000</div>
                     </div>
+                    <button className="addrChange">배송지 변경</button>
                 </OrderInfo>
             </MainBody>        
         </Container>
