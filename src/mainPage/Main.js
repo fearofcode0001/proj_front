@@ -267,10 +267,12 @@ const Main= () =>{
         console.log(e);
         if(e==="cart"){
             navigate("/Cart")
-            
         }
-
+        else if(e==="logout"){
+            setIsLogin(false);
+        }
     }
+    
     const toggleSidebar = () => {
         if(isOpen===300){
             setIsOpen(0);
