@@ -1,6 +1,6 @@
 import React ,{css, useState}from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import bckimg from "../img/fog.jpg"
 import side from "../img/side.png"
 import chat from "../img/chat.png"
@@ -255,12 +255,22 @@ const ChatButton=styled.button`
 
 const Main= () =>{
     const [isOpen, setIsOpen] = useState(0);
-    const [isLogin, setIsLogin] = useState(false);
+    const [isLogin, setIsLogin] = useState(true);
     const [openChat, setOpenChat] = useState(false);
+    //채팅 on/off 컴포넌트
     const onChat=()=>{
         setOpenChat(!openChat);
     }
+    //
+    const navigate = useNavigate();
+    const onChangePage=(e)=>{
+        console.log(e);
+        if(e==="cart"){
+            navigate("/Cart")
+            
+        }
 
+    }
     const toggleSidebar = () => {
         if(isOpen===300){
             setIsOpen(0);
@@ -299,7 +309,7 @@ const Main= () =>{
                                         </TopButton>
                                     ))}
                           {IsLoginTrue.map(s=>( isLogin===true &&
-                                        <TopButton key={s.name}>
+                                        <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>
                                     ))}
