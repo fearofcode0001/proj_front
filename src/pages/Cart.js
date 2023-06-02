@@ -17,6 +17,18 @@ const MainBody=styled.div`
     flex-direction: column;
     width: 80%;
     height: 90%;
+    .paymentBtn{
+        margin: 10px 0 0 0;
+        width: 100%;
+        height: 70px;
+        font-size: 12px;
+        border: 1px solid #CCC;
+        background-color: white;
+        &:hover{
+            background-color: black;
+            color: white;
+        }
+    }
 `
 const Products = styled.div`
     width: 100%;
@@ -116,7 +128,7 @@ const OrderInfo=styled.div`
     .shippingInfo{
         /* border: 1px solid black; */
         padding: 0 0 0 10px;
-        width: 50%;
+        width: 40%;
         height: 100%;
         display: flex;
         justify-content: center;
@@ -133,7 +145,9 @@ const OrderInfo=styled.div`
         font-size: 12px;
         background-color: white;
         border: 1px solid #CCC;
-        height: 30px;
+        width: 120px;
+        height: 40px;
+        border-radius: 4px;
         &:hover{
             background-color: black;
             color: white;
@@ -180,79 +194,7 @@ const Cart=()=>{
                             </div>
                         </div>
                         <div className="price">{totalPrice} won</div>
-                    </Products_in>   <Products_in>
-                        <div className="checkBox">
-                            <input type="checkbox"/></div>
-                        <div className="product_image">
-                            <img src ="#"/></div>                        
-                        <div className="itemName">Sweat Shirts</div>
-                        <div className="count">
-                            <input type="text" value={number}/>
-                            <div className="countbutton">
-                                <button className="plus" onClick={countPlus}>∧</button>
-                                <button className="minus" onClick={countMinus}>∨</button>
-                            </div>
-                        </div>
-                        <div className="price">{totalPrice} won</div>
-                    </Products_in>   <Products_in>
-                        <div className="checkBox">
-                            <input type="checkbox"/></div>
-                        <div className="product_image">
-                            <img src ="#"/></div>                        
-                        <div className="itemName">Sweat Shirts</div>
-                        <div className="count">
-                            <input type="text" value={number}/>
-                            <div className="countbutton">
-                                <button className="plus" onClick={countPlus}>∧</button>
-                                <button className="minus" onClick={countMinus}>∨</button>
-                            </div>
-                        </div>
-                        <div className="price">{totalPrice} won</div>
-                    </Products_in>   <Products_in>
-                        <div className="checkBox">
-                            <input type="checkbox"/></div>
-                        <div className="product_image">
-                            <img src ="#"/></div>                        
-                        <div className="itemName">Sweat Shirts</div>
-                        <div className="count">
-                            <input type="text" value={number}/>
-                            <div className="countbutton">
-                                <button className="plus" onClick={countPlus}>∧</button>
-                                <button className="minus" onClick={countMinus}>∨</button>
-                            </div>
-                        </div>
-                        <div className="price">{totalPrice} won</div>
-                    </Products_in>   <Products_in>
-                        <div className="checkBox">
-                            <input type="checkbox"/></div>
-                        <div className="product_image">
-                            <img src ="#"/></div>                        
-                        <div className="itemName">Sweat Shirts</div>
-                        <div className="count">
-                            <input type="text" value={number}/>
-                            <div className="countbutton">
-                                <button className="plus" onClick={countPlus}>∧</button>
-                                <button className="minus" onClick={countMinus}>∨</button>
-                            </div>
-                        </div>
-                        <div className="price">{totalPrice} won</div>
-                    </Products_in>   <Products_in>
-                        <div className="checkBox">
-                            <input type="checkbox"/></div>
-                        <div className="product_image">
-                            <img src ="#"/></div>                        
-                        <div className="itemName">Sweat Shirts</div>
-                        <div className="count">
-                            <input type="text" value={number}/>
-                            <div className="countbutton">
-                                <button className="plus" onClick={countPlus}>∧</button>
-                                <button className="minus" onClick={countMinus}>∨</button>
-                            </div>
-                        </div>
-                        <div className="price">{totalPrice} won</div>
-                    </Products_in>     
-
-
+                    </Products_in>  
                 </Products>
                 <Total>
                     <div>
@@ -277,6 +219,7 @@ const Cart=()=>{
                     </div>
                     <button className="addrChange">배송지 변경</button>
                 </OrderInfo>
+                <button className="paymentBtn">{totalPrice}won payment</button>
             </MainBody>        
         </Container>
     );
