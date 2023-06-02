@@ -7,9 +7,28 @@ const Container=styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    .chkBtn{
+        width: 80%;
+        height: 30px;
+        display: flex;
+        justify-content: flex-start;
+    }
+    .chkAll,.chkDel{
+        margin-right: 5px;
+        height: 25px;
+        border-radius: 2px;
+        border: 1px solid #CCC;
+        font-size: 11px;
+        color: rgb(50,50,50);
+        background-color: white;
+        &:hover{
+            background-color: black;
+            color: white;
+        }
+    }
 `
 const MainBody=styled.div`
-
     border-top: 1px solid #ccc;
     display: flex;
     justify-content: center;
@@ -22,6 +41,7 @@ const MainBody=styled.div`
         width: 100%;
         height: 70px;
         font-size: 12px;
+        color: rgb(50,50,50);
         border: 1px solid #CCC;
         background-color: white;
         &:hover{
@@ -126,7 +146,6 @@ const OrderInfo=styled.div`
     color:rgba(80,80,80);
     font-size: 12px;
     .shippingInfo{
-        /* border: 1px solid black; */
         padding: 0 0 0 10px;
         width: 40%;
         height: 100%;
@@ -143,6 +162,7 @@ const OrderInfo=styled.div`
     }
     .addrChange{
         font-size: 12px;
+        color: rgb(50,50,50);
         background-color: white;
         border: 1px solid #CCC;
         width: 120px;
@@ -177,7 +197,11 @@ const Cart=()=>{
     }
 
     return(
-        <Container>        
+        <Container>
+            <div className="chkBtn">
+                <button className="chkAll">전체 선택</button>       
+                <button className="chkDel">선택 삭제</button>       
+            </div>                 
             <MainBody>
                 <Products>
                 <Products_in>
@@ -219,7 +243,7 @@ const Cart=()=>{
                     </div>
                     <button className="addrChange">배송지 변경</button>
                 </OrderInfo>
-                <button className="paymentBtn">{totalPrice}won payment</button>
+                <button className="paymentBtn">{totalPrice-6000}won payment</button>
             </MainBody>        
         </Container>
     );
