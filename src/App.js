@@ -4,6 +4,7 @@ import Main from './mainPage/Main';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
+import FindEmail from './pages/FindEmail';
 
 
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/Login" element={<Login/>}/>
         <Route path="/SignUp" element={<SignUp/>}/>        
         <Route path="/Cart" element={<Cart/>}/>
+        <Route path="/FindEmail" element={<FindEmail/>}/>
       </Routes>
      </Router>
 
