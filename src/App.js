@@ -6,6 +6,8 @@ import Login from './pages/Login';
 import Cart from './pages/Cart';
 import FindEmail from './pages/FindEmail';
 import FindPwd from './pages/FindPwd';
+import Shop from './shopPage/Shop';
+import TOP from './shopPage/Top';
 
 
 
@@ -19,6 +21,8 @@ function App() {
         <Route path="/Cart" element={<Cart/>}/>
         <Route path="/FindEmail" element={<FindEmail/>}/>
         <Route path="/FindPwd" element={<FindPwd/>}/>
+        <Route path="/Shop" element={<Shop/>}/>
+        <Route path="/Top" element={<TOP/>}/>
       </Routes>
      </Router>
 
