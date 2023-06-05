@@ -30,31 +30,23 @@ const TopButton = styled.button`
 const Head = styled.div`
     width: 100%;
     height: 80px;
-    display: flex;
-    flex-direction: column;
-
     a{
         text-decoration: none;
         color: black;
     }
-
-
-
     .nav{
-        padding: 0 20px 0 10px;
+        width: 100%;
         display: flex;
         justify-content: space-between;
         
     }
     .nav1{
         width: 300px;
-        /* border: 1px solid black; */
-        display: flex;
-        margin-top: 40px;
+        display: flex;        
+        align-items: center;
         font-size: 13px;    
         cursor: pointer;
-        
-     
+             
         div{
             margin-right: 20px;
             
@@ -64,8 +56,7 @@ const Head = styled.div`
         }
     }
 
-    .nav2{
-             /* border: 1px solid black; */
+    .nav2{      
         width: 500px;
         display: flex;
         justify-content: center;
@@ -77,7 +68,6 @@ const Head = styled.div`
         width: 300px;
         display: flex;
         justify-content: flex-end;
-        margin-top: 40px;
         font-size: 13px;
         
         div{
