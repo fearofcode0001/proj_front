@@ -4,6 +4,7 @@ import DropdownMenu from "./DropdownMenu";
 import { useNavigate, Link } from "react-router-dom";
 import test from "../img/shop.webp"
 
+
 const Container = styled.div`
     width: 100%;
     height: 100vh;
@@ -183,6 +184,7 @@ const Shop = () => {
           setIsMenuClicked(true)
         }
       };
+
     
 
     return(

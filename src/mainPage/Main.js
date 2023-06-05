@@ -261,7 +261,7 @@ const Main= () =>{
     const onChat=()=>{
         setOpenChat(!openChat);
     }
-    //
+    //상단 메뉴 및 사이드메뉴 클릭시 이동할 페이지와 함수들
     const navigate = useNavigate();
     const onChangePage=(e)=>{
         console.log(e);
@@ -277,6 +277,7 @@ const Main= () =>{
         }
     }
     
+    //해당 값만큼(300) 너비를 주어 사이드 바가 올라올 수 있게 한다.
     const toggleSidebar = () => {
         if(isOpen===300){
             setIsOpen(0);
