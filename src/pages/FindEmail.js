@@ -13,6 +13,10 @@ const Container = styled.div`
 const InerContainer = styled.div`
     align-items: center;
     width: 400px;
+    a{
+    text-decoration: none;
+    color: black;
+    }
     .top{
         justify-content: center;
         align-items: center;
@@ -53,9 +57,9 @@ const FindEmail = () => {
     return(
         <Container>
             <InerContainer>
-                <div className="top">
+                <Link to="/"><div className="top">
                     iMMUTABLE
-                </div>
+                </div></Link>
                 <div className="item">
                     <input type="text" placeholder="EMAIL"/>
                 </div>

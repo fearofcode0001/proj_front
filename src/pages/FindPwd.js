@@ -1,6 +1,7 @@
 import React, { useState ,useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     height: 100vh;
@@ -147,7 +148,7 @@ const FindPwd = () => {
                     <input type="password" placeholder="PASSWORD CHECK" onChange={onChangeConPw}/>
                 </div>
                 <div className="changePwd">
-                    <button className="changePwdBtn">CHANGE PASSWORD</button>
+                    <Link to="/"><button className="changePwdBtn">CHANGE PASSWORD</button></Link>
                 </div>
             </InnerContainer>
         </Container>
