@@ -47,7 +47,8 @@ const Head = styled.div`
         
     }
     .nav1{
-
+        width: 300px;
+        /* border: 1px solid black; */
         display: flex;
         margin-top: 40px;
         font-size: 13px;    
@@ -64,11 +65,18 @@ const Head = styled.div`
     }
 
     .nav2{
+             /* border: 1px solid black; */
+        width: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-weight: bolder;
         font-size: 50px;
     }
     .nav3{
+        width: 300px;
         display: flex;
+        justify-content: flex-end;
         margin-top: 40px;
         font-size: 13px;
         
