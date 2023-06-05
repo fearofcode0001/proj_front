@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import DropdownMenu from "./DropdownMenu";
+import { useNavigate, Link } from "react-router-dom";
 import test from "../img/shop.webp"
-import { useNavigate } from "react-router-dom";
+
 
 const Container = styled.div`
     width: 100%;
@@ -31,6 +32,13 @@ const Head = styled.div`
     height: 80px;
     display: flex;
     flex-direction: column;
+
+    a{
+        text-decoration: none;
+        color: black;
+    }
+
+
 
     .nav{
         padding: 0 20px 0 10px;
@@ -136,7 +144,7 @@ const MenuList = [
 const IsLoginFalse = [
     { name : "login"}
   ]
-const IsLoginTrue = [
+  const IsLoginTrue = [
     { name : "logout"},
     { name : "mypage"},    
     { name : "cart"},    
@@ -150,6 +158,22 @@ const Shop = () => {
     const [selectedMenu, setSelectedMenu] = useState(null)
     const [isLogin, setIsLogin] = useState(true);
     const [isMenuClicked, setIsMenuClicked] = useState(false);
+    const navigate = useNavigate();
+
+    const onChangePage=(e)=>{
+        console.log(e);
+        if(e==="cart"){
+            navigate("/Cart")
+        }
+        else if(e==="logout"){
+            setIsLogin(false);
+        }
+        else if(e==="SHOP"){
+            navigate("/Shop");
+            console.log(e);
+        }
+    }
+
     
     const handleMenuClick = (menuName) => {
         if (selectedMenu === menuName) {
@@ -161,13 +185,7 @@ const Shop = () => {
         }
       };
 
-      const navigate = useNavigate();
-      const onChangePage=(e)=>{
-          console.log(e);
-          if(e==="cart"){
-              navigate("/Cart")
-          }
-        }
+    
 
     return(
       <Container> 
@@ -183,16 +201,16 @@ const Shop = () => {
                           </div>
                         ))}
                     </div>
-                    <div className="nav2">
+                    <a href="/"><div className="nav2">
                         iMMUTABLE
-                    </div>
+                    </div></a>
                     <div className="nav3">
                     {IsLoginFalse.map(s=>( isLogin===false &&
                                         <TopButton key={s.name}>
-                                            {s.name}
+                                            <Link to="/Login">{s.name}</Link>
                                         </TopButton>
                                     ))}
-                          {IsLoginTrue.map(s=>( isLogin===true &&
+                           {IsLoginTrue.map(s=>( isLogin===true &&
                                         <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>
