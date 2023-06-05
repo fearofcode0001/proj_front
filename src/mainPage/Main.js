@@ -268,6 +268,9 @@ const Main= () =>{
         if(e==="cart"){
             navigate("/Cart")
         }
+        else if (e==="FAQ") {
+            navigate("/FAQ")
+        }
         else if(e==="logout"){
             setIsLogin(false);
         }
