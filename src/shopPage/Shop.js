@@ -13,7 +13,6 @@ const Container = styled.div`
 
 const Mainboby=styled.div`
     width: 100%;
-    /* height: 100vh; */
     margin: 0px 40px 0px 40px;
 
     
@@ -30,10 +29,16 @@ const TopButton = styled.button`
 const Head = styled.div`
     width: 100%;
     height: 80px;
+    display: flex;
+    flex-direction: column;
+
     a{
         text-decoration: none;
         color: black;
     }
+
+
+
     .nav{
         width: 100%;
         display: flex;
@@ -42,11 +47,13 @@ const Head = styled.div`
     }
     .nav1{
         width: 300px;
-        display: flex;        
+        /* border: 1px solid black; */
+        display: flex;
         align-items: center;
         font-size: 13px;    
         cursor: pointer;
-             
+        
+     
         div{
             margin-right: 20px;
             
@@ -56,7 +63,7 @@ const Head = styled.div`
         }
     }
 
-    .nav2{      
+    .nav2{
         width: 500px;
         display: flex;
         justify-content: center;
@@ -64,6 +71,7 @@ const Head = styled.div`
         font-weight: bolder;
         font-size: 50px;
     }
+
     .nav3{
         width: 300px;
         display: flex;
@@ -96,9 +104,8 @@ const Article = styled.div`
     flex-wrap: wrap;
 
     .blur{
-        filter: blur(5px); 
+        filter: blur(4px); 
         pointer-events: none; 
-        opacity: 0.8; 
     }
     
    
