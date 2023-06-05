@@ -53,7 +53,7 @@ const DropdownMenu = () => {
     return(
         <Container> 
             <Head>
-                <a href="/"><div className="top">SHOP</div></a>
+                <a href="SHOP"><div className="top">SHOP</div></a>
                 <div className="list">NEW RELEASRS</div>
                 <a href="TOP"><div className="list">TOPS</div></a>
                 <div className="list">OUTERWEAR</div>
