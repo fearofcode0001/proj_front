@@ -271,6 +271,10 @@ const Main= () =>{
         else if(e==="logout"){
             setIsLogin(false);
         }
+        else if(e==="SHOP"){
+            navigate("/Shop");
+            console.log(e);
+        }
     }
     
     const toggleSidebar = () => {
@@ -287,7 +291,7 @@ const Main= () =>{
             <Side style={{transform: `translateX(${isOpen}px)`}}> 
                 <div className="sideMenu">
                     {Sidemenu.map(s=>(
-                        <SideButton key={s.name}>
+                        <SideButton key={s.name} onClick={()=>onChangePage(s.name)}>
                             {s.name}
                         </SideButton>
                     ))}
