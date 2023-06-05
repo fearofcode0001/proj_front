@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import DropdownMenu from "./DropdownMenu";
 import test from "../img/shop.webp"
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     width: 100%;
@@ -159,7 +160,14 @@ const Shop = () => {
           setIsMenuClicked(true)
         }
       };
-    
+
+      const navigate = useNavigate();
+      const onChangePage=(e)=>{
+          console.log(e);
+          if(e==="cart"){
+              navigate("/Cart")
+          }
+        }
 
     return(
       <Container> 
@@ -185,7 +193,7 @@ const Shop = () => {
                                         </TopButton>
                                     ))}
                           {IsLoginTrue.map(s=>( isLogin===true &&
-                                        <TopButton key={s.name}>
+                                        <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>
                                     ))}
