@@ -120,6 +120,7 @@ const SignUp = () => {
     const [inputPw, setInputPw] = useState("")
     const [inputConPw, setInputConPw] = useState("");
     const [inputPhone, setInputPhone] = useState("");
+    const [inputAddr, setInputAddr] = useState("")
 
     // 오류 메세지
     const [emailMessage, setEmailMessage] = useState("")
@@ -139,7 +140,7 @@ const SignUp = () => {
 
      //저장된 주소와 아이디값을 설정하여 주소는 받아오고 아이디값은 저장한다.
      const context = useContext(UserContext);
-     const {addr} = context;
+     const {addr, setSingUpEmail} = context;
      
 
 
@@ -224,6 +225,12 @@ const SignUp = () => {
         } 
     }
 
+    // 주소 유효성
+    const onChangeAddr = (e) => {
+        setInputAddr(e.target.value);
+        setIsAddr(true);
+    }
+
     const onClickLogin = async() => {
         console.log("Click 회원가입");
          // 가입 여부 우선 확인
@@ -300,7 +307,7 @@ const SignUp = () => {
                     </div>
 
                     <div className="item">
-                        <input type="text" placeholder="ADDRESS" className="addrInput" value={addr} />
+                        <input type="text" placeholder="ADDRESS" className="addrInput" value={addr} onChange={onChangeAddr}/>
                         <button className="addrBtn" onClick={openPostCode}>FIND</button>
                         <div id='popupDom'>
                             {isPopupOpen && (                    
@@ -309,7 +316,7 @@ const SignUp = () => {
                         </div>
                     </div>
                     <div>
-                        <button className="singUp">{(isEmail && isPw && isConPw && isName && isPhone) ? 
+                        <button className="singUp">{(isEmail && isPw && isConPw && isName && isPhone && isAddr) ? 
                     <button className="enable-button" onClick={onClickLogin}>CREATE</button> :
                     <button className="disable-button">CREATE</button> }</button>
                     </div>
