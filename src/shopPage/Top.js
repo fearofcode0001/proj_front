@@ -174,9 +174,9 @@ const TOP = () => {
                           </div>
                         ))}
                     </div>
-                    <div className="nav2">
+                    <a href="/"><div className="nav2">
                         iMMUTABLE
-                    </div>
+                    </div></a>
                     <div className="nav3">
                     {IsLoginFalse.map(s=>( isLogin===false &&
                                         <TopButton key={s.name}>
