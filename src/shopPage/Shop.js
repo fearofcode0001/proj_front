@@ -4,7 +4,7 @@ import DropdownMenu from "./DropdownMenu";
 import { useNavigate, Link } from "react-router-dom";
 import test from "../img/test.webp";
 import DropFiter from "./DropFiter";
-import TOP from "./Top";
+import TOP from "./Top";    
 
 const Container = styled.div`
     width: 100%;
@@ -155,7 +155,9 @@ const Shop = () => {
     const [isMenuClicked, setIsMenuClicked] = useState(false);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     
-
+     //카트 토글 여는 컴포넌트
+     const [openCart, setOpenCart] = useState(false);
+   
     
 
 
@@ -166,7 +168,8 @@ const Shop = () => {
     const onChangePage=(e)=>{
         console.log(e);
         if(e==="cart"){
-            navigate("/Cart")
+            //카트 창 열리기
+            setOpenCart(!openCart);
         }
         else if (e==="FAQ") {
             navigate("/FAQ")
