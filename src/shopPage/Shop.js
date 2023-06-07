@@ -14,9 +14,7 @@ const Container = styled.div`
 const Mainboby=styled.div`
     width: 100%;
     margin: 0px 40px 0px 40px;
-
-    
-    `
+`
 
 const TopButton = styled.button`
     border: none;
@@ -29,16 +27,10 @@ const TopButton = styled.button`
 const Head = styled.div`
     width: 100%;
     height: 80px;
-    display: flex;
-    flex-direction: column;
-
     a{
         text-decoration: none;
         color: black;
     }
-
-
-
     .nav{
         width: 100%;
         display: flex;
@@ -47,13 +39,11 @@ const Head = styled.div`
     }
     .nav1{
         width: 300px;
-        /* border: 1px solid black; */
-        display: flex;
+        display: flex;        
         align-items: center;
         font-size: 13px;    
         cursor: pointer;
-        
-     
+             
         div{
             margin-right: 20px;
             
@@ -63,7 +53,7 @@ const Head = styled.div`
         }
     }
 
-    .nav2{
+    .nav2{      
         width: 500px;
         display: flex;
         justify-content: center;
@@ -71,7 +61,6 @@ const Head = styled.div`
         font-weight: bolder;
         font-size: 50px;
     }
-
     .nav3{
         width: 300px;
         display: flex;
@@ -104,8 +93,9 @@ const Article = styled.div`
     flex-wrap: wrap;
 
     .blur{
-        filter: blur(4px); 
+        filter: blur(5px); 
         pointer-events: none; 
+        opacity: 0.8; 
     }
     
    
@@ -156,26 +146,51 @@ const IsLoginFalse = [
     { name : "FAQ"}
   ]
 
-  
+//카트 영역
+const CartToggle=styled.div`
+    width: 300px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+    display: none;
+    }
+    border: 1px solid black;
+    background-color: white;
+    position: absolute;
+    right: 2.8rem;
+    top:3rem;
 
+    a{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    
+  }
+`
 
 const Shop = () => {
     const [selectedMenu, setSelectedMenu] = useState(null)
     const [isLogin, setIsLogin] = useState(true);
-    const [isMenuClicked, setIsMenuClicked] = useState(false);
-    const navigate = useNavigate();
+    const [isMenuClicked, setIsMenuClicked] = useState(false);  
 
+    const [openCart, setOpenCart] = useState(false);
     const onChangePage=(e)=>{
         console.log(e);
         if(e==="cart"){
-            navigate("/Cart")
+            //카트 창 열리기
+            setOpenCart(!openCart);
         }
         else if(e==="logout"){
             setIsLogin(false);
-        }
-        else if(e==="SHOP"){
-            navigate("/Shop");
-            console.log(e);
         }
     }
 
@@ -194,6 +209,10 @@ const Shop = () => {
 
     return(
       <Container> 
+        {openCart && <CartToggle>
+                            카트 
+                            <Link to="/Cart">장바구니</Link>
+                    </CartToggle>}
         <Mainboby>
             <Head>
                 <div className="nav">
