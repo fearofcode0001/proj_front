@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import DropdownMenu from "./DropdownMenu";
 import test from "../img/test.png"
+import DropFiter from "./DropFiter";
 
 
 const Container = styled.div`
@@ -162,7 +163,7 @@ const TOP = () => {
     const [selectedMenu, setSelectedMenu] = useState(null)
     const [isLogin, setIsLogin] = useState(true);
     const [isMenuClicked, setIsMenuClicked] = useState(false);
-
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -190,6 +191,9 @@ const TOP = () => {
         }
       };
 
+      const handleFilter = () => {
+        setIsFilterOpen(!isFilterOpen);
+      };
 
     return(
       <Container>
@@ -224,7 +228,10 @@ const TOP = () => {
                 {selectedMenu === "iMMUTABLE" && <DropdownMenu />}
             </Head>
             <Filter>
-                FILTER
+                <div onClick={handleFilter}>
+                    {isFilterOpen ? '정렬 기준 ▲' : '정렬 기준 ▼'}
+                </div>
+                    {isFilterOpen && <DropFiter/>}
             </Filter>
             <Article>
             <Container_in>

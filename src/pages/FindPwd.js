@@ -51,12 +51,12 @@ const InnerContainer = styled.div`
     .changePwdBtn {
         width: 100%;
         height: 38px;
-        margin-top: 20px;
+        margin-top: 30px;
         background-color: white;
         &:hover{
         color: white;
         background-color: black;
-    }
+        }
     }
 `;
 const FindPwd = () => {
@@ -148,7 +148,7 @@ const FindPwd = () => {
                     <input type="password" placeholder="PASSWORD CHECK" onChange={onChangeConPw}/>
                 </div>
                 <div className="changePwd">
-                    <Link to="/"><button className="changePwdBtn">CHANGE PASSWORD</button></Link>
+                    <Link to="/Login"><button className="changePwdBtn">CHANGE PASSWORD</button></Link>
                 </div>
             </InnerContainer>
         </Container>
