@@ -45,7 +45,6 @@ const Body = styled.div`
     }
     a{  
         width: 100%;
-        margin: 20px 0 0 0;
         height: 15px;
         font-size: 10px;
         cursor: pointer;
@@ -66,6 +65,7 @@ const Login =()=>{
                     <input type="text" placeholder="PASSWORD"/>                 
                     <button>SIGN IN</button>
                     <Link to="/FindEmail">FORGOT YOUR PASSWORD?</Link>
+                    <Link to="/">home</Link>
                     <Link to="/SignUp"><button>RESISTER AN ACCOUNT</button></Link>
                 </div>
 

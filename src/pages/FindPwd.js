@@ -27,7 +27,7 @@ const InnerContainer = styled.div`
     input {
         width: 100%;
         height: 40px;
-        margin-top: 10px;
+        margin-top: 20px;
         font-size: 10px;
         border: 1px solid #ccc;
         &::placeholder {
