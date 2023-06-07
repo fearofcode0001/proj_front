@@ -162,7 +162,11 @@ const CartToggle=styled.div`
     font-size: 11px;
     text-decoration: none;
     background-color: black;
-    color: white;    
+    color: white; 
+    &:hover{
+        background-color: #CCC;
+        color: black;
+    }   
   }
 
 
