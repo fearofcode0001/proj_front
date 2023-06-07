@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PopupPostCode from "../api/PopupPostCode";
+import item from "../img/shop.webp"
 
 const Container=styled.div`
     width: 100%;
@@ -139,6 +140,9 @@ const Products_in=styled.div`
         width: 120px;
         font-size: 12px;
     }
+    img{
+        width: 80px;
+    }
 `
 const Total=styled.div`
     display: flex;
@@ -237,7 +241,7 @@ const Cart=()=>{
                         <div className="checkBox">
                             <input type="checkbox"/></div>
                         <div className="product_image">
-                            <img src ="#"/></div>                        
+                            <img src ={item} /></div>                        
                         <div className="itemName">Sweat Shirts</div>
                         <div className="count">
                             <input type="text" value={number}/>
