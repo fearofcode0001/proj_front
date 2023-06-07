@@ -3,6 +3,7 @@ import styled from "styled-components";
 import DropdownMenu from "./DropdownMenu";
 import { useNavigate, Link } from "react-router-dom";
 import test from "../img/shop.webp"
+import DropFiter from "./DropFiter";
 
 
 const Container = styled.div`
@@ -89,12 +90,7 @@ const Filter = styled.div`
     margin-top: 20px;
     color: black;
     float: right;
-     cursor: pointer;
-    &:hover{
-        color: rgba(0,0,0,0.5);
-    }
-    
-    
+    cursor: pointer;    
 `
 
 
@@ -142,8 +138,8 @@ const Container_in = styled.div`
 
 const MenuList = [
     {name : "iMMUTABLE"},
-    {name : "test1"},
-    {name : "test2"}
+    {name : "CONTENTS"},
+    {name : "LOOK"}
 ]
 
 const IsLoginFalse = [
@@ -163,6 +159,15 @@ const Shop = () => {
     const [selectedMenu, setSelectedMenu] = useState(null)
     const [isLogin, setIsLogin] = useState(true);
     const [isMenuClicked, setIsMenuClicked] = useState(false);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    
+
+    
+
+
+
+
+
     const navigate = useNavigate();
 
     const onChangePage=(e)=>{
@@ -188,6 +193,11 @@ const Shop = () => {
           setSelectedMenu(menuName);
           setIsMenuClicked(true)
         }
+      };
+
+
+      const handleFilter = () => {
+        setIsFilterOpen(!isFilterOpen);
       };
 
     
@@ -223,9 +233,13 @@ const Shop = () => {
                     </div>
                 </div>
                 {selectedMenu === "iMMUTABLE" && <DropdownMenu />} 
+             
             </Head>
             <Filter>
-                FILTER
+                <div onClick={handleFilter}>
+                    {isFilterOpen ? '정렬 기준 ▲' : '정렬 기준 ▼'}
+                </div>
+                    {isFilterOpen && <DropFiter/>}
             </Filter>
             <Article>
             <Container_in>

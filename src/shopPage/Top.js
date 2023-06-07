@@ -140,8 +140,8 @@ const Container_in = styled.div`
 
 const MenuList = [
     {name : "iMMUTABLE"},
-    {name : "test1"},
-    {name : "test2"}
+    {name : "CONTENTS"},
+    {name : "LOOK"}
 ]
 
 
@@ -227,7 +227,6 @@ const TOP = () => {
                 FILTER
             </Filter>
             <Article>
-                
             <Container_in>
             <div className={isMenuClicked ? "blur" : ""}> 
             <div className="view">
