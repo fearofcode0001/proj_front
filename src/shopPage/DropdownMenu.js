@@ -30,19 +30,7 @@ const Head = styled.div`
             color: black;
         }
     }
-    .list2{
-        margin-bottom: 20px;
-        color: #ccc;
-        font-size: 12px;
-        padding: 20px 5px 0px 5px ;
-        :hover{
-            color: black;
-        }
-    }
 
-    a{
-        text-decoration: none;
-    }
 `
 
 
@@ -60,7 +48,6 @@ const DropdownMenu = () => {
                 <div className="list">BOTTOMS</div>
                 <div className="list">FOOTWEAR</div>
                 <div className="list">ACCESSORIES</div>
-                <div className="list2">SHOP ALL</div>
             </Head>
             <Head>
                 <div className="top">COLLECTION</div>
