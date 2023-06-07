@@ -8,7 +8,7 @@ import FindEmail from './pages/FindEmail';
 import FindPwd from './pages/FindPwd';
 import Shop from './shopPage/Shop';
 import TOP from './shopPage/Top';
-import FAQ from './pages/FAQ';
+import FAQ from './pages/Faq';
 
 
 
