@@ -323,7 +323,6 @@ const Shop = () => {
             </div>
             </Container_in>
             </Article>
-            <div></div>
         </Mainboby>
       </Container>  
     )

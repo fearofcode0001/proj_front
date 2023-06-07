@@ -315,7 +315,6 @@ const TOP = () => {
             </div>
             </Container_in>
             </Article>
-            <div></div>
         </Mainboby>
       </Container>  
     )
