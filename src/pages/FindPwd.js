@@ -18,8 +18,8 @@ const InnerContainer = styled.div`
     .top{
         justify-content: center;
         align-items: center;
-        font-weight: bolder;
         font-size: 50px;
+        font-weight: bold;
     }
     .input {
         margin-top: 30px;
@@ -27,13 +27,12 @@ const InnerContainer = styled.div`
     input {
         width: 100%;
         height: 40px;
-        margin-top: 20px;
-        font-weight: bolder;
+        margin-top: 10px;
         font-size: 10px;
         border: 1px solid #ccc;
         &::placeholder {
             padding: 5px;
-            font-size: 12px;
+            font-size: 10px;
         };
     }
     .emailBtn,
@@ -53,6 +52,8 @@ const InnerContainer = styled.div`
         height: 38px;
         margin-top: 30px;
         background-color: white;
+        font-size: 10px;
+        border: 1px solid black;
         &:hover{
         color: white;
         background-color: black;
