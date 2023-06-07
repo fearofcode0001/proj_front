@@ -3,7 +3,6 @@ import styled from "styled-components";
 import DropdownMenu from "./DropdownMenu";
 import { useNavigate, Link } from "react-router-dom";
 import test from "../img/shop.webp"
-import DropFiter from "./DropFiter";
 
 
 
@@ -16,9 +15,7 @@ const Container = styled.div`
 const Mainboby=styled.div`
     width: 100%;
     margin: 0px 40px 0px 40px;
-
-    
-    `
+`
 
 const TopButton = styled.button`
     border: none;
@@ -31,16 +28,10 @@ const TopButton = styled.button`
 const Head = styled.div`
     width: 100%;
     height: 80px;
-    display: flex;
-    flex-direction: column;
-
     a{
         text-decoration: none;
         color: black;
     }
-
-
-
     .nav{
         width: 100%;
         display: flex;
@@ -49,13 +40,11 @@ const Head = styled.div`
     }
     .nav1{
         width: 300px;
-        /* border: 1px solid black; */
-        display: flex;
+        display: flex;        
         align-items: center;
         font-size: 13px;    
         cursor: pointer;
-        
-     
+             
         div{
             margin-right: 20px;
             
@@ -65,7 +54,7 @@ const Head = styled.div`
         }
     }
 
-    .nav2{
+    .nav2{      
         width: 500px;
         display: flex;
         justify-content: center;
@@ -73,7 +62,6 @@ const Head = styled.div`
         font-weight: bolder;
         font-size: 50px;
     }
-
     .nav3{
         width: 300px;
         display: flex;
@@ -91,7 +79,12 @@ const Filter = styled.div`
     margin-top: 20px;
     color: black;
     float: right;
-    cursor: pointer;    
+     cursor: pointer;
+    &:hover{
+        color: rgba(0,0,0,0.5);
+    }
+    
+    
 `
 
 
@@ -101,8 +94,9 @@ const Article = styled.div`
     flex-wrap: wrap;
 
     .blur{
-        filter: blur(4px); 
+        filter: blur(5px); 
         pointer-events: none; 
+        opacity: 0.8; 
     }
     
    
@@ -139,8 +133,8 @@ const Container_in = styled.div`
 
 const MenuList = [
     {name : "iMMUTABLE"},
-    {name : "CONTENTS"},
-    {name : "LOOK"}
+    {name : "test1"},
+    {name : "test2"}
 ]
 
 const IsLoginFalse = [
@@ -153,7 +147,6 @@ const IsLoginFalse = [
     { name : "FAQ"}
   ]
 
-<<<<<<< HEAD
 //카트 영역
 const CartToggle=styled.div`
     width: 260px;
@@ -213,7 +206,7 @@ const CartToggle=styled.div`
     display: flex;
   }
   .plus,.minus{
-    height: 15px;
+    height: 13px;
     width: 10px;
     display: flex;
     justify-content: center;
@@ -221,6 +214,10 @@ const CartToggle=styled.div`
     border: none;
     background-color: white;
     cursor: pointer;
+    &:hover{
+        color: white;
+        background-color: black;
+    }
   }
   .countbutton{
     display: flex;
@@ -234,10 +231,6 @@ const CartToggle=styled.div`
   }
   
 `
-=======
-  
-
->>>>>>> 4f6482fe30f2c9bd7f9a2be6bc9a25206273b6bd
 
 const CartList=styled.div`
     width: 100%;
@@ -251,29 +244,18 @@ const CartList=styled.div`
 const Shop = () => {
     const [selectedMenu, setSelectedMenu] = useState(null)
     const [isLogin, setIsLogin] = useState(true);
-    const [isMenuClicked, setIsMenuClicked] = useState(false);
-    const [isFilterOpen, setIsFilterOpen] = useState(false);
-    
+    const [isMenuClicked, setIsMenuClicked] = useState(false);  
 
-    
-
-
-
-
-
-    const navigate = useNavigate();
-
+    //카트 토글 여는 컴포넌트
+    const [openCart, setOpenCart] = useState(false);
     const onChangePage=(e)=>{
         console.log(e);
         if(e==="cart"){
-            navigate("/Cart")
+            //카트 창 열리기
+            setOpenCart(!openCart);
         }
         else if(e==="logout"){
             setIsLogin(false);
-        }
-        else if(e==="SHOP"){
-            navigate("/Shop");
-            console.log(e);
         }
     }
 
@@ -288,10 +270,8 @@ const Shop = () => {
         }
       };
 
-<<<<<<< HEAD
     //수량 임의 설정
     const[number,setNumber]=useState(1);
-
     const countPlus=()=>{
         setNumber(number+1);
     }
@@ -334,17 +314,6 @@ const Shop = () => {
                             
                             <Link to="/Cart">장바구니</Link>
                     </CartToggle>}
-=======
-
-      const handleFilter = () => {
-        setIsFilterOpen(!isFilterOpen);
-      };
-
-    
-
-    return(
-      <Container> 
->>>>>>> 4f6482fe30f2c9bd7f9a2be6bc9a25206273b6bd
         <Mainboby>
             <Head>
                 <div className="nav">
@@ -374,13 +343,9 @@ const Shop = () => {
                     </div>
                 </div>
                 {selectedMenu === "iMMUTABLE" && <DropdownMenu />} 
-             
             </Head>
             <Filter>
-                <div onClick={handleFilter}>
-                    {isFilterOpen ? '정렬 기준 ▲' : '정렬 기준 ▼'}
-                </div>
-                    {isFilterOpen && <DropFiter/>}
+                FILTER
             </Filter>
             <Article>
             <Container_in>
