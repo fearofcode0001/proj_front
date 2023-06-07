@@ -157,7 +157,7 @@ const CartToggle=styled.div`
     ::-webkit-scrollbar {
     display: none;
     }
-    border: 1px solid black;
+    border: 1px solid #CCC;
     background-color: white;
     position: absolute;
     right: 2.8rem;
