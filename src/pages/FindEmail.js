@@ -29,13 +29,12 @@ const InerContainer = styled.div`
     input {
         width: 100%;
         height: 40px;
-        margin-top: 20px;
-        font-weight: bolder;
+        margin-top: 10px;
         font-size: 10px;
         border: 1px solid #ccc;
         &::placeholder {
             padding: 5px;
-            font-size: 12px;
+            font-size: 10px;
         };
     }
     .findPwdBtn,
