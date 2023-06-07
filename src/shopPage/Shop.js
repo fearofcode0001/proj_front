@@ -106,6 +106,7 @@ const Container_in = styled.div`
     display: flex;
     height: 500px;
     width: 300px;
+    margin-left: 10px;
     align-items: center;    
     justify-content: center;
     color: black;
