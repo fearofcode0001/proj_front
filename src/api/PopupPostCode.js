@@ -5,7 +5,16 @@ import styled from "styled-components";
   //yarn add react-daum-postcode
 
 
+const Body = styled.div`
+  width: 400px;
+  height: 200px;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+    }
 
+
+`
 const PopupPostCode = (props) => {
 	  // 우편번호 검색 후 주소 클릭 시 실행될 함수, data callback 용
 
@@ -32,9 +41,9 @@ const PopupPostCode = (props) => {
     };
   
     return(
-      <div>
+      <Body>
       <DaumPostcode  onComplete={handlePostCode} />
-      </div>
+      </Body>
   )
 }
  
