@@ -14,7 +14,7 @@ const Select = styled.div`
     justify-content: center;
     
     .sel{
-        color: black;
+        color: #ccc;
         padding: 10px 10px 10px 10px;
         font-size: 12px;
 
@@ -25,7 +25,7 @@ const Select = styled.div`
     .list{
         margin-bottom: 8px;
         :hover{
-            color: #ccc;
+            color: black;
         }
     }
 `
