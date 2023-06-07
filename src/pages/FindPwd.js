@@ -19,6 +19,7 @@ const InnerContainer = styled.div`
         justify-content: center;
         align-items: center;
         font-size: 50px;
+        font-weight: bold;
     }
     .input {
         margin-top: 30px;
@@ -52,6 +53,7 @@ const InnerContainer = styled.div`
         margin-top: 30px;
         background-color: white;
         font-size: 10px;
+        border: 1px solid black;
         &:hover{
         color: white;
         background-color: black;
