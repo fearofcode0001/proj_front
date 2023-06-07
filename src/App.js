@@ -9,7 +9,7 @@ import FindPwd from './pages/FindPwd';
 import Shop from './shopPage/Shop';
 import TOP from './shopPage/Top';
 import FAQ from './pages/FAQ';
-
+import Mypage from './pages/Mypage';
 
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
         <Route path="/Shop" element={<Shop/>}/>
         <Route path="/Top" element={<TOP/>}/>
         <Route path="/FAQ" element={<FAQ/>}/>
+        <Route path="/Mypage" element={<Mypage/>}/>
       </Routes>
      </Router>
 

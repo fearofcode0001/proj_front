@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import bckimg from "../img/fog.jpg"
 import side from "../img/side.png"
 import chat from "../img/chat.png"
+import Mypage from "../pages/Mypage";
 
 const Sidemenu = [
     //버튼을 카테고리로 분류하여 값을 쉽게 가져오기 위해 name으로 설정한다.
@@ -277,6 +278,9 @@ const Main= () =>{
         else if(e==="SHOP"){
             navigate("/Shop");
             console.log(e);
+        }
+        else if(e==="mypage"){
+            navigate("/Mypage")
         }
     }
     

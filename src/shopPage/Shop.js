@@ -2,21 +2,20 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import DropdownMenu from "./DropdownMenu";
 import { useNavigate, Link } from "react-router-dom";
-import test from "../img/shop.webp"
+import test from "../img/test.webp";
 import DropFiter from "./DropFiter";
-
+import TOP from "./Top";
 
 const Container = styled.div`
     width: 100%;
     height: 100vh;
     display: flex;    
+    
 `
 
 const Mainboby=styled.div`
     width: 100%;
     margin: 0px 40px 0px 40px;
-
-    
     `
 
 const TopButton = styled.button`
@@ -108,17 +107,12 @@ const Article = styled.div`
 `
 
 const Container_in = styled.div`
-    display: flex;
-    height: 380px;
-    width: 400px;
-    align-items: center;    
-    justify-content: center;
-    color: black;
-    
+    height: 500px;
+    width: 300px;
+    margin-left: 10px;
+    color: black;    
     img{
-        display: block;
-        width: 300px;
-        height: 300px;
+        height: 400px;
     }
 
     .logo{
@@ -132,7 +126,7 @@ const Container_in = styled.div`
         width: 200px;
         font-size: 10px;
     }
-`;
+`;  
 
 
 
@@ -169,11 +163,13 @@ const Shop = () => {
 
 
     const navigate = useNavigate();
-
     const onChangePage=(e)=>{
         console.log(e);
         if(e==="cart"){
             navigate("/Cart")
+        }
+        else if (e==="FAQ") {
+            navigate("/FAQ")
         }
         else if(e==="logout"){
             setIsLogin(false);
@@ -181,6 +177,9 @@ const Shop = () => {
         else if(e==="SHOP"){
             navigate("/Shop");
             console.log(e);
+        }
+        else if(e==="mypage"){
+            navigate("/Mypage")
         }
     }
 
@@ -211,6 +210,7 @@ const Shop = () => {
                         {MenuList.map(v=>(
                             <div key={v.name}
                             onClick={() => handleMenuClick(v.name)} 
+
                             className={selectedMenu === v.name ? "active" : ""}>        
                             {v.name} 
                           </div>
@@ -241,6 +241,7 @@ const Shop = () => {
                 </div>
                     {isFilterOpen && <DropFiter/>}
             </Filter>
+    
             <Article>
             <Container_in>
             <div className={isMenuClicked ? "blur" : ""}>

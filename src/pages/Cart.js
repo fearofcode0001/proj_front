@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PopupPostCode from "../api/PopupPostCode";
-import item from "../img/shop.webp"
+import item from "../img/test.webp"
 
 const Container=styled.div`
     width: 100%;
