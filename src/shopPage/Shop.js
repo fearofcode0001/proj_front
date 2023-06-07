@@ -104,16 +104,14 @@ const Article = styled.div`
 
 const Container_in = styled.div`
     display: flex;
-    height: 380px;
-    width: 400px;
+    height: 500px;
+    width: 300px;
     align-items: center;    
     justify-content: center;
     color: black;
     
     img{
-        display: block;
-        width: 300px;
-        height: 300px;
+        height: 400px;
     }
 
     .logo{
