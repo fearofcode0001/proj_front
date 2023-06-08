@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container=styled.div`
     display: flex;
@@ -8,7 +9,6 @@ const Container=styled.div`
     align-items: center;
     width: 100%;
     height: 100vh;
-    background-color: beige;
     position: fixed;
 `
 const Head = styled.div`
@@ -22,7 +22,25 @@ const Head = styled.div`
     .headTop{
         width: 98%;
         height: 20px;
-        border: 1px solid black;
+        display: flex ;
+        justify-content: space-between;
+        align-items: center;
+        button{
+            font-size: 12px;
+            border: none;
+            background-color: white;
+            &:hover{
+                color: #CCC;
+            }
+        }
+        a{
+            font-size: 12px;
+            text-decoration: none;
+            color: black;
+            &:hover{
+                color: #CCC;
+            }
+        }
     }
     .headFooter{
         margin-top:5px;
@@ -57,7 +75,8 @@ const AdminPage=()=>{
         <Container>
             <Head> 
                 <div className="headTop">
-                    관리자 로그인 홈 등
+                    <button>logout</button>
+                    <Link to="/">home</Link>
                 </div>
                 <div className="headFooter">
                     신규 주문건 배송 고객문의
