@@ -13,7 +13,7 @@ const Container = styled.div`
     
 `
 
-const Mainboby=styled.div`
+const Mainbody=styled.div`
     width: 100%;
     margin: 0px 40px 0px 40px;
     `
@@ -28,7 +28,7 @@ const TopButton = styled.button`
 
 const Head = styled.div`
     width: 100%;
-    height: 80px;
+    height: 70px;
     display: flex;
     flex-direction: column;
 
@@ -43,28 +43,26 @@ const Head = styled.div`
         width: 100%;
         display: flex;
         justify-content: space-between;
+        flex-direction: row;
         
     }
+
     .nav1{
-        width: 300px;
-        /* border: 1px solid black; */
-        display: flex;
         align-items: center;
+        justify-content: center;
+        display: flex;
         font-size: 13px;    
         cursor: pointer;
-        
-     
-        div{
-            margin-right: 20px;
-            
-            &:hover{
-                color: rgba(0,0,0,0.5);
-            }
+        margin-top: auto;
+        &:hover{
+            color: rgba(0,0,0,0.5);
         }
+        
     }
 
     .nav2{
-        width: 500px;
+        margin-left: 20%;
+        width: 300px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -73,11 +71,10 @@ const Head = styled.div`
     }
 
     .nav3{
-        width: 300px;
         display: flex;
         justify-content: flex-end;
         font-size: 13px;
-        
+        margin-top: auto;
         div{
             margin-left: 20px;
         }
@@ -95,6 +92,7 @@ const Filter = styled.div`
 
 //카트 영역
 const CartToggle=styled.div`
+    margin-top: 30px;
     width: 260px;
     height: 400px;
     display: flex;
@@ -104,7 +102,7 @@ const CartToggle=styled.div`
     position: absolute;
     right: 2.8rem;
     top:3rem;
-    z-index: 1;
+     z-index: 100;
 
     a{
     height: 40px;
@@ -197,8 +195,6 @@ const CartToggle=styled.div`
 
 const MenuList = [
     {name : "iMMUTABLE"},
-    {name : "CONTENTS"},
-    {name : "LOOK"}
 ]
 
 const IsLoginFalse = [
@@ -315,10 +311,10 @@ const Header = ({ onClick }) => {
                             
                             <Link to="/Cart">장바구니</Link>
                     </CartToggle>}
-        <Mainboby>
-            <Head onClick={onClick}>
+        <Mainbody>
+            <Head>
                 <div className="nav">
-                    <div className="nav1"  >
+                    <div className="nav1"   onClick={onClick}>
                         {MenuList.map(v=>(
                             <div key={v.name}
                             onClick={() => handleMenuClick(v.name)} 
@@ -351,7 +347,7 @@ const Header = ({ onClick }) => {
                 </div>
                     {isFilterOpen && <DropFiter/>}
             </Filter>
-            </Mainboby>
+            </Mainbody>
        
        </Container>  
        
@@ -359,4 +355,4 @@ const Header = ({ onClick }) => {
  };
  
  
- export default Header;
+ export default Header;        

@@ -7,9 +7,7 @@ const Container = styled.div`
     width: 100%;
     height: 100vh;
     display: flex;
-    border: 1px solid black;
 `
-
 const TopButton = styled.button`
     border: none;
     background-color: white;
@@ -18,19 +16,18 @@ const TopButton = styled.button`
     }
 `  
 
-
-const Boby = styled.div`
+const MainBody = styled.div`
     width: 100%;
-
-  
-`
-
-
-const Head = styled.div`
-    width: 100%;
-    height: 80px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+
+`
+const Head = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
 
     a{
         text-decoration: none;
@@ -38,71 +35,102 @@ const Head = styled.div`
     }
 
     .nav{
-        width: 100%;
+        padding: 0 20px 0 10px;
         display: flex;
         justify-content: space-between;
     }
-
+   
     .nav1{
-        width: 500px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        height: 70px;
         font-weight: bolder;
         font-size: 50px;
     }
 
     .nav2{
-        width: 300px;
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
+        align-items: center;
+        color: rgb(100,100,100);
         font-size: 13px;
+    }
+`
+
+const InnerContainer = styled.div`
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+` 
+
+const Body = styled.div`
+    display: flex;
+    width: 1200px;
+    height: 600px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .box{
+        display: flex;
+        width: 500px;
+        height: 200px;
+        border: 1px solid #ccc;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
         
-        div{
+        .title{
+            margin-bottom: 30px;
+            display: flex;
+            font-size: 15px;
+            font-weight: bolder;
+            align-items: center;
+            justify-content: center;
+        }
+        .tt1{
+            color: #656165;
+            font-size: 11px;
             margin-left: 20px;
+        }
+        .tt2{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a19aa2;
+            font-size: 10px;
+            white-space: pre-wrap
         }
     }
 `
 
-
 const IsLoginFalse = [
-    {name : "login"}
-]
-
-const IsLoginTrue = [
-    { name : "logout"},
-    { name : "cart"},
+    { name : "login"}
+  ]
+  const IsLoginTrue = [
+    { name : "logout"}, 
+    { name : "cart"},    
     { name : "FAQ"}
-]
-
+  ]
 
 const Mypage = () =>{
-    const[isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(true);
 
-
-    const navigate = useNavigate();
 
     const onChangePage=(e)=>{
-        console.log(e);
-        if(e==="cart"){
-            navigate("/Cart")
-        }
-        else if(e==="logout"){
+       if(e==="logout"){
             setIsLogin(false);
-        }
-        else if(e==="SHOP"){
-            navigate("/Shop");
-            console.log(e);
         }
     }
 
     return(
         <Container>
-            <Boby>
-                <Head>
+            <MainBody>
+            <Head>
                 <div className="nav">
-                    <a href="/"><div className="nav1">
-                        iMMUTABLE
+                <a href="/"><div className="nav1" >
+                     iMMUTABLE
                     </div></a>
                     <div className="nav2">
                     {IsLoginFalse.map(s=>( isLogin===false &&
@@ -116,9 +144,55 @@ const Mypage = () =>{
                                         </TopButton>
                                     ))}
                     </div>
-                </div> 
+                </div>
             </Head>
-            </Boby>
+            <InnerContainer>    
+                <Body>
+                    <div className="box">
+                       <div className="title">ORDER <div className="tt1"> 주문내역조회</div></div>
+                       <div className="tt2">
+                        고객님께서 주문하신 상품의 주문내역을 확인할 수 있습니다. 
+                       </div>
+                    </div>
+                    <div className="box">
+                    <div className="title">PROFILE <div className="tt1"> 회원 정보</div></div>
+                       <div className="tt2">
+                        회원이신 고객님의 개인정보 및 수정하는 공간입니다.
+                       </div>
+                       <div className="tt2">
+                       개인정보를 최신 정보로 유지하시면 보다 간편히 쇼핑을 즐길실 수 있습니다.
+                       </div>
+                    </div>
+                    <div className="box">
+                    <div className="title"> WISHLSIT <div className="tt1"> 관심 상품</div></div>
+                       <div className="tt2">
+                        관심상품으로 등록하신 상품의 목록을 보여드립니다.
+                       </div>
+                    </div>
+                    <div className="box">
+                    <div className="title">BOARD<div className="tt1"> 게시물 관리</div></div>
+                       <div className="tt2">
+                        고객님께서 작성하신 게시물을 관리하는 공간입니다. 
+                       </div>
+                       <div className="tt2">
+                        고객님께서 작성하신 글을 한눈에 관리하실 수 있습니다.
+                       </div>
+                    </div>
+                    <div className="box">
+                    <div className="title">ADDRESS <div className="tt1"> 배송 주소록 관리</div></div>
+                       <div className="tt2">
+                            자주 사용하는 배송지를 등록하고 관리하실 수 있습니다.
+                       </div>
+                    </div>
+                    <div className="box">
+                    <div className="title">SECESSION<div className="tt1"> 회원탈퇴</div></div>
+                       <div className="tt2">
+                        더 이상 이용을 원치 않을 경우 회원 탈퇴를 하실 수 있습니다.
+                       </div>   
+                    </div>
+                </Body>
+            </InnerContainer>
+            </MainBody>
         </Container>
     )
 }

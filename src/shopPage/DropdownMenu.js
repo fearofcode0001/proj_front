@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import TOP from "./Top";
 
 
 
@@ -15,7 +16,8 @@ const Container = styled.div`
 const Head = styled.div`
     margin-right: 15%;
     cursor: pointer;
-
+    display: flex;
+    flex-direction: column;
     .top{
         font-size: 14px;
         margin: 5px;
@@ -58,6 +60,7 @@ const DropdownMenu = () => {
                 <div className="list">FILM</div>
                 <div className="list">SECOND DELIVERY</div>
             </Head>
+            
         </Container>
         
     )
