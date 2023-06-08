@@ -44,14 +44,17 @@ const Body = styled.div`
         }        
     }
     a{  
-        width: 100%;
         height: 15px;
         font-size: 10px;
         cursor: pointer;
         text-decoration: none;
         color: black;
     }
-
+    .otherOption{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
 `
 
 const Login =()=>{
@@ -64,8 +67,10 @@ const Login =()=>{
                     <input type="text" placeholder="ID"/>
                     <input type="text" placeholder="PASSWORD"/>                 
                     <button>SIGN IN</button>
-                    <Link to="/FindEmail">FORGOT YOUR PASSWORD?</Link>
-                    <Link to="/">home</Link>
+                    <div className="otherOption">
+                        <Link to="/FindEmail">FORGOT YOUR PASSWORD?</Link>
+                        <Link to="/">home</Link>
+                    </div>
                     <Link to="/SignUp"><button>RESISTER AN ACCOUNT</button></Link>
                 </div>
 
