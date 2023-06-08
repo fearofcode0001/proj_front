@@ -10,6 +10,7 @@ import Shop from './shopPage/Shop';
 import TOP from './shopPage/Top';
 import FAQ from './pages/FAQ';
 import Mypage from './pages/Mypage';
+import AdminPage from './adminPage/AdminPage';
 
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
         <Route path="/Shop" element={<Shop/>}/>
         <Route path="/Top" element={<TOP/>}/>
         <Route path="/FAQ" element={<FAQ/>}/>
-        <Route path="/Mypage" element={<Mypage/>}/>
+        <Route path="/Mypage" element={<Mypage/>}/>        
+        <Route path="/AdminPage" element={<AdminPage/>}/>
       </Routes>
      </Router>
 
