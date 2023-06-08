@@ -49,15 +49,12 @@ const Body = styled.div`
         cursor: pointer;
         text-decoration: none;
         color: black;
-        
-    
     }
     .otherOption{
         width: 100%;
         display: flex;
         justify-content: space-between;
     }
-
 `
 
 const Login =()=>{
