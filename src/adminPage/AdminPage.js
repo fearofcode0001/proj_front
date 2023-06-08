@@ -38,7 +38,7 @@ const MainBody = styled.div`
     align-items: center;
     width: 98%;
     height: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     .sideMenu{
         width: 200px;
         height: 100%;
