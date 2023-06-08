@@ -146,6 +146,104 @@ const IsLoginFalse = [
     { name : "FAQ"}
   ]
 
+//카트 영역
+const CartToggle=styled.div`
+    width: 260px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #CCC;
+    background-color: white;
+    position: absolute;
+    right: 2.8rem;
+    top:3rem;
+
+    a{
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    text-decoration: none;
+    background-color: black;
+    color: white; 
+    &:hover{
+        background-color: #CCC;
+        color: black;
+    }   
+  }
+
+
+  .cartToggleItem{
+    width: 100%;
+    height: 100px;
+    border-bottom: 1px solid #CCC;
+    display: flex;
+    img{
+        height: 100px;
+    }
+  }
+  .itemInfo{
+    width: 200px;
+    font-size: 11px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items:center
+  }
+  .itemName{
+    height: 20px;
+    font-weight: bolder;
+    
+  }
+  .deleteItem{
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    color: #CCC;
+    &:hover{
+        color: black;
+    }
+  }
+  .count{
+    display: flex;
+  }
+  .plus,.minus{
+    height: 13px;
+    width: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    &:hover{
+        color: white;
+        background-color: black;
+    }
+  }
+  .countbutton{
+    display: flex;
+    flex-direction: column;
+  }
+  input{
+    width: 20px;
+    height: 20px;
+  }
+  .itemPrice{
+  }
+  
+`
+
+  const CartList=styled.div`
+    width: 100%;
+    height: 360px;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+    display: none;
+    }
+  `
+
   
 
 
@@ -202,10 +300,50 @@ const Shop = () => {
         setIsFilterOpen(!isFilterOpen);
       };
 
-    
+    //수량 임의 설정
+    const[number,setNumber]=useState(1);
+    const countPlus=()=>{
+        setNumber(number+1);
+    }
+    //상품 수량 줄이는 버튼
+    const countMinus=()=>{
+        setNumber(number-1);
+        if(number <= 1){
+            setNumber(1);
+        }
+    }
 
     return(
       <Container> 
+        {openCart && <CartToggle>
+                        <CartList>
+                            <div className="cartToggleItem">
+                                <div className="itemImg">
+                                    <img src={test}/>
+                                </div>
+                                <div className="itemInfo">
+                                    
+                                    <div className="itemName">
+                                    Sweat Shirt
+                                    </div>
+                                    <div className="count">
+                                        <input type="text" value={number}/>
+                                        <div className="countbutton">
+                                        <button className="plus" onClick={countPlus}>∧</button>
+                                        <button className="minus" onClick={countMinus}>∨</button>
+                                        </div>
+                                    </div>    
+                                    <div className="itemPrice">
+                                        1,043,000
+                                    </div>
+                                </div>
+                                <button className="deleteItem">x</button>
+                            </div>
+                        
+                         </CartList>
+                            
+                            <Link to="/Cart">장바구니</Link>
+                    </CartToggle>}
         <Mainboby>
             <Head>
                 <div className="nav">
