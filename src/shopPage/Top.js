@@ -1,60 +1,50 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import test from "../img/test.png"
+import toptest from "../img/TOP.webp"
+import Header from "./Header";
 
 
 
 
 const Container = styled.div`
-    width: 100%;
     height: 100vh;
-    display: flex;    
-`
-
-const Mainboby=styled.div`
     width: 100%;
-    margin: 0px 40px 0px 40px;  
-    border: 1px solid black;
-    display: flex;
-   
-
+    display: flex;    
+    flex-direction: column;
+`
+            
+const Mainboby=styled.div`
+ 
+    margin: 0px 40px 0px 40px;    
     `
-
-
-
-
 
 
 const Article = styled.div`
     display: flex;
-    position: absolute;
+    
     flex-wrap: wrap;
-    border: 1px solid red;
-    height: calc(100vh - 200px); 
-        
 
     .blur{
-        filter: blur(5px); 
+        filter: blur(4px); 
         pointer-events: none; 
-        opacity: 0.8; 
     }
     
    
 `
 
 const Container_in = styled.div`
-    display: flex;
-    height: 380px;
-    width: 400px;
-    align-items: center;    
-    justify-content: center;
-    color: black;
-       
+    height: 500px;
+    width: 300px;
+    margin-left: 10px;
+    color: black;    
+
+    .blur {
+        filter: blur(5px); /* 흐릿한 효과를 원하는 정도로 조절합니다. */
+    }
     
+
     img{
-        display: block;
-        width: 300px;
-        height: 300px;
+        height: 400px;
     }
 
     .logo{
@@ -68,7 +58,7 @@ const Container_in = styled.div`
         width: 200px;
         font-size: 10px;
     }
-`;
+`;  
 
 
 
@@ -77,20 +67,27 @@ const Container_in = styled.div`
 
 const TOP = () => {
     
-    const [isMenuClicked, setIsMenuClicked] = useState(false);
+    const [isBlurred, setIsBlurred] = useState(false);
+
+    const handleHeaderClick = () => {
+      setIsBlurred(!isBlurred);
+      console.log(isBlurred)
+    };
+  
 
 
       
 
-    return(
-        
+    return  (
+     
       <Container>
+           <Header onClick={handleHeaderClick}/>
         <Mainboby>
             <Article>
             <Container_in>
-            <div className={isMenuClicked ? "blur" : ""}> 
+            <div className={isBlurred ? "blur" : ""}> 
             <div className="view">
-                <img src={test}/>
+                <img src={toptest}/>
                 <div className="logo">iMMUTABLE</div>      
                 <div className="info">Viscose Tricot Crewneck</div>
                 <div className="price">₩‌1,043,000</div>
@@ -98,9 +95,9 @@ const TOP = () => {
             </div>
             </Container_in>
             <Container_in>
-            <div className={isMenuClicked ? "blur" : ""}>
+            <div className={isBlurred ? "blur" : ""}>
             <div className="view">
-                <img src={test}/>
+                <img src={toptest}/>
                 <div className="logo">iMMUTABLE</div>      
                 <div className="info">Viscose Tricot Crewneck</div>
                 <div className="price">₩‌1,043,000</div>
@@ -108,9 +105,9 @@ const TOP = () => {
             </div>
             </Container_in>
             <Container_in>
-            <div className={isMenuClicked ? "blur" : ""}>
+            <div className={isBlurred ? "blur" : ""}>
             <div className="view">
-                <img src={test}/>
+                <img src={toptest}/>
                 <div className="logo">iMMUTABLE</div>      
                 <div className="info">Viscose Tricot Crewneck</div>
                 <div className="price">₩‌1,043,000</div>
@@ -118,9 +115,9 @@ const TOP = () => {
             </div>
             </Container_in>
             <Container_in>
-            <div className={isMenuClicked ? "blur" : ""}>
+            <div className={isBlurred ? "blur" : ""}>
             <div className="view">
-                <img src={test}/>
+                <img src={toptest}/>
                 <div className="logo">iMMUTABLE</div>      
                 <div className="info">Viscose Tricot Crewneck</div>
                 <div className="price">₩‌1,043,000</div>
@@ -128,9 +125,9 @@ const TOP = () => {
             </div>
             </Container_in>
             <Container_in>
-            <div className={isMenuClicked ? "blur" : ""}>
+            <div className={isBlurred ? "blur" : ""}>
             <div className="view">
-                <img src={test}/>
+                <img src={toptest}/>
                 <div className="logo">iMMUTABLE</div>      
                 <div className="info">Viscose Tricot Crewneck</div>
                 <div className="price">₩‌1,043,000</div>
@@ -138,9 +135,9 @@ const TOP = () => {
             </div>
             </Container_in>
             <Container_in>
-            <div className={isMenuClicked ? "blur" : ""}>
+            <div className={isBlurred ? "blur" : ""}>
             <div className="view">
-                <img src={test}/>
+                <img src={toptest}/>
                 <div className="logo">iMMUTABLE</div>      
                 <div className="info">Viscose Tricot Crewneck</div>
                 <div className="price">₩‌1,043,000</div>
@@ -148,9 +145,9 @@ const TOP = () => {
             </div>
             </Container_in>
             <Container_in>
-            <div className={isMenuClicked ? "blur" : ""}>
+            <div className={isBlurred ? "blur" : ""}>
             <div className="view">
-                <img src={test}/>
+                <img src={toptest}/>
                 <div className="logo">iMMUTABLE</div>      
                 <div className="info">Viscose Tricot Crewneck</div>
                 <div className="price">₩‌1,043,000</div>
@@ -158,9 +155,9 @@ const TOP = () => {
             </div>
             </Container_in>
             <Container_in>
-            <div className={isMenuClicked ? "blur" : ""}>
+            <div className={isBlurred ? "blur" : ""}>
             <div className="view">
-                <img src={test}/>
+                <img src={toptest}/>
                 <div className="logo">iMMUTABLE</div>      
                 <div className="info">Viscose Tricot Crewneck</div>
                 <div className="price">₩‌1,043,000</div>
@@ -174,4 +171,4 @@ const TOP = () => {
 };
 
 
-export default TOP;    
+export default TOP;
