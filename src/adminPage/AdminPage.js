@@ -9,6 +9,7 @@ const Container=styled.div`
     width: 100%;
     height: 100vh;
     background-color: beige;
+    position: fixed;
 `
 const Head = styled.div`
     display: flex;
@@ -17,6 +18,7 @@ const Head = styled.div`
     flex-direction: column;
     width: 100%;
     height: 175px;
+    margin-top: 5px;
     .headTop{
         width: 98%;
         height: 20px;
@@ -36,6 +38,7 @@ const MainBody = styled.div`
     align-items: center;
     width: 98%;
     height: 100%;
+    margin-bottom: 5px;
     .sideMenu{
         width: 200px;
         height: 100%;
