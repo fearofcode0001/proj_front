@@ -104,7 +104,7 @@ const CartToggle=styled.div`
     position: absolute;
     right: 2.8rem;
     top:3rem;
-    z-index: 100px;
+    z-index: 1;
 
     a{
     height: 40px;
