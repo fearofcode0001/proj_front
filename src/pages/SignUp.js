@@ -268,7 +268,7 @@ const SignUp = () => {
                 </div>
                 <div className="input">
                     <div className="item">
-                        <input type="text" placeholder="NAME"/>
+                        <input type="text" placeholder="NAME" onChange={onChangeName}/>
                     </div>
                 
                     <div className="item1">

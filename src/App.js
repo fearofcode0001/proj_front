@@ -10,6 +10,7 @@ import Shop from './shopPage/Shop';
 import TOP from './shopPage/Top';
 import FAQ from './pages/FAQ';
 import Mypage from './pages/Mypage';
+import Board from './pages/Board';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/Top" element={<TOP/>}/>
         <Route path="/FAQ" element={<FAQ/>}/>
         <Route path="/Mypage" element={<Mypage/>}/>
+        <Route path="/Board" element={<Board/>}/>
       </Routes>
      </Router>
 

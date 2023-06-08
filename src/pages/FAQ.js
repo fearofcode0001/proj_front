@@ -32,6 +32,10 @@ const InnerContainer = styled.div`
         align-content: center;
        
     }
+    a {
+        text-decoration: none;
+        color: black;
+    }
 `;
 const Accordion = styled.div`
     border: 1px solid #ccc;
@@ -44,7 +48,7 @@ const Accordion = styled.div`
     h3 {
         margin: 0;
         font-size: 13px;
-        font-weight: normal;
+        font-weight: border;
     }
 
     p{
@@ -83,9 +87,12 @@ const FAQ = () => {
     return (
         <Container>
             <InnerContainer>
-                <div className="top">
-                    iMMUTABLE
-                </div>
+                <Link to="/">
+                    <div className="top">
+                        iMMUTABLE
+                    </div>
+                </Link>
+                
                 <h1>FAQ</h1>
 
                 <div className="FAQ">
@@ -196,8 +203,8 @@ const FAQ = () => {
                 </Accordion>
                 </div>
                 <Button>
-                    <Link to="/">
-                    게시글 작성
+                    <Link to="/Board">
+                    FAQ추가
                     </Link>
                 </Button>
             </InnerContainer>
