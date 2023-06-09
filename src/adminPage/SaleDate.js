@@ -2,6 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { ResponsiveBar } from '@nivo/bar';
 
+const Container=styled.div`
+    width: 100%;
+    height: 100%;
+.nivoChart{
+    width: 100%;
+    height: 90%;
+}
+`
 
 
 const SaleDate=()=>{
@@ -16,8 +24,9 @@ const SaleDate=()=>{
     };
 
     return (
-        // chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정
-        <div style={{ width: '100%', height: '90%', margin: '0 auto' }}>
+        <Container>
+        {/*  chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정 */}
+        <div className="nivoChart">
             <ResponsiveBar
                 /**
                  * chart에 사용될 데이터
@@ -115,7 +124,7 @@ const SaleDate=()=>{
                     tickSize: 5, // 값 설명하기 위해 튀어나오는 점 크기
                     tickPadding: 5, // tick padding
                     tickRotation: 0, // tick 기울기
-                    legend: 'price', // left 글씨
+                    legend: 'count', // left 글씨
                     legendPosition: 'middle', // 글씨 위치
                     legendOffset: -60, // 글씨와 chart간 간격
                 }}
@@ -162,6 +171,7 @@ const SaleDate=()=>{
                 ]}
             />
         </div>
+        </Container>
     );
 };
 
