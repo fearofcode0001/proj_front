@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -8,9 +8,11 @@ const Container = styled.div`
     height: 100vh;
     display: flex;
 `
+
 const TopButton = styled.button`
     border: none;
     background-color: white;
+   
     &:hover{
         color: rgba(0,0,0,0.5);
     }
@@ -26,15 +28,12 @@ const MainBody = styled.div`
 const Head = styled.div`
     width: 100%;
     display: flex;
-    flex-direction: column;
-
-
     a{
         text-decoration: none;
         color: black;
     }
-
     .nav{
+        width: 100%;
         padding: 0 20px 0 10px;
         display: flex;
         justify-content: space-between;
@@ -56,12 +55,18 @@ const Head = styled.div`
 `
 
 const Info = styled.div`
+    width: 100%;
     margin-top: 40px;
     border: 1px solid black;
-    display: flex;
-    justify-content: center;
+    /* display: flex;  */
     align-items: center;
+    justify-content: center;
     height: 100px;
+
+    .profile{
+        float: right;
+        border: 1px solid black;
+    }
 `
 
 const InnerContainer = styled.div`
@@ -70,13 +75,8 @@ const InnerContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-   
-
 `
-    
 
-
- 
 
 const Body = styled.div`
     /* border: 1px solid black; */
@@ -86,6 +86,7 @@ const Body = styled.div`
     align-items: center;
     flex-wrap: wrap;
 
+   
     .box{
         display: flex;
         width: 500px;
@@ -94,20 +95,23 @@ const Body = styled.div`
         align-items: center;
         justify-content: center;
         flex-direction: column;
+
         
         .title{
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             display: flex;
             font-size: 15px;
             font-weight: bolder;
             align-items: center;
             justify-content: center;
         }
+
         .tt1{
             color: #656165;
             font-size: 11px;
             margin-left: 20px;
         }
+
         .tt2{
             display: flex;
             align-items: center;
@@ -116,6 +120,13 @@ const Body = styled.div`
             font-size: 10px;
         }
     }
+
+    @media only screen and (max-width: 1000px) {
+            .box{
+                height: 100px;
+            }
+    }
+
 `
 
 const Footer = styled.div`
@@ -125,14 +136,24 @@ const Footer = styled.div`
 
     
     .fotbox{
-        height: 80px;
+        height: 100px;
     }
+
+    .tt1{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #8b9192;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
 
     .tt2{
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #a19aa2;
+        color: #c1c2c8;
         font-size: 12px;
     }
 
@@ -150,10 +171,7 @@ const IsLoginFalse = [
 
 
 const Mypage = () =>{
-
-
-
-
+ 
     const [isLogin, setIsLogin] = useState(true);
 
     const navigate = useNavigate();
@@ -167,13 +185,12 @@ const Mypage = () =>{
         else if (e==="cart") {
             navigate("/Cart")
         }
-
     }
+    
 
+ 
 
     return(
-
-        
         <Container>
             <MainBody>
             <Head>
@@ -196,8 +213,9 @@ const Mypage = () =>{
                 </div>
             </Head>
             <Info>
-                <div>
-                    유저 아이디?  멤버십?  등급??
+                <div className="profile">
+                 
+                
                 </div>
             </Info>
             <InnerContainer>   
@@ -248,11 +266,11 @@ const Mypage = () =>{
             </InnerContainer>
             <Footer>
                 <div className="fotbox">
-              <div className="tt2">
+              <div className="tt1">
               iMMUTABLE & Q / A
               </div>
               <div className="tt2">
-              MON - FRI AM 10:00 ~ PM 05:00 LUNCH TIME PM 12:00 ~ PM 01:00 SAT.SUN.HOLIDAY CLOSED
+              MON - FRI : AM 10:00 ~ PM 05:00 LUNCH TIME : PM 12:00 ~ PM 01:00 SAT.SUN.HOLIDAY CLOSED
                 </div>
                 <div className="tt2">
                 카카오뱅크 : 3333-333-3333 예금주 : iMMUTABLE
