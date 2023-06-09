@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 const Container = styled.div`
@@ -55,19 +55,33 @@ const Head = styled.div`
     }
 `
 
+const Info = styled.div`
+    margin-top: 40px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+`
+
 const InnerContainer = styled.div`
     width: 100vw;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+   
+
+`
     
-` 
+
+
+ 
 
 const Body = styled.div`
+    /* border: 1px solid black; */
     display: flex;
     width: 1200px;
-    height: 600px;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
@@ -75,7 +89,7 @@ const Body = styled.div`
     .box{
         display: flex;
         width: 500px;
-        height: 200px;
+        height: 160px;
         border: 1px solid #ccc;
         align-items: center;
         justify-content: center;
@@ -100,9 +114,28 @@ const Body = styled.div`
             justify-content: center;
             color: #a19aa2;
             font-size: 10px;
-            white-space: pre-wrap
         }
     }
+`
+
+const Footer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+    .fotbox{
+        height: 80px;
+    }
+
+    .tt2{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #a19aa2;
+        font-size: 12px;
+    }
+
 `
 
 const IsLoginFalse = [
@@ -114,17 +147,33 @@ const IsLoginFalse = [
     { name : "FAQ"}
   ]
 
+
+
 const Mypage = () =>{
+
+
+
+
     const [isLogin, setIsLogin] = useState(true);
 
-
+    const navigate = useNavigate();
     const onChangePage=(e)=>{
        if(e==="logout"){
             setIsLogin(false);
         }
+        else if (e==="FAQ") {
+            navigate("/FAQ")
+        }
+        else if (e==="cart") {
+            navigate("/Cart")
+        }
+
     }
 
+
     return(
+
+        
         <Container>
             <MainBody>
             <Head>
@@ -146,7 +195,12 @@ const Mypage = () =>{
                     </div>
                 </div>
             </Head>
-            <InnerContainer>    
+            <Info>
+                <div>
+                    유저 아이디?  멤버십?  등급??
+                </div>
+            </Info>
+            <InnerContainer>   
                 <Body>
                     <div className="box">
                        <div className="title">ORDER <div className="tt1"> 주문내역조회</div></div>
@@ -192,6 +246,19 @@ const Mypage = () =>{
                     </div>
                 </Body>
             </InnerContainer>
+            <Footer>
+                <div className="fotbox">
+              <div className="tt2">
+              iMMUTABLE & Q / A
+              </div>
+              <div className="tt2">
+              MON - FRI AM 10:00 ~ PM 05:00 LUNCH TIME PM 12:00 ~ PM 01:00 SAT.SUN.HOLIDAY CLOSED
+                </div>
+                <div className="tt2">
+                카카오뱅크 : 3333-333-3333 예금주 : iMMUTABLE
+                </div>
+                </div>
+            </Footer>
             </MainBody>
         </Container>
     )
