@@ -84,6 +84,7 @@ const Head = styled.div`
 
 const Filter = styled.div`
     margin-top: 20px;
+    font-size: 11px;
     color: black;
     float: right;
     cursor: pointer;    
