@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import SaleDate from "./SaleDate";
+import OrderCheck from "./OrderCheck";
 
 const Container=styled.div`
     display: flex;
@@ -46,9 +48,47 @@ const Head = styled.div`
         margin-top:5px;
         width: 98%;
         height: 135px;
-        border: 1px solid black;
+        display: flex;
+        border-top:  1px solid #CCC;
+        border-bottom: 1px solid #CCC;
+        .newOrder,.shipTrack{
+            width: 33%;
+            height: 100%;
+            margin-right: 3px;
+            font-size: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          
+        }
+        .customerAlert{
+            width: 33%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    
+
+        }
+        span{
+            color: red;
+            font-size:20px;
+            font-weight: bolder;
+        }
     }
 `
+const Sidemenu = [
+    //버튼을 카테고리로 분류하여 값을 쉽게 가져오기 위해 name으로 설정한다.
+    { name : "saleDate"},
+    { name : "orderCheck"},    
+    { name : "itemUpload"},
+    { name : "itemUpdate"},
+    { name : "inventory"},
+    { name : "qna"},
+    { name : "customer Management"},
+    { name : "coming soon"}
+  ]
+
 const MainBody = styled.div`
     margin-top: 10px;
     display: flex;
@@ -60,16 +100,42 @@ const MainBody = styled.div`
     .sideMenu{
         width: 200px;
         height: 100%;
-        border: 1px solid black;
         margin-right: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     .body{
         width: 100%;
         height: 100%;        
-        border: 1px solid black;
+        border-bottom: 1px solid #CCC;
+        
     }
 `
+const SideBustton=styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-bottom: 1px solid #CCC;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    cursor: pointer;
+    &:hover{
+        color: #CCC;
+    }
+
+`
 const AdminPage=()=>{
+
+    //임시 주문건 입력
+    const [neworder,setNewOrder] = useState(1);
+
+    const [changeMenu,setChangeMenu] =useState();
+
+    const onChangePage =(e)=>{
+        setChangeMenu(e);
+    }
 
     return(
         <Container>
@@ -78,16 +144,31 @@ const AdminPage=()=>{
                     <button>logout</button>
                     <Link to="/">home</Link>
                 </div>
+                
                 <div className="headFooter">
-                    신규 주문건 배송 고객문의
+                    <div className="newOrder">
+                        신규 주문 &nbsp; <span>{neworder}</span>&nbsp;건
+                    </div>
+                    <div className="shipTrack">
+                        배송 현황 &nbsp;<span>{neworder}</span>&nbsp;건  
+                    </div>
+                    <div className="customerAlert">
+                        고객 문의  &nbsp;<span>{neworder}</span>&nbsp;건 
+                    </div>
                 </div>
+                
             </Head>
+
             <MainBody> 
                 <div className="sideMenu">
-                    상품업로드 상품수정 상품현황 
+                    {Sidemenu.map(s=>(<SideBustton key={s.name} onClick={()=>onChangePage(s.name)}>
+                        {s.name}
+                    </SideBustton> ))}
+
                 </div>
                 <div className="body">
-                    바뀌는 페이지
+                    {changeMenu ==="saleDate" &&<SaleDate/>}                    
+                    {changeMenu ==="orderCheck" &&<OrderCheck/>}
                 </div>
 
             </MainBody>
