@@ -47,10 +47,9 @@ const Head = styled.div`
     .headFooter{
         margin-top:5px;
         width: 98%;
-        height: 135px;
+        height: 120px;
         display: flex;
         border-top:  1px solid #CCC;
-        border-bottom: 1px solid #CCC;
         .newOrder,.shipTrack{
             width: 33%;
             height: 100%;
@@ -58,8 +57,7 @@ const Head = styled.div`
             font-size: 15px;
             display: flex;
             justify-content: center;
-            align-items: center;
-          
+            align-items: center;       
         }
         .customerAlert{
             width: 33%;
@@ -67,13 +65,17 @@ const Head = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-    
+           
 
         }
         span{
             color: red;
             font-size:20px;
             font-weight: bolder;
+            &:hover{
+                color: #CCC;
+            }
+    
         }
     }
 `
@@ -108,7 +110,6 @@ const MainBody = styled.div`
     .body{
         width: 100%;
         height: 100%;        
-        border-bottom: 1px solid #CCC;
         
     }
 `
@@ -116,7 +117,7 @@ const SideBustton=styled.div`
     width: 100%;
     height: 100%;
     display: flex;
-    border-bottom: 1px solid #CCC;
+    border-top: 1px solid #CCC;
     justify-content: center;
     align-items: center;
     font-size: 11px;
