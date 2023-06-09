@@ -3,6 +3,12 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import SaleDate from "./SaleDate";
 import OrderCheck from "./OrderCheck";
+import ItemUpload from "./ItemUpload";
+import ItemUpdate from "./ItemUpdate";
+import Inventory from "./Inventory";
+import Qna from "./Qna";
+import CustomerMan from "./CustomerMan";
+
 
 const Container=styled.div`
     display: flex;
@@ -109,7 +115,8 @@ const MainBody = styled.div`
     }
     .body{
         width: 100%;
-        height: 100%;        
+        height: 100%;
+        border-top: 1px solid #CCC;
         
     }
 `
@@ -170,6 +177,13 @@ const AdminPage=()=>{
                 <div className="body">
                     {changeMenu ==="saleDate" &&<SaleDate/>}                    
                     {changeMenu ==="orderCheck" &&<OrderCheck/>}
+                    {changeMenu ==="itemUpload" &&<ItemUpload/>}
+                    {changeMenu ==="itemUpdate" &&<ItemUpdate/>}
+                    {changeMenu ==="inventory" &&<Inventory/>}
+                    {changeMenu ==="qna" &&<Qna/>}                    
+                    {changeMenu ==="customer Management" &&<CustomerMan/>}       
+                    
+
                 </div>
 
             </MainBody>
