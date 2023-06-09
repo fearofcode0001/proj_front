@@ -11,6 +11,7 @@ import TOP from './shopPage/Top';
 import FAQ from './pages/FAQ';
 import Mypage from './pages/Mypage';
 import Board from './pages/Board';
+import AdminPage from './adminPage/AdminPage';
 
 
 function App() {
@@ -27,7 +28,8 @@ function App() {
         <Route path="/Top" element={<TOP/>}/>
         <Route path="/FAQ" element={<FAQ/>}/>
         <Route path="/Board" element={<Board/>}/>
-        <Route path="/Mypage" element={<Mypage/>}/>
+        <Route path="/Mypage" element={<Mypage/>}/>        
+        <Route path="/AdminPage" element={<AdminPage/>}/>
       </Routes>
      </Router>
 
