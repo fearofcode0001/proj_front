@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
+import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 
 
 const Container = styled.div`
@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 const InnerContainer = styled.div`
     margin: 50px 0 50px 0;
-    width: 800px;
+    width: 700px;
 
  
     .top {
@@ -37,34 +37,6 @@ const InnerContainer = styled.div`
         color: black;
     }
 `;
-const Accordion = styled.div`
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    cursor: pointer;
-    border-style: none;
-    
-
-    h3 {
-        margin: 0;
-        font-size: 13px;
-        font-weight: border;
-    }
-
-    p{
-        font-size: 12px;
-    }
-
-    .coment {
-        display: none;
-    }
-
-    &.active {
-        .coment {
-        display: block;
-        }
-    }
-`;
 
 const Button = styled.button`
 margin-top: 20px;
@@ -84,6 +56,7 @@ const FAQ = () => {
         setActiveIndex(index === activeIndex ? null : index);
     };
 
+
     return (
         <Container>
             <InnerContainer>
@@ -96,20 +69,16 @@ const FAQ = () => {
                 <h1>FAQ</h1>
 
                 <div className="FAQ">
-                
-                <Accordion
-                    className={activeIndex === 0 ? "active" : ""}
-                    onClick={() => handleAccordionClick(0)}
-                >
-                    <h3 className="sub-title">Q.택배를 받았는데 상품이 누락되거나 분실된 것 같아요</h3>
-                    <hr />
-                    <p className="coment">A. (마이페이지-주문내역) 에서 주문하신 상품이 배송중 상태인데
-                    실제 일부 상품만 수령하신 경우에는 고객센터 또는 게시판으로 문의 부탁드립니다.
-                    포장의 뜯김이나 훼손 여부 확인하시어 상품의 사이나 박스 및 폴리백의 안쪽까지 잘 살펴봐주세요
-                    CCTV로 모든 배송과정을 촬영하고 있기 때문에 배송과정 분실로 추정되는 경우에는
-                    택배사로 확인하여 보상 받아보실수 있도록 안내 도와드리고 있습니다.
-                    </p>
+                <Accordion>
+                    <AccordionItem header="Q.택배를 받았는데 상품이 누락되거나 분실된 것 같아요">
+                        A. (마이페이지-주문내역) 에서 주문하신 상품이 배송중 상태인데 실제 일부 상품만 
+                        수령하신 경우에는 고객센터 또는 게시판으로 문의 부탁드립니다 포장의 뜯김이나 훼손 여부 확인하시어 상품의 
+                        사이나 박스 및 폴리백의 안쪽까지 잘 살펴봐주세요 CCTV로 모든 배송과정을 촬영하고 있기 때문에 배송과정 
+                        분실로 추정되는 경우에는 택배사로 확인하여 보상 받아보실수 있도록 안내 도와드리고 있습니다.
+                    </AccordionItem>
                 </Accordion>
+                
+                
                 </div>
 
                 <div className="FAQ">
@@ -117,7 +86,7 @@ const FAQ = () => {
                     className={activeIndex === 1 ? "active" : ""}
                     onClick={() => handleAccordionClick(1)}
                 >
-                    <h3 className="sub-title">Q.배송 전 취소 또는 변경은 어떻게 하나요?</h3>
+                    <div className="sub-title">Q.배송 전 취소 또는 변경은 어떻게 하나요?</div>
                     <hr />
                     <p className="coment">
                     (취소)
@@ -146,7 +115,7 @@ const FAQ = () => {
                     className={activeIndex === 2 ? "active" : ""}
                     onClick={() => handleAccordionClick(2)}
                 >
-                    <h3 className="sub-title">Q.상품 교환했는데 언제 받을 수 있나요?</h3>
+                    <div className="sub-title">Q.상품 교환했는데 언제 받을 수 있나요?</div>
                     <hr />
                     <p className="coment">A. 보내주신 상품이 iMUTABLE에 도착 완료된 시기부터 주로 2~3일(주말,공휴일제외)내로
                     발송 도와드리고 있으며, 교환 상품의 재고량 입고기간에 따라 배송 시실이 소요되는 점 
@@ -160,7 +129,7 @@ const FAQ = () => {
                     className={activeIndex === 3 ? "active" : ""}
                     onClick={() => handleAccordionClick(3)}
                 >
-                    <h3 className="sub-title">Q.교환 반품은 어떻게 접수하나요?</h3>
+                    <div className="sub-title">Q.교환 반품은 어떻게 접수하나요?</div>
                     <hr />
                     <p className="coment">- iMUTABLE은 택배기사 픽업 서비스를 제공하지 않습니다. 
                     - 교환 또는 반품을 원하시는 고객님께서는 
@@ -192,7 +161,7 @@ const FAQ = () => {
                     className={activeIndex === 4 ? "active" : ""}
                     onClick={() => handleAccordionClick(4)}
                 >
-                    <h3 className="sub-title">Q.주문자와 입금자 이름이 달라요</h3>
+                    <div className="sub-title">Q.주문자와 입금자 이름이 달라요</div>
                     <hr />
                     <p className="coment">A. 무통장 주문시 입금확인은 자동화 시스템으로 1-2시간 이내에 입금 연결됩니다.  
                     <br />
