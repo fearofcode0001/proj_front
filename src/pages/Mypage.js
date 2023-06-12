@@ -1,6 +1,10 @@
 import React, {useState, useRef} from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
+import ModifyingInfo from "./ModifyingInfo";
+import Secession from "./Secession";
+
+
 
 
 const Container = styled.div`
@@ -28,6 +32,7 @@ const MainBody = styled.div`
 const Head = styled.div`
     width: 100%;
     display: flex;
+    
     a{
         text-decoration: none;
         color: black;
@@ -54,20 +59,6 @@ const Head = styled.div`
     }
 `
 
-const Info = styled.div`
-    width: 100%;
-    margin-top: 40px;
-    border: 1px solid black;
-    /* display: flex;  */
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-
-    .profile{
-        float: right;
-        border: 1px solid black;
-    }
-`
 
 const InnerContainer = styled.div`
     width: 100vw;
@@ -85,7 +76,11 @@ const Body = styled.div`
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-
+    
+    a{
+        text-decoration: none;
+        color: black;
+    }
    
     .box{
         display: flex;
@@ -215,12 +210,6 @@ const Mypage = () =>{
                     </div>
                 </div>
             </Head>
-            <Info>
-                <div className="profile">
-                 
-                
-                </div>
-            </Info>
             <InnerContainer>   
                 <Body>
                     <div className="box" onClick={clickOrder}>
@@ -229,15 +218,16 @@ const Mypage = () =>{
                         고객님께서 주문하신 상품의 주문내역을 확인할 수 있습니다. 
                        </div>
                     </div>
+                    <a href="ModifyingInfo">
                     <div className="box">
-                    <div className="title">PROFILE <div className="tt1"> 회원 정보</div></div>
+                        <div className="title">PROFILE <div className="tt1"> 회원 정보</div></div>
                        <div className="tt2">
                         회원이신 고객님의 개인정보 및 수정하는 공간입니다.
-                       </div>
+                       </div> 
                        <div className="tt2">
                        개인정보를 최신 정보로 유지하시면 보다 간편히 쇼핑을 즐길실 수 있습니다.
                        </div>
-                    </div>
+                    </div> </a>
                     <div className="box">
                     <div className="title"> WISHLSIT <div className="tt1"> 관심 상품</div></div>
                        <div className="tt2">
@@ -259,12 +249,14 @@ const Mypage = () =>{
                             자주 사용하는 배송지를 등록하고 관리하실 수 있습니다.
                        </div>
                     </div>
+                    <a href="Secession">
                     <div className="box">
                     <div className="title">SECESSION<div className="tt1"> 회원탈퇴</div></div>
                        <div className="tt2">
                         더 이상 이용을 원치 않을 경우 회원 탈퇴를 하실 수 있습니다.
                        </div>   
                     </div>
+                    </a>
                 </Body>
             </InnerContainer>
             <Footer>
