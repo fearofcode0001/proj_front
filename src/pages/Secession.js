@@ -51,7 +51,7 @@ const Title = styled.div`
 `
 
 const Information = styled.div`
-        border: 1px solid #585863;
+        border: 1px solid #ccc;
         width: 600px;
         display: flex;
         flex-direction: column;
@@ -61,7 +61,7 @@ const Information = styled.div`
             font-size: 15px;
             align-items: center;
             justify-content: center;
-            color: #8b9192;
+            /* color: #8b9192; */
             font-weight: bold;
         }
 
@@ -70,7 +70,7 @@ const Information = styled.div`
             font-size: 12px;
             align-items: center;
             justify-content: center;
-            color:  #c1c2c8;
+            color: #8b9192;
         
         }
     
@@ -93,7 +93,6 @@ const SelectOption = styled.div`
         align-items: center;
         justify-content: center;
         line-height: 90%;
-        /* border: 1px solid black; */
 
         span{
             font-size: 15px;
@@ -171,9 +170,9 @@ const Secession = () => {
                     </div></a>
                 </Logo>
                 <Title>
-                    <div className="ti">
+                    {/* <div className="ti">
                         회원 탈퇴
-                    </div>
+                    </div> */}
                 </Title>
                 <Information>
                     <p className="info">※ 회원탈퇴 안내 ※</p>
