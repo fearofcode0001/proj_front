@@ -7,18 +7,34 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 const Container=styled.div`
 width: 100%;
 height: 100%;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-border: 1px solid black;
+
+.upLoadInput{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .title-input{
+  width: 100%;
   height: 30px;
   border: none;
-  font-size: 15px;
+  font-size: 20px;
+  &:focus{
+    outline: none;
+  }
 }
-.ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+/* .ck.ck-editor__editable:not(.ck-editor__nested-editable) {    
   height: 500px;
+} */
+//에디터 넓이
+.ck.ck-editor{
+  width: 100%;
+}
+//에디터 높이
+.ck.ck-editor__editable{
+  height: calc(100vh - 340px);
 }
 .submit-button{
   border: 1px solid black;
@@ -38,7 +54,7 @@ const  ItemUpload = () =>{
 
         <Container>
             <div className="upLoadInput">
-                <input className="title-input" type='text' placeholder='상품명' />
+                <input className="title-input" type='text' placeholder='pleace enter product name' />
                   <CKEditor className="info-input"
                     editor={ClassicEditor}
                     data="<p></p>"
