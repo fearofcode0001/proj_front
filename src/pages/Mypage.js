@@ -2,6 +2,7 @@ import React, {useState, useRef} from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import ModifyingInfo from "./ModifyingInfo";
+import Secession from "./Secession";
 
 
 
@@ -245,12 +246,14 @@ const Mypage = () =>{
                             자주 사용하는 배송지를 등록하고 관리하실 수 있습니다.
                        </div>
                     </div>
+                    <a href="Secession">
                     <div className="box">
                     <div className="title">SECESSION<div className="tt1"> 회원탈퇴</div></div>
                        <div className="tt2">
                         더 이상 이용을 원치 않을 경우 회원 탈퇴를 하실 수 있습니다.
                        </div>   
                     </div>
+                    </a>
                 </Body>
             </InnerContainer>
             <Footer>

@@ -14,6 +14,7 @@ import Board from './pages/Board';
 import AdminPage from './adminPage/AdminPage';
 import ProductInfo from './pages/ProductInfo';
 import ModifyingInfo from './pages/ModifyingInfo';
+import Secession from './pages/Secession';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/AdminPage" element={<AdminPage/>}/>
         <Route path="ProductInfo" element={<ProductInfo/>}/> 
         <Route path="/ModifyingInfo" element={<ModifyingInfo/>}/> 
+        <Route path="/Secession" element={<Secession/>}/> 
       </Routes>
      </Router>
 

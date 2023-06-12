@@ -52,9 +52,13 @@ const Title = styled.div`
 const Info = styled.div`
     margin-top: 20px;
     display: flex;
-    width: 1200px;
+    width: 1000px;
     height: 120px;
     border: 1px solid #ccc;
+
+    input::placeholder{
+            font-size: 5px; 
+        }
 
     .userInfo {
         margin-left: 10px;
@@ -84,7 +88,7 @@ const Info = styled.div`
 
 const InnerContainer = styled.div`
     width: 100vw;
-    width: 1200px;
+    width: 1000px;
     height: 100%;
     margin-top: 30px;
    
@@ -140,14 +144,14 @@ const InnerContainer = styled.div`
 
 const Body = styled.div`
     display: flex;
-    width: 1200px;
+    width: 1000px;
 
     .input{
         flex-direction: column;
         margin-top: 10px;
         border-top: 2px solid #ccc;
         display: flex;
-        width: 1200px;
+        width: 1000px;
 
         input::placeholder{
             font-size: 6px; 
@@ -160,7 +164,7 @@ const Body = styled.div`
         border-bottom: 1px solid #ccc;
         display: flex;
         height: 20px;
-        width: 1200px;
+        width: 1000px;
     }
 
     label{
@@ -275,8 +279,8 @@ const ModifyingInfo = () => {
         }      
     }
 
+    
     return(
-
         <Container>
             <MainBody>
                 <Logo>
@@ -291,7 +295,7 @@ const ModifyingInfo = () => {
                 </Title>
                 <Info>
                 <div className="userInfo">
-                        <input className="profileImg" placeholder="프로필 사진 자리"/> 
+                        <input className="profileImg" placeholder="프로필사진자리"/> 
                         <div className="line"></div>
                         <div className="content">
                         저희 쇼핑몰을 이용해 주셔서 감사합니다. 
