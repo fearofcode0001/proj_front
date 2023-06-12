@@ -145,10 +145,7 @@ const ReviewTable = styled.table`
         .Title {
             width: 50%;
         }
-        .User {
-            width: 20%;
-        }
-        .Date {
+        .User, .Date {
             width: 20%;
         }
         td {
@@ -197,10 +194,7 @@ const QnATable = styled.table`
         .Title {
             width: 50%;
         }
-        .User {
-            width: 20%;
-        }
-        .Date {
+        .User, .Date {
             width: 20%;
         }
         td {
