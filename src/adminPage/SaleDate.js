@@ -1,49 +1,67 @@
-// import React from "react";
-// import styled from "styled-components";
-// import { ResponsiveBar } from '@nivo/bar';
+import React from "react";
+import styled from "styled-components";
+import { ResponsiveBar } from '@nivo/bar';
 
 const Container=styled.div`
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 .nivoChart{
     width: 100%;
     height: 90%;
 }
+.cartCaption{
+    width: 100%;
+    margin: 0px 0 0 200px;
+    font-size: 12px;
+    /* border: 1px solid black; */
+    
+}
 `
 
 
-// const SaleDate=()=>{
-//     const handle = {
-//         padClick: (data) => {
-//             console.log(data);
-//         },
+const SaleDate=()=>{
+    const handle = {
+        padClick: (data) => {
+            console.log(data);
+        },
 
-//         legendClick: (data) => {
-//             console.log(data);
-//         },
-//     };
+        legendClick: (data) => {
+            console.log(data);
+        },
+    };
 
     return (
         <Container>
-        {/*  chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정 */}
+            <div className="cartCaption">
+            일주일 판매량(price : 1,000단위)    
+            </div> 
+            {/*  chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정 */}
         <div className="nivoChart">
+        
             <ResponsiveBar
                 /**
                  * chart에 사용될 데이터
                  */
                 data={[
-                    { day: 'mon', order: 25 },
-                    { day: 'tue', order: 21 },
-                    { day: 'wed', order: 20 },
-                    { day: 'thur', order: 30 },
-                    { day: 'fri', order: 10 },                    
-                    { day: 'sat', order: 24 },                    
-                    { day: 'sun', order: 4 },
+                    { day: 'mon', order: 25, price:250 },
+                    { day: 'tue', order: 21, price:210 },
+                    { day: 'wed', order: 20, price:200 },
+                    { day: 'thur', order: 30, price:300 },
+                    { day: 'fri', order: 10, price:100 },                    
+                    { day: 'sat', order: 24, price:240 },                    
+                    { day: 'sun', order: 4, price:400 },
                 ]}
                 /**
                  * chart에 보여질 데이터 key (측정되는 값)
                  */
-                keys={['order']}
+                keys={['order','price']}
+
+                groupMode="grouped"
+                
                 /**
                  * keys들을 그룹화하는 index key (분류하는 값)
                  */
@@ -51,15 +69,15 @@ const Container=styled.div`
                 /**
                  * chart margin
                  */
-                margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 170, bottom: 100, left:170 }}
                 /**
                  * chart padding (bar간 간격)
                  */
-                padding={0.3}
+                padding={0.6}
                 /**
                  * chart 색상
                  */
-                colors={['black', 'brown', 'orange']} // 커스터하여 사용할 때
+                colors={['black', 'gray', 'orange']} // 커스터하여 사용할 때
                 // colors={{ scheme: 'nivo' }} // nivo에서 제공해주는 색상 조합 사용할 때
                 /**
                  * color 적용 방식
@@ -72,7 +90,7 @@ const Container=styled.div`
                      */
                     labels: {
                         text: {
-                            fontSize: 14,
+                            fontSize: 12,
                             fill: '#ffffff',
                         },
                     },
@@ -100,7 +118,7 @@ const Container=styled.div`
                          */
                         ticks: {
                             text: {
-                                fontSize: 16,
+                                fontSize: 12,
                                 fill: '#000000',
                             },
                         },
@@ -128,6 +146,8 @@ const Container=styled.div`
                     legendPosition: 'middle', // 글씨 위치
                     legendOffset: -60, // 글씨와 chart간 간격
                 }}
+
+                INTERACTIVITY
                 /**
                  * label 안보이게 할 기준 width
                  */
@@ -175,4 +195,4 @@ const Container=styled.div`
     );
 };
 
-// export default SaleDate;
+export default SaleDate;
