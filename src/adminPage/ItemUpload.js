@@ -11,14 +11,13 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+border: 1px solid black;
 .title-input{
-  width: 100%;
   height: 30px;
   border: none;
   font-size: 15px;
 }
 .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
-  width: 900px;
   height: 500px;
 }
 .submit-button{
