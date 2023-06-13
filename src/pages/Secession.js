@@ -20,7 +20,6 @@ const MainBody = styled.div`
 
 const Logo = styled.div`
     width: 100%;
-
     a{
         text-decoration: none;
         color: black;

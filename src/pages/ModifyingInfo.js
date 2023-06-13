@@ -160,6 +160,7 @@ const Body = styled.div`
     }
 
     .item{
+        
         padding: 18px 0px 15px 0px;
         border-bottom: 1px solid #ccc;
         display: flex;

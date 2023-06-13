@@ -18,7 +18,7 @@ const InerContainer = styled.div`
 align-items: center;
 width: 400px;
 .top{
-    margin-top: 150px;
+    margin-top: 50px;
     font-weight: bolder;
     font-size: 50px;
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 
@@ -11,20 +11,49 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
 `;
-const InnerContainer = styled.div`
-    margin: 50px 0 50px 0;
-    width: 700px;
 
- 
-    .top {
+const TopButton = styled.button`
+    border: none;
+    background-color: white;
+   
+    &:hover{
+        color: rgba(0,0,0,0.5);
+    }
+`  
+const Head = styled.div`
+    width: 100%;
+    display: flex;
+
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    
+    .nav{
+        width: 100%;
+        padding: 0 20px 0 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+   
+    .nav1{
+        height: 70px;
+        font-weight: bolder;
+        font-size: 50px;
+    }
+
+    .nav2{
         display: flex;
         justify-content: center;
         align-items: center;
-        font-weight: bolder; 
-        font-size: 50px;
-        height: 200px;
+        color: rgb(100,100,100);
+        font-size: 13px;
     }
+`
+const Body = styled.div`
+     width: 100%;
 
+    
     h1 {
         display: flex;
         justify-content: center;
@@ -51,40 +80,118 @@ const InnerContainer = styled.div`
             color: red;
         }
     }
+     
+`
+
+const InnerContainer = styled.div`
+    margin: 50px 0 50px 0;
+    width: 700px;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    margin-top: 15%;
 
 `;
 
+
+
 const Button = styled.button`
-margin: 60px 0 20px 0;
-float: right;
-background-color: rgba(0, 0, 0, 0);
-border: none;
-    a {
-        color : black;
-        text-decoration: none;
-        &:hover{
-            color: gray;
+    margin: 60px 0 20px 0;
+    float: right;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+        a {
+            color : black;
+            text-decoration: none;
+            &:hover{
+                color: gray;
+            }
         }
-    }
     
 `;
 
+const Footer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+    .fotbox{
+        height: 100px;
+    }
 
+    .tt1{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #8b9192;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+
+    .tt2{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #c1c2c8;
+        font-size: 12px;
+    }
+
+`
+
+
+const IsLoginFalse = [
+    { name : "login"}
+  ]
+  const IsLoginTrue = [
+    { name : "logout"}, 
+    { name : "mypage"}
+  ]
 
 const FAQ = () => {
 
+    const [isLogin, setIsLogin] = useState(true);
+
+    const navigate = useNavigate();
+    const onChangePage=(e)=>{
+       if(e==="logout"){
+            setIsLogin(false);
+        }
+        else if (e==="mypage") {
+            navigate("/mypage")
+        }
+
+    }
+    
+ 
 
     return (
         <Container>
-            <InnerContainer>
-                <Link to="/">
-                    <div className="top">
-                        iMMUTABLE
+            <Head>
+                <div className="nav">
+                <a href="/"><div className="nav1" >
+                     iMMUTABLE
+                    </div></a>
+                    <div className="nav2">
+                    {IsLoginFalse.map(s=>( isLogin===false &&
+                                        <TopButton key={s.name}>
+                                            <Link to="/Login">{s.name}</Link>
+                                        </TopButton>
+                                    ))}
+                           {IsLoginTrue.map(s=>( isLogin===true &&
+                                        <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
+                                            {s.name}
+                                        </TopButton>
+                                    ))}
                     </div>
-                </Link>
-                
+                </div>
+            </Head>
+         
+            <InnerContainer>  
+                <Body>
                 <h1>FAQ</h1>
-
+                
                     <div className="FAQ">
                         <Accordion>
                             <AccordionItem header="Q.택배를 받았는데 상품이 누락되거나 분실된 것 같아요">
@@ -191,8 +298,21 @@ const FAQ = () => {
                         FAQ추가
                         </Link>
                     </Button>
-
+                    </Body>
                 </InnerContainer>
+                <Footer>
+                <div className="fotbox">
+              <div className="tt1">
+              iMMUTABLE & Q / A
+              </div>
+              <div className="tt2">
+              MON - FRI : AM 10:00 ~ PM 05:00 LUNCH TIME : PM 12:00 ~ PM 01:00 SAT.SUN.HOLIDAY CLOSED
+                </div>
+                <div className="tt2">
+                카카오뱅크 : 3333-333-3333 예금주 : iMMUTABLE
+                </div>
+                </div>
+            </Footer>
             </Container>
         );
 };
