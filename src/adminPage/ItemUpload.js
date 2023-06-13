@@ -30,7 +30,7 @@ height: 100%;
 } */
 //에디터 넓이
 .ck.ck-editor{
-  width: 100%;
+  min-width: 100%;
 }
 //에디터 높이
 .ck.ck-editor__editable{
@@ -39,7 +39,7 @@ height: 100%;
 .submit-button{
   border: 1px solid black;
   background-color: white;
-  width:500px;
+  width:100%;
   height: 40px;
   font-size: 11px;
   cursor: pointer;

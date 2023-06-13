@@ -27,19 +27,16 @@ const OrderInfo=styled.div`
         width: 50px;
         display: flex;
         justify-content: center;
-        align-items: center;
     }
     .orderPrice{
         width: 100px;
         display: flex;
         justify-content: center;
-        align-items: center;
     }
     .orderStatus{
         width: 50px;
         display: flex;
         justify-content: center;
-        align-items: center;
         select{
             font-size: 11px;
             border: none;
@@ -49,7 +46,6 @@ const OrderInfo=styled.div`
         width: 80px;
         display: flex;
         justify-content: center;
-        align-items: center;
         select{
             font-size: 11px;
             border: none;
@@ -59,7 +55,6 @@ const OrderInfo=styled.div`
         width: 150px;
         display: flex;
         justify-content: center;
-        align-items: center;
         input{
             font-size: 11px;
             border: none;

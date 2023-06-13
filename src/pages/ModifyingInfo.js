@@ -113,26 +113,26 @@ const InnerContainer = styled.div`
     }
 
     .modify-btn{
-        width: 100px;
+        width: 300px;
         height: 40px;
         border: none;
         background-color: black;
         margin-right: 10px;
         color: white;
-        
+        font-size: 11px;        
         :hover{
             color: #646166;
         }
     }
     
     .cancle-btn{
-        width: 100px;
+        width: 300px;
         height: 40px;
         border: none;
         background-color: #ccc;
         margin-right: 10px;
         color: white;
-        
+        font-size: 11px;
         :hover{
             color: #646166;
         }
@@ -169,7 +169,7 @@ const Body = styled.div`
     }
 
     label{
-        font-size: 13px;
+        font-size: 11px;
         width: 150px;
         display: flex;
     }
@@ -206,7 +206,7 @@ const Footer = styled.div`
         align-items: center;
         justify-content: center;
         color: #8b9192;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 600;
     }
 
@@ -216,7 +216,7 @@ const Footer = styled.div`
         align-items: center;
         justify-content: center;
         color: #c1c2c8;
-        font-size: 12px;
+        font-size: 10px;
     }
 
 `
