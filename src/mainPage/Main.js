@@ -194,13 +194,14 @@ const Foot = styled.div`
 //채팅
 const Chat =styled.div`
     width: 240px;
-    height: 650px;
     position: absolute;
     bottom: 6rem;
     right: 2rem;
-    background-color: white;
     background-color: rgba(255,255,255,0.8);
-    border: 1px solid black;
+    border-left: 1px solid black;
+    //그래야 안에 들어간 컨텐츠들이 사라진다.
+    overflow: hidden;
+    transition: height 0.35s ease;
     .topChat{
         height: 50px;
         border-bottom: 1px solid rgba(0,0,0,0.5);       
@@ -257,10 +258,15 @@ const ChatButton=styled.button`
 const Main= () =>{
     const [isOpen, setIsOpen] = useState(0);
     const [isLogin, setIsLogin] = useState(true);
-    const [openChat, setOpenChat] = useState(false);
+    const [openChat, setOpenChat] = useState(0);
+
     //채팅 on/off 컴포넌트
     const onChat=()=>{
-        setOpenChat(!openChat);
+        if(openChat===0){
+            setOpenChat(650);
+        } else if(openChat===650){
+            setOpenChat(0);
+        }
     }
     //상단 메뉴 및 사이드메뉴 클릭시 이동할 페이지와 함수들
     const navigate = useNavigate();
@@ -294,6 +300,7 @@ const Main= () =>{
         console.log(isOpen) ; 
       };
     
+     
     return(
         <Container>
             <Side style={{transform: `translateX(${isOpen}px)`}}> 
@@ -339,9 +346,8 @@ const Main= () =>{
                 <Body>
                             
                 </Body>
-                <ChatButton onClick={onChat}/>
-                {openChat  && 
-                    <Chat>
+                <ChatButton onClick={onChat}/>                
+                    <Chat style={{height: `${openChat}px`}}>
                         <div className="topChat">
                             head & img
                         </div>
@@ -352,7 +358,7 @@ const Main= () =>{
                             <input type="text" className="chatInput" placeholder="내용을 입력하세요"/>
                             <input type="button" className="sendButton" value="send"/>
                         </div>
-                    </Chat>} 
+                    </Chat>
                 <Foot>
                     <div className="topFoot">
                         join the Conversation
