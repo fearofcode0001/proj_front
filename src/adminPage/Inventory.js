@@ -1,5 +1,6 @@
-import React from "react";
+import React ,{useState} from "react";
 import styled from "styled-components";
+import testimg from "../img/test.png"
 
 
 const Container=styled.div`
@@ -23,6 +24,11 @@ const ItemInfo = styled.div`
         width: 430px;
         display: flex;
         justify-content: center;
+        img{
+            position: absolute;
+            width: 100px;
+        }
+       
     }
     .itemColor{
         width: 70px;
@@ -57,6 +63,23 @@ const ItemInfo = styled.div`
 `
 
 const  Inventory = () =>{
+    //호버상태를 체크한다.
+    const [onHover,setOnHover] = useState(false);
+    //마우스를 올리면 해당 상품 이미지가 나타남.
+    const onPopUpImage=()=>{
+        setOnHover(true)
+        console.log(onHover);
+    }
+    //마우스 떼면 이미지가 사라짐
+    const onPopUpImageFalse=()=>{
+        setOnHover(false)
+    }
+    //마우스 따라서 이미지가 움직임
+    const [xy,setXY]=useState({x:0,y:0})
+    const handleMouseMove=(e)=>{
+        setXY({x:e.clientX,y:e.clientY});
+    }
+
     return(
 
         <Container>
@@ -81,12 +104,18 @@ const  Inventory = () =>{
                </div>  
            </ItemInfo>
            <ItemInfo>
+            
                <div className="itemId">
                 123498
                </div>
-               <div className="itemNm">
-                sweat hoodie organic change blabla
+               <div onMouseMove={(e)=>handleMouseMove(e)}>
+                <div className="itemNm" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse}>
+                    sweat hoodie organic change                     
+                    {onHover &&  <img src ={testimg} className="popUpImage" style={{left:xy.x,top:xy.y}} />}  
+                        
+                </div>
                </div>
+               
                <div className="itemColor">
                 black
                </div>
