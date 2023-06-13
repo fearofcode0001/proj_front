@@ -70,16 +70,15 @@ const InnerContainer = styled.div`
 
 
 const Body = styled.div`
-    /* border: 1px solid black; */
     display: flex;
-    width: 1200px;
-    justify-content: center;
-    align-items: center;
+    width: 1010px;
     flex-wrap: wrap;
     
     a{
+ 
         text-decoration: none;
         color: black;
+        /* border: 1px solid black; */
     }
    
     .box{
@@ -95,11 +94,13 @@ const Body = styled.div`
         
         .title{
             margin-bottom: 10px;
+            width: 100%;
             display: flex;
             font-size: 15px;
             font-weight: bolder;
             align-items: center;
             justify-content: center;
+            /* border: 1px solid black; */
         }
 
         .tt1{
@@ -115,6 +116,7 @@ const Body = styled.div`
             justify-content: center;
             color: #a19aa2;
             font-size: 10px;
+            /* border: 1px solid black; */
         }
     }
 
@@ -220,8 +222,9 @@ const Mypage = () =>{
                         고객님께서 주문하신 상품의 주문내역을 확인할 수 있습니다. 
                        </div>
                     </div>
-                    <a href="ModifyingInfo">
+                    
                     <div className="box">
+                    <a href="ModifyingInfo">
                         <div className="title">PROFILE <div className="tt1"> 회원 정보</div></div>
                        <div className="tt2">
                         회원이신 고객님의 개인정보 및 수정하는 공간입니다.
@@ -229,43 +232,51 @@ const Mypage = () =>{
                        <div className="tt2">
                        개인정보를 최신 정보로 유지하시면 보다 간편히 쇼핑을 즐길실 수 있습니다.
                        </div>
-                    </div> </a>
-                    <a href="Wishlist">
-                    <div className="box">
-                        <div className="title"> WISHLSIT <div className="tt1"> 관심 상품</div></div>
-                        <div className="tt2">
-                        관심상품으로 등록하신 상품의 목록을 보여드립니다.
-                       </div>
+                       </a>
                     </div>
+                    
                     <div className="box">
-                    <div className="title">BOARD<div className="tt1"> 게시물 관리</div></div>
-                       <div className="tt2">
-                        고객님께서 작성하신 게시물을 관리하는 공간입니다. 
-                       </div>
-                       <div className="tt2">
-                        고객님께서 작성하신 글을 한눈에 관리하실 수 있습니다.
-                       </div>
+                        <a href="Wishlist">
+                            <div className="title"> WISHLSIT <div className="tt1"> 관심 상품</div></div>
+                            <div className="tt2">
+                            관심상품으로 등록하신 상품의 목록을 보여드립니다.
+                            </div>
+                       </a>
                     </div>
-                    </a>
-                    <a href="FAQ">
-                        <div className="box">
-                        <div className="title">NOTICE <div className="tt1"> 공지사항</div></div>
+
+                    <div className="box">
+                        <div className="title">BOARD<div className="tt1"> 게시물 관리</div></div>
                         <div className="tt2">
-                                공지사항 및 자주 묻는 질문을 보실 수 있는 공간입니다.
+                            고객님께서 작성하신 게시물을 관리하는 공간입니다. 
                         </div>
                         <div className="tt2">
-                                궁금하신 내용을 한눈에 보실 수 있습니다.
+                            고객님께서 작성하신 글을 한눈에 관리하실 수 있습니다.
                         </div>
-                        </div>
-                    </a>
-                    <a href="Secession">
-                    <div className="box">
-                    <div className="title">SECESSION<div className="tt1"> 회원탈퇴</div></div>
-                       <div className="tt2">
-                        더 이상 이용을 원치 않을 경우 회원 탈퇴를 하실 수 있습니다.
-                       </div>   
                     </div>
-                    </a>
+                   
+                    
+                    <div className="box">
+                        <a href="FAQ">
+                            <div className="title">NOTICE <div className="tt1"> 공지사항</div></div>
+                            <div className="tt2">
+                                    공지사항 및 자주 묻는 질문을 보실 수 있는 공간입니다.
+                            </div>
+                            <div className="tt2">
+                                    궁금하신 내용을 한눈에 보실 수 있습니다.
+                            </div>
+                        </a>
+                    </div>
+                   
+                    
+                    <div className="box">
+                        <a href="Secession">
+                            <div className="title">SECESSION<div className="tt1"> 회원탈퇴</div></div>
+                            <div className="tt2">
+                                더 이상 이용을 원치 않을 경우 회원 탈퇴를 하실 수 있습니다.
+                            </div>   
+                       </a>
+                    </div>
+                
                 </Body>
             </InnerContainer>
             <Footer>
