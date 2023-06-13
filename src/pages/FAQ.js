@@ -93,7 +93,7 @@ const FAQ = () => {
                                 수령하신 경우에는 고객센터 또는 게시판으로 문의 부탁드립니다 포장의 뜯김이나 훼손 여부 확인하시어 상품의 
                                 사이나 박스 및 폴리백의 안쪽까지 잘 살펴봐주세요 CCTV로 모든 배송과정을 촬영하고 있기 때문에 배송과정 
                                 분실로 추정되는 경우에는 택배사로 확인하여 보상 받아보실수 있도록 안내 도와드리고 있습니다.</p>
-                                <button className="deleteBtn">삭제</button>
+                                <button className="deleteBtn"> 삭제</button>
                             </AccordionItem>
                         </Accordion>
                     </div>
