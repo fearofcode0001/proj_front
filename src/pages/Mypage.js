@@ -166,7 +166,8 @@ const IsLoginFalse = [
 
 
 const Mypage = () =>{
- 
+    
+    const nav = useNavigate();
     const [isLogin, setIsLogin] = useState(true);
 
     const navigate = useNavigate();
@@ -182,7 +183,9 @@ const Mypage = () =>{
         }
     }
     
-
+    const clickOrder = () => {
+        nav("/Order");
+    }
  
 
     return(
@@ -209,7 +212,7 @@ const Mypage = () =>{
             </Head>
             <InnerContainer>   
                 <Body>
-                    <div className="box">
+                    <div className="box" onClick={clickOrder}>
                        <div className="title">ORDER <div className="tt1"> 주문내역조회</div></div>
                        <div className="tt2">
                         고객님께서 주문하신 상품의 주문내역을 확인할 수 있습니다. 

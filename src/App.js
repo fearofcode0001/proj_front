@@ -16,6 +16,7 @@ import ProductInfo from './pages/ProductInfo';
 import ModifyingInfo from './pages/ModifyingInfo';
 import Secession from './pages/Secession';
 
+import Order from './pages/Order';
 
 function App() {
   return (
@@ -36,6 +37,8 @@ function App() {
         <Route path="ProductInfo" element={<ProductInfo/>}/> 
         <Route path="/ModifyingInfo" element={<ModifyingInfo/>}/> 
         <Route path="/Secession" element={<Secession/>}/> 
+        <Route path="/ProductInfo" element={<ProductInfo/>}/> 
+        <Route path="/Order" element={<Order/>} />
       </Routes>
      </Router>
 
