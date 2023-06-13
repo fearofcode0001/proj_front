@@ -30,7 +30,7 @@ height: 100%;
 } */
 //에디터 넓이
 .ck.ck-editor{
-  width: 100%;
+  min-width: 100%;
 }
 //에디터 높이
 .ck.ck-editor__editable{
