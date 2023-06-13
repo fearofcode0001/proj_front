@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserInfo.js";
 import PopupPostCode from "../api/PopupPostCode";
 import AxiosFinal from "../api/AxiosFinal"
+import { Link } from "react-router-dom";
 
 
 
@@ -15,15 +16,34 @@ text-align: center;
 overflow-y: scroll;
 `;
 const InerContainer = styled.div`
-align-items: center;
+display: flex;
+flex-direction:column;
+justify-content: space-evenly;
 width: 400px;
+height: 900px;
+a{  
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    font-size:10px;
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    &:hover{
+        background-color: black;
+        color:white;
+    }
+}
 .top{
     margin-top: 150px;
     font-weight: bolder;
     font-size: 50px;
 }
 .input {
-    margin-top: 30px;
+   width: 100%;
 }
 input {
     width: 100%;
@@ -34,7 +54,7 @@ input {
     border: 1px solid #ccc;
     &::placeholder {
         padding: 5px;
-        font-size: 12px;
+        font-size: 10px;
     };
 }
 .emailBtn,
@@ -51,17 +71,16 @@ input {
     margin-bottom : 10px
 }
 .singUp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 38px;
     margin-top: 20px;
     background-color: white;
+    border: 1px solid black;
 }
-.goToLogin {
-    width: 100%;
-    height: 38px;
-    margin-top: 50px;
-    background-color: white;
-}
+
 .hint {
       display: flex;
       margin: 5px 0px 0px 8px;
@@ -70,12 +89,8 @@ input {
       font-size: 12px;
       color: #999;
 }
-.addrInput {
-    margin-bottom: 10px;
-}
-
 .addrFind {
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     margin-right: 10px;
     width: 170px;
 }
@@ -98,10 +113,10 @@ input {
 
 }
 .disable-button {
-    text-align: right;
-    width: 50px;   
+    width: 400px;
+    height: 100%;
     font-size: 10px;
-    background-color: white;
+    color: black;
     border: none;
     &:hover{
         color: #CCC;
@@ -319,12 +334,9 @@ const SignUp = () => {
                         <button className="singUp">{(isEmail && isPw && isConPw && isName && isPhone && isAddr) ? 
                     <button className="enable-button" onClick={onClickLogin}>CREATE</button> :
                     <button className="disable-button">CREATE</button> }</button>
-                    </div>
-                    <div>
-                        <button className="goToLogin">LOGIN</button>
-                    </div>
+                    </div>                                            
                 </div>
-                
+                <Link to="/Login">LOGIN</Link>
             </InerContainer>
         </Container>
     );

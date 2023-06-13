@@ -70,7 +70,7 @@ const AxiosFinal = {
         return await axios.get(Story_Board + `/mail/?mail=${mail}`);
     },
 
-    // 이메일 번호 
+    // 이메일 인증 번호 
     mailCodeck : async(mail, code) => {
         const check = {
             mail : mail,

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import ModifyingInfo from "./ModifyingInfo";
 import Secession from "./Secession";
-import Wishlist from "./Wishlist";
 
 
 
@@ -84,6 +83,7 @@ const Body = styled.div`
     }
    
     .box{
+        cursor: pointer;
         display: flex;
         width: 500px;
         height: 160px;
@@ -106,6 +106,7 @@ const Body = styled.div`
             color: #656165;
             font-size: 11px;
             margin-left: 20px;
+        
         }
 
         .tt2{
@@ -235,7 +236,7 @@ const Mypage = () =>{
                         <div className="tt2">
                         관심상품으로 등록하신 상품의 목록을 보여드립니다.
                        </div>
-                    </div></a>
+                    </div>
                     <div className="box">
                     <div className="title">BOARD<div className="tt1"> 게시물 관리</div></div>
                        <div className="tt2">
@@ -245,12 +246,18 @@ const Mypage = () =>{
                         고객님께서 작성하신 글을 한눈에 관리하실 수 있습니다.
                        </div>
                     </div>
-                    <div className="box">
-                    <div className="title">ADDRESS <div className="tt1"> 배송 주소록 관리</div></div>
-                       <div className="tt2">
-                            자주 사용하는 배송지를 등록하고 관리하실 수 있습니다.
-                       </div>
-                    </div>
+                    </a>
+                    <a href="FAQ">
+                        <div className="box">
+                        <div className="title">NOTICE <div className="tt1"> 공지사항</div></div>
+                        <div className="tt2">
+                                공지사항 및 자주 묻는 질문을 보실 수 있는 공간입니다.
+                        </div>
+                        <div className="tt2">
+                                궁금하신 내용을 한눈에 보실 수 있습니다.
+                        </div>
+                        </div>
+                    </a>
                     <a href="Secession">
                     <div className="box">
                     <div className="title">SECESSION<div className="tt1"> 회원탈퇴</div></div>

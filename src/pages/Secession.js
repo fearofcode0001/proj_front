@@ -4,23 +4,24 @@ import styled from "styled-components";
 
 
 const Container = styled.div`
-    width: 100vw;
+    width: 100%;
     height: 100%;
     display: flex;
-`
-const MainBody = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-
-   
+`
+const MainBody = styled.div`
+    border: 1px solid black;
+    width: 600px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;   
 `
 
 const Logo = styled.div`
     width: 100%;
-
     a{
         text-decoration: none;
         color: black;
@@ -36,20 +37,6 @@ const Logo = styled.div`
     }
 `
 
-const Title = styled.div`
-    width: 100%;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .ti{
-        font-weight: bold;
-        height: 20px;
-    }
-  
-`
-
 const Information = styled.div`
         border: 1px solid #ccc;
         width: 600px;
@@ -58,7 +45,7 @@ const Information = styled.div`
 
         .info{
             display: flex;
-            font-size: 15px;
+            font-size: 12px;
             align-items: center;
             justify-content: center;
             /* color: #8b9192; */
@@ -67,7 +54,7 @@ const Information = styled.div`
 
         .text{
             display: flex;
-            font-size: 12px;
+            font-size: 11px;
             align-items: center;
             justify-content: center;
             color: #8b9192;
@@ -76,7 +63,7 @@ const Information = styled.div`
     
         .text2{
             display: flex;
-            font-size: 14px;
+            font-size: 12px;
             align-items: center;
             justify-content: center;
             color: red;
@@ -86,23 +73,20 @@ const Information = styled.div`
 
 
 const SelectOption = styled.div`
-        margin-top: 40px;
         flex-direction: column;
         height: 100px;
         display: flex;
         align-items: center;
         justify-content: center;
-        line-height: 90%;
-
         span{
-            font-size: 15px;
+            font-size: 11px;
             color: #1d1d21;
         }
 
         .select{
         width: 300px;
         height: 25px;
-        border-radius: 5px;
+        border: 1px solid black;
         }
 
 `
@@ -116,8 +100,7 @@ const Input = styled.div`
     input{
         color: black;
         width: 300px;
-        height: 50px;
-        border-radius:10px;
+        height: 20px;
         font-size: 15px;
         border: 1px solid gray;
         &:focus {
@@ -132,7 +115,6 @@ const Input = styled.div`
 `
 
 const Footer = styled.div`
-    margin-top: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -143,7 +125,7 @@ const Footer = styled.div`
         align-items: center;
         justify-content: center;
         color: #8b9192;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 600;
     }
 
@@ -153,7 +135,7 @@ const Footer = styled.div`
         align-items: center;
         justify-content: center;
         color: #c1c2c8;
-        font-size: 12px;
+        font-size: 10px;
     }
 `
 
@@ -169,11 +151,7 @@ const Secession = () => {
                      iMMUTABLE
                     </div></a>
                 </Logo>
-                <Title>
-                    {/* <div className="ti">
-                        회원 탈퇴
-                    </div> */}
-                </Title>
+            
                 <Information>
                     <p className="info">※ 회원탈퇴 안내 ※</p>
                     <p className="text">          
@@ -194,7 +172,7 @@ const Secession = () => {
                 </Information>
 
                 <SelectOption>
-                    <span>탈퇴하시는 사유를 선택해주세요!!</span><p/>
+                    <span>탈퇴하시는 사유를 선택해주세요!!</span><br/>
                     <select className="select">     
                         <option value="sel1">선택사항 없음</option>                   
                         <option value="sel2">단순 변심</option>

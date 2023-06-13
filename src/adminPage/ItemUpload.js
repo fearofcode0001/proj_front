@@ -39,7 +39,7 @@ height: 100%;
 .submit-button{
   border: 1px solid black;
   background-color: white;
-  width:500px;
+  width:100%;
   height: 40px;
   font-size: 11px;
   cursor: pointer;

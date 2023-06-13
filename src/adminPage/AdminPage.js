@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import SaleDate from "./SaleDate";
 import OrderCheck from "./OrderCheck";
 import ItemUpload from "./ItemUpload";
-import ItemUpdate from "./ItemUpdate";
 import Inventory from "./Inventory";
 import Qna from "./Qna";
 import CustomerMan from "./CustomerMan";
@@ -90,7 +89,6 @@ const Sidemenu = [
     { name : "saleDate"},
     { name : "orderCheck"},    
     { name : "itemUpload"},
-    { name : "itemUpdate"},
     { name : "inventory"},
     { name : "qna"},
     { name : "customer Management"},
@@ -178,7 +176,6 @@ const AdminPage=()=>{
                     {changeMenu ==="saleDate" &&<SaleDate/>}                    
                     {changeMenu ==="orderCheck" &&<OrderCheck/>}
                     {changeMenu ==="itemUpload" &&<ItemUpload/>}
-                    {changeMenu ==="itemUpdate" &&<ItemUpdate/>}
                     {changeMenu ==="inventory" &&<Inventory/>}
                     {changeMenu ==="qna" &&<Qna/>}                    
                     {changeMenu ==="customer Management" &&<CustomerMan/>}       
