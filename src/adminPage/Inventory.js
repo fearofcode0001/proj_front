@@ -1,20 +1,23 @@
 import React ,{useState} from "react";
 import styled from "styled-components";
 import testimg from "../img/test.png"
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 const Container=styled.div`
     width: 100%;
     height: 100%;
-`
-const ItemInfo = styled.div`
+        
+    .itemInfoTop{    
     width: 100%;
     height: 27px;
     display: flex;
     justify-content: space-evenly;
     align-items: center; 
     font-size: 11px;
-    border-bottom: 1px solid #ccc;
+    }
+
     .itemId{
         width: 50px;
         display: flex;
@@ -76,6 +79,49 @@ const ItemInfo = styled.div`
         }
     }
 `
+const ItemInfoHead = styled.div`
+    width: 100%;
+    height: 27px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center; 
+    font-size: 11px;
+    border-bottom: 1px solid #ccc;
+
+`
+const ItemInfo=styled.div`
+    width: 100%;
+    font-size: 11px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ccc;
+    .parnetContents{
+        width: 100%;
+        overflow: hidden;
+        transition: height 0.35s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;       
+    }
+    .title-input{
+        width: 100%;
+        border: none;
+        &:focus{
+            outline: none;
+        }
+    }
+    /* .ck.ck-editor__editable:not(.ck-editor__nested-editable) {    
+    height: 500px;
+    } */
+    //에디터 넓이
+    .ck.ck-editor{
+        min-width: 100%;
+    }
+    //에디터 높이
+    .ck.ck-editor__editable{
+        height: 447px;
+}
+`
 
 const  Inventory = () =>{
     //호버상태를 체크한다.
@@ -95,10 +141,20 @@ const  Inventory = () =>{
         setXY({x:e.clientX,y:e.clientY});
     }
 
+    //마우스 클릭시 상품 수정 
+    const [upadatePop,setUpdatePop] = useState(0);
+    const onUpdatePop=()=>{
+        if(upadatePop===0){
+            setUpdatePop(500);
+        } else if(upadatePop===500){
+            setUpdatePop(0);
+        }
+    };
+
     return(
 
         <Container>
-           <ItemInfo>
+           <ItemInfoHead>
                <div className="itemId">
                 ID
                </div>
@@ -120,14 +176,14 @@ const  Inventory = () =>{
                <div className="itemSubmit">
                
                </div>    
-           </ItemInfo>
+           </ItemInfoHead>
            <ItemInfo>
-            
+            <div className="itemInfoTop">
                <div className="itemId">
                 123498
                </div>
                <div onMouseMove={(e)=>handleMouseMove(e)}>
-                <div className="itemNm" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse}>
+                <div className="itemNm" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse} onClick={onUpdatePop}>
                     sweat hoodie organic change                     
                     {onHover &&  <img src ={testimg} className="popUpImage" style={{left:xy.x,top:xy.y}} />}                          
                 </div>
@@ -151,7 +207,31 @@ const  Inventory = () =>{
                </div> 
                <div className="itemSubmit">
                 <button>submit</button>
-               </div>     
+               </div>
+            </div>
+            <div className="parnetContents" style={{height: `${upadatePop}px`}}>
+                <div className="childContents">
+                    <input className="title-input" type='text' placeholder='pleace enter product name' />
+                        <CKEditor className="info-input"
+                            editor={ClassicEditor}
+                            data="<p></p>"
+                            onReady={editor => {
+                            // You can store the "editor" and use when it is needed.
+                            console.log('Editor is ready to use!', editor);
+                            }}
+                            onChange={(event, editor) => {
+                            const data = editor.getData();
+                            console.log({ event, editor, data });
+                            }}
+                            onBlur={(event, editor) => {
+                            console.log('Blur.', editor);
+                            }}
+                            onFocus={(event, editor) => {
+                            console.log('Focus.', editor);
+                            }}
+                        />      
+                </div>  
+            </div>
            </ItemInfo>
         </Container>
     );
