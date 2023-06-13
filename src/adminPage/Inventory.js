@@ -59,6 +59,22 @@ const ItemInfo = styled.div`
             border: none;
         }
     }
+    .itemSubmit{
+        width: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    button{
+        width: 50px;
+        background-color: white;
+        border: 1px solid black;
+        font-size: 12px;
+        &:hover{
+            background-color: black;
+            color: white;
+        }
+    }
 `
 
 const  Inventory = () =>{
@@ -100,7 +116,10 @@ const  Inventory = () =>{
                </div>
                <div className="itemSell">
                 STATUS
-               </div>  
+               </div>
+               <div className="itemSubmit">
+               
+               </div>    
            </ItemInfo>
            <ItemInfo>
             
@@ -129,7 +148,10 @@ const  Inventory = () =>{
                     <option value="">hold</option>
                     <option value="">sold_out</option>
                 </select>
-               </div>  
+               </div> 
+               <div className="itemSubmit">
+                <button>submit</button>
+               </div>     
            </ItemInfo>
         </Container>
     );
