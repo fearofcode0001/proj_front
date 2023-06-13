@@ -8,6 +8,7 @@ const Container=styled.div`
 `
 const ItemInfo = styled.div`
     width: 100%;
+    height: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center; 
