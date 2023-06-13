@@ -90,7 +90,7 @@ const  Inventory = () =>{
                 123498
                </div>
                <div className="itemNm">
-                sweat hoodie
+                sweat hoodie organic change blabla
                </div>
                <div className="itemColor">
                 black
@@ -98,8 +98,7 @@ const  Inventory = () =>{
                <div className="itemSize">
                3
                </div>  
-               <div className="itemStock">
-                   
+               <div className="itemStock">                   
                 <input type="text" value={20}/>
                </div>
                <div className="itemSell">                
