@@ -2,6 +2,7 @@ import React, {useState, useRef} from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import ModifyingInfo from "./ModifyingInfo";
+import Secession from "./Secession";
 
 
 
@@ -165,7 +166,8 @@ const IsLoginFalse = [
 
 
 const Mypage = () =>{
- 
+    
+    const nav = useNavigate();
     const [isLogin, setIsLogin] = useState(true);
 
     const navigate = useNavigate();
@@ -181,7 +183,9 @@ const Mypage = () =>{
         }
     }
     
-
+    const clickOrder = () => {
+        nav("/Order");
+    }
  
 
     return(
@@ -208,7 +212,7 @@ const Mypage = () =>{
             </Head>
             <InnerContainer>   
                 <Body>
-                    <div className="box">
+                    <div className="box" onClick={clickOrder}>
                        <div className="title">ORDER <div className="tt1"> 주문내역조회</div></div>
                        <div className="tt2">
                         고객님께서 주문하신 상품의 주문내역을 확인할 수 있습니다. 
@@ -245,12 +249,14 @@ const Mypage = () =>{
                             자주 사용하는 배송지를 등록하고 관리하실 수 있습니다.
                        </div>
                     </div>
+                    <a href="Secession">
                     <div className="box">
                     <div className="title">SECESSION<div className="tt1"> 회원탈퇴</div></div>
                        <div className="tt2">
                         더 이상 이용을 원치 않을 경우 회원 탈퇴를 하실 수 있습니다.
                        </div>   
                     </div>
+                    </a>
                 </Body>
             </InnerContainer>
             <Footer>
