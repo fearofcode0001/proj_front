@@ -2378,14 +2378,14 @@
 
 "@swc/helpers@^0.4.14":
   version "0.4.14"
-  resolved "https://registry.npmjs.org/@swc/helpers/-/helpers-0.4.14.tgz"
+  resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.4.14.tgz#1352ac6d95e3617ccb7c1498ff019654f1e12a74"
   integrity sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==
   dependencies:
     tslib "^2.4.0"
 
 "@szhsin/react-accordion@^1.2.1":
   version "1.2.1"
-  resolved "https://registry.npmjs.org/@szhsin/react-accordion/-/react-accordion-1.2.1.tgz"
+  resolved "https://registry.yarnpkg.com/@szhsin/react-accordion/-/react-accordion-1.2.1.tgz#48c89c4c43c8c2c62f3e4fb99b5cf81d85ee0788"
   integrity sha512-p+RRCfRYOQUj6CelmlztqOoQyxpdNRihlExJkPoXZNUnexBJHS7F6phSq18VKH8GkncEgz7CFsTToMgguxUB0Q==
   dependencies:
     react-transition-state "^2.1.0"
@@ -8568,7 +8568,7 @@ react-scripts@^5.0.1:
 
 react-transition-group@^4.4.5:
   version "4.4.5"
-  resolved "https://registry.npmjs.org/react-transition-group/-/react-transition-group-4.4.5.tgz"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.5.tgz#e53d4e3f3344da8521489fbef8f2581d42becdd1"
   integrity sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==
   dependencies:
     "@babel/runtime" "^7.5.5"
@@ -8578,7 +8578,7 @@ react-transition-group@^4.4.5:
 
 react-transition-state@^2.1.0:
   version "2.1.0"
-  resolved "https://registry.npmjs.org/react-transition-state/-/react-transition-state-2.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/react-transition-state/-/react-transition-state-2.1.0.tgz#e9f33e850b76a98ecf732d93e585fe60568ec19a"
   integrity sha512-b8ldw2pbZk++XM43vcD4ETaFWlzTsjpUX33CmT8BBPPFYlQ2R50wxcY4ZeJ1TesJYziYZ9/rNPFnyA9tR0iKDw==
 
 react@^18.2.0:
