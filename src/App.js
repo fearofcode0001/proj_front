@@ -15,6 +15,7 @@ import AdminPage from './adminPage/AdminPage';
 import ProductInfo from './pages/ProductInfo';
 import ModifyingInfo from './pages/ModifyingInfo';
 import Secession from './pages/Secession';
+import Mypost from './pages/Mypost';
 
 import Order from './pages/Order';
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/Secession" element={<Secession/>}/> 
         <Route path="/ProductInfo" element={<ProductInfo/>}/> 
         <Route path="/Order" element={<Order/>} />
+        <Route path="/Mypost" element={<Mypost/>} />
       </Routes>
      </Router>
 

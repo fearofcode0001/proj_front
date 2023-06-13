@@ -38,6 +38,7 @@ a{
     }
 }
 .top{
+    margin-top: 150px;
     font-weight: bolder;
     font-size: 50px;
 }
