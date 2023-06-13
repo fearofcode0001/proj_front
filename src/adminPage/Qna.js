@@ -178,6 +178,7 @@ const Qna = () =>{
                     <input type="text" placeholder="answer"/><button>submit</button>
                 </div>
             </QnaInfo>
+            
 
            
        
