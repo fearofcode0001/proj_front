@@ -93,6 +93,7 @@ const FAQ = () => {
                                 수령하신 경우에는 고객센터 또는 게시판으로 문의 부탁드립니다 포장의 뜯김이나 훼손 여부 확인하시어 상품의 
                                 사이나 박스 및 폴리백의 안쪽까지 잘 살펴봐주세요 CCTV로 모든 배송과정을 촬영하고 있기 때문에 배송과정 
                                 분실로 추정되는 경우에는 택배사로 확인하여 보상 받아보실수 있도록 안내 도와드리고 있습니다.</p>
+                                <button className="deleteBtn">수정</button>
                                 <button className="deleteBtn"> 삭제</button>
                             </AccordionItem>
                         </Accordion>
@@ -121,6 +122,7 @@ const FAQ = () => {
                                 <br />
                                 - 차액 발생시 결제 수단은 무통장 입금만 가능합니다.
                                 </p>
+                                <button className="deleteBtn">수정</button>
                                 <button className="deleteBtn">삭제</button>
                             </AccordionItem>
                         </Accordion>
@@ -134,6 +136,7 @@ const FAQ = () => {
                                 발송 도와드리고 있으며, 교환 상품의 재고량 입고기간에 따라 배송 시실이 소요되는 점 
                                 참고 부탁드립니다. 
                                 </p>
+                                <button className="deleteBtn">수정</button>
                                 <button className="deleteBtn">삭제</button>
                             </AccordionItem>
                         </Accordion>
@@ -166,6 +169,7 @@ const FAQ = () => {
                                 전화접수 (1588-1255) - ARS 1번(반품) - 운송장번호 *입력 - 주소확인 - 2번(착불접수)
                                 의점 택배 이용 시 요금은 선불로 결제 부탁드립니다. 
                                 </p>
+                                <button className="deleteBtn">수정</button>
                                 <button className="deleteBtn">삭제</button>
                             </AccordionItem>
                         </Accordion>
@@ -181,6 +185,7 @@ const FAQ = () => {
                                 입금하신 은행, 입금 날짜, 금액, 입금자명 확인하시어 Q&A 게시판으로
                                 문의 남겨주시면 더욱 빠른 처리가 가능하십니다.
                                 </p>
+                                <button className="deleteBtn">수정</button>
                                 <button className="deleteBtn">삭제</button>
                             </AccordionItem>
                         </Accordion>
