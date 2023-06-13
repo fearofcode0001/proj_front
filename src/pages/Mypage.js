@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import ModifyingInfo from "./ModifyingInfo";
 import Secession from "./Secession";
+import Wishlist from "./Wishlist";
 
 
 
@@ -228,12 +229,13 @@ const Mypage = () =>{
                        개인정보를 최신 정보로 유지하시면 보다 간편히 쇼핑을 즐길실 수 있습니다.
                        </div>
                     </div> </a>
+                    <a href="Wishlist">
                     <div className="box">
-                    <div className="title"> WISHLSIT <div className="tt1"> 관심 상품</div></div>
-                       <div className="tt2">
+                        <div className="title"> WISHLSIT <div className="tt1"> 관심 상품</div></div>
+                        <div className="tt2">
                         관심상품으로 등록하신 상품의 목록을 보여드립니다.
                        </div>
-                    </div>
+                    </div></a>
                     <div className="box">
                     <div className="title">BOARD<div className="tt1"> 게시물 관리</div></div>
                        <div className="tt2">

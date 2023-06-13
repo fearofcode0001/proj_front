@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "../shopPage/Header";
 import Modal from "./Modal";
+import {FaRegHeart} from "react-icons/fa";
 
 
 const Container = styled.div`
@@ -75,8 +76,17 @@ const InnerContainer = styled.div`
                 }
                 .addBtn {
                     display: flex;
-                    button {  
-                        width: 350px;
+                    .heart {
+                        background-color: white;
+                        border: 1px solid black;
+                        margin: 20px 0;
+                        margin-right: 10px;
+                        width: 50px;
+                        height: 50px;
+                        font-size: 20px;
+                    }
+                    .cart {  
+                        width: 268px;
                         height: 50px;
                         margin: 20px 0;
                         border: 1px solid black;
@@ -256,7 +266,8 @@ const ProductInfo = () => {
                                     </select></div>
                             </div>
                             <div className="addBtn">
-                                <button>ADD TO CART</button>
+                                <button className="heart"><FaRegHeart/></button>
+                                <button className="cart">ADD TO CART</button>
                             </div>
                             <div className="productDesc">product desc</div>
                             <div className="detailWrapper">

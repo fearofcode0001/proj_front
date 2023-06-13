@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Header from "../shopPage/Header";
+import {Link , useNavigate} from 'react-router-dom';
 
 const Container = styled.div`
     width: 100%;
@@ -10,18 +10,46 @@ const Container = styled.div`
 
 const Head = styled.div`
     width: 100%;
-    height: 100px;
     display: flex;
-    a {
+    
+    a{
         text-decoration: none;
         color: black;
+    }
+    .nav{
+        width: 100%;
+        padding: 0 20px 0 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+   
+    .nav1{
+        height: 70px;
+        font-weight: bolder;
         font-size: 50px;
-        font-weight: bold;
+    }
+
+    .nav2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgb(100,100,100);
+        font-size: 13px;
     }
 `;
 
+const TopButton = styled.button`
+    border: none;
+    background-color: white;
+   
+    &:hover{
+        color: rgba(0,0,0,0.5);
+    }
+` ;
+
 const InnerContainer = styled.div`
     width: 100%;
+    margin-top: 50px;
     .header {
         margin: 0 40px;
         font-size: 25px;
@@ -76,13 +104,58 @@ const OrderTable = styled.div`
     }
 `;
 
-const Order = () => {
+const IsLoginFalse = [
+    { name : "login"}
+  ]
+  const IsLoginTrue = [
+    { name : "logout"},
+    { name : "mypage"}, 
+    { name : "cart"},    
+    { name : "FAQ"}
+  ]
 
+const Order = () => {
+    const [isLogin, setIsLogin] = useState(true);
+    const navigate = useNavigate();
+    const onChangePage=(e)=>{
+        if(e==="logout"){
+             setIsLogin(false);
+         }
+         else if (e==="FAQ") {
+             navigate("/FAQ")
+         }
+         else if (e==="cart") {
+             navigate("/Cart")
+         }
+         else if(e==="mypage"){
+             navigate("/Mypage")
+         }
+     }
+
+    const onClick = () => {
+        navigate("/Review");
+    }
 
     return (
         <Container>
             <Head>
-                <a href="/">iMMUTABLE</a>
+            <div className="nav">
+                <a href="/"><div className="nav1" >
+                     iMMUTABLE
+                    </div></a>
+                    <div className="nav2">
+                    {IsLoginFalse.map(s=>( isLogin===false &&
+                                        <TopButton key={s.name}>
+                                            <Link to="/Login">{s.name}</Link>
+                                        </TopButton>
+                                    ))}
+                           {IsLoginTrue.map(s=>( isLogin===true &&
+                                        <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
+                                            {s.name}
+                                        </TopButton>
+                                    ))}
+                    </div>
+                </div>
             </Head>
             <InnerContainer>
                 <div className="header">주문내역 조회
@@ -98,7 +171,7 @@ const Order = () => {
                                 <th className="Price">주문금액</th>
                                 <th className="Review">리뷰작성</th>
                             </tr>
-                            <tbody>
+                            <tbody> {/* DB에서 값 가져오기 */}
                                 <tr>
                                     <td className="tdInfo">
                                         <div className="product"><img src="product.jpg" alt="" /></div>
@@ -107,17 +180,7 @@ const Order = () => {
                                     <td className="tdDate">2023.06.10</td>
                                     <td className="tdNum">123456789</td>
                                     <td className="tdPrice">₩‌1,054,800</td>
-                                    <td className="tdStatus"><button>리뷰작성</button></td>
-                                </tr>
-                                <tr>
-                                    <td className="tdInfo">
-                                        <div className="product"><img src="product.jpg" alt="" /></div>
-                                        <div className="name"><span>Viscose Tricot Crewneck</span></div>
-                                    </td>
-                                    <td className="tdDate">2023.06.10</td>
-                                    <td className="tdNum">123456789</td>
-                                    <td className="tdPrice">₩‌1,054,800</td>
-                                    <td className="tdStatus"><button>리뷰작성</button></td>
+                                    <td className="tdStatus"><button onClick={onClick}>리뷰작성</button></td>
                                 </tr>
                             </tbody>
 
