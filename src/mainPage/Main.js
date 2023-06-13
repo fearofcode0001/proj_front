@@ -74,7 +74,7 @@ const Side=styled.div`
     background-color: rgba(255,255,255,0.9);
     z-index: 1;
     position: fixed;
-    transition: transform 1.3s ease-in-out;
+    transition: transform 0.4s ease-in-out;
     left: -300px;
 `
 
