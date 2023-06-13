@@ -178,6 +178,7 @@ const Mypage = () =>{
     const onChangePage=(e)=>{
        if(e==="logout"){
             setIsLogin(false);
+            nav("/");
         }
         else if (e==="FAQ") {
             navigate("/FAQ")
