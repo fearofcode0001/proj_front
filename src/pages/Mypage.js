@@ -128,7 +128,7 @@ const Footer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-
+    
     
     .fotbox{
         height: 100px;

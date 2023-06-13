@@ -190,7 +190,7 @@ const Secession = () => {
                         ㆍ 탈퇴시 고객님께서 보유하신 등급은 모두 삭제 됩니다.<br/>
                         ㆍ 회원 탈퇴 후 30일간 재가입이 불가능합니다.
                        </p>
-                    <p className="text2">*비밀번호 입력 시 회원이 탈퇴됩니다.*</p>
+                    <p className="text2">*비밀번호 입력 시 회원정보가 탈퇴됩니다.*</p>
                 </Information>
 
                 <SelectOption>
