@@ -8,9 +8,9 @@ const Container=styled.div`
 `
 const ItemInfo = styled.div`
     width: 100%;
-    height: 30px;
+    height: 27px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center; 
     font-size: 11px;
     border-bottom: 1px solid #ccc;
@@ -18,31 +18,26 @@ const ItemInfo = styled.div`
         width: 50px;
         display: flex;
         justify-content: center;
-        align-items: center;
     }
     .itemNm{
         width: 430px;
         display: flex;
         justify-content: center;
-        align-items: center;
     }
     .itemColor{
         width: 70px;
         display: flex;
         justify-content: center;
-        align-items: center;
     }
     .itemSize{
         width: 30px;
         display: flex;
         justify-content: center;
-        align-items: center;
     }
     .itemStock{
         width: 40px;
         display: flex;
         justify-content: center;
-        align-items: center;
         input{
             border: none;
             font-size:11px;
