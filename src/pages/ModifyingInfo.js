@@ -197,9 +197,10 @@ const Footer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100px;
+    height: 50px;
 
     .tt1{
+     
         display: flex;
         align-items: center;
         justify-content: center;
