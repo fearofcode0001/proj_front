@@ -26,9 +26,8 @@ const ItemInfo = styled.div`
         justify-content: center;
         img{
             position: absolute;
-            width: 100px;
-        }
-       
+            width: 80px;
+        }       
     }
     .itemColor{
         width: 70px;
@@ -111,8 +110,7 @@ const  Inventory = () =>{
                <div onMouseMove={(e)=>handleMouseMove(e)}>
                 <div className="itemNm" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse}>
                     sweat hoodie organic change                     
-                    {onHover &&  <img src ={testimg} className="popUpImage" style={{left:xy.x,top:xy.y}} />}  
-                        
+                    {onHover &&  <img src ={testimg} className="popUpImage" style={{left:xy.x,top:xy.y}} />}                          
                 </div>
                </div>
                
