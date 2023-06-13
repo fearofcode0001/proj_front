@@ -172,7 +172,7 @@ const Secession = () => {
                 </Information>
 
                 <SelectOption>
-                    <span>탈퇴하시는 사유를 선택해주세요!!</span><p/>
+                    <span>탈퇴하시는 사유를 선택해주세요!!</span><br/>
                     <select className="select">     
                         <option value="sel1">선택사항 없음</option>                   
                         <option value="sel2">단순 변심</option>
