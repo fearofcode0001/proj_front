@@ -3,7 +3,7 @@ import styled from "styled-components";
 import test from "../img/test.webp";
 import Header from "./Header";
 import DropFiter from "./DropFiter";
-import Pagination from "../pages/pagination";
+
 
 const Container = styled.div`
     width: 100%;
