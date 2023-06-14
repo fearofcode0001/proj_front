@@ -1,8 +1,6 @@
 import React, {useState, useRef} from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
-import ModifyingInfo from "./ModifyingInfo";
-import Secession from "./Secession";
 
 
 
@@ -70,7 +68,6 @@ const InnerContainer = styled.div`
 
 
 const Body = styled.div`
-    /* border: 1px solid black; */
     display: flex;
     width: 1200px;
     justify-content: center;
@@ -83,6 +80,7 @@ const Body = styled.div`
     }
    
     .box{
+        
         cursor: pointer;
         display: flex;
         width: 500px;
@@ -221,32 +219,35 @@ const Mypage = () =>{
                        </div>
                     </div>
                     <a href="ModifyingInfo">
-                    <div className="box">
-                        <div className="title">PROFILE <div className="tt1"> 회원 정보</div></div>
-                       <div className="tt2">
-                        회원이신 고객님의 개인정보 및 수정하는 공간입니다.
-                       </div> 
-                       <div className="tt2">
-                       개인정보를 최신 정보로 유지하시면 보다 간편히 쇼핑을 즐길실 수 있습니다.
-                       </div>
-                    </div> </a>
-                    <a href="Wishlist">
-                    <div className="box">
-                        <div className="title"> WISHLSIT <div className="tt1"> 관심 상품</div></div>
+                        <div className="box">
+                            <div className="title">PROFILE <div className="tt1"> 회원 정보</div></div>
                         <div className="tt2">
-                        관심상품으로 등록하신 상품의 목록을 보여드립니다.
-                       </div>
-                    </div>
-                    <div className="box">
-                    <div className="title">BOARD<div className="tt1"> 게시물 관리</div></div>
-                       <div className="tt2">
-                        고객님께서 작성하신 게시물을 관리하는 공간입니다. 
-                       </div>
-                       <div className="tt2">
-                        고객님께서 작성하신 글을 한눈에 관리하실 수 있습니다.
-                       </div>
-                    </div>
+                            회원이신 고객님의 개인정보 및 수정하는 공간입니다.
+                        </div> 
+                        <div className="tt2">
+                        개인정보를 최신 정보로 유지하시면 보다 간편히 쇼핑을 즐길실 수 있습니다.
+                        </div>
+                        </div> 
                     </a>
+                    <a href="Wishlist">
+                        <div className="box">
+                            <div className="title"> WISHLSIT <div className="tt1"> 관심 상품</div></div>
+                            <div className="tt2">
+                            관심상품으로 등록하신 상품의 목록을 보여드립니다.
+                            </div>
+                        </div>
+                    </a>
+                    <a href="Mypost">
+                        <div className="box">
+                        <div className="title">BOARD<div className="tt1"> 게시물 관리</div></div>
+                        <div className="tt2">
+                            고객님께서 작성하신 게시물을 관리하는 공간입니다. 
+                        </div>
+                        <div className="tt2">
+                            고객님께서 작성하신 글을 한눈에 관리하실 수 있습니다.
+                        </div>
+                        </div>
+                    </a>       
                     <a href="FAQ">
                         <div className="box">
                         <div className="title">NOTICE <div className="tt1"> 공지사항</div></div>
