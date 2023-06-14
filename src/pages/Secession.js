@@ -5,19 +5,25 @@ import styled from "styled-components";
 
 const Container = styled.div`
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 `
 const MainBody = styled.div`
-    border: 1px solid black;
-    width: 600px;
-    height: 800px;
+    width: 350px;
+    height: 600px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;   
+
+    button{
+        width: 350px;
+        height: 37px;
+        border: 1px solid black;
+        background-color: white;
+    }
 `
 
 const Logo = styled.div`
@@ -38,8 +44,7 @@ const Logo = styled.div`
 `
 
 const Information = styled.div`
-        border: 1px solid #ccc;
-        width: 600px;
+        width: 100%;
         display: flex;
         flex-direction: column;
 
@@ -74,35 +79,33 @@ const Information = styled.div`
 
 const SelectOption = styled.div`
         flex-direction: column;
-        height: 100px;
         display: flex;
         align-items: center;
         justify-content: center;
+        /* border: 1px solid black; */
         span{
             font-size: 11px;
             color: #1d1d21;
         }
 
-        .select{
-        width: 300px;
-        height: 25px;
-        border: 1px solid black;
+        select{
+        width: 345px;
+        height: 18px;
+        border:1px solid black;
         }
 
 `
 
 const Input = styled.div`
-    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-
     input{
         color: black;
-        width: 300px;
+        width: 345px;
         height: 20px;
         font-size: 15px;
-        border: 1px solid gray;
+        border: none;
         &:focus {
             outline: 0.5px solid white;
         }
@@ -112,31 +115,6 @@ const Input = styled.div`
         }
     }
 
-`
-
-const Footer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-
-    .tt1{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #8b9192;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-
-    .tt2{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #c1c2c8;
-        font-size: 10px;
-    }
 `
 
 
@@ -172,7 +150,7 @@ const Secession = () => {
                 </Information>
 
                 <SelectOption>
-                    <span>탈퇴하시는 사유를 선택해주세요!!</span><br/>
+                    <span>탈퇴하시는 사유를 선택해주세요!!</span>
                     <select className="select">     
                         <option value="sel1">선택사항 없음</option>                   
                         <option value="sel2">단순 변심</option>
@@ -185,19 +163,6 @@ const Secession = () => {
                     <input type="password" placeholder="Password" />
                </Input>  
                <button>COMPLETE</button>
-               <Footer>
-                <div className="fotbox">
-                    <div className="tt1">
-                        iMMUTABLE & Q / A
-                    </div>
-                    <div className="tt2">
-                        MON - FRI : AM 10:00 ~ PM 05:00 LUNCH TIME : PM 12:00 ~ PM 01:00 SAT.SUN.HOLIDAY CLOSED
-                    </div>
-                    <div className="tt2">
-                        카카오뱅크 : 3333-333-3333 예금주 : iMMUTABLE
-                    </div>
-                </div>
-            </Footer>
             </MainBody>
         </Container>
     )
