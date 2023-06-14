@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import toptest from "../img/TOP.webp"
-
+import DropFiter from "./DropFiter";
 
 
 
@@ -21,7 +21,7 @@ const Mainboby=styled.div`
 
 const Article = styled.div`
     display: flex;
-    
+    width: 100%;
     flex-wrap: wrap;
 
     .blur{
@@ -61,12 +61,20 @@ const Container_in = styled.div`
 `;  
 
 
-
+const Filter = styled.div`
+    width: 100px;
+    margin-top: 20px;
+    font-size: 13px;
+    color: black;
+    float: right;
+    display: flex;
+    cursor: pointer;    
+`
   
 
 
 const TOP = () => {
-    
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBlurred, setIsBlurred] = useState(false);
 
     const handleHeaderClick = () => {
@@ -75,7 +83,11 @@ const TOP = () => {
     };
   
 
-
+    
+    const handleFilter = () => {
+        setIsFilterOpen(!isFilterOpen);
+      };
+    
       
 
     return  (
@@ -83,6 +95,13 @@ const TOP = () => {
       <Container>
            <Header onClick={handleHeaderClick}/>
         <Mainboby>
+            <Filter>
+                <div onClick={handleFilter}>
+                    {isFilterOpen ? '정렬 기준 ▲' : '정렬 기준 ▼'}
+                    {isFilterOpen && <DropFiter/>}
+                </div>
+                  
+            </Filter>  
             <Article>
             <Container_in>
             <div className={isBlurred ? "blur" : ""}> 
