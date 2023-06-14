@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import ModifyingInfo from "./ModifyingInfo";
 import Secession from "./Secession";
+import Mypost from "./Mypost"
 
 
 
@@ -246,6 +247,7 @@ const Mypage = () =>{
                     </div>
 
                     <div className="box">
+                        <a href="Mypost">
                         <div className="title">BOARD<div className="tt1"> 게시물 관리</div></div>
                         <div className="tt2">
                             고객님께서 작성하신 게시물을 관리하는 공간입니다. 
@@ -253,9 +255,8 @@ const Mypage = () =>{
                         <div className="tt2">
                             고객님께서 작성하신 글을 한눈에 관리하실 수 있습니다.
                         </div>
+                        </a>
                     </div>
-                   
-                    
                     <div className="box">
                         <a href="FAQ">
                             <div className="title">NOTICE <div className="tt1"> 공지사항</div></div>

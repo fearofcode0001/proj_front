@@ -166,6 +166,7 @@ const Mypost = () => {
     const onChangePage=(e)=>{
        if(e==="logout"){
             setIsLogin(false);
+            navigate("/")
         }
         else if (e==="FAQ") {
             navigate("/FAQ")
