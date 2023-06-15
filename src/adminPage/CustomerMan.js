@@ -47,12 +47,27 @@ const CustomerInfo = styled.div`
     }
     button{
         width: 70px;
-        border: none;
+        border: 1px solid black;
         background-color: white;
         font-size: 11px;
         &:hover{
             background-color: black;
             color:white;
+        }
+    }
+    .parnetContents{
+        width: 100%;
+        overflow: hidden;
+        transition: height 0.35s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .childContents{
+        height: 110px;
+        overflow-y: scroll;
+        ::-webkit-scrollbar {
+        display: none;
         }
     }
 `

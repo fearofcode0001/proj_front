@@ -8,46 +8,46 @@ const Container=styled.div`
 width: 100%;
 height: 100%;
 
-.upLoadInput{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.title-input{
-  width: 100%;
-  height: 30px;
-  border: none;
-  font-size: 20px;
-  &:focus{
-    outline: none;
+  .upLoadInput{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-}
-/* .ck.ck-editor__editable:not(.ck-editor__nested-editable) {    
-  height: 500px;
-} */
-//에디터 넓이
-.ck.ck-editor{
-  min-width: 100%;
-}
-//에디터 높이
-.ck.ck-editor__editable{
-  height: calc(100vh - 340px);
-}
-.submit-button{
-  border: 1px solid black;
-  background-color: white;
-  width:100%;
-  height: 40px;
-  font-size: 11px;
-  cursor: pointer;
-  &:hover{
-      color: white;
-      background-color: black;
+  .title-input{
+    width: 100%;
+    height: 30px;
+    border: none;
+    font-size: 20px;
+    &:focus{
+      outline: none;
+    }
   }
-}
+  /* .ck.ck-editor__editable:not(.ck-editor__nested-editable) {    
+    height: 500px;
+  } */
+  //에디터 넓이
+  .ck.ck-editor{
+    min-width: 100%;
+  }
+  //에디터 높이
+  .ck.ck-editor__editable{
+    height: calc(100vh - 340px);
+  }
+  .submit-button{
+    border: 1px solid black;
+    background-color: white;
+    width:100%;
+    height: 40px;
+    font-size: 11px;
+    cursor: pointer;
+    &:hover{
+        color: white;
+        background-color: black;
+    }
+  }
 `
 const  ItemUpload = () =>{
     return(
@@ -56,7 +56,12 @@ const  ItemUpload = () =>{
             <div className="upLoadInput">
                 <input className="title-input" type='text' placeholder='pleace enter product name' />
                   <CKEditor className="info-input"
-                    editor={ClassicEditor}
+                    editor={ClassicEditor}  
+                    config={{
+                      placeholder: "내용을 입력하세요.",
+                    
+                  }}
+                         
                     data="<p></p>"
                     onReady={editor => {
                       // You can store the "editor" and use when it is needed.
@@ -72,6 +77,7 @@ const  ItemUpload = () =>{
                     onFocus={(event, editor) => {
                       console.log('Focus.', editor);
                     }}
+
                   />
                 <button className="submit-button">upload</button>
             </div>
