@@ -59,6 +59,8 @@ const InnerContainer = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `
 
 
@@ -77,30 +79,31 @@ const Title = styled.div`
 `
 
 const Article = styled.div`
-    width: 100%;
+
+    width: 1200px;
     height: 380px;
     display: flex;
 
+    
 
     .header{
-        margin: 5px 0px 0px 10px;
-        font-size: 30px;
+        font-size: 20px;
         font-weight: bold;
-        height: 40px;
+        height: 30px;
         border-bottom: 1.5px solid #ccc;
         width: 100%
     }
 
     .view{
         position: absolute;
-        width: 100%;
+        width: 1200px;
     }
 
     .viewTable{
-        font-size: 15px;
-        margin-top: 60px;
-        width: 100%;
         border-bottom: 1px solid #ccc;
+        font-size: 15px;
+        margin-top: 40px;
+        width: 100%;
         .num{
             width: 5%;
         }
@@ -116,27 +119,23 @@ const Article = styled.div`
     }
    
     .textTable{
-        margin-top: 10px;
         width: 100%;
+        border-bottom: 1px solid #ccc;
+        td{
+            text-align: center;
+            font-size: 12px;
+        }
         .textNum{
             width: 5%;
-            font-weight: 400;
-            font-size: 12px;
         }
         .textSub{
             width: 60%;
-            font-weight: 400;
-            font-size: 12px;
         }
         .textWriter{
             width: 10%;
-            font-weight: 400;
-            font-size: 12px;
         }
         .textDate{
             width: 10%;
-            font-weight: 400;
-            font-size: 12px;
         }
 
     }
@@ -167,6 +166,7 @@ const Mypost = () => {
     const onChangePage=(e)=>{
        if(e==="logout"){
             setIsLogin(false);
+            navigate("/")
         }
         else if (e==="FAQ") {
             navigate("/FAQ")
@@ -205,7 +205,7 @@ const Mypost = () => {
                 <InnerContainer>
                     <Title>
                         <div className="ti">
-                            MY POST
+                            내 게시물
                         </div>
                     </Title>
                     <Article>
@@ -223,10 +223,10 @@ const Mypost = () => {
                             </table>
                             <table className="textTable">
                                 <tr>
-                                    <th className="textNum">1</th>
-                                    <th className="textSub">사이즈도 적당하고 마음에 들어요 :)</th>
-                                    <th className="textWriter">김동규</th>
-                                    <th className="textDate">2023.06.23</th>
+                                    <td className="textNum">1</td>
+                                    <td className="textSub">사이즈도 적당하고 마음에 들어요 :)</td>
+                                    <td className="textWriter">김동규</td>
+                                    <td className="textDate">2023.06.23</td>
                                 </tr>
                             </table>
                         </div>
@@ -246,10 +246,10 @@ const Mypost = () => {
                             </table>
                             <table className="textTable">
                                 <tr>
-                                    <th className="textNum">1</th>
-                                    <th className="textSub">문의드립니다.</th>
-                                    <th className="textWriter">김동규</th>
-                                    <th className="textDate">2023.06.23</th>
+                                    <td className="textNum">1</td>
+                                    <td className="textSub">문의드립니다.</td>
+                                    <td className="textWriter">김동규</td>
+                                    <td className="textDate">2023.06.23</td>
                                 </tr>
                             </table>
                         </div>  

@@ -87,10 +87,9 @@ const InnerContainer = styled.div`
     margin: 50px 0 50px 0;
     width: 700px;
     display: flex;
-    position: absolute;
     flex-direction: column;
-    margin-top: 15%;
-
+    justify-content: center;
+    align-items: center;
 `;
 
 
@@ -157,6 +156,7 @@ const FAQ = () => {
     const onChangePage=(e)=>{
        if(e==="logout"){
             setIsLogin(false);
+            navigate("/")
         }
         else if (e==="mypage") {
             navigate("/mypage")

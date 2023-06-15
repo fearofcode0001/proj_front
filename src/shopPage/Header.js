@@ -290,7 +290,6 @@ const Header = ({ onClick }) => {
                                     <img src={test}/>
                                 </div>
                                 <div className="itemInfo">
-                                    
                                     <div className="itemName">
                                     Sweat Shirt
                                     </div>
@@ -307,12 +306,11 @@ const Header = ({ onClick }) => {
                                 </div>
                                 <button className="deleteItem">x</button>
                             </div>
-                        
                          </CartList>
-                            
                             <Link to="/Cart">장바구니</Link>
                     </CartToggle>}
         <Mainbody>
+       
             <Head>
                 <div className="nav">
                     <div className="nav1"   onClick={onClick}>
@@ -342,12 +340,7 @@ const Header = ({ onClick }) => {
                 </div>
                 {selectedMenu === "iMMUTABLE" && <DropdownMenu  />} 
             </Head>
-            <Filter>
-                <div onClick={handleFilter}>
-                    {isFilterOpen ? '정렬 기준 ▲' : '정렬 기준 ▼'}
-                </div>
-                    {isFilterOpen && <DropFiter/>}
-            </Filter>
+        
             </Mainbody>
        
        </Container>  
