@@ -119,8 +119,6 @@ const Qna = () =>{
         } else if(accodianPop===200){
             setAccodianPop(0);
         }
-
-
     };
     
     return(
