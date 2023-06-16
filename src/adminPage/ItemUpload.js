@@ -17,11 +17,12 @@ height: 100%;
     justify-content: center;
     align-items: center;
   }
-  .title-input{
+  input{
     width: 100%;
-    height: 30px;
+    height: 22px;
     border: none;
-    font-size: 20px;
+    font-size: 17px;
+    border-bottom:1px solid #CCC;
     &:focus{
       outline: none;
     }
@@ -74,6 +75,7 @@ const  ItemUpload = () =>{
         <Container>
             <div className="upLoadInput">
                 <input className="title-input" type='text' placeholder='pleace enter product name'  onChange={getValue} name='title'/>
+                <input className="title-price" type='text' placeholder='pleace enter product price'  onChange={getValue} name='price'/>
                 <input className="title-color" type='text' placeholder='pleace enter product color'  onChange={getValue} name='color'/>
                 <input className="title-size" type='text' placeholder='pleace enter product size'  onChange={getValue} name='size'/>
                 <input className="title-file" type='file' placeholder='pleace enter product productmg'  onChange={getValue} name='productmg'/>  
