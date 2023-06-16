@@ -1,7 +1,8 @@
-import React from "react";
+import React,{ useState } from "react";
 import styled from "styled-components";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 
 
 const Container=styled.div`
@@ -50,18 +51,34 @@ height: 100%;
   }
 `
 const  ItemUpload = () =>{
+
+  const [uploadProdData, serUploadProdData] = useState({
+    title: '',
+    content: ''
+  })
+
+  const getValue = e => {
+    const { name, value } = e.target;
+    serUploadProdData({
+      ...uploadProdData,
+      [name]: value
+    })
+  };
+
+  const onCheck=()=>{
+    console.log(uploadProdData);
+  }
     return(
 
         <Container>
             <div className="upLoadInput">
-                <input className="title-input" type='text' placeholder='pleace enter product name' />
+                <input className="title-input" type='text' placeholder='pleace enter product name'  onChange={getValue} name='title'/>
                   <CKEditor className="info-input"
                     editor={ClassicEditor}  
                     config={{
                       placeholder: "내용을 입력하세요.",
-                    
+
                   }}
-                         
                     data="<p></p>"
                     onReady={editor => {
                       // You can store the "editor" and use when it is needed.
@@ -69,7 +86,11 @@ const  ItemUpload = () =>{
                     }}
                     onChange={(event, editor) => {
                       const data = editor.getData();
-                      console.log({ event, editor, data });
+                      console.log({ event, editor, data,});
+                      serUploadProdData({
+                        ...uploadProdData,
+                        content: data
+                      })
                     }}
                     onBlur={(event, editor) => {
                       console.log('Blur.', editor);
@@ -79,7 +100,7 @@ const  ItemUpload = () =>{
                     }}
 
                   />
-                <button className="submit-button">upload</button>
+                <button className="submit-button" onClick={onCheck}>upload</button>
             </div>
            
 
