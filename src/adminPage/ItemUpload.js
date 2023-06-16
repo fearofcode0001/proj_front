@@ -17,6 +17,19 @@ height: 100%;
     justify-content: center;
     align-items: center;
   }
+  .upLoadInputHead{
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction:column;
+    justify-content: space-evenly;
+
+  }
+  .title-file{
+    
+  }
+  
+  
   input{
     width: 100%;
     height: 22px;
@@ -36,7 +49,7 @@ height: 100%;
   }
   //에디터 높이
   .ck.ck-editor__editable{
-    height: calc(100vh - 340px);
+    height: calc(100vh - 500px);
   }
   .submit-button{
     border: 1px solid black;
@@ -74,13 +87,19 @@ const  ItemUpload = () =>{
 
         <Container>
             <div className="upLoadInput">
+              <div className="upLoadInputHead">
                 <input className="title-input" type='text' placeholder='pleace enter product name'  onChange={getValue} name='title'/>
                 <input className="title-price" type='text' placeholder='pleace enter product price'  onChange={getValue} name='price'/>
                 <input className="title-color" type='text' placeholder='pleace enter product color'  onChange={getValue} name='color'/>
                 <input className="title-size" type='text' placeholder='pleace enter product size'  onChange={getValue} name='size'/>
                 <input className="title-file" type='file' placeholder='pleace enter product productmg'  onChange={getValue} name='productmg'/>  
                 <input className="title-file2" type='file' placeholder='pleace enter product productmg'  onChange={getValue} name='productmg'/>  
-                
+                <div className="filebox">
+                    <input class="upload-name" value="첨부파일" placeholder="첨부파일"/>
+                    <label value="productmg">파일찾기</label> 
+                    <input className="title-file2" type='file' onChange={getValue} name='productmg'/>  
+               </div>
+              </div>
                   <CKEditor className="info-input"
                     editor={ClassicEditor}  
                     config={{
