@@ -63,6 +63,7 @@ const  ItemUpload = () =>{
       ...uploadProdData,
       [name]: value
     })
+
   };
 
   const onCheck=()=>{
@@ -73,6 +74,9 @@ const  ItemUpload = () =>{
         <Container>
             <div className="upLoadInput">
                 <input className="title-input" type='text' placeholder='pleace enter product name'  onChange={getValue} name='title'/>
+                <input className="title-input" type='text' placeholder='pleace enter product color'  onChange={getValue} name='color'/>
+                <input className="title-input" type='text' placeholder='pleace enter product size'  onChange={getValue} name='size'/>
+                <input className="title-input" type='text' placeholder='pleace enter product productmg'  onChange={getValue} name='productmg'/>  
                   <CKEditor className="info-input"
                     editor={ClassicEditor}  
                     config={{
