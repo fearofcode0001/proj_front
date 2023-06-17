@@ -19,7 +19,7 @@ height: 100%;
   }
   .upLoadInputHead{
     width: 100%;
-    height: 200px;
+    height: 150px;
     display: flex;
     flex-direction:column;
     justify-content: space-evenly;
@@ -31,13 +31,28 @@ height: 100%;
   
   
   input{
-    width: 100%;
-    height: 22px;
+    width: 300px;
+    height: 25px;
     border: none;
-    font-size: 17px;
+    font-size: 13px;
     border-bottom:1px solid #CCC;
+    display: flex;
     &:focus{
       outline: none;
+    }
+    ::file-selector-button {  
+      width: 150px;
+      height: 20px;
+      background: #fff;
+      border: 1px solid black;
+      font-size: 11px;
+      &:hover{
+        background-color: black;
+        color: white;
+      }
+    }
+    ::placeholder{
+      font-size:11px;
     }
   }
   /* .ck.ck-editor__editable:not(.ck-editor__nested-editable) {    
@@ -49,7 +64,7 @@ height: 100%;
   }
   //에디터 높이
   .ck.ck-editor__editable{
-    height: calc(100vh - 500px);
+    height: calc(100vh - 430px);
   }
   .submit-button{
     border: 1px solid black;
@@ -63,6 +78,15 @@ height: 100%;
         background-color: black;
     }
   }
+
+  .filebox .upload-name {
+    height: 20px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 78%;
+    color: #999999;
+}
 `
 const  ItemUpload = () =>{
 
@@ -92,13 +116,7 @@ const  ItemUpload = () =>{
                 <input className="title-price" type='text' placeholder='pleace enter product price'  onChange={getValue} name='price'/>
                 <input className="title-color" type='text' placeholder='pleace enter product color'  onChange={getValue} name='color'/>
                 <input className="title-size" type='text' placeholder='pleace enter product size'  onChange={getValue} name='size'/>
-                <input className="title-file" type='file' placeholder='pleace enter product productmg'  onChange={getValue} name='productmg'/>  
-                <input className="title-file2" type='file' placeholder='pleace enter product productmg'  onChange={getValue} name='productmg'/>  
-                <div className="filebox">
-                    <input class="upload-name" value="첨부파일" placeholder="첨부파일"/>
-                    <label value="productmg">파일찾기</label> 
-                    <input className="title-file2" type='file' onChange={getValue} name='productmg'/>  
-               </div>
+                <input className="title-file2" type='file' onChange={getValue} name='productmg' multiple/>  
               </div>
                   <CKEditor className="info-input"
                     editor={ClassicEditor}  
