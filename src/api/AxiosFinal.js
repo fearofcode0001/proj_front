@@ -1,19 +1,19 @@
 import axios from "axios";
-const Story_Board = "http://localhost:8111";
+const Final_Proj = "http://localhost:8111";
 
 const AxiosFinal = {
      // 로그인
-     memberLogin: async(email, pw) => {    
+     memberLogin: async(email, pwd) => {    
         const login = {
-            id : email,
-            pwd : pw 
+            emial : email,
+            pwd : pwd
         };
-        return await axios.post(Story_Board + "/login", login);
+        return await axios.post(Final_Proj + "/auth/login", login);
     },
 
     //회원 조회
     memberGet: async(id) => {
-        return await axios.get(Story_Board + `/member?name=${id}`);
+        return await axios.get(Final_Proj + `/member?name=${id}`);
     },
 
     // 아이디 찾기 
@@ -22,7 +22,7 @@ const AxiosFinal = {
                 name : name,
                 email : email
             };
-        return await axios.post(Story_Board+ "/searchId", searchId);
+        return await axios.post(Final_Proj+ "/searchId", searchId);
       },
 
 
@@ -34,13 +34,13 @@ const AxiosFinal = {
                 id : id
 
             };
-        return await axios.post(Story_Board+ "/searchPw", searchPw);
+        return await axios.post(Final_Proj+ "/searchPw", searchPw);
      },
 
 
     // 회원 가입 여부 확인
     memberRegCheck : async(email) => {
-        return await axios.get(Story_Board + `/check?id=${email}`);
+        return await axios.get(Final_Proj + `/check?id=${email}`);
     },
 
     // 회원 가입
@@ -53,7 +53,7 @@ const AxiosFinal = {
             USER_ADDR: addr,
             USER_PHONE: phone,
         };
-        return await axios.post(Story_Board + "/new", member);
+        return await axios.post(Final_Proj + "/new", member);
     },
 
     //탈퇴
@@ -62,12 +62,12 @@ const AxiosFinal = {
             id : email_sec,
             pwd : pwd_sec            
         };
-        return await axios.post(Story_Board + "/sec", sec);
+        return await axios.post(Final_Proj + "/sec", sec);
     },
    
     // 이메일 인증
     mailCode : async(mail) => {
-        return await axios.get(Story_Board + `/mail/?mail=${mail}`);
+        return await axios.get(Final_Proj + `/mail/?mail=${mail}`);
     },
 
     // 이메일 인증 번호 
@@ -76,7 +76,7 @@ const AxiosFinal = {
             mail : mail,
             code : code
         }
-        return await axios.post(Story_Board + `/verify`, check);
+        return await axios.post(Final_Proj + `/verify`, check);
     }
     //채팅
     
