@@ -5,7 +5,7 @@ const AxiosFinal = {
      // 로그인
      memberLogin: async(email, pwd) => {    
         const login = {
-            emial : email,
+            email : email,
             pwd : pwd
         };
         return await axios.post(Final_Proj + "/auth/login", login);
