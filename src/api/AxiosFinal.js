@@ -44,16 +44,15 @@ const AxiosFinal = {
     },
 
     // 회원 가입
-    memberReg: async(name, email, pwd, pwdchk, addr, phone) => {
+    memberReg: async(name, email, pwd, addr, phone) => {
         const member = {
-            USER_NAME: name,
-            USER_EMAIL: email,
-            USER_PWD: pwd,
-            USER_PWDCH: pwdchk,
-            USER_ADDR: addr,
-            USER_PHONE: phone,
+            userName: name,
+            userEmail: email,
+            userPwd: pwd,
+            userAddr: addr,
+            userPhone: phone,
         };
-        return await axios.post(Final_Proj + "/new", member);
+        return await axios.post(Final_Proj + "/auth/signup", member);
     },
 
     //탈퇴
