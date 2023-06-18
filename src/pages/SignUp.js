@@ -332,10 +332,10 @@ const SignUp = () => {
                         </div>
                     </div>
                     <div>
+                    
+                    <button className="singUp">{(isEmail && isPw && isConPw && isName && isPhone && isAddr) ? 
                     <button className="enable-button" onClick={onClickLogin}>CREATE</button> :
-                        {/* <button className="singUp">{(isEmail && isPw && isConPw && isName && isPhone && isAddr) ? 
-                    <button className="enable-button" onClick={onClickLogin}>CREATE</button> :
-                    <button className="disable-button">CREATE</button> }</button> */}
+                    <button className="disable-button">CREATE</button> }</button>
                     </div>                                            
                 </div>
                 <Link to="/Login">LOGIN</Link>
