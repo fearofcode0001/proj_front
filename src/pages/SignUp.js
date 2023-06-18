@@ -249,7 +249,7 @@ const SignUp = () => {
     const onClickLogin = async() => {
         console.log("Click 회원가입");
          // 가입 여부 우선 확인
-         const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, addr, inputPhone);
+         const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, inputAddr, inputPhone);
         //  const memberCheck = await AxiosFinal.memberRegCheck(inputEmail);
         //  console.log("가입 가능 여부 확인 : ", memberCheck.data);
         //  // 가입 여부 확인 후 가입 절차 진행
