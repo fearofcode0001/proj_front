@@ -11,7 +11,8 @@ import { Link } from "react-router-dom";
 const Container = styled.div`
 height: 100vh;
 display: flex;
-justify-content: space-evenly;
+justify-content: center;
+align-items: center;
 text-align: center;
 overflow-y: scroll;
 `;
@@ -38,9 +39,9 @@ a{
     }
 }
 .top{
-    margin-top: 150px;
     font-weight: bolder;
     font-size: 50px;
+
 }
 .input {
    width: 100%;
@@ -107,20 +108,27 @@ input {
     color: red;
 }
 .enable-button {
+    width: 400px;
+    height: 40px;
+    font-size: 10px;
+    color: black;
+    border: 1px solid black;
 
 }
 .enable-button:active {
 
 }
 .disable-button {
-    width: 400px;
-    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
     font-size: 10px;
     color: black;
-    border: none;
-    &:hover{
-        color: #CCC;
-    }
+    border: 1px solid #CCC;
+    background-color: #CCC;
+ 
 }
 `;
 
@@ -230,13 +238,15 @@ const SignUp = () => {
      const onChangePhone = (e) => {
         const inputPhoneRegex = /^\d{3}\d{3,4}\d{4}$/
         const phoneCurrent = e.target.value;
+        console.log(isPhone);
         setInputPhone(phoneCurrent);
-        if (!inputPhoneRegex.test(phoneCurrent)) { // 전화번호 입력이 잘 못 되었을 때
+        if (!inputPhoneRegex.test(e.target.value)) { // 전화번호 입력이 잘 못 되었을 때
             setPhoneMessage('전화번호 형식이 올바르지 않습니다.')
             setIsPhone(false)
         } else {
             setPhoneMessage('올바른 전화번호 형식입니다.')
             setIsPhone(true);
+            console.log(isPhone);
         } 
     }
 
@@ -244,6 +254,7 @@ const SignUp = () => {
     const onChangeAddr = (e) => {
         setInputAddr(e.target.value);
         setIsAddr(true);
+        console.log(isAddr)
     }
 
     const onClickLogin = async() => {
@@ -323,7 +334,7 @@ const SignUp = () => {
                     </div>
 
                     <div className="item">
-                        <input type="text" placeholder="ADDRESS" className="addrInput" value={addr} onChange={onChangeAddr}/>
+                        <input type="text" placeholder="ADDRESS" className="addrInput" onChange={onChangeAddr}/>
                         <button className="addrBtn" onClick={openPostCode}>FIND</button>
                         <div id='popupDom'>
                             {isPopupOpen && (                    
@@ -333,9 +344,9 @@ const SignUp = () => {
                     </div>
                     <div>
                     
-                    <button className="singUp">{(isEmail && isPw && isConPw && isName && isPhone && isAddr) ? 
+                    {(isEmail && isPw && isConPw && isName && isPhone && isAddr) ? 
                     <button className="enable-button" onClick={onClickLogin}>CREATE</button> :
-                    <button className="disable-button">CREATE</button> }</button>
+                    <button className="disable-button">notyet</button> }
                     </div>                                            
                 </div>
                 <Link to="/Login">LOGIN</Link>
