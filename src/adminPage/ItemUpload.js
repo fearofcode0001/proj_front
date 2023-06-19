@@ -25,7 +25,7 @@ height: 100%;
   }
   .upLoadInputHead{
     width: 100%;
-    height: 150px;
+    height: 180px;
     display: flex;
     flex-direction:column;
     justify-content: space-evenly;
@@ -60,6 +60,11 @@ height: 100%;
     ::placeholder{
       font-size:11px;
     }
+  }
+  select{
+    height: 20px;
+    border:none;
+    font-size: 11px;
   }
   /* .ck.ck-editor__editable:not(.ck-editor__nested-editable) {    
     height: 500px;
@@ -103,12 +108,13 @@ const  ItemUpload = () =>{
     color:'',
     size:'',
     productImg:'',
+    category:'',
     content: ''
   })
   //비구조화 를 통해 값 추출
-  const{title,price,color,size,productImg,content} = uploadProdData;
+  const{title,price,color,size,category,productImg,content} = uploadProdData;
   //e.target으로 value 와 name추출
-  const onChange = (e) => {
+  const getValue = (e) => {
     const { value, name } = e.target;
     setUploadProdData({
       ...uploadProdData,
@@ -119,7 +125,13 @@ const  ItemUpload = () =>{
   };
 
   const onCheck = async() =>{ 
-    const response =  await AxiosFinal.productUpload(title,price,color,size,productImg,)
+    const response =  await AxiosFinal.productUpload(uploadProdData.title,
+                                                     uploadProdData.price,
+                                                     uploadProdData.color,
+                                                     uploadProdData.size,
+                                                     uploadProdData.category,
+                                                     uploadProdData.productImg,
+                                                     uploadProdData.content)
     console.log(uploadProdData);
   }
     return(
@@ -128,18 +140,29 @@ const  ItemUpload = () =>{
             <div className="upLoadInput">
               <div className="upLoadInputHead">
                 <div className="upLoadName">
-                  상품명 : <input className="title-input" type='text' placeholder='pleace enter product name'  onChange={onChange} value={title} name='title'/>
+                  상품명 : <input className="title-input" type='text' placeholder='pleace enter product name'  onChange={getValue} value={title} name='title'/>
                 </div>
                 <div className="upLoadName">
-                가격 :<input className="title-price" type='text' placeholder='pleace enter product price'  onChange={onChange} value={price} name='price'/>
+                가격 :<input className="title-price" type='text' placeholder='pleace enter product price'  onChange={getValue} value={price} name='price'/>
                 </div>
                 <div className="upLoadName">
-                컬러 :<input className="title-color" type='text' placeholder='pleace enter product color'  onChange={onChange} value={color} name='color'/>
+                컬러 :<input className="title-color" type='text' placeholder='pleace enter product color'  onChange={getValue} value={color} name='color'/>
                 </div>
                <div className="upLoadName">
-                사이즈 : <input className="title-size" type='text' placeholder='pleace enter product size'  onChange={onChange} value={size} name='size'/>
+                사이즈 : <select name='size' onChange={getValue}>
+                            <option  value="S" >S</option>
+                            <option  value="M" >M</option>
+                            <option  value="L" >L</option>
+                         </select>
                 </div>
-                <input className="title-file2" type='file' onChange={onChange} value={productImg} name='productImg' multiple/> 
+                <div className="upLoadName">
+                카테고리 : <select name='category' onChange={getValue} >
+                            <option  value="TOP" >TOP</option>
+                            <option  value="BOTTOM" >BOTTOM</option>
+                            <option  value="OUTER" >OUTER</option>
+                          </select>
+                </div>
+                <input className="title-file2" type='file' onChange={getValue} value={productImg} name='productImg' multiple/> 
                 
               </div>
                   <CKEditor className="info-input"

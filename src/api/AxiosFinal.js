@@ -12,8 +12,17 @@ const AxiosFinal = {
     },
 
     //아이템 업로드
-    productUpload : async(email, pw)=>{
-
+    productUpload : async(title,price,color,size,category,productImg,content)=>{
+        const upLoad={
+            productName:title,
+            productPrice:price,
+            productColor:color,
+            productSize:size,
+            productCategory:category,
+            productMainImg:productImg,
+            productDetail:content
+        };
+        return await axios.post(Final_proj + "/adminItem/upload", upLoad);
     },
     //회원 조회
     memberGet: async(id) => {
