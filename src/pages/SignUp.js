@@ -4,37 +4,59 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserInfo.js";
 import PopupPostCode from "../api/PopupPostCode";
 import AxiosFinal from "../api/AxiosFinal"
+import { Link } from "react-router-dom";
 
 
 
 const Container = styled.div`
 height: 100vh;
 display: flex;
-justify-content: space-evenly;
+justify-content: center;
+align-items: center;
 text-align: center;
 overflow-y: scroll;
 `;
 const InerContainer = styled.div`
-align-items: center;
+display: flex;
+flex-direction:column;
 width: 400px;
+height: 750px;
+a{  
+    width: 398px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    font-size:10px;
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    &:hover{
+        background-color: black;
+        color:white;
+    }
+}
 .top{
-    margin-top: 150px;
-    font-weight: bolder;
-    font-size: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+
 }
 .input {
-    margin-top: 30px;
+   width: 100%;
 }
 input {
-    width: 100%;
+    width: 395px;
     height: 40px;
     margin-top: 20px;
-    font-weight: bolder;
     font-size: 10px;
     border: 1px solid #ccc;
     &::placeholder {
         padding: 5px;
-        font-size: 12px;
+        font-size: 10px;
     };
 }
 .emailBtn,
@@ -51,19 +73,17 @@ input {
     margin-bottom : 10px
 }
 .singUp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     /* height: 38px; */
     margin-top: 20px;
     background-color: white;
-    border-style: none;
 }
-.goToLogin {
-    width: 100%;
-    height: 38px;
-    margin-top: 50px;
-    background-color: white;
-}
+
 .hint {
+        width: 100%;
       display: flex;
       margin: 5px 0px 0px 8px;
       justify-content:right;
@@ -71,12 +91,7 @@ input {
       font-size: 12px;
       color: #999;
 }
-.addrInput {
-    margin-bottom: 10px;
-}
-
 .addrFind {
-    margin-bottom: 10px;
     margin-right: 10px;
     width: 170px;
 }
@@ -93,14 +108,7 @@ input {
     color: red;
 }
 .enable-button {
-    font-size: 13px;
-    /* font-weight: bold; */
-    width: 100%;
-    height: 38px;
-    color: black;
-    background-color: white;
-    font-size: 15px;
-    font-weight: 400;
+
 }
 .enable-button:active {
     font-size: 30px;
@@ -119,7 +127,7 @@ input {
 .disable-button {
     text-align: right;
     width: 50px;   
-    /* font-size: 10px; */
+    font-size: 10px;
     background-color: white;
     border: none;
     &:hover{
@@ -234,13 +242,15 @@ const SignUp = () => {
      const onChangePhone = (e) => {
         const inputPhoneRegex = /^\d{3}\d{3,4}\d{4}$/
         const phoneCurrent = e.target.value;
+        console.log(isPhone);
         setInputPhone(phoneCurrent);
-        if (!inputPhoneRegex.test(phoneCurrent)) { // 전화번호 입력이 잘 못 되었을 때
+        if (!inputPhoneRegex.test(e.target.value)) { // 전화번호 입력이 잘 못 되었을 때
             setPhoneMessage('전화번호 형식이 올바르지 않습니다.')
             setIsPhone(false)
         } else {
             setPhoneMessage('올바른 전화번호 형식입니다.')
             setIsPhone(true);
+            console.log(isPhone);
         } 
     }
 
@@ -279,26 +289,27 @@ const SignUp = () => {
     const onClickLogin = async() => {
         console.log("Click 회원가입");
          // 가입 여부 우선 확인
-         const memberCheck = await AxiosFinal.memberRegCheck(inputEmail);
-         console.log("가입 가능 여부 확인 : ", memberCheck.data);
-         // 가입 여부 확인 후 가입 절차 진행
+         const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, inputAddr, inputPhone);
+        //  const memberCheck = await AxiosFinal.memberRegCheck(inputEmail);
+        //  console.log("가입 가능 여부 확인 : ", memberCheck.data);
+        //  // 가입 여부 확인 후 가입 절차 진행
          
-         if (memberCheck.data === true) {
-             console.log("가입된 아이디가 없습니다. 다음 단계 진행 합니다.");
+        //  if (memberCheck.data === true) {
+        //      console.log("가입된 아이디가 없습니다. 다음 단계 진행 합니다.");
 
-             const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, inputConPw, addr, inputPhone);
-             console.log(addr);
-             console.log(memberReg.data.result);
-             if(memberReg.data === true) {
-                 navigate('/welcome');
-             } else {
-                 alert("회원 가입에 실패 했습니다.");
-             }
+        //      const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, inputConPw, addr, inputPhone);
+        //      console.log(addr);
+        //      console.log(memberReg.data.result);
+        //      if(memberReg.data === true) {
+        //          navigate('/welcome');
+        //      } else {
+        //          alert("회원 가입에 실패 했습니다.");
+        //      }
  
-         } else {
-             console.log("이미 가입된 회원 입니다.")
-             alert("이미 가입된 회원 입니다.");
-         } 
+        //  } else {
+        //      console.log("이미 가입된 회원 입니다.")
+        //      alert("이미 가입된 회원 입니다.");
+        //  } 
      }
 
 
@@ -309,7 +320,7 @@ const SignUp = () => {
         <Container>
             <InerContainer>
                 <div className="top">
-                    iMMUTABLE
+                    SIGNUP
                 </div>
                 <div className="input">
                     <div className="item">
@@ -352,7 +363,7 @@ const SignUp = () => {
                     </div>
 
                     <div className="item">
-                        <input type="text" placeholder="ADDRESS" className="addrInput" value={addr} onChange={onChangeAddr}/>
+                        <input type="text" placeholder="ADDRESS" className="addrInput" onChange={onChangeAddr}/>
                         <button className="addrBtn" onClick={openPostCode}>FIND</button>
                         <div id='popupDom'>
                             {isPopupOpen && (                    
@@ -361,15 +372,13 @@ const SignUp = () => {
                         </div>
                     </div>
                     <div>
-                        <button className="singUp">{(isEmail && isPw && isConPw && isName && isPhone && isAddr) ? 
+                    
+                    {(isEmail && isPw && isConPw && isName && isPhone && isAddr) ? 
                     <button className="enable-button" onClick={onClickLogin}>CREATE</button> :
-                    <button className="disable-button">CREATE</button> }</button>
-                    </div>
-                    <div>
-                        <button className="goToLogin">LOGIN</button>
-                    </div>
+                    <button className="disable-button">INPUT INFORMATION</button> }
+                    </div>                                            
                 </div>
-                
+                <Link to="/Login">LOGIN</Link>
             </InerContainer>
         </Container>
     );

@@ -1,6 +1,7 @@
-import React from "react";
+import React ,{useState}from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
+import AxiosFinal from "../api/AxiosFinal";
 
 const Container =styled.div`
     width: 100%;
@@ -58,15 +59,43 @@ const Body = styled.div`
 `
 
 const Login =()=>{
+     //네비게이트를 설정하여 다시 home화면으로 돌아갈 수 있게 한다.
+    const navigate = useNavigate();
+    //id와 pw를 입력받는다.
+    const [inputId,setInputId] = useState("");    
+    const [inputPw,setInputPw] = useState("");
+    //input창에서 id를 받아옴.
+    const onChangeId = e => {
+        setInputId(e.target.value);
+    };
+    //input창에서 pw를 받아옴.
+    const onChangePw = (e) => {
+        setInputPw(e.target.value)
+    };
+    //로그인 비동기통신
+    const onClickLogin=  async() =>{ 
+        const response = await AxiosFinal.memberLogin(inputId,inputPw);
+        console.log(response);
+        if(response.data===true){
+            //로그인시 유저아이디와 로그인여부에 값을 바꿔준다.
+            window.localStorage.setItem("isLoginSuv", "TRUE");
+            window.localStorage.setItem("userIdSuv", inputId);
+            //로그인 성공시 home화면으로 돌아간다.
+            navigate ("/");  
+        } else {
+            console.log("로그인 에러");
+        }  
+    }
+
 
     return(
         <Container>
             <Body>
                 LOGIN
                 <div className="login">
-                    <input type="text" placeholder="ID"/>
-                    <input type="text" placeholder="PASSWORD"/>                 
-                    <button>SIGN IN</button>
+                    <input type="text" placeholder="ID" value ={inputId} onChange={onChangeId}/>
+                    <input type="password" placeholder="PASSWORD" value ={inputPw} onChange={onChangePw}/>                 
+                    <button onClick={onClickLogin}>SIGN IN</button>
                     <div className="otherOption">
                         <Link to="/FindEmail">FORGOT YOUR PASSWORD?</Link>
                         <Link to="/">home</Link>

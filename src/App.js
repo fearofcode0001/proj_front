@@ -13,7 +13,12 @@ import Mypage from './pages/Mypage';
 import Board from './pages/Board';
 import AdminPage from './adminPage/AdminPage';
 import ProductInfo from './pages/ProductInfo';
-
+import ModifyingInfo from './pages/ModifyingInfo';
+import Secession from './pages/Secession';
+import Mypost from './pages/Mypost';
+import Order from './pages/Order';
+import Review from './pages/Review';
+import Wishlist from './pages/Wishlist';
 
 function App() {
   return (
@@ -31,7 +36,14 @@ function App() {
         <Route path="/Board" element={<Board/>}/>
         <Route path="/Mypage" element={<Mypage/>}/>        
         <Route path="/AdminPage" element={<AdminPage/>}/>
+        <Route path="ProductInfo" element={<ProductInfo/>}/> 
+        <Route path="/ModifyingInfo" element={<ModifyingInfo/>}/> 
+        <Route path="/Secession" element={<Secession/>}/> 
         <Route path="/ProductInfo" element={<ProductInfo/>}/> 
+        <Route path="/Order" element={<Order/>} />
+        <Route path="/Mypost" element={<Mypost/>} />
+        <Route path="/Review" element={<Review/>} />
+        <Route path="/Wishlist" element={<Wishlist/>} />
       </Routes>
      </Router>
 

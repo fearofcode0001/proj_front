@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import test from "../img/test.webp";
 import Header from "./Header";
+import DropFiter from "./DropFiter";
+
 
 const Container = styled.div`
     width: 100%;
@@ -55,12 +57,23 @@ const Container_in = styled.div`
 
 
 
+const Filter = styled.div`
+    width: 100px;
+    margin-top: 20px;
+    font-size: 13px;
+    color: black;
+    float: right;
+    display: flex;
+    cursor: pointer;    
+`
 
 
   
 
 
 const Shop = () => {
+
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBlurred, setIsBlurred] = useState(false);
 
     const handleHeaderClick = () => {
@@ -73,13 +86,23 @@ const Shop = () => {
     
  
     
-
+    const handleFilter = () => {
+        setIsFilterOpen(!isFilterOpen);
+      };
     
 
     return(
       <Container>
         <Header onClick={handleHeaderClick}/>
-        <Mainboby >    
+       
+        <Mainboby >
+            <Filter>
+                <div onClick={handleFilter}>
+                    {isFilterOpen ? '정렬 기준 ▲' : '정렬 기준 ▼'}
+                    {isFilterOpen && <DropFiter/>}
+                </div>
+                  
+            </Filter>  
             <Article >
             <Container_in>
             <div className={isBlurred ? 'blur' : ''}>
@@ -163,7 +186,6 @@ const Shop = () => {
             </Container_in>
             </Article>
         </Mainboby>
-       
       </Container>  
       
     )

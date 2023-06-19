@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import SaleDate from "./SaleDate";
 import OrderCheck from "./OrderCheck";
 import ItemUpload from "./ItemUpload";
-import ItemUpdate from "./ItemUpdate";
 import Inventory from "./Inventory";
 import Qna from "./Qna";
 import CustomerMan from "./CustomerMan";
+import AxiosFinal from "../api/AxiosFinal";
 
 
 const Container=styled.div`
@@ -90,7 +90,6 @@ const Sidemenu = [
     { name : "saleDate"},
     { name : "orderCheck"},    
     { name : "itemUpload"},
-    { name : "itemUpdate"},
     { name : "inventory"},
     { name : "qna"},
     { name : "customer Management"},
@@ -138,13 +137,21 @@ const AdminPage=()=>{
 
     //임시 주문건 입력
     const [neworder,setNewOrder] = useState(1);
-
+    //어드민 sideMenu를 바꾸는 useState
     const [changeMenu,setChangeMenu] =useState();
 
     const onChangePage =(e)=>{
         setChangeMenu(e);
+        
     }
-
+    //전체회원조회 컴포넌트
+    const onLoadCustomer=(e)=>{
+        if(e==="customer Management"){
+            console.log("customer Management");
+            const response = AxiosFinal.customerManage();
+            console.log(response.data);
+        }
+    }
     return(
         <Container>
             <Head> 
@@ -169,7 +176,8 @@ const AdminPage=()=>{
 
             <MainBody> 
                 <div className="sideMenu">
-                    {Sidemenu.map(s=>(<SideBustton key={s.name} onClick={()=>onChangePage(s.name)}>
+                    {Sidemenu.map(s=>(<SideBustton key={s.name} onClick={()=>{onChangePage(s.name);
+                                                                               onLoadCustomer(s.name);}}>
                         {s.name}
                     </SideBustton> ))}
 
@@ -178,10 +186,9 @@ const AdminPage=()=>{
                     {changeMenu ==="saleDate" &&<SaleDate/>}                    
                     {changeMenu ==="orderCheck" &&<OrderCheck/>}
                     {changeMenu ==="itemUpload" &&<ItemUpload/>}
-                    {changeMenu ==="itemUpdate" &&<ItemUpdate/>}
-                    {changeMenu ==="inventory" &&<Inventory/>}
+                    {changeMenu ==="inventory" &&<Inventory />}
                     {changeMenu ==="qna" &&<Qna/>}                    
-                    {changeMenu ==="customer Management" &&<CustomerMan/>}       
+                    {changeMenu ==="customer Management" &&<CustomerMan />}       
                     
 
                 </div>

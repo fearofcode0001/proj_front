@@ -1,19 +1,38 @@
 import axios from "axios";
-const Story_Board = "http://localhost:8111";
+const Final_proj = "http://localhost:8111";
 
 const AxiosFinal = {
      // 로그인
      memberLogin: async(email, pw) => {    
         const login = {
-            id : email,
+            email : email,
             pwd : pw 
         };
-        return await axios.post(Story_Board + "/login", login);
+        return await axios.post(Final_proj + "/auth/login", login);
     },
+
+    //아이템 업로드
+    productUpload : async(title,price,color,size,category,productImg,content)=>{
+        const upLoad={
+            productName:title,
+            productPrice:price,
+            productColor:color,
+            productSize:size,
+            productCategory:category,
+            productMainImg:productImg,
+            productDetail:content
+        };
+        return await axios.post(Final_proj + "/adminItem/upload", upLoad);
+    },
+    //어드민페이지 회원 전체조회
+    customerManage : async(id) => {
+        return await axios.get(Final_proj + `/admin/check?id=${id}`);
+    },
+
 
     //회원 조회
     memberGet: async(id) => {
-        return await axios.get(Story_Board + `/member?name=${id}`);
+        return await axios.get(Final_proj + `/member?name=${id}`);
     },
 
     // 아이디 찾기 
@@ -22,7 +41,7 @@ const AxiosFinal = {
                 name : name,
                 email : email
             };
-        return await axios.post(Story_Board+ "/searchId", searchId);
+        return await axios.post(Final_proj+ "/searchId", searchId);
       },
 
 
@@ -34,26 +53,25 @@ const AxiosFinal = {
                 id : id
 
             };
-        return await axios.post(Story_Board+ "/searchPw", searchPw);
+        return await axios.post(Final_proj+ "/searchPw", searchPw);
      },
 
 
     // 회원 가입 여부 확인
     memberRegCheck : async(email) => {
-        return await axios.get(Story_Board + `/check?id=${email}`);
+        return await axios.get(Final_proj + `/check?id=${email}`);
     },
 
     // 회원 가입
-    memberReg: async(name, email, pwd, pwdchk, addr, phone) => {
+    memberReg: async(name, email, pwd, addr, phone) => {
         const member = {
-            USER_NAME: name,
-            USER_EMAIL: email,
-            USER_PWD: pwd,
-            USER_PWDCH: pwdchk,
-            USER_ADDR: addr,
-            USER_PHONE: phone,
+            userName: name,
+            userEmail: email,
+            userPwd: pwd,
+            userAddr: addr,
+            userPhone: phone,
         };
-        return await axios.post(Story_Board + "/new", member);
+        return await axios.post(Final_proj + "/auth/signup", member);
     },
 
     //탈퇴
@@ -62,22 +80,24 @@ const AxiosFinal = {
             id : email_sec,
             pwd : pwd_sec            
         };
-        return await axios.post(Story_Board + "/sec", sec);
+        return await axios.post(Final_proj + "/sec", sec);
     },
    
     // 이메일 인증
     mailCode : async(mail) => {
-        return await axios.get(Story_Board + `/mail/?mail=${mail}`);
+        return await axios.get(Final_proj + `/mail/?mail=${mail}`);
     },
 
-    // 이메일 번호 
+    // 이메일 인증 번호 
     mailCodeck : async(mail, code) => {
         const check = {
             mail : mail,
             code : code
         }
-        return await axios.post(Story_Board + `/verify`, check);
+        return await axios.post(Final_proj + `/verify`, check);
     }
+    //채팅
+    
 };
 
 export default AxiosFinal;

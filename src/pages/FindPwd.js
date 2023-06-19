@@ -59,6 +59,10 @@ const InnerContainer = styled.div`
         background-color: black;
         }
     }
+    a {
+        text-decoration: none;
+        color: black;
+    }
 `;
 const FindPwd = () => {
     const navigate = useNavigate();
@@ -123,9 +127,11 @@ const FindPwd = () => {
     return(
         <Container>
             <InnerContainer>
-                <div className="top">
-                    iMMUTABLE
-                </div>
+                <Link to="/">
+                    <div className="top">
+                        iMMUTABLE
+                    </div>
+                </Link>
                 <div className="item1">
                         <input className="email" type="email" placeholder="EMAIL"onChange={onChangeMail}/>
                         <button className="emailBtn">SEND</button>
