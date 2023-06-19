@@ -2,6 +2,7 @@ import React,{ useState } from "react";
 import styled from "styled-components";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import AxiosFinal from "../api/AxiosFinal";
 
 
 
@@ -117,7 +118,8 @@ const  ItemUpload = () =>{
     console.log(setUploadProdData)
   };
 
-  const onCheck=()=>{
+  const onCheck = async() =>{ 
+    const response =  await AxiosFinal.productUpload()
     console.log(uploadProdData);
   }
     return(
