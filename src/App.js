@@ -16,17 +16,15 @@ import ProductInfo from './pages/ProductInfo';
 import ModifyingInfo from './pages/ModifyingInfo';
 import Secession from './pages/Secession';
 import Mypost from './pages/Mypost';
-
 import Order from './pages/Order';
 import Review from './pages/Review';
 import Wishlist from './pages/Wishlist';
-import test from './pages/test';
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* <Route path="/" element={<Main/>}/>
+        <Route path="/" element={<Main/>}/>
         <Route path="/Login" element={<Login/>}/>
         <Route path="/SignUp" element={<SignUp/>}/>        
         <Route path="/Cart" element={<Cart/>}/>
@@ -45,8 +43,7 @@ function App() {
         <Route path="/Order" element={<Order/>} />
         <Route path="/Mypost" element={<Mypost/>} />
         <Route path="/Review" element={<Review/>} />
-        <Route path="/Wishlist" element={<Wishlist/>} /> */}
-        <Route path="/" element={<test/>} />
+        <Route path="/Wishlist" element={<Wishlist/>} />
       </Routes>
      </Router>
 
