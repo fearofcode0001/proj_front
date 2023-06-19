@@ -132,7 +132,7 @@ const  ItemUpload = () =>{
                                                      uploadProdData.category,
                                                      uploadProdData.productImg,
                                                      uploadProdData.content)
-    console.log(uploadProdData);
+    console.log(response);
   }
     return(
 
