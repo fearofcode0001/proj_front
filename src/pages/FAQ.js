@@ -14,7 +14,6 @@ const Container = styled.div`
 const InnerContainer = styled.div`
     margin: 50px 0 50px 0;
     width: 800px;
-
  
     .top {
         display: flex;
@@ -66,14 +65,17 @@ const Accordion = styled.div`
     }
 `;
 
-const Button = styled.button`
-margin-top: 20px;
-float: right;
-background-color: rgba(0, 0, 0, 0);
-border: none;
+    const Button = styled.button`
+    margin-top: 20px;
+    float: right;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
     a {
         color : black;
         text-decoration: none;
+        &:hover{
+            color: gray;
+        }
     }
 `;
 const FAQ = () => {
