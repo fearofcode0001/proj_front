@@ -108,28 +108,33 @@ input {
     color: red;
 }
 .enable-button {
-
+    font-size: 10px;
+    /* font-weight: bold; */
+    margin-bottom: 20px;
+    width: 100%;
+    height: 38px;
+    color: white;
+    background-color: black;
 }
 .enable-button:active {
-    font-size: 30px;
+    font-size: 10px;
     /* font-weight: bold; */
     width: 100%;
     height: 38px;
     color: white;
     background-color: black;
-    font-size: 15px;
-    font-weight: 400;
-    font-weight: 700;
     &:hover {
         border: 1px solid black;
     }
 }
 .disable-button {
-    text-align: right;
-    width: 50px;   
+    width: 100%;
+    height: 38px;
+    margin-bottom: 20px;
     font-size: 10px;
+    color: black;
     background-color: white;
-    border: none;
+    border: 1px solid black;
     &:hover{
         color: #CCC;
     }
