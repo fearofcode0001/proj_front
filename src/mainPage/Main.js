@@ -257,7 +257,7 @@ const ChatButton=styled.button`
 
 const Main= () =>{
     const [isOpen, setIsOpen] = useState(0);
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(false);
     const [openChat, setOpenChat] = useState(0);
 
     //채팅 on/off 컴포넌트
