@@ -140,23 +140,25 @@ const  ItemUpload = () =>{
             <div className="upLoadInput">
               <div className="upLoadInputHead">
                 <div className="upLoadName">
-                  상품명 : <input className="title-input" type='text' placeholder='pleace enter product name'  onChange={getValue} value={title} name='title'/>
+                  NAME : <input className="title-input" type='text' placeholder='pleace enter product name'  onChange={getValue} value={title} name='title'/>
                 </div>
                 <div className="upLoadName">
-                가격 :<input className="title-price" type='text' placeholder='pleace enter product price'  onChange={getValue} value={price} name='price'/>
+                PRICE :<input className="title-price" type='text' placeholder='pleace enter product price'  onChange={getValue} value={price} name='price'/>
                 </div>
                 <div className="upLoadName">
-                컬러 :<input className="title-color" type='text' placeholder='pleace enter product color'  onChange={getValue} value={color} name='color'/>
+                COLOR :<input className="title-color" type='text' placeholder='pleace enter product color'  onChange={getValue} value={color} name='color'/>
                 </div>
                <div className="upLoadName">
-                사이즈 : <select name='size' onChange={getValue}>
+                SIZE : <select name='size' onChange={getValue}>
+                            <option  value="" >size</option>
                             <option  value="S" >S</option>
                             <option  value="M" >M</option>
                             <option  value="L" >L</option>
                          </select>
                 </div>
                 <div className="upLoadName">
-                카테고리 : <select name='category' onChange={getValue} >
+                CATEGORY : <select name='category' onChange={getValue} >
+                            <option  value="" >category</option>
                             <option  value="TOP" >TOP</option>
                             <option  value="BOTTOM" >BOTTOM</option>
                             <option  value="OUTER" >OUTER</option>
