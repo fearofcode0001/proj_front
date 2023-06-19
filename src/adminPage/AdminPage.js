@@ -7,6 +7,7 @@ import ItemUpload from "./ItemUpload";
 import Inventory from "./Inventory";
 import Qna from "./Qna";
 import CustomerMan from "./CustomerMan";
+import AxiosFinal from "../api/AxiosFinal";
 
 
 const Container=styled.div`
@@ -141,8 +142,16 @@ const AdminPage=()=>{
 
     const onChangePage =(e)=>{
         setChangeMenu(e);
+        
     }
-
+    //전체회원조회 컴포넌트
+    const onLoadCustomer=(e)=>{
+        if(e==="customer Management"){
+            console.log("customer Management");
+            const response = AxiosFinal.customerManage("User");
+            console.log(response);
+        }
+    }
     return(
         <Container>
             <Head> 
@@ -167,7 +176,8 @@ const AdminPage=()=>{
 
             <MainBody> 
                 <div className="sideMenu">
-                    {Sidemenu.map(s=>(<SideBustton key={s.name} onClick={()=>onChangePage(s.name)}>
+                    {Sidemenu.map(s=>(<SideBustton key={s.name} onClick={()=>{onChangePage(s.name);
+                                                                               onLoadCustomer(s.name);}}>
                         {s.name}
                     </SideBustton> ))}
 
@@ -176,9 +186,9 @@ const AdminPage=()=>{
                     {changeMenu ==="saleDate" &&<SaleDate/>}                    
                     {changeMenu ==="orderCheck" &&<OrderCheck/>}
                     {changeMenu ==="itemUpload" &&<ItemUpload/>}
-                    {changeMenu ==="inventory" &&<Inventory/>}
+                    {changeMenu ==="inventory" &&<Inventory />}
                     {changeMenu ==="qna" &&<Qna/>}                    
-                    {changeMenu ==="customer Management" &&<CustomerMan/>}       
+                    {changeMenu ==="customer Management" &&<CustomerMan />}       
                     
 
                 </div>
