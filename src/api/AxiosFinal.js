@@ -26,7 +26,7 @@ const AxiosFinal = {
     },
     //어드민페이지 회원 전체조회
     customerManage : async(id) => {
-        return await axios.get(Final_proj + `/check?id=${id}`);
+        return await axios.get(Final_proj + `/admin/check?id=${id}`);
     },
 
 
