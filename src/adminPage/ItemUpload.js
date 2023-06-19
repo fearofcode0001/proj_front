@@ -101,7 +101,7 @@ height: 100%;
 `
 const  ItemUpload = () =>{
 
-  //상품 input을 한번에 관리하는 useState
+  //상품 여러 input을 한번에 관리하는 useState
   const [uploadProdData, setUploadProdData] = useState({
     title: '',
     price:'',
