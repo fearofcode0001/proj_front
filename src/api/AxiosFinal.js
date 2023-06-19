@@ -56,7 +56,7 @@ const AxiosFinal = {
             userAddr: addr,
             userPhone: phone,
         };
-        return await axios.post(Final_proj + "auth/signup", member);
+        return await axios.post(Final_proj + "/auth/signup", member);
     },
 
     //탈퇴
