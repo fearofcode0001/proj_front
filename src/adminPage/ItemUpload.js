@@ -8,6 +8,11 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 const Container=styled.div`
 width: 100%;
 height: 100%;
+  .upLoadName{
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+  }
 
   .upLoadInput{
     width: 100%;
@@ -90,18 +95,26 @@ height: 100%;
 `
 const  ItemUpload = () =>{
 
-  const [uploadProdData, serUploadProdData] = useState({
+  //상품 input을 한번에 관리하는 useState
+  const [uploadProdData, setUploadProdData] = useState({
     title: '',
+    price:'',
+    color:'',
+    size:'',
+    productImg:'',
     content: ''
   })
-
-  const getValue = e => {
-    const { name, value } = e.target;
-    serUploadProdData({
+  //비구조화 를 통해 값 추출
+  const{title,price,color,size,productImg,content} = uploadProdData;
+  //e.target으로 value 와 name추출
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    setUploadProdData({
       ...uploadProdData,
+      //name 키를 가진 값을 value로 설정
       [name]: value
     })
-
+    console.log(setUploadProdData)
   };
 
   const onCheck=()=>{
@@ -112,11 +125,20 @@ const  ItemUpload = () =>{
         <Container>
             <div className="upLoadInput">
               <div className="upLoadInputHead">
-                <input className="title-input" type='text' placeholder='pleace enter product name'  onChange={getValue} name='title'/>
-                <input className="title-price" type='text' placeholder='pleace enter product price'  onChange={getValue} name='price'/>
-                <input className="title-color" type='text' placeholder='pleace enter product color'  onChange={getValue} name='color'/>
-                <input className="title-size" type='text' placeholder='pleace enter product size'  onChange={getValue} name='size'/>
-                <input className="title-file2" type='file' onChange={getValue} name='productmg' multiple/>  
+                <div className="upLoadName">
+                  상품명 : <input className="title-input" type='text' placeholder='pleace enter product name'  onChange={onChange} value={title} name='title'/>
+                </div>
+                <div className="upLoadName">
+                가격 :<input className="title-price" type='text' placeholder='pleace enter product price'  onChange={onChange} value={price} name='price'/>
+                </div>
+                <div className="upLoadName">
+                컬러 :<input className="title-color" type='text' placeholder='pleace enter product color'  onChange={onChange} value={color} name='color'/>
+                </div>
+               <div className="upLoadName">
+                사이즈 : <input className="title-size" type='text' placeholder='pleace enter product size'  onChange={onChange} value={size} name='size'/>
+                </div>
+                <input className="title-file2" type='file' onChange={onChange} value={productImg} name='productImg' multiple/> 
+                
               </div>
                   <CKEditor className="info-input"
                     editor={ClassicEditor}  
@@ -132,7 +154,7 @@ const  ItemUpload = () =>{
                     onChange={(event, editor) => {
                       const data = editor.getData();
                       console.log({ event, editor, data,});
-                      serUploadProdData({
+                      setUploadProdData({
                         ...uploadProdData,
                         content: data
                       })

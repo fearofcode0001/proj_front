@@ -20,7 +20,7 @@ const InerContainer = styled.div`
 display: flex;
 flex-direction:column;
 width: 400px;
-height: 680px;
+height: 750px;
 a{  
     width: 398px;
     height: 40px;
@@ -260,7 +260,6 @@ const SignUp = () => {
     const onChangeAddr = (e) => {
         setInputAddr(e.target.value);
         setIsAddr(true);
-        console.log(isAddr)
     }
 
     const onClickLogin = async() => {
