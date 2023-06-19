@@ -24,6 +24,12 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/adminItem/upload", upLoad);
     },
+    //어드민페이지 회원 전체조회
+    customerManage : async(id) => {
+        return await axios.get(Final_proj + `/check?id=${id}`);
+    },
+
+
     //회원 조회
     memberGet: async(id) => {
         return await axios.get(Final_proj + `/member?name=${id}`);
