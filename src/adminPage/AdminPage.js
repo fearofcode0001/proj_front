@@ -148,7 +148,7 @@ const AdminPage=()=>{
     const onLoadCustomer=(e)=>{
         if(e==="customer Management"){
             console.log("customer Management");
-            const response = AxiosFinal.customerManage("User");
+            const response = AxiosFinal.customerManage();
             console.log(response.data);
         }
     }
