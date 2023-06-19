@@ -119,7 +119,7 @@ const  ItemUpload = () =>{
   };
 
   const onCheck = async() =>{ 
-    const response =  await AxiosFinal.productUpload()
+    const response =  await AxiosFinal.productUpload(title,price,color,size,productImg,)
     console.log(uploadProdData);
   }
     return(
