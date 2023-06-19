@@ -19,10 +19,8 @@ overflow-y: scroll;
 const InerContainer = styled.div`
 display: flex;
 flex-direction:column;
-justify-content: space-evenly;
-/* border: 1px solid black; */
 width: 400px;
-height: 750px;
+height: 680px;
 a{  
     width: 398px;
     height: 40px;
@@ -54,7 +52,6 @@ input {
     width: 395px;
     height: 40px;
     margin-top: 20px;
-    font-weight: bolder;
     font-size: 10px;
     border: 1px solid #ccc;
     &::placeholder {
@@ -62,7 +59,6 @@ input {
         font-size: 10px;
     };
 }
-
 .emailBtn,
 .verifyBtn,
 .addrBtn { 
