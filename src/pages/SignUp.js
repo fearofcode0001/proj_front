@@ -20,10 +20,11 @@ const InerContainer = styled.div`
 display: flex;
 flex-direction:column;
 justify-content: space-evenly;
+/* border: 1px solid black; */
 width: 400px;
-height: 900px;
+height: 750px;
 a{  
-    width: 100%;
+    width: 398px;
     height: 40px;
     display: flex;
     justify-content: center;
@@ -39,15 +40,18 @@ a{
     }
 }
 .top{
-    font-weight: bolder;
-    font-size: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
 
 }
 .input {
    width: 100%;
 }
 input {
-    width: 100%;
+    width: 395px;
     height: 40px;
     margin-top: 20px;
     font-weight: bolder;
@@ -58,6 +62,7 @@ input {
         font-size: 10px;
     };
 }
+
 .emailBtn,
 .verifyBtn,
 .addrBtn { 
@@ -83,6 +88,7 @@ input {
 }
 
 .hint {
+        width: 100%;
       display: flex;
       margin: 5px 0px 0px 8px;
       justify-content:right;
@@ -91,7 +97,6 @@ input {
       color: #999;
 }
 .addrFind {
-    /* margin-bottom: 10px; */
     margin-right: 10px;
     width: 170px;
 }
@@ -113,6 +118,11 @@ input {
     font-size: 10px;
     color: black;
     border: 1px solid black;
+    background-color: white;
+    &:hover{
+        background-color: black;
+        color: white;
+    }
 
 }
 .enable-button:active {
@@ -291,7 +301,7 @@ const SignUp = () => {
         <Container>
             <InerContainer>
                 <div className="top">
-                    iMMUTABLE
+                    SIGNUP
                 </div>
                 <div className="input">
                     <div className="item">
@@ -346,7 +356,7 @@ const SignUp = () => {
                     
                     {(isEmail && isPw && isConPw && isName && isPhone && isAddr) ? 
                     <button className="enable-button" onClick={onClickLogin}>CREATE</button> :
-                    <button className="disable-button">notyet</button> }
+                    <button className="disable-button">INPUT INFORMATION</button> }
                     </div>                                            
                 </div>
                 <Link to="/Login">LOGIN</Link>
