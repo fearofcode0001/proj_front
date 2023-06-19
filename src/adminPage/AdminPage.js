@@ -137,7 +137,7 @@ const AdminPage=()=>{
 
     //임시 주문건 입력
     const [neworder,setNewOrder] = useState(1);
-
+    //어드민 sideMenu를 바꾸는 useState
     const [changeMenu,setChangeMenu] =useState();
 
     const onChangePage =(e)=>{
@@ -149,7 +149,7 @@ const AdminPage=()=>{
         if(e==="customer Management"){
             console.log("customer Management");
             const response = AxiosFinal.customerManage("User");
-            console.log(response);
+            console.log(response.data);
         }
     }
     return(
