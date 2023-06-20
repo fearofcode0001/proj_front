@@ -220,6 +220,8 @@ const QnATable = styled.table`
 const ProductInfo = () => {
     
     const nav = useNavigate();
+    const {item} = useContext(UserContext);
+    console.log(item);
 
     const [click, setClick] = useState(false);
     const [qClick, setqClick] = useState(false);
@@ -263,8 +265,8 @@ const ProductInfo = () => {
                     </div>
                     <div className="wholeDesc">
                         <div className="descWrapper">
-                            <div className="productName">Viscose Tricot Crewneck</div>
-                            <div className="productPrice">₩‌1,054,800</div>
+                            <div className="productName">{item.productName}</div>
+                            <div className="productPrice">{item.productPrice}</div>
                             <div className="colorSize">
                                 <div className="productColor">Cement</div>
                                 <div className="productSize"><select onChange={handleSelect} value={select}>
@@ -284,8 +286,7 @@ const ProductInfo = () => {
                                 <p onClick={detailClick}>DETAILS  {click? "–" : "+"}</p>
                                 {click && (<div className="detail">
                                     <ul>
-                                        <li>STANDARD PROCESSING TIME FOR ORDERS IS 5-7 BUSINESS DAYS TO BE PROCESSED AND SHIPPED.</li>
-                                        <li>READ OUR FULL SHIPPING POLICY HERE.</li>
+                                        <li>{item.productDetail}</li>
                                     </ul></div>)}
                             </div>
                         </div>

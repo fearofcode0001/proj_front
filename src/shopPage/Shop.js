@@ -5,6 +5,7 @@ import DropFiter from "./DropFiter";
 import AxiosFinal from "../api/AxiosFinal";
 import Pagenation from "../pages/Pagenation";
 import { UserContext } from "../context/UserInfo";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -78,11 +79,11 @@ const Shop = () => {
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
-    const context = useContext(UserContext);
-    const {test, isLogin} = context;
+    const {item, setItem} = useContext(UserContext);;
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBlurred, setIsBlurred] = useState(false);
     const [product, setProduct] = useState([]);
+    const nav = useNavigate();
 
     const handleHeaderClick = () => {
     //   setIsBlurred(!isBlurred);
@@ -106,9 +107,10 @@ const Shop = () => {
       };
 
     
-    const onclick = (x) => {
-        // console.log(x);
-        // setTest(ssss);
+    const onclick = (e) => {
+        console.log(e);
+        setItem(e);
+        nav("/ProductInfo");
     }
 
     return(
@@ -125,7 +127,7 @@ const Shop = () => {
             </Filter>  
             <Article >
             {product.slice(offset, offset + limit).map((e) =>(      
-            <Container_in key={e.id}> 
+            <Container_in key={e.id} onClick={()=>onclick(e)} > 
             <div className={isBlurred ? "blur" : ""}> 
                 <div className="view">
                     <img
