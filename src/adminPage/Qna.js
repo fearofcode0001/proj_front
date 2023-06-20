@@ -147,14 +147,13 @@ const Qna = () =>{
     //input창에 쓰여지는 답변
     const onReply=(e)=>{
         //e.active 로 선택 된 값만 변경 되게 한다.
-        setQnaReply(e.active && e.target.value)
-        
+        setQnaReply(e.active && e.target.value)        
     }
     //답변 상태가 담길 상수
     const [qnaStatue, setQnaStatue] = useState();
     //답변 상태의 value가 담길 컴포넌트
     const getValue = (e) => {
-        setQnaStatue(e.target.value);
+        setQnaStatue(e.active && e.target.value);
     }
     //답변과 답변 상태를 비동기 통신으로 전달.
     const onSubmitQna =async(props)=>{
