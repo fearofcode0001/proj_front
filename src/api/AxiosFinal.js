@@ -10,6 +10,11 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/auth/login", login);
     },
+    // 전체 상품
+    shop : async() => {
+        return await axios.get(Final_proj + `/product/items`);
+    },
+
 
     //아이템 업로드
     productUpload : async(title,price,color,size,category,productImg,content)=>{
