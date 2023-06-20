@@ -15,7 +15,7 @@ overflow-y: scroll;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: space-between;
         border-bottom: 1px solid #CCC;
     }
     .qnaId{
@@ -47,6 +47,12 @@ overflow-y: scroll;
             font-size: 11px;
             border: none;
         }
+    }
+    .date{
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 `
 const QnaInfoHead=styled.div`
@@ -167,7 +173,7 @@ const Qna = () =>{
                         </select>
                     </div>
                     <div className="date">
-                        DATE
+                        20230620
                     </div>
                 </div>
                 <div className="parnetContents" style={{height: `${accodianPop}px`}}>
