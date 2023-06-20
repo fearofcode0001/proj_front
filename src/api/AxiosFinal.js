@@ -40,12 +40,13 @@ const AxiosFinal = {
         return await axios.get(Final_proj + `/admin/qnaLoad`);
     },
     //어드민페이지에 qna답변달기
-    qnaUploadReply : async(statue,reply)=>{
+    qnaUploadReply : async(qndid,statue,reply)=>{
         const qnaReplyUpLoad={
+            qnaId : qndid,
             answerStatue : statue,
             qnareplay : reply
         };
-        return await axios.post(Final_proj + "/admin/upload", qnaReplyUpLoad);
+        return await axios.post(Final_proj + "/admin/qnaUpload", qnaReplyUpLoad);
     },    
     //회원 조회
     memberGet: async(id) => {
