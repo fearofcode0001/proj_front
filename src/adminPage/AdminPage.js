@@ -160,13 +160,12 @@ const AdminPage=()=>{
     //qna 선택시 샐행되는 엑시오스
     const onLoadQnaData = async() =>{ 
         const response = await AxiosFinal.qnaLoadManage();
-        // console.log(response.data);
+        console.log(response.data);
         setQnaData(response.data);
     }
     //전체회원조회 컴포넌트
     const onLoadCustomer=(e)=>{
         if(e==="customer Management"){
-            console.log("customer Management");
             onLoadCustomerData();
         }else if(e==="qna"){
             onLoadQnaData();

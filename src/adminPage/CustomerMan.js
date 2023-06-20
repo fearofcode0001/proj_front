@@ -102,7 +102,7 @@ const  CustomerMan = () =>{
 
     const onLoadCustomerData = async() =>{ 
         const response = await AxiosFinal.customerManage();
-        // console.log(response.data);
+        console.log(response.data);
         setCustomerData(response.data);
     }
 
