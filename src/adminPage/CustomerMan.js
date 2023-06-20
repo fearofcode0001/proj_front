@@ -1,11 +1,23 @@
 import React ,{ useContext }from "react";
 import styled from "styled-components";
 import { UserContext } from "../context/UserInfo";
+import AxiosFinal from "../api/AxiosFinal";
 
 
 const Container=styled.div`
     width: 100%;
     height: 100%;
+    button{
+        width: 100px;
+        height: 20px;
+        border: 1px solid #CCC;
+        background-color: white;
+        font-size: 11px;
+        &:hover{
+            background-color: black;
+            color:white;
+        }
+    }
 `
 
 const CustomerInfo = styled.div`
@@ -73,12 +85,24 @@ const CustomerInfo = styled.div`
     }
 `
 const  CustomerMan = () =>{
-
+    //유저data를 adminpage에서 가져옴
     const context = useContext(UserContext);
-    const {customerData} = context;
+    const {customerData,setCustomerData} = context;
+
+    const onDeleteCustomer = async() =>{ 
+        
+    }
+
+    const onLoadCustomerData = async() =>{ 
+        const response = await AxiosFinal.customerManage();
+        console.log(response.data);
+        setCustomerData(response.data);
+    }
+
     return(
 
         <Container>
+            <button onClick={onLoadCustomerData}> DATA RELOAD </button>
             <CustomerInfo>
                 <div className="customerId">
                     CustomerID
@@ -118,7 +142,7 @@ const  CustomerMan = () =>{
                         {x.authority}
                     </div>
                     <div className="customerDel">
-                        <button>탈퇴</button>
+                        <button onClick={onDeleteCustomer}>탈퇴</button>
                     </div>
                 </CustomerInfo>
             )}
