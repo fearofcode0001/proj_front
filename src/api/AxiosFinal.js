@@ -35,7 +35,10 @@ const AxiosFinal = {
         }
         return await axios.post(Final_proj + "/admin/deleteUser", deleteUser);
     },
-
+     //어드민페이지 qna 전체조회
+     qnaLoadManage : async() => {
+        return await axios.get(Final_proj + `/admin/qnaLoad`);
+    },
 
     //회원 조회
     memberGet: async(id) => {

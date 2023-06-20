@@ -137,8 +137,8 @@ const SideBustton=styled.div`
 const AdminPage=()=>{
     
     const context = useContext(UserContext);
-    //어드민페이지에서 고객DATA로 넘길 contextAPI
-    const {setCustomerData} = context;
+    //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
+    const {setCustomerData ,setQnaData} = context;
 
 
     //임시 주문건 입력
@@ -157,11 +157,19 @@ const AdminPage=()=>{
         // console.log(response.data);
         setCustomerData(response.data);
     }
+    //qna 선택시 샐행되는 엑시오스
+    const onLoadQnaData = async() =>{ 
+        const response = await AxiosFinal.qnaLoadManage();
+        // console.log(response.data);
+        setQnaData(response.data);
+    }
     //전체회원조회 컴포넌트
     const onLoadCustomer=(e)=>{
         if(e==="customer Management"){
             console.log("customer Management");
             onLoadCustomerData();
+        }else if(e==="qna"){
+            onLoadQnaData();
         }
     }
     return(
