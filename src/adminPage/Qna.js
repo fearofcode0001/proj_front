@@ -218,7 +218,7 @@ const Qna = () =>{
                         {q.reply}
                      </div>
                     <input type="text" placeholder="answer" value={qnaReply} onChange={onReply}/>
-                    <button onClick={()=>{onSubmitQna(q.userId)}}>submit</button>
+                    <button onClick={()=>{onSubmitQna(q.qnaId)}}>submit</button>
                 </div>
             </QnaInfo>
             )}

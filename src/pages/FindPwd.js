@@ -64,6 +64,15 @@ const InnerContainer = styled.div`
         text-decoration: none;
         color: black;
     }
+    .hint {
+        width: 100%;
+      display: flex;
+      margin: 5px 0px 0px 8px;
+      justify-content:right;
+      align-items:center;
+      font-size: 12px;
+      color: #999;
+    }
 `;
 const FindPwd = () => {
     const navigate = useNavigate();
@@ -77,11 +86,11 @@ const FindPwd = () => {
     const [codeMessage, setCodeMessage] = useState("")
     const [pwMessage, setPwMessage] = useState("");
     const [conPwMessage, setConPwMessage] = useState("");
-    const [verificationResult, setVerificationResult] = useState("")
 
     const [isEmail, setIsEmail] = useState(false);
     const [isPw, setIsPw] = useState(false)
     const [isConPw, setIsConPw] = useState(false);
+    const [isCode, setIsCode] = useState(false);
 
     //메일 정규식
     const onChangeMail = (e) => {
@@ -96,7 +105,7 @@ const FindPwd = () => {
             setIsEmail(false)
         } 
     }
-    
+
     const onClickEmailAuth = async() => { 
         console.log("이메일 인증 호출 : " + inputEmail);
         const res = await AxiosFinal.mailCode(inputEmail);
@@ -159,7 +168,7 @@ const FindPwd = () => {
                 </Link>
                 <div className="item1">
                         <input className="email" type="email" placeholder="EMAIL"onChange={onChangeMail}/>
-                        <button className="emailBtn">SEND</button>
+                        <button className="emailBtn" onClick={onClickEmailAuth}>SEND</button>
                     </div>
                     <div className="hint">
                         {inputEmail.length > 0 && (
@@ -167,11 +176,11 @@ const FindPwd = () => {
                     </div>
                     <div className="item1">
                         <input className="verify" type="text" value={code} onChange={e => setCode(e.target.value)} placeholder="VERIFYCODE" />
-                        <button className="verifyBtn">VERIFY</button>
+                        <button className="verifyBtn" onClick={onClickCode}>VERIFY</button>
                     </div>
                     <div className="hint">
-                        {inputEmail.length > 0 && (
-                        <span className={`message ${isEmail ? 'success' : 'error'}`}>{verificationResult}</span>)}
+                        {code.length > 0 && (
+                        <span className={`message ${isCode ? 'success' : 'error'}`}>{codeMessage}</span>)}
                     </div>
                 <div className="item">
                     <input type="password" placeholder="NEW PASSWORD" onChange={onChangePw}/>
