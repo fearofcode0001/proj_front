@@ -2,6 +2,7 @@ import React, { useState ,useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import AxiosFinal from "../api/AxiosFinal";
 
 const Container = styled.div`
     height: 100vh;
@@ -95,6 +96,30 @@ const FindPwd = () => {
             setIsEmail(false)
         } 
     }
+    
+    const onClickEmailAuth = async() => { 
+        console.log("이메일 인증 호출 : " + inputEmail);
+        const res = await AxiosFinal.mailCode(inputEmail);
+				// Axios를 이용하여 서버로 inputEmail 변수에 담긴 이메일 주소를 전송하고, 
+				//서버에서 생성한 랜덤한 인증 코드를 받아오는 API를 호출
+        console.log(res.data);
+
+    }   
+
+
+       // 이메일 인증코드 유효성 검사
+       const onClickCode = async() => {
+        console.log(inputEmail, code, code.length);
+        console.log(typeof(code));
+        const res = await AxiosFinal.mailCodeck(inputEmail, code);
+        console.log(res.data);
+        if (res.data) {
+            setCodeMessage("인증이 완료되었습니다.");
+        } else {
+            setCodeMessage("인증 코드가 일치하지 않습니다.");
+        }
+          
+    }
 
         //비밀번호 정규식
         const onChangePw = (e) => {
@@ -141,7 +166,7 @@ const FindPwd = () => {
                         <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>)}
                     </div>
                     <div className="item1">
-                        <input className="verify" type="text" placeholder="VERIFYCODE" />
+                        <input className="verify" type="text" value={code} onChange={e => setCode(e.target.value)} placeholder="VERIFYCODE" />
                         <button className="verifyBtn">VERIFY</button>
                     </div>
                     <div className="hint">

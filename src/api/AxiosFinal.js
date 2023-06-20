@@ -94,17 +94,26 @@ const AxiosFinal = {
     },
    
     // 이메일 인증
-    mailCode : async(mail) => {
-        return await axios.get(Final_proj + `/mail/?mail=${mail}`);
+    mailCode : async(email) => {
+        return await axios.get(Final_proj + `/email/?email=${email}`);
     },
 
     // 이메일 인증 번호 
-    mailCodeck : async(mail, code) => {
+    mailCodeck : async(email, code) => {
         const check = {
-            mail : mail,
+            email : email,
             code : code
         }
         return await axios.post(Final_proj + `/verify`, check);
+    },
+    
+    // 임시 비밀번호 (고치기)
+    pwdReset : async(email, name) => {
+        const reset = {
+            email : email,
+            name : name
+        }
+        return await axios.post(Final_proj + `/resetPwd`, reset);
     }
     //채팅
     
