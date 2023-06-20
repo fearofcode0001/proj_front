@@ -154,7 +154,7 @@ const AdminPage=()=>{
     //customermanagement선택시 실행되는 엑시오스
     const onLoadCustomerData = async() =>{ 
         const response = await AxiosFinal.customerManage();
-        console.log(response.data);
+        // console.log(response.data);
         setCustomerData(response.data);
     }
     //전체회원조회 컴포넌트

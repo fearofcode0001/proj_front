@@ -6,6 +6,7 @@ import AxiosFinal from "../api/AxiosFinal";
 
 const Container=styled.div`
     width: 100%;
+    min-width: 400px;
     height: 100%;
     button{
         width: 100px;
@@ -88,14 +89,17 @@ const  CustomerMan = () =>{
     //유저data를 adminpage에서 가져옴
     const context = useContext(UserContext);
     const {customerData,setCustomerData} = context;
-
-    const onDeleteCustomer = async() =>{ 
-        
+    
+    //고객 삭제 onClick의 ()=>안에 넣어 주어야 함
+    const onDeleteCustomer = async(props) =>{ 
+        //map의 userID값을 통해서 DB를 갔다온다.
+        console.log(props);
+        const response = await AxiosFinal.customerManage(props);
     }
 
     const onLoadCustomerData = async() =>{ 
         const response = await AxiosFinal.customerManage();
-        console.log(response.data);
+        // console.log(response.data);
         setCustomerData(response.data);
     }
 
@@ -124,7 +128,7 @@ const  CustomerMan = () =>{
                 </div>
             </CustomerInfo>
             
-            {customerData && customerData.map((x, index) =>
+            {customerData && customerData.map((x) =>
                 <CustomerInfo>
                     <div className="customerId">
                         {x.userId}
@@ -142,7 +146,7 @@ const  CustomerMan = () =>{
                         {x.authority}
                     </div>
                     <div className="customerDel">
-                        <button onClick={onDeleteCustomer}>탈퇴</button>
+                        <button onClick={()=>{onDeleteCustomer(x.userId)}}>탈퇴</button>
                     </div>
                 </CustomerInfo>
             )}
