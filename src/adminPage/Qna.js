@@ -155,8 +155,8 @@ const Qna = () =>{
         setQnaStatue(e.target.value);
     }
     //답변과 답변 상태를 비동기 통신으로 전달.
-    const onSubmitQna =async()=>{
-        const response = AxiosFinal.qnaUploadReply(qnaStatue,qnaReply);
+    const onSubmitQna =async(props)=>{
+        const response = AxiosFinal.qnaUploadReply(props,qnaStatue,qnaReply);
         console.log("qna 답변 통신 ",response)
     }
     return(
@@ -218,7 +218,7 @@ const Qna = () =>{
                         {q.reply}
                      </div>
                     <input type="text" placeholder="answer" value={qnaReply} onChange={onReply}/>
-                    <button onClick={onSubmitQna}>submit</button>
+                    <button onClick={onSubmitQna(q.userId)}>submit</button>
                 </div>
             </QnaInfo>
             )}
