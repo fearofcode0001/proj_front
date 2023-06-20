@@ -32,14 +32,21 @@ const AxiosFinal = {
     customerDelete : async(userId) => {
         const deleteUser={
             userId : userId
-        }
+        };
         return await axios.post(Final_proj + "/admin/deleteUser", deleteUser);
     },
      //어드민페이지 qna 전체조회
      qnaLoadManage : async() => {
         return await axios.get(Final_proj + `/admin/qnaLoad`);
     },
-
+    //어드민페이지에 qna답변달기
+    qnaUploadReply : async(statue,reply)=>{
+        const qnaReplyUpLoad={
+            answerStatue : statue,
+            qnareplay : reply
+        };
+        return await axios.post(Final_proj + "/admin/upload", qnaReplyUpLoad);
+    },    
     //회원 조회
     memberGet: async(id) => {
         return await axios.get(Final_proj + `/member?name=${id}`);

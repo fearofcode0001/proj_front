@@ -1,6 +1,7 @@
 import React, { useState, useContext  } from "react";
 import styled, {css} from "styled-components";
 import { UserContext } from "../context/UserInfo";
+import AxiosFinal from "../api/AxiosFinal";
 
 
 const Container=styled.div`
@@ -123,9 +124,9 @@ const QnaInfo = styled.div`
 
 
 const Qna = () =>{
-
-    const[qnaAccodian, setQnaAccodian] = useState("all"); 
     //제목을 누르면 답변창(accodian)이 생성된다.
+    //css에 active를 넘겨줄 값
+    const[qnaAccodian, setQnaAccodian] = useState("all"); 
     //넘어오는 qndId값만 active를 통해 props를 CSS로 넘겨준다
     const onPopAccodian =(props)=>{
         console.log(props);
@@ -141,7 +142,22 @@ const Qna = () =>{
     const context = useContext(UserContext);
     const {qnaData} = context;
 
-
+    //답변이 담길 상수
+    const [qnaReply, setQnaReply] = useState();
+    //input창에 쓰여지는 답변
+    const onReply=(e)=>{
+        setQnaReply(e.target.value)
+    }
+    //답변 상태가 담길 상수
+    const [qnaStatue, setQnaStatue] = useState();
+    //답변 상태의 value가 담길 컴포넌트
+    const getValue = (e) => {
+        setQnaStatue(e.target.value);
+    }
+    //답변과 답변 상태를 비동기 통신으로 전달.
+    const onSubmitQna =async()=>{
+        const response = AxiosFinal.qnaUploadReply(qnaStatue,qnaReply)
+    }
     return(
 
         <Container>
@@ -183,7 +199,7 @@ const Qna = () =>{
                     <div className="qnaNmList" onClick={()=>{onPopAccodian(q.qnaId)}}>
                         {q.qnaTitle}
                     </div>
-                    <div className="answer">
+                    <div className="answer" onChange={getValue}>
                         <select name ='qnaSelect'>
                             <option value="HOLD">hold</option>
                             <option value="COMPLETE">complete</option>                           
@@ -200,7 +216,8 @@ const Qna = () =>{
                      <div className="answerContents">
                         {q.reply}
                      </div>
-                    <input type="text" placeholder="answer"/><button>submit</button>
+                    <input type="text" placeholder="answer" value={qnaReply} onChange={onReply}/>
+                    <button onClick={onSubmitQna}>submit</button>
                 </div>
             </QnaInfo>
             )}
