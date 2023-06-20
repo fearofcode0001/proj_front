@@ -144,12 +144,15 @@ const AdminPage=()=>{
         setChangeMenu(e);
         
     }
+    const onLoadCustomerData = async() =>{ 
+        const response = await AxiosFinal.customerManage();
+        console.log(response.data);
+    }
     //전체회원조회 컴포넌트
     const onLoadCustomer=(e)=>{
         if(e==="customer Management"){
             console.log("customer Management");
-            const response = AxiosFinal.customerManage();
-            console.log(response.data);
+            onLoadCustomerData();
         }
     }
     return(
