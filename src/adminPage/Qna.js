@@ -141,6 +141,9 @@ const Qna = () =>{
                     <div className="answer">
                         ANSWER
                     </div>
+                    <div className="date">
+                        DATE
+                    </div>
                 </div>
             </QnaInfoHead>
             <QnaInfo>
@@ -162,6 +165,9 @@ const Qna = () =>{
                             <option value="">complete</option>
                             <option value="">hold</option>
                         </select>
+                    </div>
+                    <div className="date">
+                        DATE
                     </div>
                 </div>
                 <div className="parnetContents" style={{height: `${accodianPop}px`}}>
