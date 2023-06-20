@@ -1,5 +1,6 @@
-import React, { useState, useRef  } from "react";
+import React, { useState, useContext  } from "react";
 import styled from "styled-components";
+import { UserContext } from "../context/UserInfo";
 
 
 const Container=styled.div`
@@ -118,6 +119,9 @@ const QnaInfo = styled.div`
 
 
 const Qna = () =>{
+
+
+    //제목을 누르면 답변창(accodian이 생성된다.
     const [accodianPop,setAccodianPop] = useState(0);
     const onPopAccodian =()=>{
         if(accodianPop===0){
@@ -126,7 +130,10 @@ const Qna = () =>{
             setAccodianPop(0);
         }
     };
-    
+    //Qnadata를 가져옴
+    const context = useContext(UserContext);
+    const {qnaData} = context;
+
     return(
 
         <Container>
@@ -152,19 +159,21 @@ const Qna = () =>{
                     </div>
                 </div>
             </QnaInfoHead>
+
+            {qnaData && qnaData.map((q)=>
             <QnaInfo>
                 <div className="qnaHead">
                     <div className="qnaId">
-                        qna1235
+                        {q.qnaId}
                     </div>
                     <div className="itemId">
-                        item159731
+                        {q.product}
                     </div>
                     <div className="userId">
-                        user43227
+                        {q.user}
                     </div>
                     <div className="qnaNmList" onClick={onPopAccodian}>
-                        이것 좀 고쳐주세요
+                        {q.qnaTitle}
                     </div>
                     <div className="answer">
                         <select name ="">
@@ -178,17 +187,15 @@ const Qna = () =>{
                 </div>
                 <div className="parnetContents" style={{height: `${accodianPop}px`}}>
                     <div className="childContents">
-                        이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요
-                        이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요
-                        이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요
+                        {q.qnaContent}   
                     </div>                     
                      <div className="answerContents">
-                        답변
+                        {q.reply}
                      </div>
                     <input type="text" placeholder="answer"/><button>submit</button>
                 </div>
             </QnaInfo>
-            
+            )}
 
            
        

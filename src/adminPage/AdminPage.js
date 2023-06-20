@@ -138,7 +138,7 @@ const AdminPage=()=>{
     
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
-    const {setCustomerData ,setQnaData} = context;
+    const {setCustomerData ,setQnaData,qnaData} = context;
 
 
     //임시 주문건 입력
@@ -162,6 +162,7 @@ const AdminPage=()=>{
         const response = await AxiosFinal.qnaLoadManage();
         console.log(response.data);
         setQnaData(response.data);
+        console.log("qnadata",qnaData);
     }
     //전체회원조회 컴포넌트
     const onLoadCustomer=(e)=>{
