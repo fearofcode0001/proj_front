@@ -146,7 +146,9 @@ const Qna = () =>{
     const [qnaReply, setQnaReply] = useState();
     //input창에 쓰여지는 답변
     const onReply=(e)=>{
-        setQnaReply(e.target.value)
+        //e.active 로 선택 된 값만 변경 되게 한다.
+        setQnaReply(e.active && e.target.value)
+        
     }
     //답변 상태가 담길 상수
     const [qnaStatue, setQnaStatue] = useState();
@@ -217,7 +219,7 @@ const Qna = () =>{
                      <div className="answerContents">
                         {q.reply}
                      </div>
-                    <input type="text" placeholder="answer" value={qnaReply} onChange={onReply}/>
+                    <input type="text" placeholder="answer" value={qnaReply} onChange={(q) => onReply(q)}/>
                     <button onClick={()=>{onSubmitQna(q.qnaId)}}>submit</button>
                 </div>
             </QnaInfo>
