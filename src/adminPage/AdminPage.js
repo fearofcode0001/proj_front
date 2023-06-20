@@ -141,9 +141,11 @@ const AdminPage=()=>{
     const [changeMenu,setChangeMenu] =useState();
 
     const onChangePage =(e)=>{
-        setChangeMenu(e);
-        
+        setChangeMenu(e);   
     }
+
+
+    //customermanagement선택시 실행되는 엑시오스
     const onLoadCustomerData = async() =>{ 
         const response = await AxiosFinal.customerManage();
         console.log(response.data);
