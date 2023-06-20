@@ -129,11 +129,11 @@ const Qna = () =>{
     const[qnaAccodian, setQnaAccodian] = useState("all"); 
     //넘어오는 qndId값만 active를 통해 props를 CSS로 넘겨준다
     const onPopAccodian =(props)=>{
-        console.log(props);
+        // console.log(props);
         //같은 버튼 클릭시 null로 바꿔주어 모든 css를 초기화한다
         if(props===qnaAccodian){
             setQnaAccodian(null);
-            console.log(qnaAccodian);
+            // console.log(qnaAccodian);
         }else{
             setQnaAccodian(props);
         }        
@@ -156,7 +156,8 @@ const Qna = () =>{
     }
     //답변과 답변 상태를 비동기 통신으로 전달.
     const onSubmitQna =async()=>{
-        const response = AxiosFinal.qnaUploadReply(qnaStatue,qnaReply)
+        const response = AxiosFinal.qnaUploadReply(qnaStatue,qnaReply);
+        console.log("qna 답변 통신 ",response)
     }
     return(
 
