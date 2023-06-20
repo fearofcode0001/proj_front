@@ -10,6 +10,7 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/auth/login", login);
     },
+
     // 전체 상품
     shop : async() => {
         return await axios.get(Final_proj + `/product/items`);
@@ -29,6 +30,8 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/adminItem/upload", upLoad);
     },
+
+    
     //어드민페이지 회원 전체조회
     customerManage : async(id) => {
         return await axios.get(Final_proj + `/admin/check?id=${id}`);

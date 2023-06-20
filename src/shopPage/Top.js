@@ -1,47 +1,42 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import Header from "./Header";
-import toptest from "../img/TOP.webp"
 import DropFiter from "./DropFiter";
+import AxiosFinal from "../api/AxiosFinal";
+
 
 
 
 const Container = styled.div`
-    height: 100vh;
     width: 100%;
+    height: 100vh;
     display: flex;    
     flex-direction: column;
+    
+
 `
 
 const Mainboby=styled.div`
- 
-    margin: 0px 40px 0px 40px;    
+    margin: 0px 40px 0px 40px;
     `
-
 
 const Article = styled.div`
     display: flex;
     width: 100%;
     flex-wrap: wrap;
 
-    .blur{
-        filter: blur(4px); 
-        pointer-events: none; 
-    }
-    
-   
+
 `
 
 const Container_in = styled.div`
     height: 500px;
     width: 300px;
     margin-left: 10px;
-    color: black;    
+
 
     .blur {
         filter: blur(5px); /* 흐릿한 효과를 원하는 정도로 조절합니다. */
     }
-    
 
     img{
         height: 400px;
@@ -61,6 +56,7 @@ const Container_in = styled.div`
 `;  
 
 
+
 const Filter = styled.div`
     width: 100px;
     margin-top: 20px;
@@ -76,19 +72,27 @@ const Filter = styled.div`
 const TOP = () => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBlurred, setIsBlurred] = useState(false);
+    const [product, setProduct] = useState([]);
 
     const handleHeaderClick = () => {
       setIsBlurred(!isBlurred);
       console.log(isBlurred)
     };
-  
 
-    
+
     const handleFilter = () => {
         setIsFilterOpen(!isFilterOpen);
       };
     
-      
+      useEffect(() => {
+        const getProduct = async() => {
+            const rsp = await AxiosFinal.shop({ product_category: 'top' });
+            if (rsp.status === 200) setProduct(rsp.data);
+            console.log(rsp.data);
+       };
+       getProduct();
+      }, []);
+  
 
     return  (
      
@@ -103,86 +107,19 @@ const TOP = () => {
                   
             </Filter>  
             <Article>
-            <Container_in>
+            {product.map((e) =>(      
+            <Container_in key={e.id}> 
             <div className={isBlurred ? "blur" : ""}> 
-            <div className="view">
-                <img src={toptest}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
+                <div className="view">
+                    <img
+                        src={e.productMainImg} />
+                        <div className="logo">iMMUTABLE</div>    
+                        <div className="info">{e.productName}</div>      
+                        <div className="price">{e.productPrice.toLocaleString()}</div>
+                </div>  
+                </div>
             </Container_in>
-            <Container_in>
-            <div className={isBlurred ? "blur" : ""}>
-            <div className="view">
-                <img src={toptest}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
-            <Container_in>
-            <div className={isBlurred ? "blur" : ""}>
-            <div className="view">
-                <img src={toptest}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
-            <Container_in>
-            <div className={isBlurred ? "blur" : ""}>
-            <div className="view">
-                <img src={toptest}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
-            <Container_in>
-            <div className={isBlurred ? "blur" : ""}>
-            <div className="view">
-                <img src={toptest}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
-            <Container_in>
-            <div className={isBlurred ? "blur" : ""}>
-            <div className="view">
-                <img src={toptest}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
-            <Container_in>
-            <div className={isBlurred ? "blur" : ""}>
-            <div className="view">
-                <img src={toptest}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
-            <Container_in>
-            <div className={isBlurred ? "blur" : ""}>
-            <div className="view">
-                <img src={toptest}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
+            ))}
             </Article>
         </Mainboby>
       </Container>  
