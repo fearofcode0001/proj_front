@@ -19,33 +19,36 @@ import Mypost from './pages/Mypost';
 import Order from './pages/Order';
 import Review from './pages/Review';
 import Wishlist from './pages/Wishlist';
+import UserStore from './context/UserInfo';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Main/>}/>
-        <Route path="/Login" element={<Login/>}/>
-        <Route path="/SignUp" element={<SignUp/>}/>        
-        <Route path="/Cart" element={<Cart/>}/>
-        <Route path="/FindEmail" element={<FindEmail/>}/>
-        <Route path="/FindPwd" element={<FindPwd/>}/>
-        <Route path="/Shop" element={<Shop/>}/>
-        <Route path="/Top" element={<TOP/>}/>
-        <Route path="/FAQ" element={<FAQ/>}/>
-        <Route path="/Board" element={<Board/>}/>
-        <Route path="/Mypage" element={<Mypage/>}/>        
-        <Route path="/AdminPage" element={<AdminPage/>}/>
-        <Route path="ProductInfo" element={<ProductInfo/>}/> 
-        <Route path="/ModifyingInfo" element={<ModifyingInfo/>}/> 
-        <Route path="/Secession" element={<Secession/>}/> 
-        <Route path="/ProductInfo" element={<ProductInfo/>}/> 
-        <Route path="/Order" element={<Order/>} />
-        <Route path="/Mypost" element={<Mypost/>} />
-        <Route path="/Review" element={<Review/>} />
-        <Route path="/Wishlist" element={<Wishlist/>} />
-      </Routes>
-     </Router>
+    <UserStore>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Main/>}/>
+          <Route path="/Login" element={<Login/>}/>
+          <Route path="/SignUp" element={<SignUp/>}/>        
+          <Route path="/Cart" element={<Cart/>}/>
+          <Route path="/FindEmail" element={<FindEmail/>}/>
+          <Route path="/FindPwd" element={<FindPwd/>}/>
+          <Route path="/Shop" element={<Shop/>}/>
+          <Route path="/Top" element={<TOP/>}/>
+          <Route path="/FAQ" element={<FAQ/>}/>
+          <Route path="/Board" element={<Board/>}/>
+          <Route path="/Mypage" element={<Mypage/>}/>        
+          <Route path="/AdminPage" element={<AdminPage/>}/>
+          <Route path="ProductInfo" element={<ProductInfo/>}/> 
+          <Route path="/ModifyingInfo" element={<ModifyingInfo/>}/> 
+          <Route path="/Secession" element={<Secession/>}/> 
+          <Route path="/ProductInfo" element={<ProductInfo/>}/> 
+          <Route path="/Order" element={<Order/>} />
+          <Route path="/Mypost" element={<Mypost/>} />
+          <Route path="/Review" element={<Review/>} />
+          <Route path="/Wishlist" element={<Wishlist/>} />
+        </Routes>
+      </Router>
+     </UserStore>
 
   );
 }

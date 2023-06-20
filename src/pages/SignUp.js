@@ -160,11 +160,11 @@ const SignUp = () => {
     const [pwMessage, setPwMessage] = useState("");
     const [conPwMessage, setConPwMessage] = useState("");
     const [phoneMessage, setPhoneMessage] = useState("");
-    const [verificationResult, setVerificationResult] = useState("")
 
     //유효성 검사
     const [isName, setIsName] = useState(false);
     const [isEmail, setIsEmail] = useState(false);
+    const [isCode, setIsCode] = useState(false);
     const [isPw, setIsPw] = useState(false)
     const [isConPw, setIsConPw] = useState(false);
     const [isPhone, setIsPhone] = useState(false);
@@ -275,26 +275,24 @@ const SignUp = () => {
     }   
 
 
-      // 이메일 인증코드 유효성 검사
-      const onClickCode = async() => {
-        console.log(code);
-        if (code.length !== 6) {
-            setVerificationResult("잘못입력하셨습니다");
-            console.log(code);
-          }
-          const res = await AxiosFinal.mailCodeck(inputEmail, code);
-          console.log(res.data);
-          if (res.data) {
-            setVerificationResult("인증이 완료되었습니다.");
-          } else {
-            setVerificationResult("인증 코드가 일치하지 않습니다.");
-          }
+       // 이메일 인증코드 유효성 검사
+       const onClickCode = async() => {
+        console.log(inputEmail, code, code.length);
+        console.log(typeof(code));
+        const res = await AxiosFinal.mailCodeck(inputEmail, code);
+        console.log(res.data);
+        if (res.data) {
+            setCodeMessage("인증이 완료되었습니다.");
+        } else {
+            setCodeMessage("인증 코드가 일치하지 않습니다.");
+        }
+          
     }
 
     const onClickLogin = async() => {
         console.log("Click 회원가입");
          // 가입 여부 우선 확인
-         const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, inputAddr, inputPhone);
+         const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, inputAddr, inputPhone, code);
          const memberCheck = await AxiosFinal.memberRegCheck(inputEmail);
          console.log("가입 가능 여부 확인 : ", memberCheck.data);
          // 가입 여부 확인 후 가입 절차 진행
@@ -341,12 +339,12 @@ const SignUp = () => {
                         <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>)}
                     </div>
                     <div className="item1">
-                        <input className="verify" type="text" placeholder="VERIFYCODE" />
+                        <input className="verify" type="text" value={code} onChange={e => setCode(e.target.value)} placeholder="VERIFYCODE" />
                         <button className="verifyBtn" onClick={onClickCode}>VERIFY</button>
                     </div>
                     <div className="hint">
-                        {inputEmail.length > 0 && (
-                        <span className={`message ${isEmail ? 'success' : 'error'}`}>{verificationResult}</span>)}
+                        {code.length > 0 && (
+                        <span className={`message ${isCode ? 'success' : 'error'}`}>{codeMessage}</span>)}
                     </div>
 
                     <div className="item">
@@ -365,6 +363,10 @@ const SignUp = () => {
                     </div>
                     <div className="item">
                         <input type="phone" placeholder="PHONE" onChange={onChangePhone}/>
+                    </div>
+                    <div className="hint">
+                            {inputPhone.length > 0 && (
+                            <span className={`message ${isPhone ? 'success' : 'error'}`}>{phoneMessage}</span>)}
                     </div>
 
                     <div className="item">

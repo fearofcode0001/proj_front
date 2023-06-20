@@ -1,5 +1,7 @@
-import React, { useState, useRef  } from "react";
-import styled from "styled-components";
+import React, { useState, useContext  } from "react";
+import styled, {css} from "styled-components";
+import { UserContext } from "../context/UserInfo";
+import AxiosFinal from "../api/AxiosFinal";
 
 
 const Container=styled.div`
@@ -15,7 +17,7 @@ overflow-y: scroll;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: space-between;
         border-bottom: 1px solid #CCC;
     }
     .qnaId{
@@ -48,6 +50,12 @@ overflow-y: scroll;
             border: none;
         }
     }
+    .date{
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 `
 const QnaInfoHead=styled.div`
     width: 100%;
@@ -74,11 +82,15 @@ const QnaInfo = styled.div`
     }
     .parnetContents{
         width: 100%;
+        height: 0px;
         overflow: hidden;
         transition: height 0.35s ease;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        ${props => props.active && css`   // *&* props가 active이면 css를 재정의 한다.
+          height: 200px;
+        `}
     }
     .childContents{
         height: 110px;
@@ -112,15 +124,41 @@ const QnaInfo = styled.div`
 
 
 const Qna = () =>{
-    const [accodianPop,setAccodianPop] = useState(0);
-    const onPopAccodian =()=>{
-        if(accodianPop===0){
-            setAccodianPop(200);
-        } else if(accodianPop===200){
-            setAccodianPop(0);
-        }
+    //제목을 누르면 답변창(accodian)이 생성된다.
+    //css에 active를 넘겨줄 값
+    const[qnaAccodian, setQnaAccodian] = useState("all"); 
+    //넘어오는 qndId값만 active를 통해 props를 CSS로 넘겨준다
+    const onPopAccodian =(props)=>{
+        // console.log(props);
+        //같은 버튼 클릭시 null로 바꿔주어 모든 css를 초기화한다
+        if(props===qnaAccodian){
+            setQnaAccodian(null);
+            // console.log(qnaAccodian);
+        }else{
+            setQnaAccodian(props);
+        }        
     };
-    
+    //Qnadata를 가져옴
+    const context = useContext(UserContext);
+    const {qnaData} = context;
+
+    //답변이 담길 상수
+    const [qnaReply, setQnaReply] = useState();
+    //input창에 쓰여지는 답변
+    const onReply=(e)=>{
+        setQnaReply(e.target.value)
+    }
+    //답변 상태가 담길 상수
+    const [qnaStatue, setQnaStatue] = useState();
+    //답변 상태의 value가 담길 컴포넌트
+    const getValue = (e) => {
+        setQnaStatue(e.target.value);
+    }
+    //답변과 답변 상태를 비동기 통신으로 전달.
+    const onSubmitQna =async(props)=>{
+        const response = AxiosFinal.qnaUploadReply(props,qnaStatue,qnaReply);
+        console.log("qna 답변 통신 ",response)
+    }
     return(
 
         <Container>
@@ -141,42 +179,49 @@ const Qna = () =>{
                     <div className="answer">
                         ANSWER
                     </div>
+                    <div className="date">
+                        DATE
+                    </div>
                 </div>
             </QnaInfoHead>
-            <QnaInfo>
+
+            {qnaData && qnaData.map((q,index)=>
+            <QnaInfo key={q.qnaId} active={qnaAccodian === q.qnaId}>
                 <div className="qnaHead">
                     <div className="qnaId">
-                        qna1235
+                        {q.qnaId}
                     </div>
                     <div className="itemId">
-                        item159731
+                        {q.product}
                     </div>
                     <div className="userId">
-                        user43227
+                        {q.user}
                     </div>
-                    <div className="qnaNmList" onClick={onPopAccodian}>
-                        이것 좀 고쳐주세요
+                    <div className="qnaNmList" onClick={()=>{onPopAccodian(q.qnaId)}}>
+                        {q.qnaTitle}
                     </div>
-                    <div className="answer">
-                        <select name ="">
-                            <option value="">complete</option>
-                            <option value="">hold</option>
+                    <div className="answer" onChange={getValue}>
+                        <select name ='qnaSelect'>
+                            <option value="HOLD">hold</option>
+                            <option value="COMPLETE">complete</option>                           
                         </select>
                     </div>
+                    <div className="date">
+                        20230620
+                    </div>
                 </div>
-                <div className="parnetContents" style={{height: `${accodianPop}px`}}>
+                <div className="parnetContents">
                     <div className="childContents">
-                        이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요
-                        이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요
-                        이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요이것 좀 고쳐주세요
+                        {q.qnaContent}   
                     </div>                     
                      <div className="answerContents">
-                        답변
+                        {q.reply}
                      </div>
-                    <input type="text" placeholder="answer"/><button>submit</button>
+                    <input type="text" placeholder="answer" value={qnaReply} onChange={onReply}/>
+                    <button onClick={onSubmitQna(q.userId)}>submit</button>
                 </div>
             </QnaInfo>
-            
+            )}
 
            
        

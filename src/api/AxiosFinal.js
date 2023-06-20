@@ -10,7 +10,6 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/auth/login", login);
     },
-
     // 전체 상품
     shop : async() => {
         return await axios.get(Final_proj + `/product/items`);
@@ -33,11 +32,29 @@ const AxiosFinal = {
 
     
     //어드민페이지 회원 전체조회
-    customerManage : async(id) => {
-        return await axios.get(Final_proj + `/admin/check?id=${id}`);
+    customerManage : async() => {
+        return await axios.get(Final_proj + `/admin/check`);
     },
-
-
+    //어드민페이지 회원 선택 삭제
+    customerDelete : async(userId) => {
+        const deleteUser={
+            userId : userId
+        };
+        return await axios.post(Final_proj + "/admin/deleteUser", deleteUser);
+    },
+     //어드민페이지 qna 전체조회
+     qnaLoadManage : async() => {
+        return await axios.get(Final_proj + `/admin/qnaLoad`);
+    },
+    //어드민페이지에 qna답변달기
+    qnaUploadReply : async(qndid,statue,reply)=>{
+        const qnaReplyUpLoad={
+            qnaId : qndid,
+            answerStatue : statue,
+            qnareplay : reply
+        };
+        return await axios.post(Final_proj + "/admin/qnaUpload", qnaReplyUpLoad);
+    },    
     //회원 조회
     memberGet: async(id) => {
         return await axios.get(Final_proj + `/member?name=${id}`);
@@ -92,17 +109,26 @@ const AxiosFinal = {
     },
    
     // 이메일 인증
-    mailCode : async(mail) => {
-        return await axios.get(Final_proj + `/mail/?mail=${mail}`);
+    mailCode : async(email) => {
+        return await axios.get(Final_proj + `/email/?email=${email}`);
     },
 
     // 이메일 인증 번호 
-    mailCodeck : async(mail, code) => {
+    mailCodeck : async(email, code) => {
         const check = {
-            mail : mail,
+            email : email,
             code : code
         }
         return await axios.post(Final_proj + `/verify`, check);
+    },
+    
+    // 임시 비밀번호 (고치기)
+    pwdReset : async(email, name) => {
+        const reset = {
+            email : email,
+            name : name
+        }
+        return await axios.post(Final_proj + `/resetPwd`, reset);
     }
     //채팅
     
