@@ -218,6 +218,7 @@ const QnATable = styled.table`
 
 
 const ProductInfo = () => {
+    
     const nav = useNavigate();
 
     const [click, setClick] = useState(false);
@@ -295,20 +296,22 @@ const ProductInfo = () => {
                         <div className="reviewBoard">Review</div>
                         <hr />
                         <ReviewTable>
+                            <tbody>
                                 <tr>
                                     <th className="Num">Num</th>
                                     <th className="Title">Title</th>
                                     <th className="User">User</th>
                                     <th className="Date">Date</th>
                                 </tr>
-                                <tbody>                             {/*DB 값 가져오기*/}
-                                    <tr>
-                                        <td className="number">1.</td>
-                                        <td className="title">리뷰 작성</td>
-                                        <td className="user">이***</td>
-                                        <td className="date">2023-06-10</td>
-                                    </tr>
-                                </tbody>
+                            </tbody>
+                            <tbody>                             {/*DB 값 가져오기*/}
+                                <tr>
+                                    <td className="number">1.</td>
+                                    <td className="title">리뷰 작성</td>
+                                    <td className="user">이***</td>
+                                    <td className="date">2023-06-10</td>
+                                </tr>
+                            </tbody>
                         </ReviewTable>
                     </div>
                 </Review>
@@ -321,20 +324,22 @@ const ProductInfo = () => {
                         <Modal open={modalOpen} close={closeModal} header="문의 작성"/>
                         <hr />
                         <QnATable>
+                            <tbody>
                                 <tr>
                                     <th className="Num">Num</th>
                                     <th className="Title">Title</th>
                                     <th className="User">User</th>
                                     <th className="Date">Date</th>
                                 </tr>
-                                <tbody>                             {/*DB 값 가져오기*/}
-                                    <tr>
-                                        <td className="number">1.</td>
-                                        <td className="title" onClick={onclick}>문의작성</td>
-                                        <td className="user">이***</td>
-                                        <td className="date">2023-06-10</td>
-                                    </tr>
-                                </tbody>
+                            </tbody>
+                            <tbody>                             {/*DB 값 가져오기*/}
+                                <tr>
+                                    <td className="number">1.</td>
+                                    <td className="title" onClick={onclick}>문의작성</td>
+                                    <td className="user">이***</td>
+                                    <td className="date">2023-06-10</td>
+                                </tr>
+                            </tbody>
                         </QnATable>
                     </div>
                 </QnA>

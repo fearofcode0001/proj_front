@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styled from "styled-components";
-import test from "../img/test.webp";
 import Header from "./Header";
 import DropFiter from "./DropFiter";
 import AxiosFinal from "../api/AxiosFinal";
+import { UserContext } from "../context/UserInfo";
+
 
 
 const Container = styled.div`
@@ -11,9 +12,6 @@ const Container = styled.div`
     height: 100vh;
     display: flex;    
     flex-direction: column;
-
-
-    
 `
 
 const Mainboby=styled.div`
@@ -73,32 +71,33 @@ const Filter = styled.div`
 
 
 const Shop = () => {
-
+    const context = useContext(UserContext);
+    const {test, isLogin} = context;
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBlurred, setIsBlurred] = useState(false);
     const [product, setProduct] = useState([]);
 
     const handleHeaderClick = () => {
-      setIsBlurred(!isBlurred);
-      console.log(isBlurred)
+    //   setIsBlurred(!isBlurred);
     };
   
    useEffect(() => {
      const getProduct = async() => {
         const rsp = await AxiosFinal.shop();
         if(rsp.status === 200) setProduct(rsp.data);
-        console.log(rsp.data);
     };
     getProduct();
    }, []);
 
-    
- 
-    
     const handleFilter = () => {
         setIsFilterOpen(!isFilterOpen);
       };
+
     
+    const onclick = (x) => {
+        // console.log(x);
+        // setTest(ssss);
+    }
 
     return(
       <Container>
@@ -113,86 +112,18 @@ const Shop = () => {
                   
             </Filter>  
             <Article >
-            <Container_in>
+            {product && product.map((x) => (    
+            <Container_in key={x.productId} onClick={()=>onclick(x)}>
             <div className={isBlurred ? 'blur' : ''}>
-            <div className="view">
-                <img src={test}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
-            <Container_in> 
-            <div className={isBlurred ? 'blur' : ''} > 
-            <div className="view">
-                <img src={test}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
+                <div className="view">
+                    <img src={x.productMainImg}/>
+                    <div className="logo">iMMUTABLE</div>      
+                    <div className="info">{x.productName}</div>
+                    <div className="price">{x.productPrice}</div>
+                </div>
             </div>
             </Container_in>
-            <Container_in>
-            <div className={isBlurred ? 'blur' : ''}> 
-            <div className="view"> 
-                <img src={test}/> 
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
-            <Container_in>
-            <div className={isBlurred ? 'blur' : ''}> 
-            <div className="view">
-                <img src={test}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
-            <Container_in>
-            <div className={isBlurred ? 'blur' : ''}>
-            <div className="view">
-                <img src={test}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
-            <Container_in>
-            <div className={isBlurred ? 'blur' : ''}>
-            <div className="view">
-                <img src={test}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
-            <Container_in>
-            <div className={isBlurred ? 'blur' : ''}>
-            <div className="view">
-                <img src={test}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
-            <Container_in> 
-            <div className={isBlurred ? 'blur' : ''}>          
-            <div className="view">
-                <img src={test}/>
-                <div className="logo">iMMUTABLE</div>      
-                <div className="info">Viscose Tricot Crewneck</div>
-                <div className="price">₩‌1,043,000</div>
-            </div>
-            </div>
-            </Container_in>
+            ))}
             </Article>
         </Mainboby>
       </Container>  
