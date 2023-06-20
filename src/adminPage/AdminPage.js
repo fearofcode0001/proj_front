@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import SaleDate from "./SaleDate";
@@ -8,6 +8,7 @@ import Inventory from "./Inventory";
 import Qna from "./Qna";
 import CustomerMan from "./CustomerMan";
 import AxiosFinal from "../api/AxiosFinal";
+import { UserContext } from "../context/UserInfo";
 
 
 const Container=styled.div`
@@ -134,6 +135,11 @@ const SideBustton=styled.div`
 
 `
 const AdminPage=()=>{
+    
+    const context = useContext(UserContext);
+    //어드민페이지에서 고객DATA로 넘길 contextAPI
+    const {setCustomerData} = context;
+
 
     //임시 주문건 입력
     const [neworder,setNewOrder] = useState(1);
@@ -149,6 +155,7 @@ const AdminPage=()=>{
     const onLoadCustomerData = async() =>{ 
         const response = await AxiosFinal.customerManage();
         console.log(response.data);
+        setCustomerData(response.data);
     }
     //전체회원조회 컴포넌트
     const onLoadCustomer=(e)=>{

@@ -1,5 +1,6 @@
-import React from "react";
+import React ,{ useContext }from "react";
 import styled from "styled-components";
+import { UserContext } from "../context/UserInfo";
 
 
 const Container=styled.div`
@@ -72,6 +73,9 @@ const CustomerInfo = styled.div`
     }
 `
 const  CustomerMan = () =>{
+
+    const context = useContext(UserContext);
+    const {customerData} = context;
     return(
 
         <Container>
@@ -95,26 +99,30 @@ const  CustomerMan = () =>{
                     Del
                 </div>
             </CustomerInfo>
-            <CustomerInfo>
-                <div className="customerId">
-                    customer1597
-                </div>
-                <div className="customerName">
-                    이태석
-                </div>
-                <div className="customerAddr">
-                    서울시 강남구 강남동 강남아파트 강남동 강남호
-                </div>
-                <div className="customerPhone">
-                    010-7777-8888
-                </div>
-                <div className="customerGrade">
-                    3
-                </div>
-                <div className="customerDel">
-                    <button>탈퇴</button>
-                </div>
-            </CustomerInfo>
+            
+            {customerData && customerData.map((x, index) =>
+                <CustomerInfo>
+                    <div className="customerId">
+                        {x.userId}
+                    </div>
+                    <div className="customerName">
+                        {x.userName}
+                    </div>
+                    <div className="customerAddr">
+                        {x.userAddr}
+                    </div>
+                    <div className="customerPhone">
+                        {x.userPhone}
+                    </div>
+                    <div className="customerGrade">
+                        {x.authority}
+                    </div>
+                    <div className="customerDel">
+                        <button>탈퇴</button>
+                    </div>
+                </CustomerInfo>
+            )}
+            
         </Container>
     );
 };
