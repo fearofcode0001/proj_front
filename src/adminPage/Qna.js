@@ -1,5 +1,5 @@
 import React, { useState, useContext  } from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import { UserContext } from "../context/UserInfo";
 
 
@@ -81,11 +81,15 @@ const QnaInfo = styled.div`
     }
     .parnetContents{
         width: 100%;
+        height: 0px;
         overflow: hidden;
         transition: height 0.35s ease;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        ${props => props.active && css`   // *&* props가 active이면 css를 재정의 한다.
+          height: 200px;
+        `}
     }
     .childContents{
         height: 110px;
@@ -120,19 +124,23 @@ const QnaInfo = styled.div`
 
 const Qna = () =>{
 
-
-    //제목을 누르면 답변창(accodian이 생성된다.
-    const [accodianPop,setAccodianPop] = useState(0);
-    const onPopAccodian =(index)=>{
-        if(accodianPop===0){
-            setAccodianPop(200);
-        } else if(accodianPop===200){
-            setAccodianPop(0);
-        }
+    const[qnaAccodian, setQnaAccodian] = useState("all"); 
+    //제목을 누르면 답변창(accodian)이 생성된다.
+    //넘어오는 qndId값만 active를 통해 props를 CSS로 넘겨준다
+    const onPopAccodian =(props)=>{
+        console.log(props);
+        //같은 버튼 클릭시 null로 바꿔주어 모든 css를 초기화한다
+        if(props===qnaAccodian){
+            setQnaAccodian(null);
+            console.log(qnaAccodian);
+        }else{
+            setQnaAccodian(props);
+        }        
     };
     //Qnadata를 가져옴
     const context = useContext(UserContext);
     const {qnaData} = context;
+
 
     return(
 
@@ -161,7 +169,7 @@ const Qna = () =>{
             </QnaInfoHead>
 
             {qnaData && qnaData.map((q,index)=>
-            <QnaInfo>
+            <QnaInfo key={q.qnaId} active={qnaAccodian === q.qnaId}>
                 <div className="qnaHead">
                     <div className="qnaId">
                         {q.qnaId}
@@ -172,7 +180,7 @@ const Qna = () =>{
                     <div className="userId">
                         {q.user}
                     </div>
-                    <div className="qnaNmList" onClick={()=>{onPopAccodian(index)}}>
+                    <div className="qnaNmList" onClick={()=>{onPopAccodian(q.qnaId)}}>
                         {q.qnaTitle}
                     </div>
                     <div className="answer">
@@ -185,7 +193,7 @@ const Qna = () =>{
                         20230620
                     </div>
                 </div>
-                <div className="parnetContents" style={{height: `${accodianPop}px`}}>
+                <div className="parnetContents">
                     <div className="childContents">
                         {q.qnaContent}   
                     </div>                     
