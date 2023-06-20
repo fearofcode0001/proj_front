@@ -94,7 +94,10 @@ const  CustomerMan = () =>{
     const onDeleteCustomer = async(props) =>{ 
         //map의 userID값을 통해서 DB를 갔다온다.
         console.log(props);
-        const response = await AxiosFinal.customerManage(props);
+        const response = await AxiosFinal.customerDelete(props);
+        if(response===true){
+            onLoadCustomerData();
+        }
     }
 
     const onLoadCustomerData = async() =>{ 
