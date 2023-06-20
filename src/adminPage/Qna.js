@@ -123,7 +123,7 @@ const Qna = () =>{
 
     //제목을 누르면 답변창(accodian이 생성된다.
     const [accodianPop,setAccodianPop] = useState(0);
-    const onPopAccodian =()=>{
+    const onPopAccodian =(index)=>{
         if(accodianPop===0){
             setAccodianPop(200);
         } else if(accodianPop===200){
@@ -160,7 +160,7 @@ const Qna = () =>{
                 </div>
             </QnaInfoHead>
 
-            {qnaData && qnaData.map((q)=>
+            {qnaData && qnaData.map((q,index)=>
             <QnaInfo>
                 <div className="qnaHead">
                     <div className="qnaId">
@@ -172,13 +172,13 @@ const Qna = () =>{
                     <div className="userId">
                         {q.user}
                     </div>
-                    <div className="qnaNmList" onClick={onPopAccodian}>
+                    <div className="qnaNmList" onClick={()=>{onPopAccodian(index)}}>
                         {q.qnaTitle}
                     </div>
                     <div className="answer">
-                        <select name ="">
-                            <option value="">complete</option>
-                            <option value="">hold</option>
+                        <select name ='qnaSelect'>
+                            <option value="HOLD">hold</option>
+                            <option value="COMPLETE">complete</option>                           
                         </select>
                     </div>
                     <div className="date">
