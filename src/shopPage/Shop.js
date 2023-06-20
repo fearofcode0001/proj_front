@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import test from "../img/test.webp";
 import Header from "./Header";
 import DropFiter from "./DropFiter";
+import AxiosFinal from "../api/AxiosFinal";
 
 
 const Container = styled.div`
@@ -75,13 +76,21 @@ const Shop = () => {
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isBlurred, setIsBlurred] = useState(false);
+    const [product, setProduct] = useState([]);
 
     const handleHeaderClick = () => {
       setIsBlurred(!isBlurred);
       console.log(isBlurred)
     };
   
-   
+   useEffect(() => {
+     const getProduct = async() => {
+        const rsp = await AxiosFinal.shop();
+        if(rsp.status === 200) setProduct(rsp.data);
+        console.log(rsp.data);
+    };
+    getProduct();
+   }, []);
 
     
  

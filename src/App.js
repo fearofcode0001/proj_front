@@ -16,7 +16,6 @@ import ProductInfo from './pages/ProductInfo';
 import ModifyingInfo from './pages/ModifyingInfo';
 import Secession from './pages/Secession';
 import Mypost from './pages/Mypost';
-
 import Order from './pages/Order';
 import Review from './pages/Review';
 import Wishlist from './pages/Wishlist';

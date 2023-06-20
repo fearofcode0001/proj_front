@@ -77,10 +77,9 @@ input {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 38px;
+    /* height: 38px; */
     margin-top: 20px;
     background-color: white;
-    border: 1px solid black;
 }
 
 .hint {
@@ -109,32 +108,36 @@ input {
     color: red;
 }
 .enable-button {
-    width: 400px;
-    height: 40px;
     font-size: 10px;
-    color: black;
-    border: 1px solid black;
-    background-color: white;
-    &:hover{
-        background-color: black;
-        color: white;
-    }
-
+    /* font-weight: bold; */
+    margin-bottom: 20px;
+    width: 100%;
+    height: 38px;
+    color: white;
+    background-color: black;
 }
 .enable-button:active {
-
+    font-size: 10px;
+    /* font-weight: bold; */
+    width: 100%;
+    height: 38px;
+    color: white;
+    background-color: black;
+    &:hover {
+        border: 1px solid black;
+    }
 }
 .disable-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    height: 40px;
+    height: 38px;
+    margin-bottom: 20px;
     font-size: 10px;
     color: black;
-    border: 1px solid #CCC;
-    background-color: #CCC;
- 
+    background-color: white;
+    border: 1px solid black;
+    &:hover{
+        color: #CCC;
+    }
 }
 `;
 
@@ -262,30 +265,56 @@ const SignUp = () => {
         setIsAddr(true);
     }
 
+    const onClickEmailAuth = async() => { 
+        console.log("이메일 인증 호출 : " + inputEmail);
+        const res = await AxiosFinal.mailCode(inputEmail);
+				// Axios를 이용하여 서버로 inputEmail 변수에 담긴 이메일 주소를 전송하고, 
+				//서버에서 생성한 랜덤한 인증 코드를 받아오는 API를 호출
+        console.log(res.data);
+
+    }   
+
+
+      // 이메일 인증코드 유효성 검사
+      const onClickCode = async() => {
+        console.log(code);
+        if (code.length !== 6) {
+            setVerificationResult("잘못입력하셨습니다");
+            console.log(code);
+          }
+          const res = await AxiosFinal.mailCodeck(inputEmail, code);
+          console.log(res.data);
+          if (res.data) {
+            setVerificationResult("인증이 완료되었습니다.");
+          } else {
+            setVerificationResult("인증 코드가 일치하지 않습니다.");
+          }
+    }
+
     const onClickLogin = async() => {
         console.log("Click 회원가입");
          // 가입 여부 우선 확인
          const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, inputAddr, inputPhone);
-        //  const memberCheck = await AxiosFinal.memberRegCheck(inputEmail);
-        //  console.log("가입 가능 여부 확인 : ", memberCheck.data);
-        //  // 가입 여부 확인 후 가입 절차 진행
+         const memberCheck = await AxiosFinal.memberRegCheck(inputEmail);
+         console.log("가입 가능 여부 확인 : ", memberCheck.data);
+         // 가입 여부 확인 후 가입 절차 진행
          
-        //  if (memberCheck.data === true) {
-        //      console.log("가입된 아이디가 없습니다. 다음 단계 진행 합니다.");
+         if (memberCheck.data === true) {
+             console.log("가입된 아이디가 없습니다. 다음 단계 진행 합니다.");
 
-        //      const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, inputConPw, addr, inputPhone);
-        //      console.log(addr);
-        //      console.log(memberReg.data.result);
-        //      if(memberReg.data === true) {
-        //          navigate('/welcome');
-        //      } else {
-        //          alert("회원 가입에 실패 했습니다.");
-        //      }
+             const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, inputConPw, addr, inputPhone);
+             console.log(addr);
+             console.log(memberReg.data.result);
+             if(memberReg.data === true) {
+                 navigate('/welcome');
+             } else {
+                 alert("회원 가입에 실패 했습니다.");
+             }
  
-        //  } else {
-        //      console.log("이미 가입된 회원 입니다.")
-        //      alert("이미 가입된 회원 입니다.");
-        //  } 
+         } else {
+             console.log("이미 가입된 회원 입니다.")
+             alert("이미 가입된 회원 입니다.");
+         } 
      }
 
 
@@ -305,7 +334,7 @@ const SignUp = () => {
                 
                     <div className="item1">
                         <input className="email" type="email" placeholder="EMAIL"onChange={onChangeMail}/>
-                        <button className="emailBtn">SEND</button>
+                        <button className="emailBtn" onClick={onClickEmailAuth}>SEND</button>
                     </div>
                     <div className="hint">
                         {inputEmail.length > 0 && (
@@ -313,7 +342,7 @@ const SignUp = () => {
                     </div>
                     <div className="item1">
                         <input className="verify" type="text" placeholder="VERIFYCODE" />
-                        <button className="verifyBtn">VERIFY</button>
+                        <button className="verifyBtn" onClick={onClickCode}>VERIFY</button>
                     </div>
                     <div className="hint">
                         {inputEmail.length > 0 && (

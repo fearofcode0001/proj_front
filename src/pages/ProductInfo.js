@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import Header from "../shopPage/Header";
 import Modal from "./Modal";
 import {FaRegHeart} from "react-icons/fa";
+import { UserContext } from "../context/UserInfo";
+import { useNavigate } from "react-router-dom";
 
 
 const Container = styled.div`
@@ -216,6 +218,8 @@ const QnATable = styled.table`
 
 
 const ProductInfo = () => {
+    const nav = useNavigate();
+
     const [click, setClick] = useState(false);
     const [qClick, setqClick] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -234,7 +238,12 @@ const ProductInfo = () => {
     }
 
     const writeQna = () => {
-        setModalOpen(true);
+        if (window.localStorage.getItem("isLoginSuv") == true) {
+            setModalOpen(true);
+        } else {
+            nav("/Login");
+        }
+        
     }
 
     const closeModal = () => {
