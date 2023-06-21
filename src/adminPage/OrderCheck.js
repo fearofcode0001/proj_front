@@ -126,14 +126,14 @@ const  OrderCheck = () =>{
                     159,000
                 </div>
                 <div className="orderStatus">
-                    <select name="">
-                        <option value="">주문 확인</option>
-                        <option value="">상품 준비중</option>
-                        <option value="">배송중</option>
-                        <option value="">배송 완료</option>
-                        <option value="">판매 보류</option>
-                        <option value="">주문 취소</option>
-                        <option value="">환불 완료</option>
+                    <select name="orderStatus">
+                        <option value="CHECK">주문 확인</option>
+                        <option value="READY">상품 준비중</option>
+                        <option value="SHIP">배송중</option>
+                        <option value="DONE">배송 완료</option>
+                        <option value="HOLD">판매 보류</option>
+                        <option value="CANCEL">주문 취소</option>
+                        <option value="REFUND">환불 완료</option>
                     </select>
                     
                 </div>
