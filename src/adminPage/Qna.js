@@ -208,9 +208,9 @@ const Qna = () =>{
                     </div>
                     <div className="answer" >
                         <select name ='qnaSelect'onChange={getValue}>
-                            <option>{q.qnaStatus}</option>
-                            <option value="HOLD">hold</option>
-                            <option value="COMPLETE">complete</option>                           
+                            <option selected disabled>{q.qnaStatus}</option>
+                            <option value="HOLD">HOLD</option>
+                            <option value="COMPLETE">COMPLETE</option>                           
                         </select>
                     </div>
                     <div className="date">

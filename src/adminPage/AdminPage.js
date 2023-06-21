@@ -138,19 +138,18 @@ const AdminPage=()=>{
     
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
-    const {setCustomerData ,setQnaData,qnaData} = context;
+    const {setCustomerData ,setQnaData,setOrderData} = context;
 
 
     //임시 주문건 입력
     const [neworder,setNewOrder] = useState(1);
+
     //어드민 sideMenu를 바꾸는 useState
     const [changeMenu,setChangeMenu] =useState();
-
+    //페이지값이 바뀌는 컴포넌트
     const onChangePage =(e)=>{
         setChangeMenu(e);   
     }
-
-
     //customermanagement선택시 실행되는 엑시오스
     const onLoadCustomerData = async() =>{ 
         const response = await AxiosFinal.customerManage();
@@ -160,9 +159,14 @@ const AdminPage=()=>{
     //qna 선택시 샐행되는 엑시오스
     const onLoadQnaData = async() =>{ 
         const response = await AxiosFinal.qnaLoadManage();
-        console.log(response.data);
+        // console.log(response.data);
         setQnaData(response.data);
-        console.log("qnadata",qnaData);
+        // console.log("qnadata",qnaData);
+    }
+    //orderCheck 선택시 실행되는 엑시오스
+    const onLoadOrderData = async()=>{
+        const response = await AxiosFinal.orderLoadManage();
+        setOrderData(response.data);
     }
     //전체회원조회 컴포넌트
     const onLoadCustomer=(e)=>{
@@ -170,6 +174,8 @@ const AdminPage=()=>{
             onLoadCustomerData();
         }else if(e==="qna"){
             onLoadQnaData();
+        }else if(e==="orderCheck"){
+            onLoadOrderData();
         }
     }
     return(
