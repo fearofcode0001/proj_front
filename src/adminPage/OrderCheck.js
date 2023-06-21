@@ -75,9 +75,7 @@ const OrderInfo=styled.tr`
             }
         }
     }
-    br{
-        msoDataPlacement: 'same-cell';
-    }
+   
     
 `
 const  OrderCheck = () =>{
@@ -155,28 +153,7 @@ const  OrderCheck = () =>{
             </OrderInfo>  
 
             
-<figure class="table">
-<table>
-<tbody>
-<tr>
-<td>주문ID<br/></td>
-<td>송장번호<br/></td>
-</tr>
-<tr>
-<td>주문ID<br/></td>
-<td>송장번호<br/></td>
-</tr>
-<tr>
-<td>주문ID<br/></td>
-<td>송장번호<br/></td>
-</tr>
-<tr>
-<td>주문ID<br/></td>
-<td>송장번호<br/></td>
-</tr>
-</tbody>
-</table>
-</figure>                         
+          
         </Container>
     );
 };
