@@ -167,6 +167,7 @@ const AdminPage=()=>{
     const onLoadOrderData = async()=>{
         const response = await AxiosFinal.orderLoadManage();
         setOrderData(response.data);
+        console.log(response);
     }
     //전체회원조회 컴포넌트
     const onLoadCustomer=(e)=>{

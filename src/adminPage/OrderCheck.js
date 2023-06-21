@@ -112,21 +112,22 @@ const  OrderCheck = () =>{
                     
                 </div>
             </OrderInfo> 
-            <OrderInfo>
+            {orderData && orderData.map((o)=> <OrderInfo>
                 <div className="orderId">
-                    1597865
+                   {o.orderId}
                 </div>
                 <div className="orderName">
-                    이태석
+                {o.orderId}
                 </div>
                 <div className="orderDate">
-                    주문일
+                {o.orderDate}
                 </div>
                 <div className="orderPrice">
-                    159,000
+                {o.totalPrice}
                 </div>
                 <div className="orderStatus">
                     <select name="orderStatus">
+                        <option value="" selected>{o.orderStatus}</option>
                         <option value="CHECK">주문 확인</option>
                         <option value="READY">상품 준비중</option>
                         <option value="SHIP">배송중</option>
@@ -139,18 +140,19 @@ const  OrderCheck = () =>{
                 </div>
                 <div className="invoiceCom">
                     <select name="">
+                        <option value="">{o.shipCompany}</option>
                         <option value="">CJ대한통운</option>
                         <option value="">롯데 택배</option>
                         <option value="">한진 택배</option>
                     </select>
                 </div>
                 <div className="invoiceNum">
-                    <input type="text" className="invoiceNum" value={159415-9716515}/>
+                    <input type="text" className="invoiceNum" value={o.shipCode}/>
                 </div>          
                 <div className="submitBtn">
                     <button>submit</button>
                 </div>
-            </OrderInfo>  
+            </OrderInfo>)}
 
             
           
