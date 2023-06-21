@@ -117,7 +117,7 @@ const  OrderCheck = () =>{
                    {o.orderId}
                 </div>
                 <div className="orderName">
-                {o.orderId}
+                {o.user}
                 </div>
                 <div className="orderDate">
                 {o.orderDate}
