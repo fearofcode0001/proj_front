@@ -77,19 +77,22 @@ const InnerContainer = styled.div`
 const FindPwd = () => {
     const navigate = useNavigate();
 
+    // 키보드 입력받기
     const [inputEmail, setInputEmail] = useState("");
     const [code, setCode] = useState("");
-    const [inputPw, setInputPw] = useState("")
-    const [inputConPw, setInputConPw] = useState("");
+    const [resetPw, setResetPw] = useState("")
+    const [resetConPw, setResetConPw] = useState("");
 
+    // 에러 메시지
     const [emailMessage, setEmailMessage] = useState("")
     const [codeMessage, setCodeMessage] = useState("")
     const [pwMessage, setPwMessage] = useState("");
     const [conPwMessage, setConPwMessage] = useState("");
 
+    // 유효성 검사
     const [isEmail, setIsEmail] = useState(false);
-    const [isPw, setIsPw] = useState(false)
-    const [isConPw, setIsConPw] = useState(false);
+    const [isResetPw, setIdResetPw] = useState(false)
+    const [isResetConPw, setIsResetConPw] = useState(false);
     const [isCode, setIsCode] = useState(false);
 
     //메일 정규식
@@ -134,26 +137,26 @@ const FindPwd = () => {
         const onChangePw = (e) => {
             const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,25}$/ // 비밀번호 정규식
             const passwordCurrent = e.target.value ;
-            setInputPw(passwordCurrent);
+            setResetPw(passwordCurrent);
             if (!passwordRegex.test(passwordCurrent)) {
                 setPwMessage('숫자+영문자 조합으로 8자리 이상 입력해주세요!')
-                setIsPw(false)
+                setIdResetPw(false)
             } else {
                 setPwMessage('안전한 비밀번호에요 : )')
-                setIsPw(true);
+                setIdResetPw(true);
             }        
         }
     
         //비밀번호 확인
         const onChangeConPw = (e) => {
             const passwordCurrent = e.target.value ;
-            setInputConPw(passwordCurrent)
-            if (passwordCurrent !== inputPw) {
+            setResetConPw(passwordCurrent)
+            if (passwordCurrent !== resetPw) {
                 setConPwMessage('비밀 번호가 일치하지 않습니다.') // 입력한 비밀번호가 일치해야 함
-                setIsConPw(false)
+                setIsResetConPw(false)
             } else {
                 setConPwMessage('비밀 번호가 일치 합니다. )')
-                setIsConPw(true);
+                setIsResetConPw(true);
             }      
         }
 
