@@ -54,6 +54,10 @@ const AxiosFinal = {
             qnaReplay : reply
         };
         return await axios.post(Final_proj + "/admin/qnaUpload", qnaReplyUpLoad);
+    },
+      //어드민페이지 qna 전체조회
+      orderLoadManage : async() => {
+        return await axios.get(Final_proj + `/admin/orderLoad`);
     },    
     //회원 조회
     memberGet: async(id) => {
