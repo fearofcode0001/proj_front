@@ -147,20 +147,21 @@ const Qna = () =>{
     const [qnaStatue, setQnaStatue] = useState();
     //답변 상태의 value가 담길 컴포넌트 select는 배열이므로 해당 배열 안의 값을 구해야 한다.
     const getValue = (e) => {
-        const { value, name } = e.target;
+        const {  name } = e.target;
         setQnaStatue({
             ...qnaStatue,
             //name 키를 가진 값을 value로 설정
-            [name]: value
+            [name]: e.target.value
           })
        
     console.log(qnaStatue);
     // qnaSelect, qnaReply 각각 답이 담긴다. 
     }
     //답변과 답변 상태를 비동기 통신으로 전달.
-    const onSubmitQna =async(props)=>{      
-        //HOLD,COMPLETE 둘 중 하나의 값이 나온다.  
-        // console.log(qnaStatue.qnaSelect);   
+    const onSubmitQna =async(props)=>{  
+        //덜 담긴 정보를 한번 더 랜더링 하여 최종으로 다 담기게 한다.
+        setQnaStatue({...qnaStatue});
+        console.log(qnaStatue);
         const response = AxiosFinal.qnaUploadReply(props,qnaStatue.qnaSelect,qnaStatue.qnaReply);
         console.log("qna 답변 통신 ",response)
     }
