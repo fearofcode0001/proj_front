@@ -47,9 +47,9 @@ const AxiosFinal = {
         return await axios.get(Final_proj + `/admin/qnaLoad`);
     },
     //어드민페이지에 qna답변달기
-    qnaUploadReply : async(qndid,statue,reply)=>{
+    qnaUploadReply : async(qnaId,statue,reply)=>{
         const qnaReplyUpLoad={
-            qnaId : qndid,
+            qnaId : qnaId,
             qnaStatue : statue,
             qnaReplay : reply
         };
