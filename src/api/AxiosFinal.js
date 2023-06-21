@@ -50,7 +50,7 @@ const AxiosFinal = {
     qnaUploadReply : async(qndid,statue,reply)=>{
         const qnaReplyUpLoad={
             qnaId : qndid,
-            answerStatue : statue,
+            qnaStatue : statue,
             qnaReplay : reply
         };
         return await axios.post(Final_proj + "/admin/qnaUpload", qnaReplyUpLoad);
