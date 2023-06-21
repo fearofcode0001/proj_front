@@ -168,7 +168,6 @@ const SignUp = () => {
     const [isPw, setIsPw] = useState(false)
     const [isConPw, setIsConPw] = useState(false);
     const [isPhone, setIsPhone] = useState(false);
-    const [isAddr, setIsAddr] = useState(false);
 
      //저장된 주소값을 설정하여 주소는 받아온다.
      const context = useContext(UserContext);
@@ -284,30 +283,25 @@ const SignUp = () => {
           
     }
 
-    const onClickLogin = async() => {
+    const onClickSignUp = async() => {
         console.log("Click 회원가입");
-         // 가입 여부 우선 확인
-         const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, addr, inputPhone, code);
-         const memberCheck = await AxiosFinal.memberRegCheck(inputEmail);
-         console.log("가입 가능 여부 확인 : ", memberCheck.data);
-         // 가입 여부 확인 후 가입 절차 진행
-         
-         if (memberCheck.data === true) {
-             console.log("가입된 아이디가 없습니다. 다음 단계 진행 합니다.");
+        // 가입 여부 우선 확인
+        const response = await AxiosFinal.memberRegCheck(inputEmail);
+        const check = response.data;
 
-             const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, inputConPw, addr, inputPhone);
-             console.log(addr);
-             console.log(memberReg.data.result);
-             if(memberReg.data === true) {
-                 navigate('/welcome');
-             } else {
-                 alert("회원 가입에 실패 했습니다.");
-             }
- 
-         } else {
-             console.log("이미 가입된 회원 입니다.")
-             alert("이미 가입된 회원 입니다.");
-         } 
+        if(check) {
+            console.log("가입가능");
+            // 가입 진행
+            const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, addr, inputPhone);
+            setAddr("");
+            if(memberReg.data === true) {
+                navigate("/Login");
+            } else {
+                alert("회원 가입에 실패했습니다");
+            }
+        } else {
+            alert("이미 가입된 회원입니다");
+        }
      }
 
 
@@ -375,7 +369,7 @@ const SignUp = () => {
                     </div>
                     <div>
                     {(isEmail && isPw && isConPw && isName && isPhone) ? 
-                    <button className="enable-button" onClick={onClickLogin}>CREATE</button> :
+                    <button className="enable-button" onClick={onClickSignUp}>CREATE</button> :
                     <button className="disable-button">INPUT INFORMATION</button> }
                     </div>                                     
                 </div>

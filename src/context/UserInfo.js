@@ -4,7 +4,7 @@ export const UserContext = createContext("");
 const UserStore = (props) => {
     const [userEmail, setUserEmail] = useState(""); 
     const [password, setPassword] = useState(""); 
-    const [isLogin, setIsLogin] = useState("FALSE"); 
+    const [isLogin, setIsLogin] = useState(false); 
     const [signUpEmail, setSignUpEmail] = useState("");
     const [addr, setAddr] = useState("");
     const [item, setItem] = useState("");

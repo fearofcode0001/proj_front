@@ -1,9 +1,10 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useContext} from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import ModifyingInfo from "./ModifyingInfo";
 import Secession from "./Secession";
 import Mypost from "./Mypost"
+import { UserContext } from "../context/UserInfo";
 
 
 
@@ -173,7 +174,8 @@ const IsLoginFalse = [
 const Mypage = () =>{
     
     const nav = useNavigate();
-    const [isLogin, setIsLogin] = useState(true);
+    const {isLogin, setIsLogin} = useContext(UserContext);
+
 
     const navigate = useNavigate();
     const onChangePage=(e)=>{

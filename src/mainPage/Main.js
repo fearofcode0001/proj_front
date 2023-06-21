@@ -1,10 +1,11 @@
-import React ,{css, useState}from "react";
+import React ,{css, useContext, useState}from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import bckimg from "../img/fog.jpg"
 import side from "../img/side.png"
 import chat from "../img/chat.png"
 import Mypage from "../pages/Mypage";
+import { UserContext } from "../context/UserInfo";
 
 const Sidemenu = [
     //버튼을 카테고리로 분류하여 값을 쉽게 가져오기 위해 name으로 설정한다.
@@ -257,8 +258,9 @@ const ChatButton=styled.button`
 
 const Main= () =>{
     const [isOpen, setIsOpen] = useState(0);
-    const [isLogin, setIsLogin] = useState(false);
+    // const [isLogin, setIsLogin] = useState(false);
     const [openChat, setOpenChat] = useState(0);
+    const {isLogin, setIsLogin} = useContext(UserContext);
 
     //채팅 on/off 컴포넌트
     const onChat=()=>{
@@ -299,6 +301,8 @@ const Main= () =>{
         }
         console.log(isOpen) ; 
       };
+
+      console.log(isLogin);
     
      
     return(
@@ -324,12 +328,12 @@ const Main= () =>{
                             iMMUTABLE
                         </div>
                         <div className="top2">
-                          {IsLoginFalse.map(s=>( isLogin===false &&
+                          {isLogin===false && IsLoginFalse.map(s=> (
                                         <TopButton key={s.name}>
                                             <Link to="/Login">{s.name}</Link>
                                         </TopButton>
                                     ))}
-                          {IsLoginTrue.map(s=>( isLogin===true &&
+                          {isLogin===true && IsLoginTrue.map(s=> ( 
                                         <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>

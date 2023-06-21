@@ -84,7 +84,7 @@ const AxiosFinal = {
 
     // 회원 가입 여부 확인
     memberRegCheck : async(email) => {
-        return await axios.get(Final_proj + `/check?id=${email}`);
+        return await axios.get(Final_proj + `/auth/check?email=${email}`);
     },
 
     // 회원 가입

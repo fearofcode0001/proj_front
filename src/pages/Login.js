@@ -1,7 +1,8 @@
-import React ,{useState}from "react";
+import React ,{useContext, useState}from "react";
 import styled from "styled-components";
 import { useNavigate,Link } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
+import { UserContext } from "../context/UserInfo";
 
 const Container =styled.div`
     width: 100%;
@@ -64,6 +65,7 @@ const Login =()=>{
     //id와 pw를 입력받는다.
     const [inputId,setInputId] = useState("");    
     const [inputPw,setInputPw] = useState("");
+    const {setIsLogin} = useContext(UserContext);
     //input창에서 id를 받아옴.
     const onChangeId = e => {
         setInputId(e.target.value);
@@ -80,6 +82,7 @@ const Login =()=>{
             //로그인시 유저아이디와 로그인여부에 값을 바꿔준다.
             window.localStorage.setItem("isLoginSuv", "TRUE");
             window.localStorage.setItem("userIdSuv", inputId);
+            setIsLogin(true);
             //로그인 성공시 home화면으로 돌아간다.
             navigate ("/");  
         } else {
