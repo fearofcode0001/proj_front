@@ -165,8 +165,8 @@ const AdminPage=()=>{
     }
     //orderCheck 선택시 실행되는 엑시오스
     const onLoadOrderData = async()=>{
-        // const response = await AxiosFinal.orderLoadManage();
-        // setOrderData(response.data);
+        const response = await AxiosFinal.orderLoadManage();
+        setOrderData(response.data);
     }
     //전체회원조회 컴포넌트
     const onLoadCustomer=(e)=>{
