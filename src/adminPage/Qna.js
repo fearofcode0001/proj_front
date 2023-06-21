@@ -142,13 +142,8 @@ const Qna = () =>{
     const context = useContext(UserContext);
     const {qnaData} = context;
 
-    //답변이 담길 상수
-    const [qnaReply, setQnaReply] = useState();
-    //input창에 쓰여지는 답변
-    const onReply=(e)=>{
-        setQnaReply(e.active && e.target.value)
-    }
-    //답변 상태가 담길 상수
+   
+    //답변과 답변 상태가 담길 상수
     const [qnaStatue, setQnaStatue] = useState();
     //답변 상태의 value가 담길 컴포넌트 select는 배열이므로 해당 배열 안의 값을 구해야 한다.
     const getValue = (e) => {
@@ -158,14 +153,15 @@ const Qna = () =>{
             //name 키를 가진 값을 value로 설정
             [name]: value
           })
-        // setQnaStatue(e.active && e.target.value);
-      
+       
+    console.log(qnaStatue);
+    // qnaSelect, qnaReply 각각 답이 담긴다. 
     }
     //답변과 답변 상태를 비동기 통신으로 전달.
     const onSubmitQna =async(props)=>{      
         //HOLD,COMPLETE 둘 중 하나의 값이 나온다.  
         // console.log(qnaStatue.qnaSelect);   
-        const response = AxiosFinal.qnaUploadReply(props,qnaStatue.qnaSelect,qnaReply);
+        const response = AxiosFinal.qnaUploadReply(props,qnaStatue.qnaSelect,qnaStatue.qnaReply);
         console.log("qna 답변 통신 ",response)
     }
     return(
@@ -211,6 +207,7 @@ const Qna = () =>{
                     </div>
                     <div className="answer" >
                         <select name ='qnaSelect'onChange={getValue}>
+                            <option>{q.qnaStatus}</option>
                             <option value="HOLD">hold</option>
                             <option value="COMPLETE">complete</option>                           
                         </select>
@@ -226,7 +223,7 @@ const Qna = () =>{
                      <div className="answerContents">
                         {q.reply}
                      </div>
-                    <input type="text" placeholder="answer" value={qnaReply} onChange={onReply}/>
+                    <input type="text" placeholder="answer" onChange={getValue} name ='qnaReply'/>
                     <button onClick={()=>{onSubmitQna(q.qnaId)}}>submit</button>
                 </div>
             </QnaInfo>

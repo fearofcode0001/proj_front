@@ -132,7 +132,7 @@ const  ItemUpload = () =>{
                                                      uploadProdData.category,
                                                      uploadProdData.productImg,
                                                      uploadProdData.content)
-    console.log(response);
+    console.log(response.data[0].setSize);
   }
     return(
 
