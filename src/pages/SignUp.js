@@ -9,12 +9,12 @@ import { Link } from "react-router-dom";
 
 
 const Container = styled.div`
-height: 100vh;
-display: flex;
-justify-content: center;
-align-items: center;
-text-align: center;
-overflow-y: scroll;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow-y: scroll;
 `;
 const InerContainer = styled.div`
 display: flex;
@@ -170,7 +170,7 @@ const SignUp = () => {
     const [isPhone, setIsPhone] = useState(false);
     const [isAddr, setIsAddr] = useState(false);
 
-     //저장된 주소와 아이디값을 설정하여 주소는 받아오고 아이디값은 저장한다.
+     //저장된 주소값을 설정하여 주소는 받아온다.
      const context = useContext(UserContext);
      const {addr, setAddr} = context;
      
@@ -259,11 +259,6 @@ const SignUp = () => {
         } 
     }
 
-    // 주소 유효성
-    const onChangeAddr = (e) => {
-        setIsAddr(e.target.value);
-        setIsAddr(true);
-    }
 
     const onClickEmailAuth = async() => { 
         console.log("이메일 인증 호출 : " + inputEmail);
@@ -292,7 +287,7 @@ const SignUp = () => {
     const onClickLogin = async() => {
         console.log("Click 회원가입");
          // 가입 여부 우선 확인
-         const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, inputAddr, inputPhone, code);
+         const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, addr, inputPhone, code);
          const memberCheck = await AxiosFinal.memberRegCheck(inputEmail);
          console.log("가입 가능 여부 확인 : ", memberCheck.data);
          // 가입 여부 확인 후 가입 절차 진행
@@ -370,7 +365,7 @@ const SignUp = () => {
                     </div>
 
                     <div className="item">
-                        <input type="text" placeholder="ADDRESS" className="addrInput" value={addr} onChange={onChangeAddr}/>
+                        <input type="text" placeholder="ADDRESS" className="addrInput" value={addr}/>
                         <button className="addrBtn" onClick={openPostCode}>FIND</button>
                         <div id='popupDom'>
                             {isPopupOpen && (                    
@@ -379,11 +374,10 @@ const SignUp = () => {
                         </div>
                     </div>
                     <div>
-                    
-                    {(isEmail && isPw && isConPw && isName && isPhone && isAddr) ? 
+                    {(isEmail && isPw && isConPw && isName && isPhone) ? 
                     <button className="enable-button" onClick={onClickLogin}>CREATE</button> :
                     <button className="disable-button">INPUT INFORMATION</button> }
-                    </div>                                            
+                    </div>                                     
                 </div>
                 <Link to="/Login">LOGIN</Link>
             </InerContainer>
