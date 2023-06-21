@@ -138,11 +138,12 @@ const AdminPage=()=>{
     
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
-    const {setCustomerData ,setQnaData,setOrderdata} = context;
+    const {setCustomerData ,setQnaData,setOrderData} = context;
 
 
     //임시 주문건 입력
     const [neworder,setNewOrder] = useState(1);
+
     //어드민 sideMenu를 바꾸는 useState
     const [changeMenu,setChangeMenu] =useState();
     //페이지값이 바뀌는 컴포넌트
@@ -164,8 +165,8 @@ const AdminPage=()=>{
     }
     //orderCheck 선택시 실행되는 엑시오스
     const onLoadOrderData = async()=>{
-        const response = await AxiosFinal.orderLoadManage();
-        setOrderdata(response.data);
+        // const response = await AxiosFinal.orderLoadManage();
+        // setOrderData(response.data);
     }
     //전체회원조회 컴포넌트
     const onLoadCustomer=(e)=>{
