@@ -172,7 +172,7 @@ const SignUp = () => {
 
      //저장된 주소와 아이디값을 설정하여 주소는 받아오고 아이디값은 저장한다.
      const context = useContext(UserContext);
-     const {addr, setSingUpEmail} = context;
+     const {addr, setAddr} = context;
      
 
 
@@ -261,7 +261,7 @@ const SignUp = () => {
 
     // 주소 유효성
     const onChangeAddr = (e) => {
-        setInputAddr(e.target.value);
+        setIsAddr(e.target.value);
         setIsAddr(true);
     }
 
@@ -370,7 +370,7 @@ const SignUp = () => {
                     </div>
 
                     <div className="item">
-                        <input type="text" placeholder="ADDRESS" className="addrInput" onChange={onChangeAddr}/>
+                        <input type="text" placeholder="ADDRESS" className="addrInput" value={addr} onChange={onChangeAddr}/>
                         <button className="addrBtn" onClick={openPostCode}>FIND</button>
                         <div id='popupDom'>
                             {isPopupOpen && (                    

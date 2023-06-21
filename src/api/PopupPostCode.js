@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import DaumPostcode from "react-daum-postcode";
 import styled from "styled-components";
+import { UserContext } from '../context/UserInfo';
 
   //yarn add react-daum-postcode
 
@@ -18,7 +19,8 @@ const Body = styled.div`
 const PopupPostCode = (props) => {
 	  // 우편번호 검색 후 주소 클릭 시 실행될 함수, data callback 용
 
-    const {changePage}=props;
+    const context = useContext(UserContext);
+    const {setAddr} = context; 
 
     const handlePostCode = (data) => {
         let fullAddress = data.address;
@@ -36,7 +38,7 @@ const PopupPostCode = (props) => {
         console.log(data);
         console.log(fullAddress);
         console.log(data.zonecode);
-        // setAddr(fullAddress);
+        setAddr(fullAddress);
         props.onClose();
     };
   
