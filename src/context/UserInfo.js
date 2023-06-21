@@ -11,6 +11,7 @@ const UserStore = (props) => {
     //어드민페이지 사이드 메뉴 선택시 출력 data저장
     const [customerData, setCustomerData] = useState("");
     const [qnaData, setQnaData] = useState("");
+    const [orderData, setOrderData] = useState("");
     return (
         <UserContext.Provider value={{
             userEmail, setUserEmail, 
@@ -20,7 +21,8 @@ const UserStore = (props) => {
             addr,setAddr,
             item, setItem,
             customerData, setCustomerData,
-            qnaData, setQnaData}}>
+            qnaData, setQnaData,
+            orderData, setOrderData}}>
             {props.children}
         </UserContext.Provider>   
     );
