@@ -146,18 +146,26 @@ const Qna = () =>{
     const [qnaReply, setQnaReply] = useState();
     //input창에 쓰여지는 답변
     const onReply=(e)=>{
-        //e.active 로 선택 된 값만 변경 되게 한다.
-        setQnaReply(e.active && e.target.value)        
+        setQnaReply(e.active && e.target.value)
     }
     //답변 상태가 담길 상수
     const [qnaStatue, setQnaStatue] = useState();
-    //답변 상태의 value가 담길 컴포넌트
+    //답변 상태의 value가 담길 컴포넌트 select는 배열이므로 해당 배열 안의 값을 구해야 한다.
     const getValue = (e) => {
-        setQnaStatue(e.active && e.target.value);
+        const { value, name } = e.target;
+        setQnaStatue({
+            ...qnaStatue,
+            //name 키를 가진 값을 value로 설정
+            [name]: value
+          })
+        // setQnaStatue(e.active && e.target.value);
+      
     }
     //답변과 답변 상태를 비동기 통신으로 전달.
-    const onSubmitQna =async(props)=>{
-        const response = AxiosFinal.qnaUploadReply(props,qnaStatue,qnaReply);
+    const onSubmitQna =async(props)=>{      
+        //HOLD,COMPLETE 둘 중 하나의 값이 나온다.  
+        // console.log(qnaStatue.qnaSelect);   
+        const response = AxiosFinal.qnaUploadReply(props,qnaStatue.qnaSelect,qnaReply);
         console.log("qna 답변 통신 ",response)
     }
     return(
@@ -201,8 +209,8 @@ const Qna = () =>{
                     <div className="qnaNmList" onClick={()=>{onPopAccodian(q.qnaId)}}>
                         {q.qnaTitle}
                     </div>
-                    <div className="answer" onChange={getValue}>
-                        <select name ='qnaSelect'>
+                    <div className="answer" >
+                        <select name ='qnaSelect'onChange={getValue}>
                             <option value="HOLD">hold</option>
                             <option value="COMPLETE">complete</option>                           
                         </select>
@@ -218,7 +226,7 @@ const Qna = () =>{
                      <div className="answerContents">
                         {q.reply}
                      </div>
-                    <input type="text" placeholder="answer" value={qnaReply} onChange={(q) => onReply(q)}/>
+                    <input type="text" placeholder="answer" value={qnaReply} onChange={onReply}/>
                     <button onClick={()=>{onSubmitQna(q.qnaId)}}>submit</button>
                 </div>
             </QnaInfo>
