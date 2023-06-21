@@ -1,15 +1,16 @@
-import React from "react";
+import React,{useContext} from "react";
 import styled from "styled-components";
+import { UserContext } from "../context/UserInfo";
 
 
-const Container=styled.div`
+const Container=styled.table`
     width: 100%;
     height: 100%;
     overflow-y: scroll;
 
 `
 
-const OrderInfo=styled.div`
+const OrderInfo=styled.tr`
     width: 100%;
     height: 27px;    
     border-bottom: 1px solid #CCC;
@@ -52,7 +53,7 @@ const OrderInfo=styled.div`
         }
     }
     .invoiceNum{
-        width: 150px;
+        width: 100px;
         display: flex;
         justify-content: center;
         input{
@@ -60,9 +61,30 @@ const OrderInfo=styled.div`
             border: none;
         }
     }
+    .submitBtn{
+        width: 50px;
+        display: flex;
+        justify-content: center;
+        button{
+            border: 1px solid black;
+            background-color: white;
+            font-size: 11px;
+            &:hover{
+                background-color: black;
+                color: white;
+            }
+        }
+    }
+    br{
+        msoDataPlacement: 'same-cell';
+    }
     
 `
 const  OrderCheck = () =>{
+      //orderdata를 가져옴
+      const context = useContext(UserContext);
+      const {orderData} = context;
+    
     return(
 
         <Container>
@@ -72,6 +94,9 @@ const  OrderCheck = () =>{
                 </div>
                 <div className="orderName">
                     주문자
+                </div>
+                <div className="orderDate">
+                    주문일
                 </div>
                 <div className="orderPrice">
                     가격
@@ -85,7 +110,9 @@ const  OrderCheck = () =>{
                 <div className="invoiceNum">
                     송장 번호
                 </div>
-
+                <div className="submitBtn">
+                    
+                </div>
             </OrderInfo> 
             <OrderInfo>
                 <div className="orderId">
@@ -93,6 +120,9 @@ const  OrderCheck = () =>{
                 </div>
                 <div className="orderName">
                     이태석
+                </div>
+                <div className="orderDate">
+                    주문일
                 </div>
                 <div className="orderPrice">
                     159,000
@@ -117,9 +147,36 @@ const  OrderCheck = () =>{
                     </select>
                 </div>
                 <div className="invoiceNum">
-                    <input type="text" className="invoiceNum" value={15941597165}/>
+                    <input type="text" className="invoiceNum" value={159415-9716515}/>
                 </div>          
-            </OrderInfo>                           
+                <div className="submitBtn">
+                    <button>submit</button>
+                </div>
+            </OrderInfo>  
+
+            
+<figure class="table">
+<table>
+<tbody>
+<tr>
+<td>주문ID<br/></td>
+<td>송장번호<br/></td>
+</tr>
+<tr>
+<td>주문ID<br/></td>
+<td>송장번호<br/></td>
+</tr>
+<tr>
+<td>주문ID<br/></td>
+<td>송장번호<br/></td>
+</tr>
+<tr>
+<td>주문ID<br/></td>
+<td>송장번호<br/></td>
+</tr>
+</tbody>
+</table>
+</figure>                         
         </Container>
     );
 };
