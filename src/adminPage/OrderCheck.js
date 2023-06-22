@@ -37,8 +37,13 @@ const OrderInfo=styled.tr`
         display: flex;
         justify-content: center;
     }
+    .orderAddr{
+        width: 200px;
+        display: flex;
+        justify-content: center;
+    }
     .orderDate{
-        width: 120px;
+        width: 70px;
         display: flex;
         justify-content: center;
     }
@@ -66,7 +71,7 @@ const OrderInfo=styled.tr`
         }
     }
     .invoiceNum{
-        width: 100px;
+        width: 75px;
         display: flex;
         justify-content: center;
         input{
@@ -119,12 +124,14 @@ const  OrderCheck = () =>{
     const onSetIndex=(index)=>{
         setOrderIndex(index);
     }
-    //들어와진 index 값의 orderData에서의 shipCode를 추출한다.
-    const onChangeShipCode=(e)=>{
-        console.log(e.target.value);
-        console.log(orderData[orderIndex].shipCode);
-        setPutShipCode(e.target.value);
-        console.log(putShipCode);       
+    const onSendIndex=(index)=>{
+        setPutShipCode(orderData[index].shipCode);
+    }
+
+
+    const addComma = (price) => {
+        let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return returnString;
     }
     
     const [orderStatue,SetOrderStatue] = useState();
@@ -160,6 +167,9 @@ const  OrderCheck = () =>{
                 <div className="orderName">
                     주문자
                 </div>
+                <div className="orderAddr">
+                    주문주소
+                </div>
                 <div className="orderDate">
                     주문일
                 </div>
@@ -192,11 +202,14 @@ const  OrderCheck = () =>{
                 <div className="orderName">
                 {o.user}
                 </div>
+                <div className="orderAddr">
+                {o.orderAddress}
+                </div>
                 <div className="orderDate">
                 {o.orderDate}
                 </div>
-                <div className="orderPrice">
-                {o.totalPrice}
+                <div className="orderPrice" >
+                {o.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </div>
                 <div className="orderStatus">
                     <select name="orderStatus" onChange={getValue}>
@@ -221,14 +234,13 @@ const  OrderCheck = () =>{
                 </div>
                 <div className="invoiceNum">
                     <input type="text" className="invoiceNum" value={putShipCode} placeholder={o.shipCode}
-                    onClick={()=>onSetIndex(index)} onChange={getValue} name='shipCode'/>
+                     onChange={getValue} name='shipCode'/>
                 </div>
                 <div className="invoiceTrace">
-                {o.shipCompany === null && <a href="#" target="blank">trace</a>}                
-                {o.shipCompany === "CJ" && <a href={'https://trace.cjlogistics.com/web/detail.jsp?slipno=/'+ o.shipCode} target="blank">trace</a>}
-                {o.shipCompany === "LOTTE" && <a href={'https://www.lotteglogis.com/home/reservation/tracking/linkView?InvNo=/'+ o.shipCode} target="blank">trace</a>}
-                {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl=/'+ o.shipCode} target="blank">trace</a>}
-                    {/* <a href={'https://trace.cjlogistics.com/web/detail.jsp?slipno=/'+ o.shipCode} target="blank">trace</a> */}
+                    {o.shipCompany === null && <a href="#" target="blank">trace</a>}                
+                    {o.shipCompany === "CJ" && <a href={'https://trace.cjlogistics.com/web/detail.jsp?slipno=/'+ o.shipCode} target="blank">trace</a>}
+                    {o.shipCompany === "LOTTE" && <a href={'https://www.lotteglogis.com/home/reservation/tracking/linkView?InvNo=/'+ o.shipCode} target="blank">trace</a>}
+                    {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl=/'+ o.shipCode} target="blank">trace</a>}
                 </div>          
                 <div className="submitBtn">
                     <button onClick={()=>{onSubmitOrder(o.orderId)}}>submit</button>
