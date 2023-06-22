@@ -1,8 +1,9 @@
-import React ,{useState} from "react";
+import React ,{useState,useContext} from "react";
 import styled from "styled-components";
 import testimg from "../img/test.png"
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { UserContext } from "../context/UserInfo";
 
 
 const Container=styled.div`
@@ -124,6 +125,11 @@ const ItemInfo=styled.div`
 `
 
 const  Inventory = () =>{
+
+    //아이템 정보 얻기
+    const context = useContext(UserContext);
+    const {inventoryData} = context;
+
     //호버상태를 체크한다.
     const [onHover,setOnHover] = useState(false);
     //마우스를 올리면 해당 상품 이미지가 나타남.
@@ -151,6 +157,8 @@ const  Inventory = () =>{
         }
     };
 
+    
+
     return(
 
         <Container>
@@ -177,32 +185,33 @@ const  Inventory = () =>{
                
                </div>    
            </ItemInfoHead>
-           <ItemInfo>
+           {inventoryData && inventoryData.map((i)=> <ItemInfo>
             <div className="itemInfoTop">
                <div className="itemId">
-                123498
+                {i.productId}
                </div>
                <div onMouseMove={(e)=>handleMouseMove(e)}>
                 <div className="itemNm" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse} onClick={onUpdatePop}>
-                    sweat hoodie organic change                     
+                {i.productName}                   
                     {onHover &&  <img src ={testimg} className="popUpImage" style={{left:xy.x,top:xy.y}} />}                          
                 </div>
                </div>
                
                <div className="itemColor">
-                black
+               {i.productColor}
                </div>
                <div className="itemSize">
-               3
+               {i.productSize}
                </div>  
                <div className="itemStock">                   
-                <input type="text" value={20}/>
+                <input type="text" value={i.productStock}/>
                </div>
                <div className="itemSell">                
                 <select name ="">
-                    <option value="">sell</option>
-                    <option value="">hold</option>
-                    <option value="">sold_out</option>
+                    <option value=""selected>{i.productSellStatus}</option>
+                    <option value="SELL">sell</option>
+                    <option value="HOLD">hold</option>
+                    <option value="SOLD_OUT">sold_out</option>
                 </select>
                </div> 
                <div className="itemSubmit">
@@ -232,7 +241,7 @@ const  Inventory = () =>{
                         />      
                 </div>  
             </div>
-           </ItemInfo>
+           </ItemInfo>)}
         </Container>
     );
 };

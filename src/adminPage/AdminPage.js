@@ -206,7 +206,6 @@ const AdminPage=()=>{
                         고객 문의  &nbsp;<span>{neworder}</span>&nbsp;건 
                     </div>
                 </div>
-                
             </Head>
 
             <MainBody> 
@@ -215,7 +214,6 @@ const AdminPage=()=>{
                                                                                onLoadCustomer(s.name);}}>
                         {s.name}
                     </SideBustton> ))}
-
                 </div>
                 <div className="body">
                     {changeMenu ==="saleDate" &&<SaleDate/>}                    
@@ -223,11 +221,8 @@ const AdminPage=()=>{
                     {changeMenu ==="itemUpload" &&<ItemUpload/>}
                     {changeMenu ==="inventory" &&<Inventory />}
                     {changeMenu ==="qna" &&<Qna/>}                    
-                    {changeMenu ==="customer Management" &&<CustomerMan />}       
-                    
-
+                    {changeMenu ==="customer Management" &&<CustomerMan />}      
                 </div>
-
             </MainBody>
         </Container>
     );
