@@ -14,6 +14,7 @@ const Container=styled.table`
 
 const OrderInfo=styled.tr`
     width: 100%;
+    min-width: 700px;
     height: 27px;    
     border-bottom: 1px solid #CCC;
     display: flex;
@@ -238,9 +239,9 @@ const  OrderCheck = () =>{
                 </div>
                 <div className="invoiceTrace">
                     {o.shipCompany === null && <a href="#" target="blank">trace</a>}                
-                    {o.shipCompany === "CJ" && <a href={'https://trace.cjlogistics.com/web/detail.jsp?slipno=/'+ o.shipCode} target="blank">trace</a>}
-                    {o.shipCompany === "LOTTE" && <a href={'https://www.lotteglogis.com/home/reservation/tracking/linkView?InvNo=/'+ o.shipCode} target="blank">trace</a>}
-                    {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl=/'+ o.shipCode} target="blank">trace</a>}
+                    {o.shipCompany === "CJ" && <a href={'https://trace.cjlogistics.com/web/detail.jsp?slipno='+ o.shipCode} target="blank">trace</a>}
+                    {o.shipCompany === "LOTTE" && <a href={'https://www.lotteglogis.com/home/reservation/tracking/linkView?InvNo='+ o.shipCode} target="blank">trace</a>}
+                    {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl='+ o.shipCode} target="blank">trace</a>}
                 </div>          
                 <div className="submitBtn">
                     <button onClick={()=>{onSubmitOrder(o.orderId)}}>submit</button>
