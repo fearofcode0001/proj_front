@@ -138,7 +138,7 @@ const AdminPage=()=>{
     
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
-    const {setCustomerData ,setQnaData,setOrderData} = context;
+    const {setCustomerData, setQnaData, setOrderData, setInventoryData} = context;
 
 
     //임시 주문건 입력
@@ -167,7 +167,12 @@ const AdminPage=()=>{
     const onLoadOrderData = async()=>{
         const response = await AxiosFinal.orderLoadManage();
         setOrderData(response.data);
-        console.log(response);
+        // console.log(response.data);
+    }
+    //inventory 선택시 실행되는 엑시오스
+    const onLoadInventory=async()=>{
+        const response = await AxiosFinal.orderLoadInventory();
+        setInventoryData(response.data)
         console.log(response.data);
     }
     //전체회원조회 컴포넌트
@@ -178,6 +183,8 @@ const AdminPage=()=>{
             onLoadQnaData();
         }else if(e==="orderCheck"){
             onLoadOrderData();
+        }else if(e==="inventory"){
+            onLoadInventory();
         }
     }
     return(
