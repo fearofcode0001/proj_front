@@ -255,6 +255,7 @@ const SignUp = () => {
             setIsPhone(true);
         } 
     }
+    console.log(isPhone);
 
 
     const onClickEmailAuth = async() => { 
