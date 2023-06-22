@@ -12,6 +12,7 @@ const UserStore = (props) => {
     const [customerData, setCustomerData] = useState("");
     const [qnaData, setQnaData] = useState("");
     const [orderData, setOrderData] = useState("");
+    const [inventoryData, setInventoryData] = useState("");
     return (
         <UserContext.Provider value={{
             userEmail, setUserEmail, 
@@ -22,7 +23,8 @@ const UserStore = (props) => {
             item, setItem,
             customerData, setCustomerData,
             qnaData, setQnaData,
-            orderData, setOrderData}}>
+            orderData, setOrderData,
+            inventoryData, setInventoryData}}>
             {props.children}
         </UserContext.Provider>   
     );
