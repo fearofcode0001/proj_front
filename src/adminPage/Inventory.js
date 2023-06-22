@@ -242,13 +242,13 @@ const  Inventory = () =>{
                     <input className="title-input" type='text' placeholder='pleace enter product name' value={i.productName}/>
                         <CKEditor className="info-input"
                             editor={ClassicEditor}
-                            data="<p></p>"
+                            data={i.productDetail}
                             onReady={editor => {
                             // You can store the "editor" and use when it is needed.
                             console.log('Editor is ready to use!', editor);
                             }}
                             onChange={(event, editor) => {
-                            const data = editor.getData(i.productDetail);
+                            const data = editor.setData(i.productId)
                             console.log({ event, editor, data });
                             }}
                             onBlur={(event, editor) => {
