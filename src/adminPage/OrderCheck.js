@@ -122,10 +122,10 @@ const  OrderCheck = () =>{
     //주문의 순서인 index를 설정하는 useState
     const [orderIndex,setOrderIndex] = useState();
     //송장 클릭시 index값이 들어와진다.
-    const onSetIndex=(index)=>{
-        setOrderIndex(index);
-    }
     const onSendIndex=(index)=>{
+        console.log(orderData);
+        console.log(index);
+        setOrderIndex(index);
         setPutShipCode(orderData[index].shipCode);
     }
     
@@ -228,7 +228,7 @@ const  OrderCheck = () =>{
                     </select>
                 </div>
                 <div className="invoiceNum">
-                    <input type="text" className="invoiceNum" value={putShipCode} placeholder={o.shipCode}
+                    <input type="text" className="invoiceNum" value={putShipCode} placeholder={o.shipCode} onMouseOver={()=>onSendIndex(index)}
                      onChange={getValue} name='shipCode'/>
                 </div>
                 <div className="invoiceTrace">
