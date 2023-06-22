@@ -14,8 +14,6 @@ const AxiosFinal = {
     shop : async() => {
         return await axios.get(Final_proj + `/product/items`);
     },
-
-
     //아이템 업로드
     productUpload : async(title,price,color,size,category,productImg,content)=>{
         const upLoad={
@@ -28,9 +26,7 @@ const AxiosFinal = {
             productDetail:content
         };
         return await axios.post(Final_proj + "/adminItem/upload", upLoad);
-    },
-
-    
+    },    
     //어드민페이지 회원 전체조회
     customerManage : async() => {
         return await axios.get(Final_proj + `/admin/check`);
@@ -55,9 +51,19 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/admin/qnaUpload", qnaReplyUpLoad);
     },
-      //어드민페이지 qna 전체조회
-      orderLoadManage : async() => {
+    //어드민페이지 주문건 전체조회
+    orderLoadManage : async() => {
         return await axios.get(Final_proj + `/admin/orderLoad`);
+    },
+    // 어드민페이지 주문건 수정
+    orderUploadData : async(orderId,orderStatus,shipCode,shipCompany)=>{
+        const orderUpLoadData={
+            orderId : orderId,
+            orderStatue : orderStatus,
+            orderShipCode : shipCode,
+            orderShipCompany : shipCompany,
+        };
+        return await axios.post(Final_proj + "/admin/orderUpLoad", orderUpLoadData);
     },    
     //회원 조회
     memberGet: async(id) => {

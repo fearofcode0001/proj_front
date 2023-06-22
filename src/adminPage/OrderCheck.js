@@ -144,7 +144,7 @@ const  OrderCheck = () =>{
     const onSubmitOrder =async(props)=>{
         SetOrderStatue({...orderStatue});  
         console.log(orderStatue);
-        const response = AxiosFinal.qnaUploadReply(props,orderStatue.orderStatus,orderStatue.ShipInvoice,orderStatue.shipCompany);
+        const response = AxiosFinal.orderUploadData(props,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany);
         
     }
     return(
@@ -221,7 +221,7 @@ const  OrderCheck = () =>{
                 </div>
                 <div className="invoiceNum">
                     <input type="text" className="invoiceNum" value={putShipCode} placeholder={o.shipCode}
-                    onClick={()=>onSetIndex(index)} onChange={getValue} name='ShipInvoice'/>
+                    onClick={()=>onSetIndex(index)} onChange={getValue} name='shipCode'/>
                 </div>
                 <div className="invoiceTrace">
                 {o.shipCompany === null && <a href="#" target="blank">trace</a>}                
