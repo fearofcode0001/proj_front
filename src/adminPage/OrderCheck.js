@@ -127,6 +127,12 @@ const  OrderCheck = () =>{
     const onSendIndex=(index)=>{
         setPutShipCode(orderData[index].shipCode);
     }
+
+
+    const addComma = (price) => {
+        let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return returnString;
+    }
     
     const [orderStatue,SetOrderStatue] = useState();
     const getValue = (e) => {
@@ -202,8 +208,8 @@ const  OrderCheck = () =>{
                 <div className="orderDate">
                 {o.orderDate}
                 </div>
-                <div className="orderPrice">
-                {o.totalPrice}
+                <div className="orderPrice" >
+                {o.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </div>
                 <div className="orderStatus">
                     <select name="orderStatus" onChange={getValue}>
