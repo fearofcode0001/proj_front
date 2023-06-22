@@ -144,8 +144,8 @@ const  OrderCheck = () =>{
     const onSubmitOrder =async(props)=>{
         SetOrderStatue({...orderStatue});  
         console.log(orderStatue);
-        // const response = AxiosFinal.qnaUploadReply(props);
-        // console.log("qna 답변 통신 ",response)
+        const response = AxiosFinal.qnaUploadReply(props,orderStatue.orderStatus,orderStatue.ShipInvoice,orderStatue.shipCompany);
+        
     }
     return(
 
