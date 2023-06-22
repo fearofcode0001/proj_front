@@ -277,8 +277,10 @@ const SignUp = () => {
         console.log(res.data);
         if (res.data) {
             setCodeMessage("인증이 완료되었습니다.");
+            setIsCode(true);
         } else {
             setCodeMessage("인증 코드가 일치하지 않습니다.");
+            setIsCode(false);
         }
           
     }

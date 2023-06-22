@@ -74,15 +74,13 @@ const AxiosFinal = {
       },
 
 
-    // 비밀번호 찾기 
-    searchPw: async (name, email, id) => {
-            const searchPw = {
-                name : name,
-                email : email,
-                id : id
-
+    // 비밀번호 재설정
+    pwdReset: async (email, pwd) => {
+            const reset = {
+                userEmail : email,
+                userPwd : pwd
             };
-        return await axios.post(Final_proj+ "/searchPw", searchPw);
+        return await axios.post(Final_proj+ "/auth/updatePwd", reset);
      },
 
 
@@ -124,15 +122,6 @@ const AxiosFinal = {
             code : code
         }
         return await axios.post(Final_proj + `/verify`, check);
-    },
-    
-    // 임시 비밀번호 (고치기)
-    pwdReset : async(email, name) => {
-        const reset = {
-            email : email,
-            name : name
-        }
-        return await axios.post(Final_proj + `/resetPwd`, reset);
     }
     //채팅
     

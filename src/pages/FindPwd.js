@@ -80,18 +80,18 @@ const FindPwd = () => {
     // 키보드 입력받기
     const [inputEmail, setInputEmail] = useState("");
     const [code, setCode] = useState("");
-    const [resetPw, setResetPw] = useState("")
+    const [resetPw, setResetPw] = useState("");
     const [resetConPw, setResetConPw] = useState("");
 
     // 에러 메시지
-    const [emailMessage, setEmailMessage] = useState("")
-    const [codeMessage, setCodeMessage] = useState("")
+    const [emailMessage, setEmailMessage] = useState("");
+    const [codeMessage, setCodeMessage] = useState("");
     const [pwMessage, setPwMessage] = useState("");
     const [conPwMessage, setConPwMessage] = useState("");
 
     // 유효성 검사
     const [isEmail, setIsEmail] = useState(false);
-    const [isResetPw, setIdResetPw] = useState(false)
+    const [isResetPw, setIdResetPw] = useState(false);
     const [isResetConPw, setIsResetConPw] = useState(false);
     const [isCode, setIsCode] = useState(false);
 
@@ -101,19 +101,19 @@ const FindPwd = () => {
         const emailCurrent = e.target.value;
         setInputEmail(emailCurrent);
         if (inputEmailRegex.test(emailCurrent)) { // 이메일 입력이 잘 못 되었을 때
-            setEmailMessage('올바른 이메일 형식입니다.')
+            setEmailMessage('올바른 이메일 형식입니다.');
             setIsEmail(true);
         } else {
-            setEmailMessage('이메일 형식이 올바르지 않습니다.')
-            setIsEmail(false)
+            setEmailMessage('이메일 형식이 올바르지 않습니다.');
+            setIsEmail(false);
         } 
     }
 
     const onClickEmailAuth = async() => { 
         console.log("이메일 인증 호출 : " + inputEmail);
         const res = await AxiosFinal.mailCode(inputEmail);
-				// Axios를 이용하여 서버로 inputEmail 변수에 담긴 이메일 주소를 전송하고, 
-				//서버에서 생성한 랜덤한 인증 코드를 받아오는 API를 호출
+                // Axios를 이용하여 서버로 inputEmail 변수에 담긴 이메일 주소를 전송하고, 
+                //서버에서 생성한 랜덤한 인증 코드를 받아오는 API를 호출
         console.log(res.data);
 
     }   
@@ -127,8 +127,10 @@ const FindPwd = () => {
         console.log(res.data);
         if (res.data) {
             setCodeMessage("인증이 완료되었습니다.");
+            setIsCode(true);
         } else {
             setCodeMessage("인증 코드가 일치하지 않습니다.");
+            setIsCode(false);
         }
           
     }
@@ -144,7 +146,8 @@ const FindPwd = () => {
             } else {
                 setPwMessage('안전한 비밀번호에요 : )')
                 setIdResetPw(true);
-            }        
+                console.log(resetPw);
+            }
         }
     
         //비밀번호 확인
@@ -159,6 +162,24 @@ const FindPwd = () => {
                 setIsResetConPw(true);
             }      
         }
+
+        const onClickResetPwd = async() => {
+            console.log("reset the password");
+            try {
+                const response = await AxiosFinal.pwdReset(inputEmail, resetPw);
+                if (response.data) {
+                    // 비밀번호 재설정 성공한 경우 처리할 로직 작성
+                    console.log("비밀번호 재설정 하였습니다.");
+                } else {
+                    // 비밀번호 재설정 실패한 경우 처리할 로직 작성
+                    console.log("비밀번호 재설정에 실패하였습니다.");
+                }
+            } catch (error) {
+                // 예외 처리
+                console.log("An error occurred during password reset");
+            }
+        }
+        
 
 
     return(
@@ -188,15 +209,25 @@ const FindPwd = () => {
                 <div className="item">
                     <input type="password" placeholder="NEW PASSWORD" onChange={onChangePw}/>
                 </div>
+                <div className="hint">
+                            {resetPw.length > 0 && (
+                            <span className={`message ${isResetPw ? 'success' : 'error'}`}>{pwMessage}</span>)}
+                    </div>
                 <div className="item">
                     <input type="password" placeholder="PASSWORD CHECK" onChange={onChangeConPw}/>
                 </div>
+                <div className="hint">
+                        {resetConPw.length > 0 && (
+                        <span className={`message ${isResetConPw ? 'success' : 'error'}`}>{setConPwMessage}</span>)}
+                </div>
+                
                 <div className="changePwd">
-                    <Link to="/Login"><button className="changePwdBtn">CHANGE PASSWORD</button></Link>
+                    <Link to="/Login">
+                        <button className="changePwdBtn" onClick={onClickResetPwd}>CHANGE PASSWORD</button>
+                    </Link>
                 </div>
             </InnerContainer>
         </Container>
     );
 };
-
 export default FindPwd;
