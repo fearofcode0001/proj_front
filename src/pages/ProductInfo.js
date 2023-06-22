@@ -220,8 +220,9 @@ const QnATable = styled.table`
 const ProductInfo = () => {
     
     const nav = useNavigate();
-    const {item} = useContext(UserContext);
+    const {item, isLogin} = useContext(UserContext);
     console.log(item);
+    console.log(isLogin);
 
     const [click, setClick] = useState(false);
     const [qClick, setqClick] = useState(false);
@@ -241,7 +242,7 @@ const ProductInfo = () => {
     }
 
     const writeQna = () => {
-        if (window.localStorage.getItem("isLoginSuv") == true) {
+        if (isLogin == true) {
             setModalOpen(true);
         } else {
             nav("/Login");
