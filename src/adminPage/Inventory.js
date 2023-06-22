@@ -1,5 +1,5 @@
 import React ,{useState,useContext} from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import testimg from "../img/test.png"
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -96,13 +96,17 @@ const ItemInfo=styled.div`
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #ccc;
-    .parnetContents{
+    .parentContents{
         width: 100%;
+        height: 0px;
         overflow: hidden;
         transition: height 0.35s ease;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;       
+        justify-content: space-between;  
+        ${props => props.active && css`   // *&* props가 active이면 css를 재정의 한다.
+          height: 500px;
+        `}     
     }
     .title-input{
         width: 100%;
@@ -135,7 +139,7 @@ const  Inventory = () =>{
     //마우스를 올리면 해당 상품 이미지가 나타남.
     const onPopUpImage=()=>{
         setOnHover(true)
-        console.log(onHover);
+        // console.log(onHover);
     }
     //마우스 떼면 이미지가 사라짐
     const onPopUpImageFalse=()=>{
@@ -157,8 +161,19 @@ const  Inventory = () =>{
         }
     };
 
-    
-
+    //제목을 누르면 에디터가 넘어온다.
+    //css에 active를 넘겨줄 값
+    const[invenAccodian, setinvenAccodian] = useState("all"); 
+    const onPopAccodian =(props)=>{
+        // console.log(props);
+        //같은 버튼 클릭시 null로 바꿔주어 모든 css를 초기화한다
+        if(props===invenAccodian){
+            setinvenAccodian(null);
+            // console.log(qnaAccodian);
+        }else{
+            setinvenAccodian(props);
+        }        
+    };
     return(
 
         <Container>
@@ -185,13 +200,13 @@ const  Inventory = () =>{
                
                </div>    
            </ItemInfoHead>
-           {inventoryData && inventoryData.map((i)=> <ItemInfo>
+           {inventoryData && inventoryData.map((i)=> <ItemInfo key={i.productId} active={invenAccodian === i.productId}>
             <div className="itemInfoTop">
                <div className="itemId">
                 {i.productId}
                </div>
                <div onMouseMove={(e)=>handleMouseMove(e)}>
-                <div className="itemNm" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse} onClick={onUpdatePop}>
+                <div className="itemNm" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse} onClick={()=>{onPopAccodian(i.productId)}}>
                 {i.productName}                   
                     {onHover &&  <img src ={testimg} className="popUpImage" style={{left:xy.x,top:xy.y}} />}                          
                 </div>
@@ -218,7 +233,7 @@ const  Inventory = () =>{
                 <button>submit</button>
                </div>
             </div>
-            <div className="parnetContents" style={{height: `${upadatePop}px`}}>
+            <div className="parentContents" >
                 <div className="childContents">
                     <input className="title-input" type='text' placeholder='pleace enter product name' />
                         <CKEditor className="info-input"
@@ -229,7 +244,7 @@ const  Inventory = () =>{
                             console.log('Editor is ready to use!', editor);
                             }}
                             onChange={(event, editor) => {
-                            const data = editor.getData();
+                            const data = editor.getData(i.productDetail);
                             console.log({ event, editor, data });
                             }}
                             onBlur={(event, editor) => {
