@@ -244,9 +244,8 @@ const SignUp = () => {
 
      //전화번호 정규식
      const onChangePhone = (e) => {
-        const inputPhoneRegex = /^\d{3}\d{3,4}\d{4}$/
+        const inputPhoneRegex = /^\d{3}\d{4}\d{4}$/
         const phoneCurrent = e.target.value;
-        console.log(isPhone);
         setInputPhone(phoneCurrent);
         if (!inputPhoneRegex.test(e.target.value)) { // 전화번호 입력이 잘 못 되었을 때
             setPhoneMessage('전화번호 형식이 올바르지 않습니다.')
@@ -254,9 +253,9 @@ const SignUp = () => {
         } else {
             setPhoneMessage('올바른 전화번호 형식입니다.')
             setIsPhone(true);
-            console.log(isPhone);
         } 
     }
+    console.log(isPhone);
 
 
     const onClickEmailAuth = async() => { 
