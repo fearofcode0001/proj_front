@@ -126,16 +126,21 @@ const  OrderCheck = () =>{
         console.log(orderData);
         console.log(index);
         setOrderIndex(index);
-        setPutShipCode(orderData[index].shipCode);
     }
     
-    const [orderStatue,SetOrderStatue] = useState();
+    const [orderStatue,SetOrderStatue] = useState({
+        orderStatus:'',
+        shipCompany:'',
+        shipCode:''
+    });
+    const {orderStatus,shipCompany, shipCode} =orderStatue;
+
     const getValue = (e) => {
-        const { name } = e.target;
+        const { name } = e;
         SetOrderStatue({
-            ...orderStatue,
+            
             //name 키를 가진 값을 value로 설정
-            [name]: e.target.value
+            [orderStatus]: e
           })
        
     console.log(orderStatue);
@@ -143,10 +148,17 @@ const  OrderCheck = () =>{
     }
 
     //주문건 수정 전송 
-    const onSubmitOrder =async(props)=>{
-        SetOrderStatue({...orderStatue});  
+    const onSubmitOrder =async(id,orderStatus,shipCompany,shipCode)=>{
+        console.log(id);
+        console.log(orderStatus);
+        SetOrderStatue({
+            orderStatus:orderStatus,
+            shipCompany:shipCompany,
+            shipCode:shipCode
+        });  
         console.log(orderStatue);
-        const response = AxiosFinal.orderUploadData(props,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany);
+        console.log(orderStatue.orderStatus);
+        // const response = AxiosFinal.orderUploadData(id,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany);
         
     }
     return(
@@ -207,9 +219,9 @@ const  OrderCheck = () =>{
                 {o.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </div>
                 <div className="orderStatus">
-                    <select name="orderStatus" onChange={getValue}>
+                    <select name='orderStatus' onChange={(e) => getValue(e.target.value)}>
                         <option value="" selected>{o.orderStatus}</option>
-                        <option value="CHECK">주문 확인</option>
+                        <option value="CHECK" >주문 확인</option>
                         <option value="READY">상품 준비중</option>
                         <option value="SHIP">배송중</option>
                         <option value="DONE">배송 완료</option>
@@ -220,16 +232,16 @@ const  OrderCheck = () =>{
                     
                 </div>
                 <div className="invoiceCom">
-                    <select name='shipCompany' onChange={getValue}>
-                        <option value="">{o.shipCompany}</option>
+                    <select name='shipCompany' onChange={(e) => getValue(e.target.value)}>
+                        <option value="" selected>{o.shipCompany}</option>
                         <option value="CJ">CJ대한통운</option>
                         <option value="LOTTE">롯데 택배</option>
                         <option value="HANJIN">한진 택배</option>
                     </select>
                 </div>
                 <div className="invoiceNum">
-                    <input type="text" className="invoiceNum" value={putShipCode} placeholder={o.shipCode} onMouseOver={()=>onSendIndex(index)}
-                     onChange={getValue} name='shipCode'/>
+                    <input type="text" className="invoiceNum" value={o.shipCode}
+                     onChange={(e) => getValue(e.target.value)} name='shipCode'/>
                 </div>
                 <div className="invoiceTrace">
                     {o.shipCompany === null && <a href="#" target="blank">trace</a>}                
@@ -238,12 +250,9 @@ const  OrderCheck = () =>{
                     {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl='+ o.shipCode} target="blank">trace</a>}
                 </div>          
                 <div className="submitBtn">
-                    <button onClick={()=>{onSubmitOrder(o.orderId)}}>submit</button>
+                    <button onClick={()=>{onSubmitOrder(o.orderId,o.orderStatus,o.shipCompany,o.shipCode)}}>submit</button>
                 </div>
             </OrderInfo>)}
-
-            
-          
         </Container>
     );
 };
