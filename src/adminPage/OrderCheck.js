@@ -128,12 +128,6 @@ const  OrderCheck = () =>{
     const onSendIndex=(index)=>{
         setPutShipCode(orderData[index].shipCode);
     }
-
-
-    const addComma = (price) => {
-        let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return returnString;
-    }
     
     const [orderStatue,SetOrderStatue] = useState();
     const getValue = (e) => {
@@ -148,7 +142,7 @@ const  OrderCheck = () =>{
     // qnaSelect, qnaReply 각각 답이 담긴다. 
     }
 
-
+    //주문건 수정 전송 
     const onSubmitOrder =async(props)=>{
         SetOrderStatue({...orderStatue});  
         console.log(orderStatue);
