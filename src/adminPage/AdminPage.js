@@ -171,7 +171,7 @@ const AdminPage=()=>{
     }
     //inventory 선택시 실행되는 엑시오스
     const onLoadInventory=async()=>{
-        const response = await AxiosFinal.orderLoadInventory();
+        const response = await AxiosFinal.shop();
         setInventoryData(response.data)
         console.log(response.data);
     }
