@@ -222,13 +222,12 @@ const ProductInfo = () => {
     const nav = useNavigate();
     const {item, isLogin} = useContext(UserContext);
     console.log(item);
-    console.log(isLogin);
 
     const [click, setClick] = useState(false);
     const [qClick, setqClick] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
-    const selectList = ["XS", "S", "M", "L", "XL"];     // DB에서 가져올 값
-    const [select, setSelect] = useState("S");
+    // const selectList = [item.sizes];     // DB에서 가져올 값
+    const [select, setSelect] = useState(item.sizes[0]);
     const handleSelect = (e) => {
         setSelect(e.target.value);
     };
@@ -260,9 +259,9 @@ const ProductInfo = () => {
             <InnerContainer>
                 <div className="product">           
                     <div className="productImg">
-                            <img src="product.jpg" alt="" />
-                            <img src="product.jpg" alt="" />
-                            <img src="product.jpg" alt="" />
+                            <img src={item.productMainImg} alt="" />
+                            <img src={item.productMainImg} alt="" />
+                            <img src={item.productMainImg} alt="" />
                     </div>
                     <div className="wholeDesc">
                         <div className="descWrapper">
@@ -271,7 +270,7 @@ const ProductInfo = () => {
                             <div className="colorSize">
                                 <div className="productColor">Cement</div>
                                 <div className="productSize"><select onChange={handleSelect} value={select}>
-                                    {selectList.map((item)=> (
+                                    {item.sizes.map((item)=> (
                                         <option value={item} key={item}>
                                             {item}
                                         </option>

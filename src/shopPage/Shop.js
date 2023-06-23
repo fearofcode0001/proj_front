@@ -93,15 +93,25 @@ const Shop = () => {
         const getProduct = async() => {
            const rsp = await AxiosFinal.shop();
            if(rsp.status === 200) setProduct(rsp.data);
-           console.log(rsp.data);
+           console.log(product);
        };
        getProduct();
       }, []);
-   
+    
+    const mergeProduct = {};
 
-    
- 
-    
+    product.forEach((e) => {
+        if(!mergeProduct[e.productName]) {
+            mergeProduct[e.productName] = {
+                productName : e.productName,
+                productMainImg : e.productMainImg,
+                productPrice : e.productPrice,
+                productDetail : e.productDetail,
+                sizes: []
+            };
+        }
+        mergeProduct[e.productName].sizes.push(e.productSize);
+    })
     const handleFilter = () => {
         setIsFilterOpen(!isFilterOpen);
       };
@@ -126,8 +136,8 @@ const Shop = () => {
                   
             </Filter>  
             <Article >
-            {product.slice(offset, offset + limit).map((e) =>(      
-            <Container_in key={e.id} onClick={()=>onclick(e)} > 
+            {/* {product.slice(offset, offset + limit).map((e) =>(      
+            <Container_in key={e.productName} onClick={()=>onclick(e)} > 
             <div className={isBlurred ? "blur" : ""}> 
                 <div className="view">
                     <img
@@ -139,6 +149,18 @@ const Shop = () => {
                 </div>  
                 </div>
             </Container_in>
+            ))} */}
+            {Object.values(mergeProduct).slice(offset, offset + limit).map((e)=> (
+                <Container_in key={e.productName} onClick={()=>onclick(e)}>
+                    <div className={isBlurred ? "blur" : ""}>
+                        <div className="view">
+                            <img src={e.productMainImg} />
+                            <div className="logo">iMMUTABLE</div>
+                            <div className="info">{e.productName}</div>
+                            <div className="price">{e.productPrice}</div>
+                        </div>
+                    </div>
+                </Container_in>
             ))}
             </Article>
                 <Pagenation
