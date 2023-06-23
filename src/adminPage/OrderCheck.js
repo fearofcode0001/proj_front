@@ -14,6 +14,7 @@ const Container=styled.table`
 
 const OrderInfo=styled.tr`
     width: 100%;
+    min-width: 700px;
     height: 27px;    
     border-bottom: 1px solid #CCC;
     display: flex;
@@ -117,43 +118,44 @@ const  OrderCheck = () =>{
     const context = useContext(UserContext);
     const {orderData} = context;
     //송장을 설정하는 useState
-    const [putShipCode,setPutShipCode] = useState();
-    //주문의 순서인 index를 설정하는 useState
-    const [orderIndex,setOrderIndex] = useState();
-    //송장 클릭시 index값이 들어와진다.
-    const onSetIndex=(index)=>{
-        setOrderIndex(index);
-    }
-    const onSendIndex=(index)=>{
-        setPutShipCode(orderData[index].shipCode);
-    }
+
+   
+     
+    const [orderTotalData, setOrderTotalData] = useState(Array.from({length:orderData.length}))
+    const [onIndex, setOnIndex] = useState(0);
+    const [orderStatue,SetOrderStatue] = useState({ orderStatus:'',shipCompany:'',shipCode:''});
+    const addItem = () => {
+        setOrderTotalData(prevOrder=> [...prevOrder, orderStatue]);
+        setOnIndex(onIndex+1);
+        console.log(orderTotalData);
+        
+      };
 
 
-    const addComma = (price) => {
-        let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return returnString;
+    const onChangeStatus = (e,index) => {
+        console.log(index);
+        SetOrderStatue({...orderStatue[index], orderStatus: e.target.value});
+    }
+    const onChangeShipCompany = (e,index)=> {
+        SetOrderStatue({...orderStatue, shipCompany: e.target.value});
+    }
+    const onChangeShipCode=(e,index) =>{
+        SetOrderStatue({...orderStatue, shipCode: e.target.value});
     }
     
-    const [orderStatue,SetOrderStatue] = useState();
-    const getValue = (e) => {
-        const { name } = e.target;
-        SetOrderStatue({
-            ...orderStatue,
-            //name 키를 가진 값을 value로 설정
-            [name]: e.target.value
-          })
-       
-    console.log(orderStatue);
-    // qnaSelect, qnaReply 각각 답이 담긴다. 
-    }
 
 
-    const onSubmitOrder =async(props)=>{
-        SetOrderStatue({...orderStatue});  
+    
+  
+    //주문건 수정 전송 
+    const onSubmitOrder =async(id,orderStatus,shipCompany,shipCode)=>{  
+        console.log(orderData.length);
+        // console.log(array);
         console.log(orderStatue);
-        const response = AxiosFinal.orderUploadData(props,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany);
-        
+        // const response = AxiosFinal.orderUploadData(id,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany);
     }
+
+
     return(
 
         <Container>
@@ -189,12 +191,12 @@ const  OrderCheck = () =>{
                     
                 </div>
                 <div className="submitBtn">
-                    
+                    <button onClick={addItem}>load</button>
                 </div>
             </OrderInfo> 
-            {orderData && orderData.map((o,index)=> <OrderInfo>
+            {orderData && orderData.map((o,index)=> <OrderInfo key={o.orderId} active={orderStatue===o.orderId}>
                 <div className="order">
-                    {index+1}
+                    {index}
                 </div>
                 <div className="orderId">
                    {o.orderId}
@@ -212,9 +214,9 @@ const  OrderCheck = () =>{
                 {o.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </div>
                 <div className="orderStatus">
-                    <select name="orderStatus" onChange={getValue}>
-                        <option value="" selected>{o.orderStatus}</option>
-                        <option value="CHECK">주문 확인</option>
+                    <select name='orderStatus' onChange={(e)=>onChangeStatus(e,index)}>
+                        <option value="" selected>{orderStatue.orderStatus}</option>
+                        <option value="CHECK" >주문 확인</option>
                         <option value="READY">상품 준비중</option>
                         <option value="SHIP">배송중</option>
                         <option value="DONE">배송 완료</option>
@@ -225,30 +227,27 @@ const  OrderCheck = () =>{
                     
                 </div>
                 <div className="invoiceCom">
-                    <select name='shipCompany' onChange={getValue}>
-                        <option value="">{o.shipCompany}</option>
+                    <select name='shipCompany' onChange={(e)=>onChangeShipCompany(e,index)}>
+                        <option value="" selected>{orderStatue.shipCompany}</option>
                         <option value="CJ">CJ대한통운</option>
                         <option value="LOTTE">롯데 택배</option>
                         <option value="HANJIN">한진 택배</option>
                     </select>
                 </div>
                 <div className="invoiceNum">
-                    <input type="text" className="invoiceNum" value={putShipCode} placeholder={o.shipCode}
-                     onChange={getValue} name='shipCode'/>
+                    <input type="text" className="invoiceNum" value={orderStatue.shipCode}
+                     onChange={(e)=>onChangeShipCode(e,index)} name='shipCode'/>
                 </div>
                 <div className="invoiceTrace">
                     {o.shipCompany === null && <a href="#" target="blank">trace</a>}                
-                    {o.shipCompany === "CJ" && <a href={'https://trace.cjlogistics.com/web/detail.jsp?slipno=/'+ o.shipCode} target="blank">trace</a>}
-                    {o.shipCompany === "LOTTE" && <a href={'https://www.lotteglogis.com/home/reservation/tracking/linkView?InvNo=/'+ o.shipCode} target="blank">trace</a>}
-                    {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl=/'+ o.shipCode} target="blank">trace</a>}
+                    {o.shipCompany === "CJ" && <a href={'https://trace.cjlogistics.com/web/detail.jsp?slipno='+ o.shipCode} target="blank">trace</a>}
+                    {o.shipCompany === "LOTTE" && <a href={'https://www.lotteglogis.com/home/reservation/tracking/linkView?InvNo='+ o.shipCode} target="blank">trace</a>}
+                    {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl='+ o.shipCode} target="blank">trace</a>}
                 </div>          
                 <div className="submitBtn">
-                    <button onClick={()=>{onSubmitOrder(o.orderId)}}>submit</button>
+                    <button onClick={()=>onSubmitOrder(o.orderId,orderStatue.orderStatus,orderStatue.shipCompany,orderStatue.shipCode)}>submit</button>
                 </div>
             </OrderInfo>)}
-
-            
-          
         </Container>
     );
 };

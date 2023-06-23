@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
-import Modal from "../pages/Modal"
+import ModalEmail from "./ModalEmail";
+import context from "react-bootstrap/esm/AccordionContext";
+import UserStore from "../context/UserInfo";
+
 
 const Container = styled.div`
     height: 100vh;
@@ -55,35 +58,38 @@ const InerContainer = styled.div`
 `;
 const FindEmail = () => {
     // useState 이용하여 상태를 업데이트한다.
-    const [inputName, setInputName] = useState(""); 
     const [inputEmail, setInputEmail] = useState("");
-    const [modalOpen,setModalOpen] = useState(false);
     const [searchId, setSearchID] = useState("");
 
- 
- 
-    // 모달 창 닫기 
+    // 팝업
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalText, setModelText] = useState("중복된 아이디 입니다.");
+
+    // const context = useState(UserStore);
+    // const {userEmail} = context;
+
+    //모달 창 닫기 
     const closeModal = () =>{
         setModalOpen(false);
     };
-
     
-    // inputName 업데이트
-    const handleNameChange = (e) => {
-        setInputName(e.target.value);
-    };
-    
-    // inputEamil 업데이트
+    //inputEamil 업데이트
     const handleEmailChange = (e) => {
         setInputEmail(e.target.value);
     };
 
     const handleSearchId = async() =>{ 
-        // 비동기 요청을 통해 서버로 부터 ID 검색 요청 
-        const response = await AxiosFinal.searchId(inputName, inputEmail);   
-        setSearchID(response.data[0].user_ID);  // 데이터에 저장된 ID를 가져와 searchId에 저장
-        console.log(response.data[0].user_ID);
-        setModalOpen(true);     // 모달 오픈 
+        console.log("click")
+        // 비동기 요청을 통해 서버로 부터 userEmail 검색 요청 
+        console.log(inputEmail);
+        const response = await AxiosFinal.searchUserEmail(inputEmail);
+        if (response.data) {
+            setModalOpen(true)
+            setModelText("존재하는 이메일 입니다.")
+        } else {
+            setModalOpen(true);
+            setModelText("존재하지 않는 이메일 입니다.")
+        }
     };
 
     return(
@@ -93,13 +99,10 @@ const FindEmail = () => {
                     iMMUTABLE
                 </div></Link>
                 <div className="item">
-                    <input type="email"  value={inputEmail} onChange={handleEmailChange} placeholder="EMAIL"/>
+                    <input type="email" value={inputEmail} onChange={handleEmailChange} placeholder="EMAIL"/>
                 </div>
                 <div className="item">
-                    <input value={inputName} onChange={handleNameChange} placeholder="NAME"/>
-                </div>
-                <div className="item">
-                <Modal open={modalOpen} type={true}  close={closeModal} header="아이디찾기">{inputName}님의 아이디는{searchId} 입니다.</Modal>
+                <ModalEmail open={modalOpen} close={closeModal} header="오류">{modalText}</ModalEmail>
                     <button className="findBtn" onClick={handleSearchId}>FIND</button>
                     <Link to="/FindPwd"><button className="findPwdBtn">FORGOT PASSWORD</button></Link>
                 </div>

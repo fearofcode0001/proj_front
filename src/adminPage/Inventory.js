@@ -9,7 +9,11 @@ import { UserContext } from "../context/UserInfo";
 const Container=styled.div`
     width: 100%;
     height: 100%;
-        
+    height: calc(100vh - 180px);
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+        display: none;
+        }
     .itemInfoTop{    
     width: 100%;
     height: 27px;
@@ -23,15 +27,17 @@ const Container=styled.div`
         width: 50px;
         display: flex;
         justify-content: center;
+        cursor: pointer;
+        img{
+            position: absolute;
+            width: 80px;
+        }   
     }
     .itemNm{
         width: 430px;
         display: flex;
         justify-content: center;
-        img{
-            position: absolute;
-            width: 80px;
-        }       
+            
     }
     .itemColor{
         width: 70px;
@@ -108,6 +114,14 @@ const ItemInfo=styled.div`
           height: 500px;
         `}     
     }
+    .childContents{
+        height: 500px;
+        overflow-y: scroll;
+        ::-webkit-scrollbar {
+        display: none;
+        }
+    }
+    
     .title-input{
         width: 100%;
         border: none;
@@ -151,21 +165,11 @@ const  Inventory = () =>{
         setXY({x:e.clientX,y:e.clientY});
     }
 
-    //마우스 클릭시 상품 수정 
-    const [upadatePop,setUpdatePop] = useState(0);
-    const onUpdatePop=()=>{
-        if(upadatePop===0){
-            setUpdatePop(500);
-        } else if(upadatePop===500){
-            setUpdatePop(0);
-        }
-    };
-
     //제목을 누르면 에디터가 넘어온다.
     //css에 active를 넘겨줄 값
     const[invenAccodian, setinvenAccodian] = useState("all"); 
     const onPopAccodian =(props)=>{
-        // console.log(props);
+        console.log(props);
         //같은 버튼 클릭시 null로 바꿔주어 모든 css를 초기화한다
         if(props===invenAccodian){
             setinvenAccodian(null);
@@ -200,18 +204,18 @@ const  Inventory = () =>{
                
                </div>    
            </ItemInfoHead>
-           {inventoryData && inventoryData.map((i)=> <ItemInfo key={i.productId} active={invenAccodian === i.productId}>
+           {inventoryData && inventoryData.map((i)=> 
+           <ItemInfo key={i.productId} active={invenAccodian === i.productId}>
             <div className="itemInfoTop">
-               <div className="itemId">
-                {i.productId}
-               </div>
-               <div onMouseMove={(e)=>handleMouseMove(e)}>
-                <div className="itemNm" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse} onClick={()=>{onPopAccodian(i.productId)}}>
-                {i.productName}                   
-                    {onHover &&  <img src ={testimg} className="popUpImage" style={{left:xy.x,top:xy.y}} />}                          
+                <div onMouseMove={(e)=>handleMouseMove(e)}>
+                <div className="itemId" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse}>
+                    {i.productId}
+                    {onHover === true &&  <img src ={testimg} className="popUpImage" style={{left:xy.x,top:xy.y}} />}  
                 </div>
                </div>
-               
+                <div className="itemNm"  onClick={()=>{onPopAccodian(i.productId)}}>                      
+                    {i.productName} 
+                </div>               
                <div className="itemColor">
                {i.productColor}
                </div>
@@ -235,16 +239,16 @@ const  Inventory = () =>{
             </div>
             <div className="parentContents" >
                 <div className="childContents">
-                    <input className="title-input" type='text' placeholder='pleace enter product name' />
+                    <input className="title-input" type='text' placeholder='pleace enter product name' value={i.productName}/>
                         <CKEditor className="info-input"
                             editor={ClassicEditor}
-                            data="<p></p>"
+                            data={i.productDetail}
                             onReady={editor => {
                             // You can store the "editor" and use when it is needed.
                             console.log('Editor is ready to use!', editor);
                             }}
                             onChange={(event, editor) => {
-                            const data = editor.getData(i.productDetail);
+                            const data = editor.setData(i.productId)
                             console.log({ event, editor, data });
                             }}
                             onBlur={(event, editor) => {
