@@ -133,8 +133,7 @@ const  OrderCheck = () =>{
 
 
     const onChangeStatus = (e,index) => {
-        console.log(index);
-        SetOrderStatue({...orderStatue[index], orderStatus: e.target.value});
+        SetOrderStatue(({...orderStatue, orderStatus: e.target.value}));
     }
     const onChangeShipCompany = (e,index)=> {
         SetOrderStatue({...orderStatue, shipCompany: e.target.value});
