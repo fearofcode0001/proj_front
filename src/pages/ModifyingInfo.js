@@ -1,7 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import PopupPostCode from "../api/PopupPostCode";
 import { UserContext } from "../context/UserInfo";
+import AxiosFinal from "../api/AxiosFinal";
+import { useNavigate } from "react-router-dom";
 
 
 const Container = styled.div`
@@ -222,6 +224,14 @@ const Footer = styled.div`
 `
 
 const ModifyingInfo = () => {
+
+    const [user, setUser] = useState([]);
+    const [userAddr, setUserAddr] = useState("");
+    const [userName, setUserName] = useState("");
+    const [userPwd, setUserPwd] = useState("");
+    const [userPhone, setUserPhone] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+
     // 키보드 입력 받기 
     const [inputPw, setInputPw] = useState("")
     const [inputConPw, setInputConPw] = useState("");
@@ -230,16 +240,16 @@ const ModifyingInfo = () => {
     const [conPwMessage, setConPwMessage] = useState("");
     const [pwMessage, setPwMessage] = useState("");
     // 유효성 검사
-    const [isId, setIsId] = useState(false);
     const [isPw, setIsPw] = useState(false)
     const [isConPw, setIsConPw] = useState(false);
-    const [isName, setIsName] = useState(false);
-    const [isEmail, setIsEmail] = useState(false);
-    const [isPhone, setIsPhone] = useState(false);
+
     
       //저장된 주소와 아이디값을 설정하여 주소는 받아오고 아이디값은 저장한다.
-      const context = useContext(UserContext);
-      const {addr} = context;
+    const context = useContext(UserContext);
+    const {addr} = context;
+
+    const userId = window.localStorage.getItem("userIdSuv");
+    const nav = useNavigate();
 
      //주소찾기 영역
      const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -258,7 +268,7 @@ const ModifyingInfo = () => {
      const onChangePw = (e) => {
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,25}$/ // 비밀번호 정규식
         const passwordCurrent = e.target.value ;
-        setInputPw(passwordCurrent);
+        setUserPwd(passwordCurrent);
         if (!passwordRegex.test(passwordCurrent)) {
             setPwMessage('숫자+영문자 조합으로 8자리 이상 입력해주세요!')
             setIsPw(false)
@@ -272,7 +282,7 @@ const ModifyingInfo = () => {
      const onChangeConPw = (e) => {
         const passwordCurrent = e.target.value ;
         setInputConPw(passwordCurrent)
-        if (passwordCurrent !== inputPw) {
+        if (passwordCurrent !== userPwd) {
             setConPwMessage('비밀 번호가 일치하지 않습니다.') // 입력한 비밀번호가 일치해야 함
             setIsConPw(false)
         } else {
@@ -280,6 +290,30 @@ const ModifyingInfo = () => {
             setIsConPw(true);
         }      
     }
+
+
+    const onClickInfoSave = async() => {
+        console.log("확인");
+        const response = await AxiosFinal.saveUserInfo(userId, userName, userPwd, userAddr, userPhone);
+        const result = response.data;
+        console.log(result);
+        if (result) {
+            alert("수정이 완료되었습니다")
+            nav("/Mypage");
+        } else {
+            alert("수정실패");
+        }
+    }
+
+
+    useEffect(()=> {
+        const getUser = async() => {
+            const rsp = await AxiosFinal.memberGet(userId);
+            if(rsp.status === 200) setUser(rsp.data);
+            console.log(rsp.data);
+        };
+        getUser();
+    }, []);
 
     
     return(
@@ -295,6 +329,7 @@ const ModifyingInfo = () => {
                         회원 정보 수정
                     </div>
                 </Title>
+              
                 <Info>
                 <div className="userInfo">
                         <input className="profileImg" placeholder="프로필사진자리"/> 
@@ -302,60 +337,65 @@ const ModifyingInfo = () => {
                         <div className="content">
                         저희 쇼핑몰을 이용해 주셔서 감사합니다. 
                         <br/>
-                        User님의 변경하실 정보를 입력해주세요. 
+                       {user.userName} 님의 변경하실 정보를 입력해주세요. 
                         </div>
                     </div>
                 </Info>
-                <InnerContainer>
+                
+                <InnerContainer >    
                 <div className="t1">기본정보</div>
                     <div className="t2"><div style={{color:'red'}}>*</div>필수입력사항</div>
                     <Body>
                     <div className="input">
                         <div className="item">
+                            <label >이메일 <div style={{color:'red'}}>*</div></label>
+                            <input type="Email" value={user.userEmail} onChange={e => setUserEmail(e.target.value)}/>
+                        </div>
+                        <div className="item">
                             <label >이름 <div style={{color:'red'}}>*</div></label>
-                            <input type="text" placeholder="Name" />
+                            <input type="text" defaultValue={user.userName}  onChange={e => setUserName(e.target.value)} />
                         </div>
                         <div className="item">
                             <label >비밀번호 <div style={{color:'red'}}>*</div></label>
-                            <input type="password" placeholder="PWD" onChange={onChangePw}/>
+                            <input type="password" defaultValue={user.userPwd} placeholder="PWD" onChange={onChangePw}/>
+                        
                         <div className="hint">
-                            {inputPw.length > 0 && (
-                            <span className={`message ${isPw ? 'success' : 'error'}`}>{pwMessage}</span>)}
+                                {userPwd.length > 0 && (
+                                <span className={`message ${isPw ? 'success' : 'error'}`} style={{ color: isPw ? 'blue' : 'red' }}>{pwMessage}</span>)}
                         </div>
                         </div>
                         <div className="item">
-                            <label>비밀번호확인 <div style={{color:'red'}}>*</div></label>
-                            <input type="password" placeholder="PWD CHECK" onChange={onChangeConPw}/>   
+                            <label >비밀번호확인 <div style={{color:'red'}}>*</div></label>
+                            <input type="password" defaultValue={user.userPwd} placeholder="PWD CHECK" onChange={onChangeConPw}/>   
                         <div className="hint">
-                            {inputPw.length > 0 && (
-                            <span className={`message ${isConPw ? 'success' : 'error'}`}>{conPwMessage}</span>)}
+                            {userPwd.length > 0 && (
+                            <span className={`message ${isConPw ? 'success' : 'error'}`} style={{ color: isConPw ? 'blue' : 'red' }}>{conPwMessage}</span>)}
                         </div>
                         </div>
                         <div className="item">
                             <label >주소 </label>
-                            <input type="text" placeholder="ADDRESS" className="addrInput" value={addr}/>
+                            <input type="text" placeholder="ADDRESS" className="addrInput" value={addr} defaultValue={user.userAddr}onChange={e => setUserAddr(e.target.value)}/>
                             <button className="addrBtn" onClick={openPostCode}>주소찾기</button>
                             <div id='popupDom'>
                                 {isPopupOpen && (                    
                                         <PopupPostCode onClose={closePostCode} />
                                 )} 
                             </div>
-                        </div>
+                        </div>  
                         <div className="item">
                             <label>휴대전화 <div style={{color:'red'}}>*</div></label>
-                            <input type="phone" placeholder="Phone" />
-                        </div>
-                        <div className="item">
-                            <label>이메일 <div style={{color:'red'}}>*</div></label>
-                            <input type="email" placeholder="Emali" />
-                        </div>
+                            <input type="phone" placeholder="Phone"  defaultValue={user.userPhone} onChange={e => setUserPhone(e.target.value)} />
+                            </div>
+                  
                     </div>
                     </Body>
                     <div className="btn">
-                        <button className="modify-btn" >회원정보수정</button>
+                        <button className="modify-btn" onClick={onClickInfoSave}>회원정보수정</button>
                         <button className="cancle-btn">취소</button>
                     </div>
                 </InnerContainer>
+                
+        
                 <Footer>
                 <div className="fotbox">
                     <div className="tt1">
