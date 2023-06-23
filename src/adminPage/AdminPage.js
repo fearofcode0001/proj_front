@@ -167,7 +167,7 @@ const AdminPage=()=>{
     const onLoadOrderData = async()=>{
         const response = await AxiosFinal.orderLoadManage();
         setOrderData(response.data);
-        // console.log(response.data);
+        console.log(response.data);
     }
     //inventory 선택시 실행되는 엑시오스
     const onLoadInventory=async()=>{
@@ -206,7 +206,6 @@ const AdminPage=()=>{
                         고객 문의  &nbsp;<span>{neworder}</span>&nbsp;건 
                     </div>
                 </div>
-                
             </Head>
 
             <MainBody> 
@@ -215,7 +214,6 @@ const AdminPage=()=>{
                                                                                onLoadCustomer(s.name);}}>
                         {s.name}
                     </SideBustton> ))}
-
                 </div>
                 <div className="body">
                     {changeMenu ==="saleDate" &&<SaleDate/>}                    
@@ -223,11 +221,8 @@ const AdminPage=()=>{
                     {changeMenu ==="itemUpload" &&<ItemUpload/>}
                     {changeMenu ==="inventory" &&<Inventory />}
                     {changeMenu ==="qna" &&<Qna/>}                    
-                    {changeMenu ==="customer Management" &&<CustomerMan />}       
-                    
-
+                    {changeMenu ==="customer Management" &&<CustomerMan />}      
                 </div>
-
             </MainBody>
         </Container>
     );

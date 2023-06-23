@@ -80,7 +80,7 @@ const QnaInfo = styled.div`
         overflow : hidden;
         cursor: pointer;
     }
-    .parnetContents{
+    .parentContents{
         width: 100%;
         height: 0px;
         overflow: hidden;
@@ -217,7 +217,7 @@ const Qna = () =>{
                         20230620
                     </div>
                 </div>
-                <div className="parnetContents">
+                <div className="parentContents">
                     <div className="childContents">
                         {q.qnaContent}   
                     </div>                     

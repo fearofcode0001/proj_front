@@ -1,14 +1,19 @@
-import React ,{useState} from "react";
-import styled from "styled-components";
+import React ,{useState,useContext} from "react";
+import styled, {css} from "styled-components";
 import testimg from "../img/test.png"
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { UserContext } from "../context/UserInfo";
 
 
 const Container=styled.div`
     width: 100%;
     height: 100%;
-        
+    height: calc(100vh - 180px);
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+        display: none;
+        }
     .itemInfoTop{    
     width: 100%;
     height: 27px;
@@ -22,15 +27,17 @@ const Container=styled.div`
         width: 50px;
         display: flex;
         justify-content: center;
+        cursor: pointer;
+        img{
+            position: absolute;
+            width: 80px;
+        }   
     }
     .itemNm{
         width: 430px;
         display: flex;
         justify-content: center;
-        img{
-            position: absolute;
-            width: 80px;
-        }       
+            
     }
     .itemColor{
         width: 70px;
@@ -95,14 +102,26 @@ const ItemInfo=styled.div`
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #ccc;
-    .parnetContents{
+    .parentContents{
         width: 100%;
+        height: 0px;
         overflow: hidden;
         transition: height 0.35s ease;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;       
+        justify-content: space-between;  
+        ${props => props.active && css`   // *&* props가 active이면 css를 재정의 한다.
+          height: 500px;
+        `}     
     }
+    .childContents{
+        height: 500px;
+        overflow-y: scroll;
+        ::-webkit-scrollbar {
+        display: none;
+        }
+    }
+    
     .title-input{
         width: 100%;
         border: none;
@@ -124,12 +143,17 @@ const ItemInfo=styled.div`
 `
 
 const  Inventory = () =>{
+
+    //아이템 정보 얻기
+    const context = useContext(UserContext);
+    const {inventoryData} = context;
+
     //호버상태를 체크한다.
     const [onHover,setOnHover] = useState(false);
     //마우스를 올리면 해당 상품 이미지가 나타남.
     const onPopUpImage=()=>{
         setOnHover(true)
-        console.log(onHover);
+        // console.log(onHover);
     }
     //마우스 떼면 이미지가 사라짐
     const onPopUpImageFalse=()=>{
@@ -141,16 +165,19 @@ const  Inventory = () =>{
         setXY({x:e.clientX,y:e.clientY});
     }
 
-    //마우스 클릭시 상품 수정 
-    const [upadatePop,setUpdatePop] = useState(0);
-    const onUpdatePop=()=>{
-        if(upadatePop===0){
-            setUpdatePop(500);
-        } else if(upadatePop===500){
-            setUpdatePop(0);
-        }
+    //제목을 누르면 에디터가 넘어온다.
+    //css에 active를 넘겨줄 값
+    const[invenAccodian, setinvenAccodian] = useState("all"); 
+    const onPopAccodian =(props)=>{
+        console.log(props);
+        //같은 버튼 클릭시 null로 바꿔주어 모든 css를 초기화한다
+        if(props===invenAccodian){
+            setinvenAccodian(null);
+            // console.log(qnaAccodian);
+        }else{
+            setinvenAccodian(props);
+        }        
     };
-
     return(
 
         <Container>
@@ -177,50 +204,51 @@ const  Inventory = () =>{
                
                </div>    
            </ItemInfoHead>
-           <ItemInfo>
+           {inventoryData && inventoryData.map((i)=> 
+           <ItemInfo key={i.productId} active={invenAccodian === i.productId}>
             <div className="itemInfoTop">
-               <div className="itemId">
-                123498
-               </div>
-               <div onMouseMove={(e)=>handleMouseMove(e)}>
-                <div className="itemNm" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse} onClick={onUpdatePop}>
-                    sweat hoodie organic change                     
-                    {onHover &&  <img src ={testimg} className="popUpImage" style={{left:xy.x,top:xy.y}} />}                          
+                <div onMouseMove={(e)=>handleMouseMove(e)}>
+                <div className="itemId" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse}>
+                    {i.productId}
+                    {onHover === true &&  <img src ={testimg} className="popUpImage" style={{left:xy.x,top:xy.y}} />}  
                 </div>
                </div>
-               
+                <div className="itemNm"  onClick={()=>{onPopAccodian(i.productId)}}>                      
+                    {i.productName} 
+                </div>               
                <div className="itemColor">
-                black
+               {i.productColor}
                </div>
                <div className="itemSize">
-               3
+               {i.productSize}
                </div>  
                <div className="itemStock">                   
-                <input type="text" value={20}/>
+                <input type="text" value={i.productStock}/>
                </div>
                <div className="itemSell">                
                 <select name ="">
-                    <option value="">sell</option>
-                    <option value="">hold</option>
-                    <option value="">sold_out</option>
+                    <option value=""selected>{i.productSellStatus}</option>
+                    <option value="SELL">sell</option>
+                    <option value="HOLD">hold</option>
+                    <option value="SOLD_OUT">sold_out</option>
                 </select>
                </div> 
                <div className="itemSubmit">
                 <button>submit</button>
                </div>
             </div>
-            <div className="parnetContents" style={{height: `${upadatePop}px`}}>
+            <div className="parentContents" >
                 <div className="childContents">
-                    <input className="title-input" type='text' placeholder='pleace enter product name' />
+                    <input className="title-input" type='text' placeholder='pleace enter product name' value={i.productName}/>
                         <CKEditor className="info-input"
                             editor={ClassicEditor}
-                            data="<p></p>"
+                            data={i.productDetail}
                             onReady={editor => {
                             // You can store the "editor" and use when it is needed.
                             console.log('Editor is ready to use!', editor);
                             }}
                             onChange={(event, editor) => {
-                            const data = editor.getData();
+                            const data = editor.setData(i.productId)
                             console.log({ event, editor, data });
                             }}
                             onBlur={(event, editor) => {
@@ -232,7 +260,7 @@ const  Inventory = () =>{
                         />      
                 </div>  
             </div>
-           </ItemInfo>
+           </ItemInfo>)}
         </Container>
     );
 };
