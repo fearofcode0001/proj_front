@@ -118,49 +118,27 @@ const  OrderCheck = () =>{
     const context = useContext(UserContext);
     const {orderData} = context;
     //송장을 설정하는 useState
-    const [putShipCode,setPutShipCode] = useState();
-    //주문의 순서인 index를 설정하는 useState
-    const [orderIndex,setOrderIndex] = useState();
-    //송장 클릭시 index값이 들어와진다.
-    const onSendIndex=(index)=>{
-        console.log(orderData);
-        console.log(index);
-        setOrderIndex(index);
+  
+ 
+    const [orderStatue,SetOrderStatue] = useState({ orderStatus:'',shipCompany:'',shipCode:''});
+    const onChangeStatus = (e,index) => {
+        SetOrderStatue({...orderStatue, orderStatus: e.target.value});
+    }
+    const onChangeShipCompany = (e,index)=> {
+        SetOrderStatue({...orderStatue, shipCompany: e.target.value});
+    }
+    const onChangeShipCode=(e,index) =>{
+        SetOrderStatue({...orderStatue, shipCode: e.target.value});
     }
     
-    const [orderStatue,SetOrderStatue] = useState({
-        orderStatus:'',
-        shipCompany:'',
-        shipCode:''
-    });
-    const {orderStatus,shipCompany, shipCode} =orderStatue;
-
-    const getValue = (e) => {
-        const { name } = e;
-        SetOrderStatue({
-            
-            //name 키를 가진 값을 value로 설정
-            [orderStatus]: e
-          })
-       
-    console.log(orderStatue);
-    // qnaSelect, qnaReply 각각 답이 담긴다. 
-    }
-
+  
     //주문건 수정 전송 
-    const onSubmitOrder =async(id,orderStatus,shipCompany,shipCode)=>{
-        console.log(id);
-        console.log(orderStatus);
-        SetOrderStatue({
-            orderStatus:orderStatus,
-            shipCompany:shipCompany,
-            shipCode:shipCode
-        });  
+    const onSubmitOrder =async(id,orderStatus,shipCompany,shipCode)=>{  
         console.log(orderStatue);
-        console.log(orderStatue.orderStatus);
         // const response = AxiosFinal.orderUploadData(id,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany);
-        
     }
+
+
     return(
 
         <Container>
@@ -196,10 +174,10 @@ const  OrderCheck = () =>{
                     
                 </div>
                 <div className="submitBtn">
-                    
+
                 </div>
             </OrderInfo> 
-            {orderData && orderData.map((o,index)=> <OrderInfo>
+            {orderData && orderData.map((o,index)=> <OrderInfo key={o.orderId} active={orderStatue===o.orderId}>
                 <div className="order">
                     {index+1}
                 </div>
@@ -219,8 +197,8 @@ const  OrderCheck = () =>{
                 {o.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </div>
                 <div className="orderStatus">
-                    <select name='orderStatus' onChange={(e) => getValue(e.target.value)}>
-                        <option value="" selected>{o.orderStatus}</option>
+                    <select name='orderStatus' onChange={(e)=>onChangeStatus(e,index)}>
+                        <option value="" selected>{orderStatue.orderStatus}</option>
                         <option value="CHECK" >주문 확인</option>
                         <option value="READY">상품 준비중</option>
                         <option value="SHIP">배송중</option>
@@ -232,16 +210,16 @@ const  OrderCheck = () =>{
                     
                 </div>
                 <div className="invoiceCom">
-                    <select name='shipCompany' onChange={(e) => getValue(e.target.value)}>
-                        <option value="" selected>{o.shipCompany}</option>
+                    <select name='shipCompany' onChange={(e)=>onChangeShipCompany(e,index)}>
+                        <option value="" selected>{orderStatue.shipCompany}</option>
                         <option value="CJ">CJ대한통운</option>
                         <option value="LOTTE">롯데 택배</option>
                         <option value="HANJIN">한진 택배</option>
                     </select>
                 </div>
                 <div className="invoiceNum">
-                    <input type="text" className="invoiceNum" value={o.shipCode}
-                     onChange={(e) => getValue(e.target.value)} name='shipCode'/>
+                    <input type="text" className="invoiceNum" value={orderStatue.shipCode}
+                     onChange={(e)=>onChangeShipCode(e,index)} name='shipCode'/>
                 </div>
                 <div className="invoiceTrace">
                     {o.shipCompany === null && <a href="#" target="blank">trace</a>}                
