@@ -191,7 +191,7 @@ const  OrderCheck = () =>{
                     
                 </div>
                 <div className="submitBtn">
-
+                    <button onClick={addItem}>load</button>
                 </div>
             </OrderInfo> 
             {orderData && orderData.map((o,index)=> <OrderInfo key={o.orderId} active={orderStatue===o.orderId}>
