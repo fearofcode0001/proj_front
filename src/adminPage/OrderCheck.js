@@ -120,7 +120,25 @@ const  OrderCheck = () =>{
     //송장을 설정하는 useState
 
    
-     
+
+    // const [orderTotalData, setOrderTotalData] = useState([]);
+    // const [onIndex, setOnIndex] = useState(0);
+    
+    // const addItem = () => {
+    //     const orderStatue = { index: onIndex, orderStatus:'',shipCompany:'',shipCode:''};
+    //     setOrderTotalData(prevOrder=> [...prevOrder, orderStatue]);
+    //     setOnIndex(onIndex+1);
+    //   };
+
+
+    // const arrayMake=()=>{
+    //     orderData.map(e => {e.orderAddress})
+
+    // }
+   
+
+
+        
     const [orderTotalData, setOrderTotalData] = useState(Array.from({length:orderData.length}))
     const [onIndex, setOnIndex] = useState(0);
     const [orderStatue,SetOrderStatue] = useState({ orderStatus:'',shipCompany:'',shipCode:''});
@@ -128,12 +146,10 @@ const  OrderCheck = () =>{
         setOrderTotalData(prevOrder=> [...prevOrder, orderStatue]);
         setOnIndex(onIndex+1);
         console.log(orderTotalData);
-        
       };
 
-
     const onChangeStatus = (e,index) => {
-        SetOrderStatue(({...orderStatue, orderStatus: e.target.value}));
+        SetOrderStatue({...orderStatue, orderStatus: e.target.value});
     }
     const onChangeShipCompany = (e,index)=> {
         SetOrderStatue({...orderStatue, shipCompany: e.target.value});
@@ -142,15 +158,11 @@ const  OrderCheck = () =>{
         SetOrderStatue({...orderStatue, shipCode: e.target.value});
     }
     
-
-
-    
   
     //주문건 수정 전송 
     const onSubmitOrder =async(id,orderStatus,shipCompany,shipCode)=>{  
         console.log(orderData.length);
         // console.log(array);
-        console.log(orderStatue);
         // const response = AxiosFinal.orderUploadData(id,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany);
     }
 
@@ -195,7 +207,7 @@ const  OrderCheck = () =>{
             </OrderInfo> 
             {orderData && orderData.map((o,index)=> <OrderInfo key={o.orderId} active={orderStatue===o.orderId}>
                 <div className="order">
-                    {index}
+                    {index+1}
                 </div>
                 <div className="orderId">
                    {o.orderId}
@@ -244,7 +256,7 @@ const  OrderCheck = () =>{
                     {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl='+ o.shipCode} target="blank">trace</a>}
                 </div>          
                 <div className="submitBtn">
-                    <button onClick={()=>onSubmitOrder(o.orderId,orderStatue.orderStatus,orderStatue.shipCompany,orderStatue.shipCode)}>submit</button>
+                    <button onClick={()=>{onSubmitOrder(o.orderId,o.orderStatus,o.shipCompany,o.shipCode)}}>submit</button>
                 </div>
             </OrderInfo>)}
         </Container>
