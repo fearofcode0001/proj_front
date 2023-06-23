@@ -120,23 +120,21 @@ const  OrderCheck = () =>{
     //송장을 설정하는 useState
 
    
+     
     const [orderTotalData, setOrderTotalData] = useState(Array.from({length:orderData.length}))
     const [onIndex, setOnIndex] = useState(0);
-    
+    const [orderStatue,SetOrderStatue] = useState({ orderStatus:'',shipCompany:'',shipCode:''});
     const addItem = () => {
-        const orderStatue = { index: onIndex, orderStatus:'',shipCompany:'',shipCode:''};
         setOrderTotalData(prevOrder=> [...prevOrder, orderStatue]);
         setOnIndex(onIndex+1);
         console.log(orderTotalData);
         
       };
 
-    
 
-    const [orderStatue,SetOrderStatue] = useState({ orderStatus:'',shipCompany:'',shipCode:''});
     const onChangeStatus = (e,index) => {
-            console.log(index);
-            SetOrderStatue({...orderStatue[index], orderStatus: e.target.value});
+        console.log(index);
+        SetOrderStatue({...orderStatue[index], orderStatus: e.target.value});
     }
     const onChangeShipCompany = (e,index)=> {
         SetOrderStatue({...orderStatue, shipCompany: e.target.value});
@@ -144,6 +142,9 @@ const  OrderCheck = () =>{
     const onChangeShipCode=(e,index) =>{
         SetOrderStatue({...orderStatue, shipCode: e.target.value});
     }
+    
+
+
     
   
     //주문건 수정 전송 
@@ -244,7 +245,7 @@ const  OrderCheck = () =>{
                     {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl='+ o.shipCode} target="blank">trace</a>}
                 </div>          
                 <div className="submitBtn">
-                    <button onClick={addItem}>submit</button>
+                    <button onClick={()=>onSubmitOrder(o.orderId,orderStatue.orderStatus,orderStatue.shipCompany,orderStatue.shipCode)}>submit</button>
                 </div>
             </OrderInfo>)}
         </Container>
