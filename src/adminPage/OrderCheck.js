@@ -119,7 +119,6 @@ const  OrderCheck = () =>{
     const {orderData} = context;
     //송장을 설정하는 useState
   
- 
     const [orderStatue,SetOrderStatue] = useState({ orderStatus:'',shipCompany:'',shipCode:''});
     const onChangeStatus = (e,index) => {
         SetOrderStatue({...orderStatue, orderStatus: e.target.value});
