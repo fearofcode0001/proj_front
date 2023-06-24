@@ -17,7 +17,7 @@ const OrderInfo=styled.tr`
     height: 27px;    
     border-bottom: 1px solid #CCC;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;    
     font-size: 11px;
     .order{
@@ -50,6 +50,16 @@ const OrderInfo=styled.tr`
     }
     .orderProduct{
         width: 50px;
+        display: flex;
+        justify-content: center;
+    }
+    .productColor{
+        width: 50px;
+        display: flex;
+        justify-content: center;
+    }
+    .productSize{
+        width: 35px;
         display: flex;
         justify-content: center;
     }
@@ -190,9 +200,6 @@ const  OrderCheck = () =>{
 
         <Container>
             <OrderInfo>
-                <div className="order">
-                    순서
-                </div>
                 <div className="orderId">
                     주문 ID
                 </div>
@@ -207,6 +214,12 @@ const  OrderCheck = () =>{
                 </div>
                 <div className="orderProduct">
                     주문 상품
+                </div>
+                <div className="productColor">
+                    컬러
+                </div>
+                <div className="productSize">
+                    사이즈
                 </div>
                 <div className="orderPrice">
                     가격
@@ -227,9 +240,6 @@ const  OrderCheck = () =>{
                 </div>
             </OrderInfo> 
             {orderData && orderData.map((o,index)=> <OrderInfo key={o.orderId} active={orderStatue===o.orderId}>
-                <div className="order">
-                    {index+1}
-                </div>
                 <div className="orderId">
                    {o.orderId}
                 </div>
@@ -243,7 +253,13 @@ const  OrderCheck = () =>{
                 {o.orderDate}
                 </div>
                 <div className="orderProduct">
-                    주문 상품
+                {o.productName}
+                </div>
+                <div className="productColor">
+                    컬러
+                </div>
+                <div className="productSize">
+                    사이즈
                 </div>
                 <div className="orderPrice" >
                 {o.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
