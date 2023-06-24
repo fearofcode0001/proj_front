@@ -256,10 +256,10 @@ const  OrderCheck = () =>{
                 {o.productName}
                 </div>
                 <div className="productColor">
-                    컬러
+                {o.productColor}
                 </div>
                 <div className="productSize">
-                    사이즈
+                {o.productSize}
                 </div>
                 <div className="orderPrice" >
                 {o.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
