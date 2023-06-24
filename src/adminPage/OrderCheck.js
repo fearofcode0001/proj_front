@@ -37,6 +37,7 @@ const OrderInfo=styled.tr`
         display: flex;
         justify-content: center;
     }
+    
     .orderAddr{
         width: 200px;
         display: flex;
@@ -44,6 +45,11 @@ const OrderInfo=styled.tr`
     }
     .orderDate{
         width: 70px;
+        display: flex;
+        justify-content: center;
+    }
+    .orderProduct{
+        width: 50px;
         display: flex;
         justify-content: center;
     }
@@ -135,10 +141,6 @@ const  OrderCheck = () =>{
 
     // }
    const [orderSangTae, setQnaStatue] = useState();
-   const [onShipCode, setOnShipCode] = useState();
-   const onLodaData=(shipCode)=>{
-        setOnShipCode(shipCode);
-   }
   
     const getValue = (e) => {
         const { name } = e.target;
@@ -203,6 +205,9 @@ const  OrderCheck = () =>{
                 <div className="orderDate">
                     주문일
                 </div>
+                <div className="orderProduct">
+                    주문 상품
+                </div>
                 <div className="orderPrice">
                     가격
                 </div>
@@ -237,6 +242,9 @@ const  OrderCheck = () =>{
                 <div className="orderDate">
                 {o.orderDate}
                 </div>
+                <div className="orderProduct">
+                    주문 상품
+                </div>
                 <div className="orderPrice" >
                 {o.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </div>
@@ -262,7 +270,8 @@ const  OrderCheck = () =>{
                     </select>
                 </div>
                 <div className="invoiceNum">
-                    <input type="text" className="invoiceNum" value={onShipCode}
+                    <input type="text" className="invoiceNum" value={o.shipCode}/>
+                    <input type="text" className="invoiceNum" placeholder="송장수정"
                      onChange={(e)=>{getValue(e)}} name='shipCode'/>
                 </div>
                 <div className="invoiceTrace">
@@ -272,7 +281,6 @@ const  OrderCheck = () =>{
                     {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl='+ o.shipCode} target="blank">trace</a>}
                 </div>          
                 <div className="submitBtn">
-                    <button onClick={()=>onLodaData(o.shipCode)}>load</button>
                     <button onClick={()=>{onSubmitOrder(o.orderId,o.orderStatus,o.shipCompany,o.shipCode)}}>submit</button>
                 </div>
             </OrderInfo>)}
