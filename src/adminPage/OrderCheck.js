@@ -150,7 +150,13 @@ const  OrderCheck = () =>{
     //     orderData.map(e => {e.orderAddress})
 
     // }
-   const [orderSangTae, setQnaStatue] = useState();
+
+  
+    const [orderSangTae, setQnaStatue] = useState({
+        orderStatus: '',
+        shipCode:'',
+        shipCompany:''
+    });
   
     const getValue = (e) => {
         const { name } = e.target;
@@ -168,34 +174,79 @@ const  OrderCheck = () =>{
 
 
         
-    const [orderTotalData, setOrderTotalData] = useState(Array.from({length:orderData.length}))
-    const [onIndex, setOnIndex] = useState(0);
-    const [orderStatue,SetOrderStatue] = useState({ orderStatus:'',shipCompany:'',shipCode:''});
-    const addItem = () => {
-        setOrderTotalData(prevOrder=> [...prevOrder, orderStatue]);
-        setOnIndex(onIndex+1);
-        console.log(orderTotalData);
-      };
+    // const [orderTotalData, setOrderTotalData] = useState(Array.from({length:orderData.length}))
+    // const [onIndex, setOnIndex] = useState(0);
+    // const [orderStatue,SetOrderStatue] = useState({ orderStatus:'',shipCompany:'',shipCode:''});
+    // const addItem = () => {
+    //     setOrderTotalData(prevOrder=> [...prevOrder, orderStatue]);
+    //     setOnIndex(onIndex+1);
+    //     console.log(orderTotalData);
+    //   };
 
-    const onChangeStatus = (e,index) => {
-        SetOrderStatue({...orderStatue, orderStatus: e.target.value});
-    }
-    const onChangeShipCompany = (e,index)=> {
-        SetOrderStatue({...orderStatue, shipCompany: e.target.value});
-    }
-    const onChangeShipCode=(e,index) =>{
-        SetOrderStatue({...orderStatue, shipCode: e.target.value});
-    }
+    // const onChangeStatus = (e,index) => {
+    //     SetOrderStatue({...orderStatue, orderStatus: e.target.value});
+    // }
+    // const onChangeShipCompany = (e,index)=> {
+    //     SetOrderStatue({...orderStatue, shipCompany: e.target.value});
+    // }
+    // const onChangeShipCode=(e,index) =>{
+    //     SetOrderStatue({...orderStatue, shipCode: e.target.value});
+    // }
     
   
     //주문건 수정 전송 
-    const onSubmitOrder =async(id,orderStatus,shipCompany,shipCode)=>{  
-        console.log(orderData.length);
-        // console.log(array);
-        // const response = AxiosFinal.orderUploadData(id,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany);
+    const onFixOrder =(o)=>{  
+        console.log(orderSangTae.orderStatus);
+       if(orderSangTae.orderStatus===''){
+            setQnaStatue({
+            ...orderSangTae,
+            //name 키를 가진 값을 value로 설정
+            orderStatus: o.orderStatus
+          })
+        } else if(orderSangTae.shipCode===''){
+            setQnaStatue({
+            ...orderSangTae,
+            //name 키를 가진 값을 value로 설정
+            shipCode: o.shipCode
+        })
+        } else if(orderSangTae.shipCompany===''){
+            setQnaStatue({
+            ...orderSangTae,
+            //name 키를 가진 값을 value로 설정
+            shipCompany: o.shipCompany
+        })
+        } 
+       
+       console.log(orderSangTae);
+   
     }
 
-
+    const onSubmitOrder=async(o)=>{
+        // console.log(o);
+        console.log(orderSangTae);
+        if(orderSangTae.orderStatus===''){
+            setQnaStatue({
+            ...orderSangTae,
+            //name 키를 가진 값을 value로 설정
+            orderStatus: o.orderStatus
+          })
+        } else if(orderSangTae.shipCode===''){
+            setQnaStatue({
+            ...orderSangTae,
+            //name 키를 가진 값을 value로 설정
+            shipCode: o.shipCode
+        })
+        } else if(orderSangTae.shipCompany===''){
+            setQnaStatue({
+            ...orderSangTae,
+            //name 키를 가진 값을 value로 설정
+            shipCompany: o.shipCompany
+        })
+        } 
+        setQnaStatue({...orderSangTae})
+        console.log(orderSangTae);
+        // const response = AxiosFinal.orderUploadData(o.id,orderSangTae.orderStatus,orderSangTae.shipCode,orderSangTae.shipCompany);
+    }
     return(
 
         <Container>
@@ -239,7 +290,7 @@ const  OrderCheck = () =>{
                 <div className="submitBtn">
                 </div>
             </OrderInfo> 
-            {orderData && orderData.map((o,index)=> <OrderInfo key={o.orderId} active={orderStatue===o.orderId}>
+            {orderData && orderData.map((o,index)=> <OrderInfo>
                 <div className="orderId">
                    {o.orderId}
                 </div>
@@ -297,7 +348,8 @@ const  OrderCheck = () =>{
                     {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl='+ o.shipCode} target="blank">trace</a>}
                 </div>          
                 <div className="submitBtn">
-                    <button onClick={()=>{onSubmitOrder(o.orderId,o.orderStatus,o.shipCompany,o.shipCode)}}>submit</button>
+                    <button onClick={()=>{onFixOrder(o)}}>fix</button>
+                    <button onClick={()=>{onSubmitOrder(o)}}>submit</button>
                 </div>
             </OrderInfo>)}
 
