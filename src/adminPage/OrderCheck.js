@@ -134,7 +134,25 @@ const  OrderCheck = () =>{
     //     orderData.map(e => {e.orderAddress})
 
     // }
-   
+   const [orderSangTae, setQnaStatue] = useState();
+   const [onShipCode, setOnShipCode] = useState();
+   const onLodaData=(shipCode)=>{
+        setOnShipCode(shipCode);
+   }
+  
+    const getValue = (e) => {
+        const { name } = e.target;
+        setQnaStatue({
+            ...orderSangTae,
+            //name 키를 가진 값을 value로 설정
+            [name]: e.target.value
+          })
+       
+    // console.log(qnaStatue);
+    // qnaSelect, qnaReply 각각 답이 담긴다. 
+    }
+
+
 
 
         
@@ -201,7 +219,6 @@ const  OrderCheck = () =>{
                     
                 </div>
                 <div className="submitBtn">
-                    <button onClick={addItem}>load</button>
                 </div>
             </OrderInfo> 
             {orderData && orderData.map((o,index)=> <OrderInfo key={o.orderId} active={orderStatue===o.orderId}>
@@ -224,8 +241,8 @@ const  OrderCheck = () =>{
                 {o.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </div>
                 <div className="orderStatus">
-                    <select name='orderStatus' onChange={(e)=>onChangeStatus(e,index)}>
-                        <option value="" selected>{orderStatue.orderStatus}</option>
+                    <select name='orderStatus' onChange={getValue}>
+                        <option value="" selected>{o.orderStatus}</option>
                         <option value="CHECK" >주문 확인</option>
                         <option value="READY">상품 준비중</option>
                         <option value="SHIP">배송중</option>
@@ -237,27 +254,32 @@ const  OrderCheck = () =>{
                     
                 </div>
                 <div className="invoiceCom">
-                    <select name='shipCompany' onChange={(e)=>onChangeShipCompany(e,index)}>
-                        <option value="" selected>{orderStatue.shipCompany}</option>
+                    <select name='shipCompany' onChange={getValue}>
+                        <option value="" selected>{o.shipCompany}</option>
                         <option value="CJ">CJ대한통운</option>
                         <option value="LOTTE">롯데 택배</option>
                         <option value="HANJIN">한진 택배</option>
                     </select>
                 </div>
                 <div className="invoiceNum">
-                    <input type="text" className="invoiceNum" value={orderStatue.shipCode}
-                     onChange={(e)=>onChangeShipCode(e,index)} name='shipCode'/>
+                    <input type="text" className="invoiceNum" value={onShipCode}
+                     onChange={(e)=>{getValue(e)}} name='shipCode'/>
                 </div>
                 <div className="invoiceTrace">
-                    {o.shipCompany === null && <a href="#" target="blank">trace</a>}                
+                    {o.shipCompany === null && <a href="#" target="blank">empty</a>}                
                     {o.shipCompany === "CJ" && <a href={'https://trace.cjlogistics.com/web/detail.jsp?slipno='+ o.shipCode} target="blank">trace</a>}
                     {o.shipCompany === "LOTTE" && <a href={'https://www.lotteglogis.com/home/reservation/tracking/linkView?InvNo='+ o.shipCode} target="blank">trace</a>}
                     {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl='+ o.shipCode} target="blank">trace</a>}
                 </div>          
                 <div className="submitBtn">
+                    <button onClick={()=>onLodaData(o.shipCode)}>load</button>
                     <button onClick={()=>{onSubmitOrder(o.orderId,o.orderStatus,o.shipCompany,o.shipCode)}}>submit</button>
                 </div>
             </OrderInfo>)}
+
+
+
+         
         </Container>
     );
 };
