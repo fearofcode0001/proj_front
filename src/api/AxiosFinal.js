@@ -59,7 +59,21 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/admin/qnaUpload", qnaReplyUpLoad);
     },
-        
+       //어드민페이지 주문건 전체조회
+       orderLoadManage : async() => {
+        return await axios.get(Final_proj + `/admin/orderLoad`);
+    },
+    // 어드민페이지 주문건 수정
+    orderUploadData : async(orderId,orderStatus,shipCode,shipCompany)=>{
+        const orderUpLoadData={
+            orderId : orderId,
+            orderStatue : orderStatus,
+            orderShipCode : shipCode,
+            orderShipCompany : shipCompany,
+        };
+        return await axios.post(Final_proj + "/admin/orderUpLoad", orderUpLoadData);
+    },        
+
     //회원 조회
     memberGet: async(userId) => {
         return await axios.get(Final_proj + `/auth/users?userId=${userId}`);
