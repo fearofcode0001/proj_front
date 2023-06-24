@@ -152,7 +152,7 @@ const  OrderCheck = () =>{
     // }
 
   
-    const [orderSangTae, setQnaStatue] = useState({
+    const [orderStatue, setOrderStatue] = useState({
         orderStatus: '',
         shipCode:'',
         shipCompany:''
@@ -160,8 +160,8 @@ const  OrderCheck = () =>{
   
     const getValue = (e) => {
         const { name } = e.target;
-        setQnaStatue({
-            ...orderSangTae,
+        setOrderStatue({
+            ...orderStatue,
             //name 키를 가진 값을 value로 설정
             [name]: e.target.value
           })
@@ -196,56 +196,56 @@ const  OrderCheck = () =>{
   
     //주문건 수정 전송 
     const onFixOrder =(o)=>{  
-        console.log(orderSangTae.orderStatus);
-       if(orderSangTae.orderStatus===''){
-            setQnaStatue({
-            ...orderSangTae,
+        console.log(orderStatue.orderStatus);
+       if(orderStatue.orderStatus===''){
+            setOrderStatue({
+            ...orderStatue,
             //name 키를 가진 값을 value로 설정
             orderStatus: o.orderStatus
           })
-        } else if(orderSangTae.shipCode===''){
-            setQnaStatue({
-            ...orderSangTae,
+        } else if(orderStatue.shipCode===''){
+            setOrderStatue({
+            ...orderStatue,
             //name 키를 가진 값을 value로 설정
             shipCode: o.shipCode
         })
-        } else if(orderSangTae.shipCompany===''){
-            setQnaStatue({
-            ...orderSangTae,
+        } else if(orderStatue.shipCompany===''){
+            setOrderStatue({
+            ...orderStatue,
             //name 키를 가진 값을 value로 설정
             shipCompany: o.shipCompany
         })
         } 
        
-       console.log(orderSangTae);
+       console.log(orderStatue);
    
     }
 
     const onSubmitOrder=async(o)=>{
-        // console.log(o);
-        console.log(orderSangTae);
-        if(orderSangTae.orderStatus===''){
-            setQnaStatue({
-            ...orderSangTae,
+        console.log(o);
+       
+        if(orderStatue.orderStatus===''){
+            setOrderStatue({
+            ...orderStatue,
             //name 키를 가진 값을 value로 설정
             orderStatus: o.orderStatus
           })
-        } else if(orderSangTae.shipCode===''){
-            setQnaStatue({
-            ...orderSangTae,
+        } else if(orderStatue.shipCode===''){
+            setOrderStatue({
+            ...orderStatue,
             //name 키를 가진 값을 value로 설정
             shipCode: o.shipCode
         })
-        } else if(orderSangTae.shipCompany===''){
-            setQnaStatue({
-            ...orderSangTae,
+        } else if(orderStatue.shipCompany===''){
+            setOrderStatue({
+            ...orderStatue,
             //name 키를 가진 값을 value로 설정
             shipCompany: o.shipCompany
         })
         } 
-        setQnaStatue({...orderSangTae})
-        console.log(orderSangTae);
-        // const response = AxiosFinal.orderUploadData(o.id,orderSangTae.orderStatus,orderSangTae.shipCode,orderSangTae.shipCompany);
+
+        console.log(orderStatue);
+        const response = AxiosFinal.orderUploadData(o.orderId,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany);
     }
     return(
 
