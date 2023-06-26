@@ -124,8 +124,18 @@ const AxiosFinal = {
             code : code
         }
         return await axios.post(Final_proj + `/verify`, check);
+    },
+
+    //faq 업로드
+    faqUpload : async(title, content) => {
+        const upload = {
+            faqTitle : title,
+            faqContent : content,
+        }
+        return await axios.post(Final_proj + `/faq/uploadFaq`, upload);
     }
-    //채팅
+
+    // faq 수정하기
     
 };
 
