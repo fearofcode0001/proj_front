@@ -4,6 +4,8 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import AxiosFinal from "../api/AxiosFinal";
 import axios from "axios";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { storage } from "./FireBase";
 
 
 const Container=styled.div`
@@ -178,11 +180,29 @@ const  ItemUpload = () =>{
       </DivImg>
     );
   });
+  
+  const [imgageURL, setImageURL] = useState("");
+  const uploadImage =(e)=>{
+    
+    e.preventDefault();
+    const file = e.target.files;
+    if(!file) return null;
+    const storageRef = ref(storage, `uploadimg/${file[0].name}`);
+    const uploadTask = uploadBytes(storageRef, file[0]);
 
+    uploadTask.then((snapshot) =>{
+      e.target.value="";
+      getDownloadURL(snapshot.ref).then((downloadURL) =>{
+        console.log("File avalable at",downloadURL);
+        setImageURL(downloadURL);
+        console.log(imgageURL);
+      })
+    })
+   }
 
+  
 
   //이미지 url추출
-  const [imageUrl, setImageUrl] = useState('');
   const customUploadAdapter = (loader) => {
     return {
       upload() {
@@ -284,12 +304,17 @@ const  ItemUpload = () =>{
                             <option  value="OUTER" >OUTER</option>
                           </select>
                 </div>
-                <div className="inputImg">
-                <input className="title-file2" type='file' onChange={(e)=>{getValue(e);
-                                                                          onSelectFile(e)}} 
-                 value={productImg} name='productImg'  multiple/>
-                 {attachFile}
-                 </div>
+                
+                  <div className="inputImg">
+                    <input className="title-file2" type='file' onChange={(e)=>{getValue(e);
+                                                                              onSelectFile(e);
+                                                                              uploadImage(e);
+                                                                            }} 
+                    value={productImg} name='productImg'  multiple/>
+                    {attachFile}
+                    <button type="submit" >submit</button>
+                  </div>
+                 
               </div>
                   <CKEditor className="info-input"
                     editor={ClassicEditor}  
