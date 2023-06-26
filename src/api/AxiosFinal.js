@@ -150,9 +150,15 @@ const AxiosFinal = {
         return await axios.post(Final_proj + `/resetPwd`, reset);
     },
     //채팅
-    
 
-
+    //faq 업로드
+    faqUpload : async(title, content) => {
+        const upload = {
+            faqTitle : title,
+            faqContent : content,
+        }
+        return await axios.post(Final_proj + `/faq/uploadFaq`, upload);
+    },
   
     // 회원 정보 수정 저장
     saveUserInfo : async (userId, userName, userPwd, userAddr, userPhone) =>{
@@ -169,7 +175,7 @@ const AxiosFinal = {
     // SELL 상품
     sellitems : async() => {
         return await axios.get(Final_proj + `/product/sellitems`);
-    },
+    }
 };
 
 export default AxiosFinal;

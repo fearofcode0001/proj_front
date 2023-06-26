@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
+import AxiosFinal from "../api/AxiosFinal";
 
 
 const Container = styled.div`
@@ -163,7 +164,6 @@ const FAQ = () => {
         }
 
     }
-    
  
 
     return (
