@@ -190,15 +190,15 @@ const  ItemUpload = () =>{
           const formData = new FormData();
           loader.file.then((file) => {
             formData.append("file", file);
-            // axios
-            //   .post("http://localhost:3000/api/v0/file/upload", formData)
-            //   .then((res) => {
-            //     resolve({
-            //       default: res.data.data.uri,
-            //     });
-            //     // console.log(res.data);
-            //   })
-            //   .catch((err) => reject(err));
+            axios
+              .post("http://210.114.22.83:22/home/img", formData)
+              .then((res) => {
+                // resolve({
+                //   default: res.data.data.uri,
+                // });
+                console.log(res.data);
+              })
+              .catch((err) => reject(err));
           });
         });
       },
