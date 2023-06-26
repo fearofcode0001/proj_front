@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
 import ModalEmail from "./ModalEmail";
-import context from "react-bootstrap/esm/AccordionContext";
-import UserStore from "../context/UserInfo";
 
 
 const Container = styled.div`
@@ -59,7 +57,6 @@ const InerContainer = styled.div`
 const FindEmail = () => {
     // useState 이용하여 상태를 업데이트한다.
     const [inputEmail, setInputEmail] = useState("");
-    const [searchId, setSearchID] = useState("");
 
     // 팝업
     const [modalOpen, setModalOpen] = useState(false);
@@ -102,7 +99,7 @@ const FindEmail = () => {
                     <input type="email" value={inputEmail} onChange={handleEmailChange} placeholder="EMAIL"/>
                 </div>
                 <div className="item">
-                <ModalEmail open={modalOpen} close={closeModal} header="오류">{modalText}</ModalEmail>
+                    <ModalEmail open={modalOpen} close={closeModal} header="오류">{modalText}</ModalEmail>
                     <button className="findBtn" onClick={handleSearchId}>FIND</button>
                     <Link to="/FindPwd"><button className="findPwdBtn">FORGOT PASSWORD</button></Link>
                 </div>
