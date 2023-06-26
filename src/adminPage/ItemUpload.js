@@ -229,7 +229,7 @@ const  ItemUpload = () =>{
   const onCheck = async() =>{ 
     setUploadProdData({ ...uploadProdData});
     //여러 이미지 업로드 데이터.
-    console.log(selectedFiles);
+    // console.log(selectedFiles);
     console.log(uploadProdData);  
 
     const response =  await AxiosFinal.productUpload(uploadProdData.title,
