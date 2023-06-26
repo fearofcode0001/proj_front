@@ -9,6 +9,8 @@ import axios from "axios";
 const Container=styled.div`
 width: 100%;
 height: 100%;
+
+
   .upLoadName{
     display: flex;
     align-items: center;
@@ -99,9 +101,66 @@ height: 100%;
     color: #999999;
 }
 `
+
+const DivImg = styled.div`
+  justify-content: space-between;
+  display: flex;
+  border-radius: 0.3rem;
+  border: 0.01rem solid #efeff1;
+  display: flex;
+  padding: 0.1rem;
+  background-color: #efeff1;
+  align-items: center;
+  font-weight: 400;
+  button {
+    margin-left: 0.05rem;
+    color: gray;
+    background-color: white;
+    border-radius: 0.5rem;
+    height: 0.3rem;
+  }`;
 const  ItemUpload = () =>{
+  
+
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState();
+  const onSelectFile = (e) => {
+    console.log(e.target.files);
+    e.preventDefault();
+    e.persist();
+    const selectedFiles = e.target.files;
+    const fileUrlList = [...selectedFiles];
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const nowUrl = URL.createObjectURL(selectedFiles[i]);
+      fileUrlList.push(nowUrl[i]);
+    }
+    setSelectedFiles(fileUrlList);
+    const selectedFileArray = Array.from(selectedFiles);
+    const imageArray = selectedFileArray.map((file) => {
+    return file.name;
+  });
+    setSelectedImages((previousImages) => previousImages.concat(imageArray));
+    e.target.file = '';
+
+  }
+  
+  const attachFile =
+  selectedImages &&
+  selectedImages.map((image) => {
+    return (
+      <DivImg key={image}>
+        <div>{image}</div>
+        <button onClick={() => setSelectedImages(selectedImages.filter((e) => e !== image))}>
+       
+        </button>
+      </DivImg>
+    );
+  });
 
 
+
+
+  
   const customUploadAdapter = (loader) => {
     return {
       upload() {
@@ -109,7 +168,6 @@ const  ItemUpload = () =>{
           const formData = new FormData();
           loader.file.then((file) => {
             formData.append("file", file);
-
             // axios
             //   .post("http://localhost:3000/api/v0/file/upload", formData)
             //   .then((res) => {
@@ -157,13 +215,13 @@ const  ItemUpload = () =>{
   const onCheck = async() =>{ 
     setUploadProdData({ ...uploadProdData});
     console.log(uploadProdData);
-    const response =  await AxiosFinal.productUpload(uploadProdData.title,
-                                                     uploadProdData.price,
-                                                     uploadProdData.color,
-                                                     uploadProdData.size,
-                                                     uploadProdData.category,
-                                                     uploadProdData.productImg,
-                                                     uploadProdData.content)
+    // const response =  await AxiosFinal.productUpload(uploadProdData.title,
+    //                                                  uploadProdData.price,
+    //                                                  uploadProdData.color,
+    //                                                  uploadProdData.size,
+    //                                                  uploadProdData.category,
+    //                                                  uploadProdData.productImg,
+    //                                                  uploadProdData.content)
                                                
     
   }
@@ -197,7 +255,10 @@ const  ItemUpload = () =>{
                             <option  value="OUTER" >OUTER</option>
                           </select>
                 </div>
-                <input className="title-file2" type='file' onChange={getValue} value={productImg} name='productImg' multiple/> 
+                <input className="title-file2" type='file' onChange={(e)=>{getValue(e);
+                                                                          onSelectFile(e)}} 
+                 value={productImg} name='productImg'  multiple/>
+                  <div>{attachFile}</div>
                 
               </div>
                   <CKEditor className="info-input"
