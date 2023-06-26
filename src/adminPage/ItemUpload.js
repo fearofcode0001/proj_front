@@ -127,15 +127,22 @@ const DivImg = styled.div`
   }`;
 const  ItemUpload = () =>{
   
-
+   //화면에 출력되는 파일
   const [selectedImages, setSelectedImages] = useState([]);
+   //서버에 보내지는 파일
   const [selectedFiles, setSelectedFiles] = useState();
+  //업로드 할 이미지들.
   const onSelectFile = (e) => {
     console.log(e.target.files);
     e.preventDefault();
     e.persist();
+    //이미지들을 가져옴
     const selectedFiles = e.target.files;
+    //차례대로 리스트에 넣는다.
     const fileUrlList = [...selectedFiles];
+    // 업로드되는 파일에는 url이 있어야 한다. filePath로 보내줄 url이다.
+    //획득한 Blob URL Address를 브라우져에서 그대로 호출 시에 이미지는 표시가 되고 ,
+    //일반 파일의 경우 다운로드를 할 수 있다.
     for (let i = 0; i < selectedFiles.length; i++) {
       const nowUrl = URL.createObjectURL(selectedFiles[i]);
       fileUrlList.push(nowUrl[i]);
@@ -146,8 +153,7 @@ const  ItemUpload = () =>{
     return file.name;
   });
     setSelectedImages((previousImages) => previousImages.concat(imageArray));
-    e.target.file = 'asd';
-
+    e.target.file = '';
   }
   
   const attachFile =
