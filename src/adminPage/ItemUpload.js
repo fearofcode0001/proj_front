@@ -139,8 +139,9 @@ const  ItemUpload = () =>{
     e.persist();
     //이미지들을 가져옴
     const selectedFiles = e.target.files;
-    //차례대로 리스트에 넣는다.
-    const fileUrlList = [...selectedFiles];
+    //차례대로 리스트에 넣는다. 갯수를 초과하면 바꿔야 하기 때문에 let으로 선언한다.
+    let fileUrlList = [...selectedFiles];
+    console.log(fileUrlList);
     // 업로드되는 파일에는 url이 있어야 한다. filePath로 보내줄 url이다.
     //획득한 Blob URL Address를 브라우져에서 그대로 호출 시에 이미지는 표시가 되고 ,
     //일반 파일의 경우 다운로드를 할 수 있다.
@@ -148,8 +149,15 @@ const  ItemUpload = () =>{
       const nowUrl = URL.createObjectURL(selectedFiles[i]);
       fileUrlList.push(nowUrl[i]);
     }
+    //2개로 제한한다.
+    if (fileUrlList.length > 2) {
+      console.log("2개초과 ");
+      fileUrlList = fileUrlList.slice(0, 2);
+      
+    }
+    console.log(fileUrlList);
     setSelectedFiles(fileUrlList);
-    const selectedFileArray = Array.from(selectedFiles);
+    const selectedFileArray = Array.from(fileUrlList);
     const imageArray = selectedFileArray.map((file) => {
     return file.name;
   });
@@ -229,7 +237,7 @@ const  ItemUpload = () =>{
   const onCheck = async() =>{ 
     setUploadProdData({ ...uploadProdData});
     //여러 이미지 업로드 데이터.
-    // console.log(selectedFiles);
+    console.log(selectedFiles);
     console.log(uploadProdData);  
 
     const response =  await AxiosFinal.productUpload(uploadProdData.title,
