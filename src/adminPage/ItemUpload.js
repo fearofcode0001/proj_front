@@ -33,8 +33,8 @@ height: 100%;
     justify-content: space-evenly;
 
   }
-  .title-file{
-    
+  .title-file2{
+    width: 150px;
   }
   
   
@@ -100,24 +100,30 @@ height: 100%;
     width: 78%;
     color: #999999;
 }
+.inputImg{
+  display: flex;
+}
 `
 
 const DivImg = styled.div`
-  justify-content: space-between;
   display: flex;
-  border-radius: 0.3rem;
-  border: 0.01rem solid #efeff1;
-  display: flex;
-  padding: 0.1rem;
-  background-color: #efeff1;
+  justify-content: center;
   align-items: center;
-  font-weight: 400;
+  font-size:13px;
+  margin-left: 15px;
   button {
-    margin-left: 0.05rem;
-    color: gray;
+    display: flex;
+    justify-content: center;
+    height: 15px;
+    width: 10px;
+    font-size: 5px;
     background-color: white;
     border-radius: 0.5rem;
-    height: 0.3rem;
+    &:hover{
+      background-color: black;
+      color: white;
+    }
+   
   }`;
 const  ItemUpload = () =>{
   
@@ -150,7 +156,7 @@ const  ItemUpload = () =>{
     return (
       <DivImg key={image}>
         <div>{image}</div>
-        <button onClick={() => setSelectedImages(selectedImages.filter((e) => e !== image))}>
+        <button onClick={() => setSelectedImages(selectedImages.filter((e) => e !== image))}>X
         </button>
       </DivImg>
     );
@@ -257,11 +263,12 @@ const  ItemUpload = () =>{
                             <option  value="OUTER" >OUTER</option>
                           </select>
                 </div>
+                <div className="inputImg">
                 <input className="title-file2" type='file' onChange={(e)=>{getValue(e);
                                                                           onSelectFile(e)}} 
                  value={productImg} name='productImg'  multiple/>
                  {attachFile}
-                
+                 </div>
               </div>
                   <CKEditor className="info-input"
                     editor={ClassicEditor}  
