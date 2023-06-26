@@ -102,6 +102,7 @@ height: 100%;
 }
 .inputImg{
   display: flex;
+  align-items: center;
 }
 `
 
