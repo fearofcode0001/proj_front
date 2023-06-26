@@ -151,7 +151,6 @@ const  ItemUpload = () =>{
       <DivImg key={image}>
         <div>{image}</div>
         <button onClick={() => setSelectedImages(selectedImages.filter((e) => e !== image))}>
-       
         </button>
       </DivImg>
     );
@@ -258,7 +257,7 @@ const  ItemUpload = () =>{
                 <input className="title-file2" type='file' onChange={(e)=>{getValue(e);
                                                                           onSelectFile(e)}} 
                  value={productImg} name='productImg'  multiple/>
-                  <div>{attachFile}</div>
+                 {attachFile}
                 
               </div>
                   <CKEditor className="info-input"
