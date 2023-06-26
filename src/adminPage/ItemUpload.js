@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import AxiosFinal from "../api/AxiosFinal";
-
+import axios from "axios";
 
 
 const Container=styled.div`
@@ -101,6 +101,36 @@ height: 100%;
 `
 const  ItemUpload = () =>{
 
+
+  const customUploadAdapter = (loader) => {
+    return {
+      upload() {
+        return new Promise((resolve, reject) => {
+          const formData = new FormData();
+          loader.file.then((file) => {
+            formData.append("file", file);
+
+            // axios
+            //   .post("http://localhost:3000/api/v0/file/upload", formData)
+            //   .then((res) => {
+            //     resolve({
+            //       default: res.data.data.uri,
+            //     });
+            //     // console.log(res.data);
+            //   })
+            //   .catch((err) => reject(err));
+          });
+        });
+      },
+    };
+  };
+
+  function uploadPlugin(editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+      return customUploadAdapter(loader);
+    };
+  }
+
   //상품 여러 input을 한번에 관리하는 useState
   const [uploadProdData, setUploadProdData] = useState({
     title: '',
@@ -173,7 +203,7 @@ const  ItemUpload = () =>{
                   <CKEditor className="info-input"
                     editor={ClassicEditor}  
                     config={{
-                      placeholder: "내용을 입력하세요.",
+                      placeholder: "내용을 입력하세요.",extraPlugins: [uploadPlugin]
 
                   }}
                     data="<p></p>"
