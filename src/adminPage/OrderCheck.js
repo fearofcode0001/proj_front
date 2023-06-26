@@ -2,7 +2,6 @@ import React,{useContext,useState} from "react";
 import styled from "styled-components";
 import { UserContext } from "../context/UserInfo";
 import AxiosFinal from "../api/AxiosFinal";
-import { getValue } from "@testing-library/user-event/dist/utils";
 
 
 const Container=styled.table`
@@ -18,7 +17,7 @@ const OrderInfo=styled.tr`
     height: 27px;    
     border-bottom: 1px solid #CCC;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;    
     font-size: 11px;
     .order{
@@ -38,6 +37,7 @@ const OrderInfo=styled.tr`
         display: flex;
         justify-content: center;
     }
+    
     .orderAddr{
         width: 200px;
         display: flex;
@@ -45,6 +45,21 @@ const OrderInfo=styled.tr`
     }
     .orderDate{
         width: 70px;
+        display: flex;
+        justify-content: center;
+    }
+    .orderProduct{
+        width: 50px;
+        display: flex;
+        justify-content: center;
+    }
+    .productColor{
+        width: 50px;
+        display: flex;
+        justify-content: center;
+    }
+    .productSize{
+        width: 35px;
         display: flex;
         justify-content: center;
     }
@@ -120,49 +135,122 @@ const  OrderCheck = () =>{
     //송장을 설정하는 useState
 
    
-     
-    const [orderTotalData, setOrderTotalData] = useState(Array.from({length:orderData.length}))
-    const [onIndex, setOnIndex] = useState(0);
-    const [orderStatue,SetOrderStatue] = useState({ orderStatus:'',shipCompany:'',shipCode:''});
-    const addItem = () => {
-        setOrderTotalData(prevOrder=> [...prevOrder, orderStatue]);
-        setOnIndex(onIndex+1);
-        console.log(orderTotalData);
-        
-      };
 
-
-    const onChangeStatus = (e,index) => {
-        console.log(index);
-        SetOrderStatue({...orderStatue[index], orderStatus: e.target.value});
-    }
-    const onChangeShipCompany = (e,index)=> {
-        SetOrderStatue({...orderStatue, shipCompany: e.target.value});
-    }
-    const onChangeShipCode=(e,index) =>{
-        SetOrderStatue({...orderStatue, shipCode: e.target.value});
-    }
+    // const [orderTotalData, setOrderTotalData] = useState([]);
+    // const [onIndex, setOnIndex] = useState(0);
     
+    // const addItem = () => {
+    //     const orderStatue = { index: onIndex, orderStatus:'',shipCompany:'',shipCode:''};
+    //     setOrderTotalData(prevOrder=> [...prevOrder, orderStatue]);
+    //     setOnIndex(onIndex+1);
+    //   };
 
 
+    // const arrayMake=()=>{
+    //     orderData.map(e => {e.orderAddress})
+
+    // }
+
+  
+    const [orderStatue, setOrderStatue] = useState({
+        orderStatus: '',
+        shipCode:'',
+        shipCompany:''
+    });
+  
+    const getValue = (e) => {
+        const { name } = e.target;
+        setOrderStatue({
+            ...orderStatue,
+            //name 키를 가진 값을 value로 설정
+            [name]: e.target.value
+          })
+       
+    // console.log(qnaStatue);
+    // qnaSelect, qnaReply 각각 답이 담긴다. 
+    }
+
+
+
+
+        
+    // const [orderTotalData, setOrderTotalData] = useState(Array.from({length:orderData.length}))
+    // const [onIndex, setOnIndex] = useState(0);
+    // const [orderStatue,SetOrderStatue] = useState({ orderStatus:'',shipCompany:'',shipCode:''});
+    // const addItem = () => {
+    //     setOrderTotalData(prevOrder=> [...prevOrder, orderStatue]);
+    //     setOnIndex(onIndex+1);
+    //     console.log(orderTotalData);
+    //   };
+
+    // const onChangeStatus = (e,index) => {
+    //     SetOrderStatue({...orderStatue, orderStatus: e.target.value});
+    // }
+    // const onChangeShipCompany = (e,index)=> {
+    //     SetOrderStatue({...orderStatue, shipCompany: e.target.value});
+    // }
+    // const onChangeShipCode=(e,index) =>{
+    //     SetOrderStatue({...orderStatue, shipCode: e.target.value});
+    // }
     
   
     //주문건 수정 전송 
-    const onSubmitOrder =async(id,orderStatus,shipCompany,shipCode)=>{  
-        console.log(orderData.length);
-        // console.log(array);
-        console.log(orderStatue);
-        // const response = AxiosFinal.orderUploadData(id,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany);
+    const onFixOrder =(o)=>{  
+        console.log(orderStatue.orderStatus);
+       if(orderStatue.orderStatus===''){
+            setOrderStatue({
+            ...orderStatue,
+            //name 키를 가진 값을 value로 설정
+            orderStatus: o.orderStatus
+          })
+        } else if(orderStatue.shipCode===''){
+            setOrderStatue({
+            ...orderStatue,
+            //name 키를 가진 값을 value로 설정
+            shipCode: o.shipCode
+        })
+        } else if(orderStatue.shipCompany===''){
+            setOrderStatue({
+            ...orderStatue,
+            //name 키를 가진 값을 value로 설정
+            shipCompany: o.shipCompany
+        })
+        } 
+       
+       console.log(orderStatue);
+   
     }
 
+    const onSubmitOrder=async(o)=>{
+        console.log(o);
+       
+        if(orderStatue.orderStatus===''){
+            setOrderStatue({
+            ...orderStatue,
+            //name 키를 가진 값을 value로 설정
+            orderStatus: o.orderStatus
+          })
+        } else if(orderStatue.shipCode===''){
+            setOrderStatue({
+            ...orderStatue,
+            //name 키를 가진 값을 value로 설정
+            shipCode: o.shipCode
+        })
+        } else if(orderStatue.shipCompany===''){
+            setOrderStatue({
+            ...orderStatue,
+            //name 키를 가진 값을 value로 설정
+            shipCompany: o.shipCompany
+        })
+        } 
 
+        console.log(orderStatue);
+        const response = AxiosFinal.orderUploadData(o.orderId,orderStatue.orderStatus,orderStatue.shipCode,orderStatue.shipCompany);
+    }
     return(
 
         <Container>
             <OrderInfo>
-                <div className="order">
-                    순서
-                </div>
                 <div className="orderId">
                     주문 ID
                 </div>
@@ -174,6 +262,15 @@ const  OrderCheck = () =>{
                 </div>
                 <div className="orderDate">
                     주문일
+                </div>
+                <div className="orderProduct">
+                    주문 상품
+                </div>
+                <div className="productColor">
+                    컬러
+                </div>
+                <div className="productSize">
+                    사이즈
                 </div>
                 <div className="orderPrice">
                     가격
@@ -191,13 +288,9 @@ const  OrderCheck = () =>{
                     
                 </div>
                 <div className="submitBtn">
-                    <button onClick={addItem}>load</button>
                 </div>
             </OrderInfo> 
-            {orderData && orderData.map((o,index)=> <OrderInfo key={o.orderId} active={orderStatue===o.orderId}>
-                <div className="order">
-                    {index}
-                </div>
+            {orderData && orderData.map((o,index)=> <OrderInfo>
                 <div className="orderId">
                    {o.orderId}
                 </div>
@@ -210,12 +303,21 @@ const  OrderCheck = () =>{
                 <div className="orderDate">
                 {o.orderDate}
                 </div>
+                <div className="orderProduct">
+                {o.productName}
+                </div>
+                <div className="productColor">
+                {o.productColor}
+                </div>
+                <div className="productSize">
+                {o.productSize}
+                </div>
                 <div className="orderPrice" >
                 {o.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </div>
                 <div className="orderStatus">
-                    <select name='orderStatus' onChange={(e)=>onChangeStatus(e,index)}>
-                        <option value="" selected>{orderStatue.orderStatus}</option>
+                    <select name='orderStatus' onChange={getValue}>
+                        <option value="" selected>{o.orderStatus}</option>
                         <option value="CHECK" >주문 확인</option>
                         <option value="READY">상품 준비중</option>
                         <option value="SHIP">배송중</option>
@@ -227,27 +329,33 @@ const  OrderCheck = () =>{
                     
                 </div>
                 <div className="invoiceCom">
-                    <select name='shipCompany' onChange={(e)=>onChangeShipCompany(e,index)}>
-                        <option value="" selected>{orderStatue.shipCompany}</option>
+                    <select name='shipCompany' onChange={getValue}>
+                        <option value="" selected>{o.shipCompany}</option>
                         <option value="CJ">CJ대한통운</option>
                         <option value="LOTTE">롯데 택배</option>
                         <option value="HANJIN">한진 택배</option>
                     </select>
                 </div>
                 <div className="invoiceNum">
-                    <input type="text" className="invoiceNum" value={orderStatue.shipCode}
-                     onChange={(e)=>onChangeShipCode(e,index)} name='shipCode'/>
+                    <input type="text" className="invoiceNum" value={o.shipCode}/>
+                    <input type="text" className="invoiceNum" placeholder="송장수정"
+                     onChange={(e)=>{getValue(e)}} name='shipCode'/>
                 </div>
                 <div className="invoiceTrace">
-                    {o.shipCompany === null && <a href="#" target="blank">trace</a>}                
+                    {o.shipCompany === null && <a href="#" target="blank">empty</a>}                
                     {o.shipCompany === "CJ" && <a href={'https://trace.cjlogistics.com/web/detail.jsp?slipno='+ o.shipCode} target="blank">trace</a>}
                     {o.shipCompany === "LOTTE" && <a href={'https://www.lotteglogis.com/home/reservation/tracking/linkView?InvNo='+ o.shipCode} target="blank">trace</a>}
                     {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl='+ o.shipCode} target="blank">trace</a>}
                 </div>          
                 <div className="submitBtn">
-                    <button onClick={()=>onSubmitOrder(o.orderId,orderStatue.orderStatus,orderStatue.shipCompany,orderStatue.shipCode)}>submit</button>
+                    <button onClick={()=>{onFixOrder(o)}}>fix</button>
+                    <button onClick={()=>{onSubmitOrder(o)}}>submit</button>
                 </div>
             </OrderInfo>)}
+
+
+
+         
         </Container>
     );
 };

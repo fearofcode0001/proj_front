@@ -178,6 +178,37 @@ const  Inventory = () =>{
             setinvenAccodian(props);
         }        
     };
+
+
+    
+  const customUploadAdapter = (loader) => {
+    return {
+      upload() {
+        return new Promise((resolve, reject) => {
+          const formData = new FormData();
+          loader.file.then((file) => {
+            formData.append("file", file);
+
+            // axios
+            //   .post("http://localhost:3000/api/v0/file/upload", formData)
+            //   .then((res) => {
+            //     resolve({
+            //       default: res.data.data.uri,
+            //     });
+            //     // console.log(res.data);
+            //   })
+            //   .catch((err) => reject(err));
+          });
+        });
+      },
+    };
+  };
+
+  function uploadPlugin(editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+      return customUploadAdapter(loader);
+    };
+  }
     return(
 
         <Container>
@@ -242,13 +273,17 @@ const  Inventory = () =>{
                     <input className="title-input" type='text' placeholder='pleace enter product name' value={i.productName}/>
                         <CKEditor className="info-input"
                             editor={ClassicEditor}
+                            config={{
+                                extraPlugins: [uploadPlugin]
+          
+                            }}
                             data={i.productDetail}
                             onReady={editor => {
                             // You can store the "editor" and use when it is needed.
                             console.log('Editor is ready to use!', editor);
                             }}
                             onChange={(event, editor) => {
-                            const data = editor.setData(i.productId)
+                            const data = editor.getData();
                             console.log({ event, editor, data });
                             }}
                             onBlur={(event, editor) => {

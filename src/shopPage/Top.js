@@ -86,10 +86,13 @@ const TOP = () => {
     
       useEffect(() => {
         const getProduct = async() => {
-            const rsp = await AxiosFinal.shop({ product_category: 'top' });
-            if (rsp.status === 200) setProduct(rsp.data);
+            const rsp = await AxiosFinal.sellitems();
+            if (rsp.status === 200) {
+                const filteredProduct = rsp.data.filter((item) => item.productCategory === 'top');
+            setProduct(filteredProduct);
             console.log(rsp.data);
-       };
+            };
+        }
        getProduct();
       }, []);
   

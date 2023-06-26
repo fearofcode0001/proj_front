@@ -3,12 +3,14 @@ import styled from "styled-components";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import AxiosFinal from "../api/AxiosFinal";
-
+import axios from "axios";
 
 
 const Container=styled.div`
 width: 100%;
 height: 100%;
+
+
   .upLoadName{
     display: flex;
     align-items: center;
@@ -31,8 +33,8 @@ height: 100%;
     justify-content: space-evenly;
 
   }
-  .title-file{
-    
+  .title-file2{
+    width: 150px;
   }
   
   
@@ -98,8 +100,118 @@ height: 100%;
     width: 78%;
     color: #999999;
 }
+.inputImg{
+  display: flex;
+  align-items: center;
+}
 `
+
+const DivImg = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size:13px;
+  margin-left: 15px;
+  button {
+    display: flex;
+    justify-content: center;
+    height: 15px;
+    width: 10px;
+    font-size: 5px;
+    background-color: white;
+    border-radius: 0.5rem;
+    &:hover{
+      background-color: black;
+      color: white;
+    }
+   
+  }`;
 const  ItemUpload = () =>{
+  
+   //화면에 출력되는 파일
+  const [selectedImages, setSelectedImages] = useState([]);
+   //서버에 보내지는 파일
+  const [selectedFiles, setSelectedFiles] = useState();
+  //업로드 할 이미지들.
+  const onSelectFile = (e) => {
+    console.log(e.target.files);
+    e.preventDefault();
+    e.persist();
+    //이미지들을 가져옴
+    const selectedFiles = e.target.files;
+    //차례대로 리스트에 넣는다. 갯수를 초과하면 바꿔야 하기 때문에 let으로 선언한다.
+    let fileUrlList = [...selectedFiles];
+    console.log(fileUrlList);
+    // 업로드되는 파일에는 url이 있어야 한다. filePath로 보내줄 url이다.
+    //획득한 Blob URL Address를 브라우져에서 그대로 호출 시에 이미지는 표시가 되고 ,
+    //일반 파일의 경우 다운로드를 할 수 있다.
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const nowUrl = URL.createObjectURL(selectedFiles[i]);
+      fileUrlList.push(nowUrl[i]);
+    }
+    //2개로 제한한다.
+    if (fileUrlList.length > 2) {
+      console.log("2개초과 ");
+      fileUrlList = fileUrlList.slice(0, 2);
+      
+    }
+    console.log(fileUrlList);
+    setSelectedFiles(fileUrlList);
+    const selectedFileArray = Array.from(fileUrlList);
+    const imageArray = selectedFileArray.map((file) => {
+    return file.name;
+  });
+    setSelectedImages((previousImages) => previousImages.concat(imageArray));
+    e.target.file = '';
+  }
+  
+
+
+  const attachFile =
+  selectedImages &&
+  selectedImages.map((image) => {
+    return (
+      <DivImg key={image}>
+        <div>{image}</div>
+        <button onClick={() => setSelectedImages(selectedImages.filter((e) => e !== image))}>X
+        </button>
+      </DivImg>
+    );
+  });
+
+
+
+  //이미지 url추출
+  const [imageUrl, setImageUrl] = useState('');
+  const customUploadAdapter = (loader) => {
+    return {
+      upload() {
+        return new Promise((resolve, reject) => {
+          const formData = new FormData();
+          loader.file.then((file) => {
+            formData.append("file", file);
+            axios
+              .post("http://210.114.22.83:22/home/img", formData)
+              .then((res) => {
+                // resolve({
+                //   default: res.data.data.uri,
+                // });
+                const url = res.data.imageUrl;
+                setImageUrl(url);
+                console.log(res.data);
+              })
+              .catch((err) => reject(err));
+          });
+        });
+      },
+    };
+  };
+
+  function uploadPlugin(editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+      return customUploadAdapter(loader);
+    };
+  }
 
   //상품 여러 input을 한번에 관리하는 useState
   const [uploadProdData, setUploadProdData] = useState({
@@ -126,6 +238,10 @@ const  ItemUpload = () =>{
 
   const onCheck = async() =>{ 
     setUploadProdData({ ...uploadProdData});
+    //여러 이미지 업로드 데이터.
+    console.log(selectedFiles);
+    console.log(uploadProdData);  
+
     const response =  await AxiosFinal.productUpload(uploadProdData.title,
                                                      uploadProdData.price,
                                                      uploadProdData.color,
@@ -133,8 +249,11 @@ const  ItemUpload = () =>{
                                                      uploadProdData.category,
                                                      uploadProdData.productImg,
                                                      uploadProdData.content)
+                                               
     
   }
+
+  
     return(
 
         <Container>
@@ -165,13 +284,17 @@ const  ItemUpload = () =>{
                             <option  value="OUTER" >OUTER</option>
                           </select>
                 </div>
-                <input className="title-file2" type='file' onChange={getValue} value={productImg} name='productImg' multiple/> 
-                
+                <div className="inputImg">
+                <input className="title-file2" type='file' onChange={(e)=>{getValue(e);
+                                                                          onSelectFile(e)}} 
+                 value={productImg} name='productImg'  multiple/>
+                 {attachFile}
+                 </div>
               </div>
                   <CKEditor className="info-input"
                     editor={ClassicEditor}  
                     config={{
-                      placeholder: "내용을 입력하세요.",
+                      placeholder: "내용을 입력하세요.",extraPlugins: [uploadPlugin]
 
                   }}
                     data="<p></p>"
