@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import { UserContext } from "../context/UserInfo";
+import AxiosFinal from "../api/AxiosFinal";
 
 
 const Container = styled.div`
@@ -18,12 +20,7 @@ const MainBody = styled.div`
     justify-content: space-evenly;
     align-items: center;   
 
-    button{
-        width: 350px;
-        height: 37px;
-        border: 1px solid black;
-        background-color: white;
-    }
+  
 `
 
 const Logo = styled.div`
@@ -96,11 +93,11 @@ const SelectOption = styled.div`
 
 `
 
-const Input = styled.div`
+const Input = styled.input`
     display: flex;
     align-items: center;
     justify-content: center;
-    input{
+  
         color: black;
         width: 345px;
         height: 20px;
@@ -113,13 +110,78 @@ const Input = styled.div`
             color: #ccc;
             font-size: 12px;
         }
-    }
+
+
+`
+
+const PwdBtn1 = styled.button`
+        width: 350px;
+        height: 37px;
+        border: 1px solid black;
+        background-color: white;
 
 `
 
 
+const PwdBtn2= styled.button`
+        width: 350px;
+        height: 37px;
+        border: 1px solid black;
+        background-color: white;
+
+`
 
 const Secession = () => {
+    const userId = window.localStorage.getItem("userIdSuv");
+    console.log(userId)
+   
+    const nav = useNavigate(); 
+
+
+
+
+    const [user, setUser] = useState([]);
+    // 입력된 password 값을 가져온다.
+    const [userPwd, setUserPwd] = useState("");
+    const [changePw, setChangePW] = useState(false);
+    
+
+    useEffect(()=> {
+        const getUser = async() => {
+            const rsp = await AxiosFinal.memberGet(userId);
+            if(rsp.status === 200) setUser(rsp.data);
+            console.log(rsp.data);
+        };
+        getUser();
+    }, []);
+
+     
+    const onChangePw = (e) => {
+        setUserPwd(e.target.value);
+        console.log(userPwd)
+        if(user.userPwd === e.target.value) {
+            setChangePW(true); 
+        }
+        else {
+            setChangePW(false);
+        }
+    }
+
+
+    const onClickSec = async() => {
+        console.log("확인")
+        const response = await AxiosFinal.memberSec(userPwd);
+        const result = response.data;
+        console.log(result);
+        if (result) {
+            alert("탈퇴 완료")
+            nav("/");
+        }
+    }
+
+
+
+
 
     return(
         <Container>
@@ -159,10 +221,9 @@ const Secession = () => {
                         <option value="sel5">타 사이트 이용</option>
                     </select>
                 </SelectOption>
-               <Input>
-                    <input type="password" placeholder="Password" />
-               </Input>  
-               <button>COMPLETE</button>
+               <Input type="password" placeholder="Password" value={userPwd} onChange={onChangePw} />
+               {changePw === false && <PwdBtn1 disabled>패스워드를 입력하세요</PwdBtn1>}     
+                {changePw === true && <PwdBtn2 onClick={onClickSec}>COMPLETE</PwdBtn2>}
             </MainBody>
         </Container>
     )

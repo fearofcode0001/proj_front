@@ -120,12 +120,11 @@ const AxiosFinal = {
 
 
     //탈퇴
-    memberSec : async(email_sec, pwd_sec) =>{
+    memberSec : async(userPwd) =>{
         const sec ={
-            id : email_sec,
-            pwd : pwd_sec            
+            userPwd : userPwd            
         };
-        return await axios.post(Final_proj + "/sec", sec);
+        return await axios.post(Final_proj + "/auth/sec", sec);
     },
    
     // 이메일 인증
