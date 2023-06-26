@@ -140,7 +140,7 @@ const  ItemUpload = () =>{
     return file.name;
   });
     setSelectedImages((previousImages) => previousImages.concat(imageArray));
-    e.target.file = '';
+    e.target.file = 'asd';
 
   }
   
@@ -213,7 +213,10 @@ const  ItemUpload = () =>{
 
   const onCheck = async() =>{ 
     setUploadProdData({ ...uploadProdData});
+    //여러 이미지 업로드 데이터.
+    console.log(selectedImages);
     console.log(uploadProdData);
+
     // const response =  await AxiosFinal.productUpload(uploadProdData.title,
     //                                                  uploadProdData.price,
     //                                                  uploadProdData.color,
