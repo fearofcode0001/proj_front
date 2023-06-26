@@ -181,8 +181,8 @@ const  ItemUpload = () =>{
 
 
 
-
-  
+  //이미지 url추출
+  const [imageUrl, setImageUrl] = useState('');
   const customUploadAdapter = (loader) => {
     return {
       upload() {
@@ -196,6 +196,8 @@ const  ItemUpload = () =>{
                 // resolve({
                 //   default: res.data.data.uri,
                 // });
+                const url = res.data.imageUrl;
+                setImageUrl(url);
                 console.log(res.data);
               })
               .catch((err) => reject(err));
