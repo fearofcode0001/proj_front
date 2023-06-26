@@ -157,6 +157,8 @@ const  ItemUpload = () =>{
     e.target.file = '';
   }
   
+
+
   const attachFile =
   selectedImages &&
   selectedImages.map((image) => {
@@ -227,19 +229,21 @@ const  ItemUpload = () =>{
   const onCheck = async() =>{ 
     setUploadProdData({ ...uploadProdData});
     //여러 이미지 업로드 데이터.
-    console.log(selectedImages);
-    console.log(uploadProdData);
+    console.log(selectedFiles);
+    console.log(uploadProdData);  
 
-    // const response =  await AxiosFinal.productUpload(uploadProdData.title,
-    //                                                  uploadProdData.price,
-    //                                                  uploadProdData.color,
-    //                                                  uploadProdData.size,
-    //                                                  uploadProdData.category,
-    //                                                  uploadProdData.productImg,
-    //                                                  uploadProdData.content)
+    const response =  await AxiosFinal.productUpload(uploadProdData.title,
+                                                     uploadProdData.price,
+                                                     uploadProdData.color,
+                                                     uploadProdData.size,
+                                                     uploadProdData.category,
+                                                     uploadProdData.productImg,
+                                                     uploadProdData.content)
                                                
     
   }
+
+  
     return(
 
         <Container>
