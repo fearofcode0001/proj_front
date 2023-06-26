@@ -19,7 +19,6 @@ const Button = styled.button`
   font-size: 1rem;
 
   &:hover {
-    background: tomato;
     cursor: pointer;
     transform: translateY(-2px);
   }
@@ -31,13 +30,12 @@ const Button = styled.button`
   }
 
   &[aria-current] {
-    background: deeppink;
+    background: #cdcfcf;
     font-weight: bold;
     cursor: revert;
     transform: revert;
   }
 `;
-
 
 
 const Pagenation = ({ total, limit, page, setPage }) => {

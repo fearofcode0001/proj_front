@@ -165,7 +165,12 @@ const AxiosFinal = {
             userPhone : userPhone
         }
         return await axios.post(Final_proj +"/auth/saveInfo", userInfo)
-    }
+    },
+
+    // SELL 상품
+    sellitems : async() => {
+        return await axios.get(Final_proj + `/product/sellitems`);
+    },
 };
 
 export default AxiosFinal;

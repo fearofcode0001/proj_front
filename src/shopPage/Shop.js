@@ -86,12 +86,12 @@ const Shop = () => {
     const nav = useNavigate();
 
     const handleHeaderClick = () => {
-    //   setIsBlurred(!isBlurred);
+      setIsBlurred(!isBlurred);
     };
   
     useEffect(() => {
         const getProduct = async() => {
-           const rsp = await AxiosFinal.shop();
+           const rsp = await AxiosFinal.sellitems();
            if(rsp.status === 200) setProduct(rsp.data);
            console.log(product);
        };
@@ -133,10 +133,9 @@ const Shop = () => {
                     {isFilterOpen ? '정렬 기준 ▲' : '정렬 기준 ▼'}
                     {isFilterOpen && <DropFiter/>}
                 </div>
-                  
             </Filter>  
             <Article >
-            {/* {product.slice(offset, offset + limit).map((e) =>(      
+            {product.slice(offset, offset + limit).map((e) =>(      
             <Container_in key={e.productName} onClick={()=>onclick(e)} > 
             <div className={isBlurred ? "blur" : ""}> 
                 <div className="view">
@@ -149,8 +148,8 @@ const Shop = () => {
                 </div>  
                 </div>
             </Container_in>
-            ))} */}
-            {Object.values(mergeProduct).slice(offset, offset + limit).map((e)=> (
+            ))}
+            {/* {Object.values(mergeProduct).slice(offset, offset + limit).map((e)=> (
                 <Container_in key={e.productName} onClick={()=>onclick(e)}>
                     <div className={isBlurred ? "blur" : ""}>
                         <div className="view">
@@ -161,7 +160,7 @@ const Shop = () => {
                         </div>
                     </div>
                 </Container_in>
-            ))}
+            ))} */}
             </Article>
                 <Pagenation
                 total={product.length}
