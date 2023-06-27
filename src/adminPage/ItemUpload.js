@@ -195,6 +195,7 @@ const  ItemUpload = () =>{
           const formData = new FormData();
           loader.file.then((file) => {
             formData.append("file", file);
+            console.log(file);
             // axios
             //   .post("http://210.114.22.83/home/img", formData)
             //   .then((res) => {
