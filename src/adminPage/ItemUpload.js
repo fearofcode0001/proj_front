@@ -3,12 +3,21 @@ import styled from "styled-components";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import AxiosFinal from "../api/AxiosFinal";
-
+import axios from "axios";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { storage } from "./FireBase";
 
 
 const Container=styled.div`
 width: 100%;
 height: 100%;
+
+.inputImg{
+  /* width: 500px; */
+  display: flex;
+  /* border: 1px solid black; */
+  align-items: center;
+}
   .upLoadName{
     display: flex;
     align-items: center;
@@ -31,8 +40,8 @@ height: 100%;
     justify-content: space-evenly;
 
   }
-  .title-file{
-    
+  .title-file2{
+    width: 150px;
   }
   
   
@@ -98,8 +107,114 @@ height: 100%;
     width: 78%;
     color: #999999;
 }
+
 `
+
+const DivImg = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size:13px;
+  margin-left: 15px;
+  button {
+    display: flex;
+    justify-content: center;
+    height: 15px;
+    width: 10px;
+    font-size: 5px;
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 0.5rem;
+    &:hover{
+      background-color: black;
+      color: white;
+    }
+   
+  }`;
 const  ItemUpload = () =>{
+  //이미지
+  const [selectedImages, setSelectedImages] = useState([]);
+  //서버에 보내지는 파일
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  //받을 URL
+  const [imageURL,setImageURL] = useState([]);
+  const onSelectFile = (e) => {
+    e.preventDefault();
+    e.persist();
+    //선택한 파일
+    const imageLists = Array.from(e.target.files);
+    let imageURLlist = [...selectedFiles];
+    if (e.target.files.length > 2) alert(`한번에 업로드 가능한 사진은 최대 2장 까지 입니다.`);
+    
+    for(let i = 0; i < 2; i++){
+      const inputImage = imageLists[i];
+      imageURLlist.push(inputImage);
+      console.log(imageLists[i]);
+    }
+    setSelectedFiles(imageURLlist);
+    //이미지 리스트가 없다면 
+    if(!imageURLlist) return null;
+    //이미지가 있다면 리스트의 크기만큼 map을 돌아 하나씩 전송하여 url을 담는다.
+    imageURLlist.map((file) => {
+    const storageRef = ref(storage, `uploadimg/${file.name}`);
+    const uploadTask = uploadBytes(storageRef, file);
+    uploadTask.then((snapshot) =>{
+      getDownloadURL(snapshot.ref).then((downloadURL) =>{
+        console.log("File avalable at",downloadURL);
+        setImageURL(prevURL=>[...prevURL,downloadURL]);
+      })
+    })
+  })
+    const selectedFileArray= imageURLlist;
+     //브라우저 상에 보여질 파일 이름
+    const imageArray = selectedFileArray.map((file) => {
+    return file.name; });
+       // 첨부파일 삭제시
+    setSelectedImages((previousImages) => previousImages.concat(imageArray));
+    e.target.file = '';
+   
+  };
+  
+  const attachFile =
+    selectedImages &&
+    selectedImages.map((image) => {
+      return (
+        <DivImg key={image}>
+          <div>{image}</div>
+          <button onClick={() => setSelectedImages(selectedImages.filter((e) => e !== image))}>x
+          </button>
+        </DivImg>
+      );
+    });
+const [prodDetailImg, setProdDetailImg] = useState();
+  //CK에디터 이미지 url추출
+  const customUploadAdapter = (loader) => {
+    return {
+      upload() {
+        return new Promise((resolve, reject) => {
+          const formData = new FormData();
+          loader.file.then((file) => {
+            formData.append("file", file);
+            console.log(file);
+              const storageRef = ref(storage, `uploadimg/${file.name}`);
+              const uploadTask = uploadBytes(storageRef, file);
+              uploadTask.then((snapshot) =>{
+                getDownloadURL(snapshot.ref).then((downloadURL) =>{
+                  console.log("File avalable at",downloadURL);
+                  setProdDetailImg(downloadURL);
+                })
+              })
+          });
+        });
+      },
+    };
+  };
+  //ck에디터 이미지 
+  function uploadPlugin(editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+      return customUploadAdapter(loader);
+    };
+  }
 
   //상품 여러 input을 한번에 관리하는 useState
   const [uploadProdData, setUploadProdData] = useState({
@@ -111,6 +226,7 @@ const  ItemUpload = () =>{
     category:'',
     content: ''
   })
+
   //비구조화 를 통해 값 추출
   const{title,price,color,size,category,productImg,content} = uploadProdData;
   //e.target으로 value 와 name추출
@@ -126,16 +242,30 @@ const  ItemUpload = () =>{
 
   const onCheck = async() =>{ 
     setUploadProdData({ ...uploadProdData});
-    console.log(uploadProdData);
+    //여러 이미지 업로드 데이터.
+    console.log(selectedFiles);
+    console.log(uploadProdData);  
     const response =  await AxiosFinal.productUpload(uploadProdData.title,
                                                      uploadProdData.price,
                                                      uploadProdData.color,
                                                      uploadProdData.size,
                                                      uploadProdData.category,
                                                      uploadProdData.productImg,
-                                                     uploadProdData.content)
+                                                     uploadProdData.content,
+                                                     imageURL[0],imageURL[1],
+                                                     prodDetailImg)
                                                
     
+  }
+
+  const checklist=()=>{
+    console.log("selectedfiles",selectedFiles);
+    console.log(imageURL);
+
+  }
+  const reset=()=>{
+    setSelectedFiles([]);
+    setSelectedImages([]);
   }
     return(
 
@@ -167,15 +297,25 @@ const  ItemUpload = () =>{
                             <option  value="OUTER" >OUTER</option>
                           </select>
                 </div>
-                <input className="title-file2" type='file' onChange={getValue} value={productImg} name='productImg' multiple/> 
                 
+                  <div className="inputImg">
+                    <input className="title-file2" type='file' onClick={reset} onChange={(e)=>{getValue(e);
+                                                                              onSelectFile(e);
+                                                                            }} 
+                    value={productImg} name='productImg'  multiple/>
+                     {attachFile}
+                     <button onClick={checklist}>확인</button>
+                  </div>
+                 
               </div>
                   <CKEditor className="info-input"
                     editor={ClassicEditor}  
                     config={{
-                      placeholder: "내용을 입력하세요.",
+                      placeholder: "내용을 입력하세요.",extraPlugins: [uploadPlugin]
+                      
 
                   }}
+                  
                     data="<p></p>"
                     onReady={editor => {
                       // You can store the "editor" and use when it is needed.

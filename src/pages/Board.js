@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import AxiosFinal from "../api/AxiosFinal";
+import ModalEmail from "./ModalEmail";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     height: 100vh;
@@ -50,17 +53,63 @@ const Inner = styled.div`
             color: gray;
         }
     }
+    .linkButton {
+        margin-right: 10px;
+        font-size: 13px;
+        text-decoration: none;
+        color: black;
+        cursor: pointer;
+        &:hover{
+            color: gray;
+        }
+    }
+
     textarea::placeholder {
         font-size: 10px;
     }
 `;
 const Board = () => {
 
-    const [openAlert, setOpenAlert] = useState(false);
-    const onClickSubmit = (e) => {
-        alert("FAQ를 추가하였습니다.")
-        setOpenAlert(true)
-    }
+    const navigate = useNavigate();
+
+    const [inputTitle, setInputTitle] = useState("");
+    const [inputContent, setInputContent] = useState("");
+
+    // 팝업
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalText, setModelText] = useState("");
+
+     //모달 창 닫기 
+    const closeModal = () =>{
+        setModalOpen(false);
+    };
+
+    const handelTitle = (e) => {
+        setInputTitle(e.target.value);
+    };
+
+    const handleContent = (e) => {
+        setInputContent(e.target.value);
+    };
+
+    const onClickUpload = async() => {
+        console.log("click");
+        try {
+            const response = await AxiosFinal.faqUpload(inputTitle, inputContent);
+            if(response.data) {
+                navigate("/FAQ");
+                setModalOpen(true);
+                setModelText("FAQ 업로드를 완료했습니다.");
+
+            } else {
+                setModalOpen(true);
+                setModelText("FAQ 업로드에 실패했습니다.")
+            }
+        } catch(error) {
+            console.log("업로드를 하는 중 에러가 발생했습니다.");
+        }
+    };
+
     return(
         <Container>
             <Inner>
@@ -68,18 +117,19 @@ const Board = () => {
                 <div className="item">
                     <label className="title">제목</label>
                     <textarea className="txtTitle" name="board" id="board" 
-                    cols="10" rows="30" placeholder="제목을 입력하세요"></textarea>
+                    cols="10" rows="30" onChange={handelTitle} placeholder="제목을 입력하세요"></textarea>
                 </div>
                 <div className="item2">
                 <label className="content">본문</label>
                     <textarea className="txtContent" name="board" id="board" 
-                    cols="60" rows="10" placeholder="내용을 입력하세요"></textarea>
+                    cols="60" rows="10" onChange={handleContent} placeholder="내용을 입력하세요"></textarea>
                 </div>
-                <Link to="/FAQ">
+                
                 <div className="btn">
-                    <button onClick={onClickSubmit}>글쓰기</button>
+                    <ModalEmail open={modalOpen} close={closeModal} header="오류">{modalText}</ModalEmail>
+                    <Link to="/FAQ" className="linkButton">FAQ 목록으로 돌아가기</Link>
+                    <button onClick={onClickUpload}>글쓰기</button>
                 </div>
-                </Link>
             </Inner>
         </Container>
     );
