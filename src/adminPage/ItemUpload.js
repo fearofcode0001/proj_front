@@ -196,18 +196,6 @@ const  ItemUpload = () =>{
           loader.file.then((file) => {
             formData.append("file", file);
             console.log(file);
-            // axios
-            //   .post("http://210.114.22.83/home/img", formData)
-            //   .then((res) => {
-                // resolve({
-                //   default: res.data.data.uri,
-                // });
-              //   const url = res.data.imageUrl;
-              //   setImageUrl(url);
-              //   console.log(url);
-              // })
-              // .catch((err) => reject(err));
-
               const storageRef = ref(storage, `uploadimg/${file.name}`);
               const uploadTask = uploadBytes(storageRef, file);
               uploadTask.then((snapshot) =>{
