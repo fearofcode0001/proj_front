@@ -136,7 +136,8 @@ const  ItemUpload = () =>{
   const [selectedImages, setSelectedImages] = useState([]);
   //서버에 보내지는 파일
   const [selectedFiles, setSelectedFiles] = useState([]);
-  //업로드 할 이미지들.
+  //받을 URL
+  const [imageURL,setImageURL] = useState([]);
   const onSelectFile = (e) => {
     e.preventDefault();
     e.persist();
@@ -151,20 +152,18 @@ const  ItemUpload = () =>{
       console.log(imageLists[i]);
     }
     setSelectedFiles(imageURLlist);
-    // if(!imageURLlist) return null;
+    if(!imageURLlist) return null;
     // const storageRef = ref(storage, `uploadimg/${imageURLlist[0].name}`);
     // const uploadTask = uploadBytes(storageRef, imageURLlist[0]);
-
-    // uploadTask.then((snapshot) =>{
-    //   e.target.value="";
-    //   getDownloadURL(snapshot.ref).then((downloadURL) =>{
-    //     console.log("File avalable at",downloadURL);
-    //     setImageURL(downloadURL);
-    //     console.log(imgageURL);
-    //   })
-    // })
-
-
+    const uploadTask = storage.ref(`images/${imageURLlist[0].name}`).put(imageURLlist);
+    uploadTask.then((snapshot) =>{
+      e.target.value="";
+      getDownloadURL(snapshot.ref).then((downloadURL) =>{
+        console.log("File avalable at",downloadURL);
+        setImageURL(downloadURL);
+        console.log(imageURL);
+      })
+    })
     const selectedFileArray= imageURLlist;
      //브라우저 상에 보여질 파일 이름
     const imageArray = selectedFileArray.map((file) => {
