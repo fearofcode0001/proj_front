@@ -186,7 +186,7 @@ const  ItemUpload = () =>{
         </DivImg>
       );
     });
-
+const [prodDetailImg, setProdDetailImg] = useState();
   //CK에디터 이미지 url추출
   const customUploadAdapter = (loader) => {
     return {
@@ -201,9 +201,9 @@ const  ItemUpload = () =>{
               uploadTask.then((snapshot) =>{
                 getDownloadURL(snapshot.ref).then((downloadURL) =>{
                   console.log("File avalable at",downloadURL);
+                  setProdDetailImg(downloadURL);
                 })
               })
-            
           });
         });
       },
@@ -245,14 +245,15 @@ const  ItemUpload = () =>{
     //여러 이미지 업로드 데이터.
     console.log(selectedFiles);
     console.log(uploadProdData);  
-    // const response =  await AxiosFinal.productUpload(uploadProdData.title,
-    //                                                  uploadProdData.price,
-    //                                                  uploadProdData.color,
-    //                                                  uploadProdData.size,
-    //                                                  uploadProdData.category,
-    //                                                  uploadProdData.productImg,
-    //                                                  uploadProdData.content,
-    //                                                  imageURL[0],imageURL[1])
+    const response =  await AxiosFinal.productUpload(uploadProdData.title,
+                                                     uploadProdData.price,
+                                                     uploadProdData.color,
+                                                     uploadProdData.size,
+                                                     uploadProdData.category,
+                                                     uploadProdData.productImg,
+                                                     uploadProdData.content,
+                                                     imageURL[0],imageURL[1],
+                                                     prodDetailImg)
                                                
     
   }
@@ -311,8 +312,10 @@ const  ItemUpload = () =>{
                     editor={ClassicEditor}  
                     config={{
                       placeholder: "내용을 입력하세요.",extraPlugins: [uploadPlugin]
+                      
 
                   }}
+                  
                     data="<p></p>"
                     onReady={editor => {
                       // You can store the "editor" and use when it is needed.
