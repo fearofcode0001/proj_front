@@ -165,7 +165,6 @@ const  ItemUpload = () =>{
       })
     })
   })
-
     const selectedFileArray= imageURLlist;
      //브라우저 상에 보여질 파일 이름
     const imageArray = selectedFileArray.map((file) => {
@@ -207,6 +206,14 @@ const  ItemUpload = () =>{
               //   console.log(url);
               // })
               // .catch((err) => reject(err));
+
+              const storageRef = ref(storage, `uploadimg/${file.name}`);
+              const uploadTask = uploadBytes(storageRef, file);
+              uploadTask.then((snapshot) =>{
+                getDownloadURL(snapshot.ref).then((downloadURL) =>{
+                  console.log("File avalable at",downloadURL);
+                })
+              })
           });
         });
       },
@@ -248,14 +255,14 @@ const  ItemUpload = () =>{
     //여러 이미지 업로드 데이터.
     console.log(selectedFiles);
     console.log(uploadProdData);  
-
-    const response =  await AxiosFinal.productUpload(uploadProdData.title,
-                                                     uploadProdData.price,
-                                                     uploadProdData.color,
-                                                     uploadProdData.size,
-                                                     uploadProdData.category,
-                                                     uploadProdData.productImg,
-                                                     uploadProdData.content)
+    // const response =  await AxiosFinal.productUpload(uploadProdData.title,
+    //                                                  uploadProdData.price,
+    //                                                  uploadProdData.color,
+    //                                                  uploadProdData.size,
+    //                                                  uploadProdData.category,
+    //                                                  uploadProdData.productImg,
+    //                                                  uploadProdData.content,
+    //                                                  imageURL[0],imageURL[1])
                                                
     
   }
