@@ -195,7 +195,7 @@ const  OrderCheck = () =>{
         } 
        console.log(orderStatue);
     }
-    //주문건 제출
+    //주문건 제출 useState로 랜더링 되지 않은 함수들 한번 더 적용
     const onSubmitOrder=async(o)=>{
         console.log(o);
        
