@@ -12,7 +12,12 @@ const Container=styled.div`
 width: 100%;
 height: 100%;
 
-
+.inputImg{
+  width: 500px;
+  display: flex;
+  border: 1px solid black;
+  align-items: center;
+}
   .upLoadName{
     display: flex;
     align-items: center;
@@ -102,18 +107,18 @@ height: 100%;
     width: 78%;
     color: #999999;
 }
-.inputImg{
-  display: flex;
-  align-items: center;
-}
+
 `
 
 const DivImg = styled.div`
   display: flex;
+  width: 100px;
+  height: 50px;
   justify-content: center;
   align-items: center;
   font-size:13px;
   margin-left: 15px;
+  border: 1px solid black;
   button {
     display: flex;
     justify-content: center;
@@ -129,80 +134,44 @@ const DivImg = styled.div`
    
   }`;
 const  ItemUpload = () =>{
-  
-   //화면에 출력되는 파일
-  const [selectedImages, setSelectedImages] = useState([]);
-   //서버에 보내지는 파일
-  const [selectedFiles, setSelectedFiles] = useState();
+  //서버에 보내지는 파일
+  const [selectedFiles, setSelectedFiles] = useState([]);
   //업로드 할 이미지들.
   const onSelectFile = (e) => {
-    console.log(e.target.files);
-    e.preventDefault();
-    e.persist();
-    //이미지들을 가져옴
-    const selectedFiles = e.target.files;
-    //차례대로 리스트에 넣는다. 갯수를 초과하면 바꿔야 하기 때문에 let으로 선언한다.
-    let fileUrlList = [...selectedFiles];
-    console.log(fileUrlList);
-    // 업로드되는 파일에는 url이 있어야 한다. filePath로 보내줄 url이다.
-    //획득한 Blob URL Address를 브라우져에서 그대로 호출 시에 이미지는 표시가 되고 ,
-    //일반 파일의 경우 다운로드를 할 수 있다.
-    for (let i = 0; i < selectedFiles.length; i++) {
-      const nowUrl = URL.createObjectURL(selectedFiles[i]);
-      fileUrlList.push(nowUrl[i]);
+    
+    //선택한 파일
+    const imageLists = e.target.files;
+    let imageURLlist = [...selectedFiles];
+    Array.isArray(imageURLlist);
+    if (e.target.files.length > 2) alert(`한번에 업로드 가능한 사진은 최대 2장 까지 입니다.`);
+    
+    for(let i = 0; i < 2; i++){
+      const inputImage = imageLists[i];
+      imageURLlist.push(inputImage);
+      console.log(imageLists[i]);
     }
-    //2개로 제한한다.
-    if (fileUrlList.length > 2) {
-      console.log("2개초과 ");
-      fileUrlList = fileUrlList.slice(0, 2);
-      
-    }
-    console.log(fileUrlList);
-    setSelectedFiles(fileUrlList);
-    const selectedFileArray = Array.from(fileUrlList);
-    const imageArray = selectedFileArray.map((file) => {
-    return file.name;
-  });
-    setSelectedImages((previousImages) => previousImages.concat(imageArray));
-    e.target.file = '';
+    setSelectedFiles(imageURLlist);
+    // if(!imageURLlist) return null;
+    // const storageRef = ref(storage, `uploadimg/${imageURLlist[0].name}`);
+    // const uploadTask = uploadBytes(storageRef, imageURLlist[0]);
+
+    // uploadTask.then((snapshot) =>{
+    //   e.target.value="";
+    //   getDownloadURL(snapshot.ref).then((downloadURL) =>{
+    //     console.log("File avalable at",downloadURL);
+    //     setImageURL(downloadURL);
+    //     console.log(imgageURL);
+    //   })
+    // })
   }
   
-
-
-  const attachFile =
-  selectedImages &&
-  selectedImages.map((image) => {
-    return (
-      <DivImg key={image}>
-        <div>{image}</div>
-        <button onClick={() => setSelectedImages(selectedImages.filter((e) => e !== image))}>X
-        </button>
-      </DivImg>
-    );
-  });
-  
-  const [imgageURL, setImageURL] = useState("");
-  const uploadImage =(e)=>{
-    
-    e.preventDefault();
-    const file = e.target.files;
-    if(!file) return null;
-    const storageRef = ref(storage, `uploadimg/${file[0].name}`);
-    const uploadTask = uploadBytes(storageRef, file[0]);
-
-    uploadTask.then((snapshot) =>{
-      e.target.value="";
-      getDownloadURL(snapshot.ref).then((downloadURL) =>{
-        console.log("File avalable at",downloadURL);
-        setImageURL(downloadURL);
-        console.log(imgageURL);
-      })
-    })
-   }
+  const handleDeleteImage = (index) => {
+    setSelectedFiles(selectedFiles.filter((index) => index !== index));
+  };
 
   
 
-  //이미지 url추출
+  //CK에디터 이미지 url추출
   const customUploadAdapter = (loader) => {
     return {
       upload() {
@@ -226,7 +195,7 @@ const  ItemUpload = () =>{
       },
     };
   };
-
+  //ck에디터 이미지 
   function uploadPlugin(editor) {
     editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
       return customUploadAdapter(loader);
@@ -243,6 +212,7 @@ const  ItemUpload = () =>{
     category:'',
     content: ''
   })
+
   //비구조화 를 통해 값 추출
   const{title,price,color,size,category,productImg,content} = uploadProdData;
   //e.target으로 value 와 name추출
@@ -273,7 +243,11 @@ const  ItemUpload = () =>{
     
   }
 
-  
+  const checklist=()=>{
+    console.log("selectedfiles",selectedFiles);
+   
+
+  }
     return(
 
         <Container>
@@ -308,11 +282,16 @@ const  ItemUpload = () =>{
                   <div className="inputImg">
                     <input className="title-file2" type='file' onChange={(e)=>{getValue(e);
                                                                               onSelectFile(e);
-                                                                              uploadImage(e);
                                                                             }} 
                     value={productImg} name='productImg'  multiple/>
-                    {attachFile}
-                    <button type="submit" >submit</button>
+                     {selectedFiles && selectedFiles.map((img,index) => {
+                                <DivImg>
+                                  <div>{img.name}</div>
+                                  <button onClick={() => handleDeleteImage(index)}>X
+                                  </button>
+                                </DivImg>
+                            })}
+                    <button type="submit" onClick={checklist} >submit</button>
                   </div>
                  
               </div>
