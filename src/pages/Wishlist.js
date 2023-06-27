@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {Link , useNavigate} from 'react-router-dom';
+import AxiosFinal from "../api/AxiosFinal";
 
 const Container = styled.div`
     width: 100%;
@@ -95,10 +96,12 @@ const IsLoginFalse = [
 
 const Wishlist = () => {
     const [isLogin, setIsLogin] = useState(true);
+    const [product, setProduct] = useState([]);
     const navigate = useNavigate();
     const onChangePage=(e)=>{
         if(e==="logout"){
              setIsLogin(false);
+             window.localStorage.setItem("userIdSuv", "");
              navigate("/")
          }
          else if (e==="FAQ") {
@@ -111,6 +114,19 @@ const Wishlist = () => {
              navigate("/Mypage")
          }
      }
+    const id = window.localStorage.getItem("userIdSuv");
+    console.log(id);
+    useEffect(()=> {
+        const wishItem = async() => {
+            if(!id) {
+                return;
+            }
+            const rsp = await AxiosFinal.wishItem(id);
+            if(rsp.status === 200) setProduct(rsp.data);
+            console.log(rsp.data);
+        };
+        wishItem();
+    }, []);
 
    
     return (
@@ -139,68 +155,19 @@ const Wishlist = () => {
                 <hr />
                 </div>
                 <div className="wrapper">   
-                    <div className="product">
-                        <img src="product.jpg" alt="" />
+                    {product && product.map((e)=> (
+                    <div className="product" key={e.productId}>
+                        <img src={e.productMainImg} alt="" />
                         <div className="wrapProduct">
                             <div className="productInfo">
-                                <div className="name">Viscose Tricot Crewneck</div>
-                                <div className="price">₩‌1,054,800</div>
+                                <div className="name">{e.productName}</div>
+                                <div className="price">{e.productPrice}</div>
                             </div>
                             <button>X</button> 
                         </div> 
                     </div>
-                    <div className="product">
-                        <img src="product.jpg" alt="" />
-                        <div className="wrapProduct">
-                            <div className="productInfo">
-                                <div className="name">Viscose Tricot Crewneck</div>
-                                <div className="price">₩‌1,054,800</div>
-                            </div>
-                            <button>X</button> 
-                        </div> 
-                    </div>
-                    <div className="product">
-                        <img src="product.jpg" alt="" />
-                        <div className="wrapProduct">
-                            <div className="productInfo">
-                                <div className="name">Viscose Tricot Crewneck</div>
-                                <div className="price">₩‌1,054,800</div>
-                            </div>
-                            <button>X</button> 
-                        </div> 
-                    </div>
-                    <div className="product">
-                        <img src="product.jpg" alt="" />
-                        <div className="wrapProduct">
-                            <div className="productInfo">
-                                <div className="name">Viscose Tricot Crewneck</div>
-                                <div className="price">₩‌1,054,800</div>
-                            </div>
-                            <button>X</button> 
-                        </div> 
-                    </div>
-                    <div className="product">
-                        <img src="product.jpg" alt="" />
-                        <div className="wrapProduct">
-                            <div className="productInfo">
-                                <div className="name">Viscose Tricot Crewneck</div>
-                                <div className="price">₩‌1,054,800</div>
-                            </div>
-                            <button>X</button> 
-                        </div> 
-                    </div>
-                    <div className="product">
-                        <img src="product.jpg" alt="" />
-                        <div className="wrapProduct">
-                            <div className="productInfo">
-                                <div className="name">Viscose Tricot Crewneck</div>
-                                <div className="price">₩‌1,054,800</div>
-                            </div>
-                            <button>X</button> 
-                        </div> 
-                    </div>
+                       ))}  
                 </div>
-
             </InnerContainer>
         </Container>
     );

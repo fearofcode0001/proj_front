@@ -302,7 +302,7 @@ const Main= () =>{
         console.log(isOpen) ; 
       };
 
-      console.log(isLogin);
+      console.log(window.localStorage.getItem("userIdSuv"));
     
      
     return(

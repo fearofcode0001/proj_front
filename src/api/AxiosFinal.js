@@ -11,10 +11,10 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/auth/login", login);
     },
     
-    // 전체 상품
-    shop : async() => {
-        return await axios.get(Final_proj + `/product/items`);
-    },
+    // // 전체 상품
+    // shop : async() => {
+    //     return await axios.get(Final_proj + `/product/items`);
+    // },
 
 
     //아이템 업로드
@@ -171,6 +171,20 @@ const AxiosFinal = {
     sellitems : async() => {
         return await axios.get(Final_proj + `/product/sellitems`);
     },
+
+    // 좋아요 Insert
+    likeProduct : async(id, productId) => {
+        const like = {
+            id : id,
+            productId : productId
+        }
+        return await axios.post(Final_proj + "/like/likeInsert", like);
+    },
+
+    // 좋아요 불러오기
+    wishItem : async(id) => {
+        return await axios.get(Final_proj + `/like/likeList?id=${id}`);
+    }
 };
 
 export default AxiosFinal;
