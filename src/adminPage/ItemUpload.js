@@ -153,11 +153,11 @@ const  ItemUpload = () =>{
     }
     setSelectedFiles(imageURLlist);
     if(!imageURLlist) return null;
-    // const storageRef = ref(storage, `uploadimg/${imageURLlist[0].name}`);
-    // const uploadTask = uploadBytes(storageRef, imageURLlist[0]);
-    const uploadTask = storage.ref(`images/${imageURLlist[0].name}`).put(imageURLlist);
+    const storageRef = ref(storage, `uploadimg/${imageURLlist[0].name}`);
+    const uploadTask = uploadBytes(storageRef, imageURLlist[0]);
+
+
     uploadTask.then((snapshot) =>{
-      e.target.value="";
       getDownloadURL(snapshot.ref).then((downloadURL) =>{
         console.log("File avalable at",downloadURL);
         setImageURL(downloadURL);
