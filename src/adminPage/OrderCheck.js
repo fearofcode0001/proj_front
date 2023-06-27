@@ -124,6 +124,9 @@ const OrderInfo=styled.tr`
                 color: white;
             }
         }
+        .fixButton{
+            border-right:none ;
+        }
     }
    
     
@@ -335,7 +338,7 @@ const  OrderCheck = () =>{
                     {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl='+ o.shipCode} target="blank">trace</a>}
                 </div>          
                 <div className="submitBtn">
-                    <button onClick={()=>{onFixOrder(o)}}>fix</button>
+                    <button className="fixButton" onClick={()=>{onFixOrder(o)}}>fix</button>
                     <button onClick={()=>{onSubmitOrder(o)}}>submit</button>
                 </div>
             </OrderInfo>)}
