@@ -152,18 +152,20 @@ const  ItemUpload = () =>{
       console.log(imageLists[i]);
     }
     setSelectedFiles(imageURLlist);
+    //이미지 리스트가 없다면 
     if(!imageURLlist) return null;
-    const storageRef = ref(storage, `uploadimg/${imageURLlist[0].name}`);
-    const uploadTask = uploadBytes(storageRef, imageURLlist[0]);
-
-
+    //이미지가 있다면 리스트의 크기만큼 map을 돌아 하나씩 전송하여 url을 담는다.
+    imageURLlist.map((file) => {
+    const storageRef = ref(storage, `uploadimg/${file.name}`);
+    const uploadTask = uploadBytes(storageRef, file);
     uploadTask.then((snapshot) =>{
       getDownloadURL(snapshot.ref).then((downloadURL) =>{
         console.log("File avalable at",downloadURL);
-        setImageURL(downloadURL);
-        console.log(imageURL);
+        setImageURL(prevURL=>[...prevURL,downloadURL]);
       })
     })
+  })
+
     const selectedFileArray= imageURLlist;
      //브라우저 상에 보여질 파일 이름
     const imageArray = selectedFileArray.map((file) => {
@@ -260,7 +262,7 @@ const  ItemUpload = () =>{
 
   const checklist=()=>{
     console.log("selectedfiles",selectedFiles);
-    console.log("selectedImages",selectedImages);
+    console.log(imageURL);
 
   }
   const reset=()=>{
@@ -304,6 +306,7 @@ const  ItemUpload = () =>{
                                                                             }} 
                     value={productImg} name='productImg'  multiple/>
                      {attachFile}
+                     <button onClick={checklist}>확인</button>
                   </div>
                  
               </div>
