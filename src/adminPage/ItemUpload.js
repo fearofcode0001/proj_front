@@ -13,9 +13,9 @@ width: 100%;
 height: 100%;
 
 .inputImg{
-  width: 500px;
+  /* width: 500px; */
   display: flex;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   align-items: center;
 }
   .upLoadName{
@@ -112,19 +112,17 @@ height: 100%;
 
 const DivImg = styled.div`
   display: flex;
-  width: 100px;
-  height: 50px;
   justify-content: center;
   align-items: center;
   font-size:13px;
   margin-left: 15px;
-  border: 1px solid black;
   button {
     display: flex;
     justify-content: center;
     height: 15px;
     width: 10px;
     font-size: 5px;
+    border: 1px solid black;
     background-color: white;
     border-radius: 0.5rem;
     &:hover{
@@ -134,15 +132,17 @@ const DivImg = styled.div`
    
   }`;
 const  ItemUpload = () =>{
+  //이미지
+  const [selectedImages, setSelectedImages] = useState([]);
   //서버에 보내지는 파일
   const [selectedFiles, setSelectedFiles] = useState([]);
   //업로드 할 이미지들.
   const onSelectFile = (e) => {
-    
+    e.preventDefault();
+    e.persist();
     //선택한 파일
-    const imageLists = e.target.files;
+    const imageLists = Array.from(e.target.files);
     let imageURLlist = [...selectedFiles];
-    Array.isArray(imageURLlist);
     if (e.target.files.length > 2) alert(`한번에 업로드 가능한 사진은 최대 2장 까지 입니다.`);
     
     for(let i = 0; i < 2; i++){
@@ -163,13 +163,29 @@ const  ItemUpload = () =>{
     //     console.log(imgageURL);
     //   })
     // })
-  }
-  
-  const handleDeleteImage = (index) => {
-    setSelectedFiles(selectedFiles.filter((index) => index !== index));
-  };
 
+
+    const selectedFileArray= imageURLlist;
+     //브라우저 상에 보여질 파일 이름
+    const imageArray = selectedFileArray.map((file) => {
+    return file.name; });
+       // 첨부파일 삭제시
+    setSelectedImages((previousImages) => previousImages.concat(imageArray));
+    e.target.file = '';
+   
+  };
   
+  const attachFile =
+    selectedImages &&
+    selectedImages.map((image) => {
+      return (
+        <DivImg key={image}>
+          <div>{image}</div>
+          <button onClick={() => setSelectedImages(selectedImages.filter((e) => e !== image))}>x
+          </button>
+        </DivImg>
+      );
+    });
 
   //CK에디터 이미지 url추출
   const customUploadAdapter = (loader) => {
@@ -245,8 +261,12 @@ const  ItemUpload = () =>{
 
   const checklist=()=>{
     console.log("selectedfiles",selectedFiles);
-   
+    console.log("selectedImages",selectedImages);
 
+  }
+  const reset=()=>{
+    setSelectedFiles([]);
+    setSelectedImages([]);
   }
     return(
 
@@ -280,18 +300,11 @@ const  ItemUpload = () =>{
                 </div>
                 
                   <div className="inputImg">
-                    <input className="title-file2" type='file' onChange={(e)=>{getValue(e);
+                    <input className="title-file2" type='file' onClick={reset} onChange={(e)=>{getValue(e);
                                                                               onSelectFile(e);
                                                                             }} 
                     value={productImg} name='productImg'  multiple/>
-                     {selectedFiles && selectedFiles.map((img,index) => {
-                                <DivImg>
-                                  <div>{img.name}</div>
-                                  <button onClick={() => handleDeleteImage(index)}>X
-                                  </button>
-                                </DivImg>
-                            })}
-                    <button type="submit" onClick={checklist} >submit</button>
+                     {attachFile}
                   </div>
                  
               </div>
