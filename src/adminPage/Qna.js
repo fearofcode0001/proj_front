@@ -170,24 +170,12 @@ const Qna = () =>{
         <Container>
             <QnaInfoHead>
                 <div className="qnaHead">
-                    <div className="qnaId">
-                        ID
-                    </div>
-                    <div className="itemId">
-                        itemID
-                    </div>
-                    <div className="userId">
-                        userID
-                    </div>
-                    <div className="qnaNm">
-                        QnA
-                    </div>
-                    <div className="answer">
-                        ANSWER
-                    </div>
-                    <div className="date">
-                        DATE
-                    </div>
+                    <div className="qnaId">ID</div>
+                    <div className="itemId">itemID</div>
+                    <div className="userId">userID</div>
+                    <div className="qnaNm">QnA</div>
+                    <div className="answer">ANSWER</div>
+                    <div className="date">DATE</div>
                 </div>
             </QnaInfoHead>
 

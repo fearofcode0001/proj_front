@@ -78,6 +78,10 @@ const Container=styled.div`
         justify-content: center;
         align-items: center;
     }
+    .fixButton{ 
+        border-right: none;
+
+    }
     button{
         width: 50px;
         background-color: white;
@@ -228,31 +232,21 @@ const  Inventory = () =>{
         })
     }
    
-    return(
+    const onFixOrder =(o)=>{  
+        console.log(setFixProductData);      
+    }
 
+
+    return(
         <Container>
            <ItemInfoHead>
-               <div className="itemId">
-                ID
-               </div>
-               <div className="itemNm">
-                NAME
-               </div>
-               <div className="itemColor">
-                COLOR
-               </div>
-               <div className="itemSize">
-                SIZE
-               </div>  
-               <div className="itemStock">
-                    STOCK            
-               </div>
-               <div className="itemSell">
-                STATUS
-               </div>
-               <div className="itemSubmit">
-               
-               </div>    
+               <div className="itemId">ID</div>
+               <div className="itemNm">NAME</div>
+               <div className="itemColor">COLOR</div>
+               <div className="itemSize">SIZE</div>  
+               <div className="itemStock">STOCK</div>
+               <div className="itemSell">STATUS</div>
+               <div className="itemSubmit"></div>    
            </ItemInfoHead>
            {inventoryData && inventoryData.map((i)=> 
            <ItemInfo key={i.productId} active={invenAccodian === i.productId}>
@@ -285,6 +279,7 @@ const  Inventory = () =>{
                 </select>
                </div> 
                <div className="itemSubmit">
+                <button className="fixButton" onClick={()=>{onFixOrder(i)}}>fix</button>
                 <button>submit</button>
                </div>
             </div>
