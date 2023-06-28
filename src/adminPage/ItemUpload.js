@@ -258,11 +258,6 @@ const [prodDetailImg, setProdDetailImg] = useState();
     
   }
 
-  const checklist=()=>{
-    console.log("selectedfiles",selectedFiles);
-    console.log(imageURL);
-
-  }
   const reset=()=>{
     setSelectedFiles([]);
     setSelectedImages([]);
@@ -304,7 +299,6 @@ const [prodDetailImg, setProdDetailImg] = useState();
                                                                             }} 
                     value={productImg} name='productImg'  multiple/>
                      {attachFile}
-                     <button onClick={checklist}>확인</button>
                   </div>
                  
               </div>

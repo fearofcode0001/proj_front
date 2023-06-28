@@ -18,15 +18,17 @@ const AxiosFinal = {
 
 
     //아이템 업로드
-    productUpload : async(title,price,color,size,category,productImg,content)=>{
+    productUpload : async(title,price,color,size,category,productImg,content,imgFst,imgSnd,imgDetail)=>{
         const upLoad={
             productName:title,
             productPrice:price,
             productColor:color,
             productSize:size,
             productCategory:category,
-            productMainImg:productImg,
-            productDetail:content
+            productDetail:content,
+            productImgFst:imgFst,
+            productImgSnd:imgSnd,
+            productImgDetail:imgDetail
         };
         return await axios.post(Final_proj + "/product/upload", upLoad);
     },
