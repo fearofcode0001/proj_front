@@ -29,7 +29,6 @@ const Container=styled.div`
         width: 50px;
         display: flex;
         justify-content: center;
-        cursor: pointer;
         img{
             position: absolute;
             width: 80px;
@@ -51,6 +50,20 @@ const Container=styled.div`
         display: flex;
         justify-content: center;
     }
+    .title-file{
+        font-size:11px;
+        ::file-selector-button {  
+        width: 150px;
+        height: 20px;
+        background: #fff;
+        border: 1px solid black;
+        font-size: 11px;
+        &:hover{
+            background-color: black;
+            color: white;
+        } 
+        }
+    }
     .itemStock{
         width: 40px;
         display: flex;
@@ -62,7 +75,7 @@ const Container=styled.div`
             text-align: center;
         }
     }
-    .itemSell{
+        .itemSell{
         width: 100px;
         display: flex;
         justify-content: center;
@@ -80,10 +93,10 @@ const Container=styled.div`
     }
     .fixButton{ 
         border-right: none;
-
     }
+    
     button{
-        width: 50px;
+        width: 100px;
         background-color: white;
         border: 1px solid black;
         font-size: 12px;
@@ -128,7 +141,24 @@ const ItemInfo=styled.div`
         display: none;
         }
     }
-    
+    .productImgArea{
+        width:100%;
+        height:220px;
+        display:flex;
+    }
+    .partitionImg{
+        display:flex;
+        flex-direction:column;
+        width:350px;
+    }
+    img{
+        height:200px;
+        width:200px;
+    }
+    .FixButton{
+        height:20px;
+        background-color:rgba(255,255,255,5);
+    }
     .title-input{
         width: 100%;
         border: none;
@@ -146,15 +176,28 @@ const ItemInfo=styled.div`
     //에디터 높이
     .ck.ck-editor__editable{
         height: 447px;
-}
+    }
+    input{
+      ::file-selector-button {  
+      width: 100px;
+      height: 20px;
+      background: #fff;
+      border: 1px solid black;
+      font-size: 11px;
+      &:hover{
+        background-color: black;
+        color: white;
+      }
+    }
+    }    
 `
+
 
 const  Inventory = () =>{
 
     //아이템 정보 얻기
     const context = useContext(UserContext);
     const {inventoryData} = context;
-
     //호버상태를 체크한다.
     const [onHover,setOnHover] = useState(false);
     //마우스를 올리면 해당 상품 이미지가 나타남.
@@ -171,7 +214,6 @@ const  Inventory = () =>{
     const handleMouseMove=(e)=>{
         setXY({x:e.clientX,y:e.clientY});
     }
-
     //제목을 누르면 에디터가 넘어온다.
     //css에 active를 넘겨줄 값
     const[invenAccodian, setinvenAccodian] = useState("all"); 
@@ -185,7 +227,6 @@ const  Inventory = () =>{
             setinvenAccodian(props);
         }        
     };
-
     //이미지를 추출할 데이터
     const [prodDetailImg, setProdDetailImg] = useState();
     const customUploadAdapter = (loader) => {
@@ -215,14 +256,13 @@ const  Inventory = () =>{
       return customUploadAdapter(loader);
         };
     }
-
     //수정할 아이템의 정보
     const [fixProductData, setFixProductData] = useState({
         productSellStatus:'',
         itemStock:'',
         productName:''
         });
-
+    //바뀔 값들이 props로 들어와 저장 됨
     const getValue = (e) => {
         const { name } = e.target;
         setFixProductData({
@@ -231,10 +271,43 @@ const  Inventory = () =>{
             [name]: e.target.value
         })
     }
-   
+    //이미지 수정
+    //이미지 수정URL을 받을 값
+    const [imageURL,setImageURL] = useState([]);
+    //URL을 추출할 컴포넌트
+    const onSelectFile = (e) => {
+        e.preventDefault();
+        e.persist();
+        //선택한 파일
+        const image = e.target.files;
+        if(!image) return null;
+        const storageRef = ref(storage, `uploadimg/${image.name}`);
+        const uploadTask = uploadBytes(storageRef, image);
+        uploadTask.then((snapshot) =>{
+        getDownloadURL(snapshot.ref).then((downloadURL) =>{
+            console.log("File avalable at",downloadURL);
+            setImageURL(prevURL=>[...prevURL,downloadURL]);
+        })
+        })
+    };
+  
     const onFixOrder =(o)=>{  
         console.log(fixProductData);
-        console.log(prodDetailImg);         
+        console.log(prodDetailImg);    
+        console.log(imageURL);
+        // if(fixProductData.orderStatus==='' && fixProductData.shipCode===''){
+        //     setFixProductData({
+        //         ...fixProductData,
+        //         orderStatus: o.orderStatus,
+        //         shipCode: o.shipCode
+        //       })
+        // } else if(fixProductData.orderStatus==='' && fixProductData.shipCompany===''){
+        //     setFixProductData({
+        //         ...fixProductData,
+        //         orderStatus: o.orderStatus,
+        //         shipCompany: o.shipCompany
+        //       })
+        // }     
     }
 
 
@@ -255,7 +328,7 @@ const  Inventory = () =>{
                 <div onMouseMove={(e)=>handleMouseMove(e)}>
                 <div className="itemId" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse}>
                     {i.productId}
-                    {onHover === true &&  <img src={i.productImgFst} className="popUpImage" style={{left:xy.x,top:xy.y}} />}  
+                    {onHover === true &&  <img src={i.productImgSnd} className="popUpImage" style={{left:xy.x,top:xy.y}} />}  
                 </div>
                </div>
                 <div className="itemNm"  onClick={()=>{onPopAccodian(i.productId)}}>                      
@@ -286,6 +359,16 @@ const  Inventory = () =>{
             </div>
             <div className="parentContents" >
                 <div className="childContents">
+                    <div className="productImgArea">
+                        <div className="partitionImg">
+                            <img src={i.productImgFst}></img>
+                            <input className="title-file2" type='file' onChange={(e)=>{getValue(e);onSelectFile(e);}} name='productImgFst'/>
+                        </div>
+                        <div className="partitionImg">
+                            <img src={i.productImgSnd}></img>                            
+                            <input className="title-file2" type='file' onChange={(e)=>{getValue(e);onSelectFile(e);}} name='productImgSnd'/>
+                        </div>
+                    </div>
                     <input className="title-input" type='text' placeholder='pleace enter fix name' name='productName' onChange={getValue}/>
                         <CKEditor className="info-input"
                             editor={ClassicEditor}

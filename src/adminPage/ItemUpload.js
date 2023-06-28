@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import AxiosFinal from "../api/AxiosFinal";
-import axios from "axios";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "./FireBase";
 
@@ -129,7 +128,6 @@ const DivImg = styled.div`
       background-color: black;
       color: white;
     }
-   
   }`;
 const  ItemUpload = () =>{
   //이미지
@@ -144,6 +142,7 @@ const  ItemUpload = () =>{
     //선택한 파일
     const imageLists = Array.from(e.target.files);
     let imageURLlist = [...selectedFiles];
+    if (e.target.files.length === 1 ) alert(`2개의 이미지를 업로드 해주세요.`);
     if (e.target.files.length > 2) alert(`한번에 업로드 가능한 사진은 최대 2장 까지 입니다.`);
     
     for(let i = 0; i < 2; i++){
@@ -195,7 +194,6 @@ const [prodDetailImg, setProdDetailImg] = useState();
           const formData = new FormData();
           loader.file.then((file) => {
             formData.append("file", file);
-            console.log(file);
               const storageRef = ref(storage, `uploadimg/${file.name}`);
               const uploadTask = uploadBytes(storageRef, file);
               uploadTask.then((snapshot) =>{
