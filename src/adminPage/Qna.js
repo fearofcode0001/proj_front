@@ -144,7 +144,11 @@ const Qna = () =>{
 
    
     //답변과 답변 상태가 담길 상수
-    const [qnaStatue, setQnaStatue] = useState();
+    const [qnaStatue, setQnaStatue] = useState({
+        qnaSelect:'',
+        qnaReply:''
+
+    });
     //답변 상태의 value가 담길 컴포넌트 select는 배열이므로 해당 배열 안의 값을 구해야 한다.
     const getValue = (e) => {
         const { name } = e.target;
