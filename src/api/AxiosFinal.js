@@ -83,6 +83,15 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/product/changImgSnd", changeImgSnd);
      },
+     //어드민 페이지 상품 Detail이미지 수정
+     productChangeImgDetail:async(productId,content,DetailUrl)=>{
+        const changeImgDetail={
+            productId : productId,
+            productDetail:content,
+            productImgDetail : DetailUrl
+        };
+        return await axios.post(Final_proj + "/product/changImgDetail", changeImgDetail);
+     },
     //회원 조회
     memberGet: async(userId) => {
         return await axios.get(Final_proj + `/auth/users?userId=${userId}`);
@@ -167,6 +176,19 @@ const AxiosFinal = {
             faqContent : content,
         }
         return await axios.post(Final_proj + `/faq/uploadFaq`, upload);
+    },
+
+    //faq List 가져오기
+    faqList : async() => {
+        return await axios.get(Final_proj + `/faq/faqList`);
+    },
+
+     // faq삭제
+    faqDelete : async(faqId) => {
+        const deleteFaq = {
+            faqId : faqId
+        }
+        return await axios.post(Final_proj + `/faq/deleteFaq`, deleteFaq);
     },
   
     // 회원 정보 수정 저장
