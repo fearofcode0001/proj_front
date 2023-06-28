@@ -1,9 +1,11 @@
 import React ,{useState,useContext} from "react";
 import styled, {css} from "styled-components";
-import testimg from "../img/test.png"
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { UserContext } from "../context/UserInfo";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { storage } from "./FireBase";
+
 
 
 const Container=styled.div`
@@ -57,6 +59,7 @@ const Container=styled.div`
             border: none;
             font-size:11px;
             width: 30px;
+            text-align: center;
         }
     }
     .itemSell{
@@ -179,36 +182,52 @@ const  Inventory = () =>{
         }        
     };
 
-
-    
-  const customUploadAdapter = (loader) => {
-    return {
-      upload() {
-        return new Promise((resolve, reject) => {
-          const formData = new FormData();
-          loader.file.then((file) => {
-            formData.append("file", file);
-
-            // axios
-            //   .post("http://localhost:3000/api/v0/file/upload", formData)
-            //   .then((res) => {
-            //     resolve({
-            //       default: res.data.data.uri,
-            //     });
-            //     // console.log(res.data);
-            //   })
-            //   .catch((err) => reject(err));
-          });
-        });
-      },
-    };
-  };
-
-  function uploadPlugin(editor) {
+    //이미지를 추출할 데이터
+    const [prodDetailImg, setProdDetailImg] = useState();
+    const customUploadAdapter = (loader) => {
+        return {
+          upload() {
+            return new Promise((resolve, reject) => {
+              const formData = new FormData();
+              loader.file.then((file) => {
+                formData.append("file", file);
+                  const storageRef = ref(storage, `uploadimg/${file.name}`);
+                  const uploadTask = uploadBytes(storageRef, file);
+                  uploadTask.then((snapshot) =>{
+                    getDownloadURL(snapshot.ref).then((downloadURL) =>{
+                      console.log("File avalable at",downloadURL);
+                      setProdDetailImg(downloadURL);
+                      alert("이미지 업로드가 완료 되었습니다. 기존 내용을 지워주세요.")
+                    })
+                  })
+              });
+            });
+          },
+        };
+      };
+    //ck에디터 이미지 업로드
+    function uploadPlugin(editor) {
     editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
       return customUploadAdapter(loader);
-    };
-  }
+        };
+    }
+
+    //수정할 아이템의 정보
+    const [fixProductData, setFixProductData] = useState({
+        productSellStatus:'',
+        itemStock:'',
+        productName:''
+        });
+
+    const getValue = (e) => {
+        const { name } = e.target;
+        setFixProductData({
+            ...fixProductData,
+            //name 키를 가진 값을 value로 설정
+            [name]: e.target.value
+        })
+    }
+   
     return(
 
         <Container>
@@ -241,7 +260,7 @@ const  Inventory = () =>{
                 <div onMouseMove={(e)=>handleMouseMove(e)}>
                 <div className="itemId" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse}>
                     {i.productId}
-                    {onHover === true &&  <img src ={testimg} className="popUpImage" style={{left:xy.x,top:xy.y}} />}  
+                    {onHover === true &&  <img src={i.productImgFst} className="popUpImage" style={{left:xy.x,top:xy.y}} />}  
                 </div>
                </div>
                 <div className="itemNm"  onClick={()=>{onPopAccodian(i.productId)}}>                      
@@ -254,10 +273,11 @@ const  Inventory = () =>{
                {i.productSize}
                </div>  
                <div className="itemStock">                   
-                <input type="text" value={i.productStock}/>
+                <input type="text" className="stockInput" value={i.productStock}/>
+                <input type="text" className="stockInput" placeholder="수정" onChange={(e)=>{getValue(e)}} name='itemStock'/>
                </div>
                <div className="itemSell">                
-                <select name ="">
+                <select name ='productSellStatus' onChange={getValue}>
                     <option value=""selected>{i.productSellStatus}</option>
                     <option value="SELL">sell</option>
                     <option value="HOLD">hold</option>
@@ -270,20 +290,24 @@ const  Inventory = () =>{
             </div>
             <div className="parentContents" >
                 <div className="childContents">
-                    <input className="title-input" type='text' placeholder='pleace enter product name' value={i.productName}/>
+                    <input className="title-input" type='text' placeholder='pleace enter fix name' name='productName' onChange={getValue}/>
                         <CKEditor className="info-input"
                             editor={ClassicEditor}
                             config={{
-                                extraPlugins: [uploadPlugin]
-          
+                                extraPlugins: [uploadPlugin]          
                             }}
-                            data={i.productDetail}
+                            data={i.productImgDetail +"내용 : "+ i.productName}
                             onReady={editor => {
                             // You can store the "editor" and use when it is needed.
                             console.log('Editor is ready to use!', editor);
                             }}
                             onChange={(event, editor) => {
                             const data = editor.getData();
+                            console.log({ event, editor, data,});
+                            setFixProductData({
+                                ...fixProductData,
+                                content: data
+                            })
                             console.log({ event, editor, data });
                             }}
                             onBlur={(event, editor) => {
