@@ -159,6 +159,19 @@ const AxiosFinal = {
         }
         return await axios.post(Final_proj + `/faq/uploadFaq`, upload);
     },
+
+    //faq List 가져오기
+    faqList : async() => {
+        return await axios.get(Final_proj + `/faq/faqList`);
+    },
+
+     // faq삭제
+    faqDelete : async(faqId) => {
+        const deleteFaq = {
+            faqId : faqId
+        }
+        return await axios.post(Final_proj + `/faq/deleteFaq`, deleteFaq);
+    },
   
     // 회원 정보 수정 저장
     saveUserInfo : async (userId, userName, userPwd, userAddr, userPhone) =>{
