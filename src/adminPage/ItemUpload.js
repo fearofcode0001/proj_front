@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import AxiosFinal from "../api/AxiosFinal";
-import axios from "axios";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "./FireBase";
 
@@ -129,7 +128,6 @@ const DivImg = styled.div`
       background-color: black;
       color: white;
     }
-   
   }`;
 const  ItemUpload = () =>{
   //이미지
@@ -144,6 +142,7 @@ const  ItemUpload = () =>{
     //선택한 파일
     const imageLists = Array.from(e.target.files);
     let imageURLlist = [...selectedFiles];
+    if (e.target.files.length === 1 ) alert(`2개의 이미지를 업로드 해주세요.`);
     if (e.target.files.length > 2) alert(`한번에 업로드 가능한 사진은 최대 2장 까지 입니다.`);
     
     for(let i = 0; i < 2; i++){
@@ -165,7 +164,6 @@ const  ItemUpload = () =>{
       })
     })
   })
-
     const selectedFileArray= imageURLlist;
      //브라우저 상에 보여질 파일 이름
     const imageArray = selectedFileArray.map((file) => {
@@ -187,7 +185,7 @@ const  ItemUpload = () =>{
         </DivImg>
       );
     });
-
+const [prodDetailImg, setProdDetailImg] = useState();
   //CK에디터 이미지 url추출
   const customUploadAdapter = (loader) => {
     return {
@@ -196,17 +194,15 @@ const  ItemUpload = () =>{
           const formData = new FormData();
           loader.file.then((file) => {
             formData.append("file", file);
-            // axios
-            //   .post("http://210.114.22.83/home/img", formData)
-            //   .then((res) => {
-                // resolve({
-                //   default: res.data.data.uri,
-                // });
-              //   const url = res.data.imageUrl;
-              //   setImageUrl(url);
-              //   console.log(url);
-              // })
-              // .catch((err) => reject(err));
+              const storageRef = ref(storage, `uploadimg/${file.name}`);
+              const uploadTask = uploadBytes(storageRef, file);
+              uploadTask.then((snapshot) =>{
+                getDownloadURL(snapshot.ref).then((downloadURL) =>{
+                  console.log("File avalable at",downloadURL);
+                  setProdDetailImg(downloadURL);
+                  alert("이미지 업로드가 완료 되었습니다.")
+                })
+              })
           });
         });
       },
@@ -248,23 +244,18 @@ const  ItemUpload = () =>{
     //여러 이미지 업로드 데이터.
     console.log(selectedFiles);
     console.log(uploadProdData);  
-
     const response =  await AxiosFinal.productUpload(uploadProdData.title,
                                                      uploadProdData.price,
                                                      uploadProdData.color,
                                                      uploadProdData.size,
                                                      uploadProdData.category,
-                                                     uploadProdData.productImg,
-                                                     uploadProdData.content)
+                                                     uploadProdData.content,
+                                                     imageURL[0],imageURL[1],
+                                                     prodDetailImg)
                                                
     
   }
 
-  const checklist=()=>{
-    console.log("selectedfiles",selectedFiles);
-    console.log(imageURL);
-
-  }
   const reset=()=>{
     setSelectedFiles([]);
     setSelectedImages([]);
@@ -306,7 +297,6 @@ const  ItemUpload = () =>{
                                                                             }} 
                     value={productImg} name='productImg'  multiple/>
                      {attachFile}
-                     <button onClick={checklist}>확인</button>
                   </div>
                  
               </div>
@@ -314,8 +304,10 @@ const  ItemUpload = () =>{
                     editor={ClassicEditor}  
                     config={{
                       placeholder: "내용을 입력하세요.",extraPlugins: [uploadPlugin]
+                      
 
                   }}
+                  
                     data="<p></p>"
                     onReady={editor => {
                       // You can store the "editor" and use when it is needed.

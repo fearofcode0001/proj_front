@@ -241,44 +241,19 @@ const  OrderCheck = () =>{
 
         <Container>
             <OrderInfo>
-                <div className="orderId">
-                    주문 ID
-                </div>
-                <div className="orderName">
-                    주문자
-                </div>
-                <div className="orderAddr">
-                    주문주소
-                </div>
-                <div className="orderDate">
-                    주문일
-                </div>
-                <div className="orderProduct">
-                    주문 상품
-                </div>
-                <div className="productColor">
-                    컬러
-                </div>
-                <div className="productSize">
-                    사이즈
-                </div>
-                <div className="orderPrice">
-                    가격
-                </div>
-                <div className="orderStatus">
-                    주문 상태
-                </div>
-                <div className="invoiceCom">
-                    택배회사
-                </div>
-                <div className="invoiceNum">
-                    송장 번호
-                </div>
-                <div className="invoiceTrace">
-                    
-                </div>
-                <div className="submitBtn">
-                </div>
+                <div className="orderId">주문 ID</div>
+                <div className="orderName">주문자</div>
+                <div className="orderAddr">주문주소</div>
+                <div className="orderDate">주문일</div>
+                <div className="orderProduct">주문 상품</div>
+                <div className="productColor">컬러</div>
+                <div className="productSize">사이즈</div>
+                <div className="orderPrice">가격</div>
+                <div className="orderStatus">주문 상태</div>
+                <div className="invoiceCom">택배회사</div>
+                <div className="invoiceNum">송장 번호</div>
+                <div className="invoiceTrace"></div>
+                <div className="submitBtn"></div>
             </OrderInfo> 
             {orderData && orderData.map((o,index)=> <OrderInfo>
                 <div className="orderId">

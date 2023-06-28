@@ -13,25 +13,17 @@ const Container = styled.div`
     width: 100%;
     display: flex;    
     flex-direction: column;
-
-
-    
 `
-
 const Mainboby=styled.div`
     margin: 0px 40px 0px 40px;
     `
-
 const Article = styled.div`
     display: flex;
     width: 100%;
     height: 100vh;
     flex-wrap: wrap;
 
-
-
 `
-
 const Container_in = styled.div`
     height: 400px;
     width: 300px;
@@ -60,8 +52,6 @@ const Container_in = styled.div`
     }
 `;  
 
-
-
 const Filter = styled.div`
     width: 100px;
     margin-top: 20px;
@@ -71,9 +61,6 @@ const Filter = styled.div`
     display: flex;
     cursor: pointer;    
 `
-
-
-
 
 const Shop = () => {
     const [limit, setLimit] = useState(10);
@@ -85,6 +72,9 @@ const Shop = () => {
     const [product, setProduct] = useState([]);
     const nav = useNavigate();
 
+    const id = window.localStorage.getItem("userIdSuv");
+    console.log(id);
+
     const handleHeaderClick = () => {
       setIsBlurred(!isBlurred);
     };
@@ -93,7 +83,6 @@ const Shop = () => {
         const getProduct = async() => {
            const rsp = await AxiosFinal.sellitems();
            if(rsp.status === 200) setProduct(rsp.data);
-           console.log(product);
        };
        getProduct();
       }, []);
@@ -101,17 +90,23 @@ const Shop = () => {
     const mergeProduct = {};
 
     product.forEach((e) => {
-        if(!mergeProduct[e.productName]) {
-            mergeProduct[e.productName] = {
-                productName : e.productName,
-                productMainImg : e.productMainImg,
-                productPrice : e.productPrice,
-                productDetail : e.productDetail,
-                sizes: []
-            };
-        }
-        mergeProduct[e.productName].sizes.push(e.productSize);
-    })
+    const { productName, productSize, productId } = e;
+
+    if (!mergeProduct[productName]) {
+        mergeProduct[productName] = {
+            productName: e.productName,
+            productMainImg: e.productMainImg,
+            productPrice: e.productPrice,
+            productDetail : e.productDetail,
+            sizes: [],
+        };
+    }
+
+    if (!mergeProduct[productName].sizes[productSize]) {
+        mergeProduct[productName].sizes[productSize] = productId;
+    }
+    });
+
     const handleFilter = () => {
         setIsFilterOpen(!isFilterOpen);
       };
@@ -120,6 +115,7 @@ const Shop = () => {
     const onclick = (e) => {
         console.log(e);
         setItem(e);
+        console.log(item);
         nav("/ProductInfo");
     }
 
@@ -140,7 +136,7 @@ const Shop = () => {
             <div className={isBlurred ? "blur" : ""}> 
                 <div className="view">
                     <img
-                        src={e.productImgFst}
+                        src={e.productMainImg}
                         />
                         <div className="logo">iMMUTABLE</div>    
                         <div className="info">{e.productName}</div>      
@@ -160,7 +156,7 @@ const Shop = () => {
                         </div>
                     </div>
                 </Container_in>
-            ))} */}
+            ))}
             </Article>
                 <Pagenation
                 total={product.length}

@@ -10,33 +10,29 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/auth/login", login);
     },
-    
     // 전체 상품
     shop : async() => {
         return await axios.get(Final_proj + `/product/items`);
     },
-
-
     //아이템 업로드
-    productUpload : async(title,price,color,size,category,productImg,content)=>{
+    productUpload : async(title,price,color,size,category,content,imgFst,imgSnd,imgDetail)=>{
         const upLoad={
             productName:title,
             productPrice:price,
             productColor:color,
             productSize:size,
             productCategory:category,
-            productMainImg:productImg,
-            productDetail:content
+            productDetail:content,
+            productImgFst:imgFst,
+            productImgSnd:imgSnd,
+            productImgDetail:imgDetail
         };
         return await axios.post(Final_proj + "/product/upload", upLoad);
-    },
-
-    
+    },    
     //어드민페이지 회원 전체조회
     customerManage : async() => {
         return await axios.get(Final_proj + `/admin/check`);
     },
-
     //어드민페이지 회원 선택 삭제
     customerDelete : async(userId) => {
         const deleteUser={
@@ -44,18 +40,16 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/admin/deleteUser", deleteUser);
     },
-
      //어드민페이지 qna 전체조회
      qnaLoadManage : async() => {
         return await axios.get(Final_proj + `/admin/qnaLoad`);
     },
-
     //어드민페이지에 qna답변달기
-    qnaUploadReply : async(qndid,statue,reply)=>{
+    qnaUploadReply : async(qnaId,statue,reply)=>{
         const qnaReplyUpLoad={
-            qnaId : qndid,
-            answerStatue : statue,
-            qnareplay : reply
+            qnaId : qnaId,
+            qnaStatue : statue,
+            qnaReplay : reply
         };
         return await axios.post(Final_proj + "/admin/qnaUpload", qnaReplyUpLoad);
     },
@@ -73,7 +67,22 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/admin/orderUpLoad", orderUpLoadData);
     },        
-
+    //어드민 페이지 상품 Fst이미지 수정
+    productChangeImgFst : async(productId,fstUrl)=>{
+        const changeImgFst={
+            productId : productId,
+            productImgFst : fstUrl
+        };
+        return await axios.post(Final_proj + "/product/changImgFst", changeImgFst);
+    },
+     //어드민 페이지 상품 Snd이미지 수정
+     productChangeImgSnd : async(productId,sndUrl)=>{
+        const changeImgSnd={
+            productId : productId,
+            productImgSnd : sndUrl
+        };
+        return await axios.post(Final_proj + "/product/changImgSnd", changeImgSnd);
+     },
     //회원 조회
     memberGet: async(userId) => {
         return await axios.get(Final_proj + `/auth/users?userId=${userId}`);
@@ -175,6 +184,20 @@ const AxiosFinal = {
     // SELL 상품
     sellitems : async() => {
         return await axios.get(Final_proj + `/product/sellitems`);
+    },
+
+    // 좋아요 Insert
+    likeProduct : async(id, productId) => {
+        const like = {
+            id : id,
+            productId : productId
+        }
+        return await axios.post(Final_proj + "/like/likeInsert", like);
+    },
+
+    // 좋아요 불러오기
+    wishItem : async(id) => {
+        return await axios.get(Final_proj + `/like/likeList?id=${id}`);
     }
 };
 
