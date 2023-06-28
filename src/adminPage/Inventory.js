@@ -5,7 +5,6 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { UserContext } from "../context/UserInfo";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "./FireBase";
-import { async } from "q";
 import AxiosFinal from "../api/AxiosFinal";
 
 
@@ -190,12 +189,9 @@ const ItemInfo=styled.div`
         position:absolute;
         width:80px;
         height:90px;        
-    }  
-`
-
+    }  `
 
 const  Inventory = () =>{
-
     //아이템 정보 얻기
     const context = useContext(UserContext);
     const {inventoryData} = context;
@@ -211,7 +207,6 @@ const  Inventory = () =>{
         console.log();
         setOnHover();
     }
-    
     //마우스 따라서 이미지가 움직임
     const [xy,setXY]=useState({x:0,y:0})
     const handleMouseMove=(e)=>{
@@ -291,8 +286,7 @@ const  Inventory = () =>{
         getDownloadURL(snapshot.ref).then((downloadURL) =>{
             console.log("File avalable at",downloadURL);
             alert("이미지 업로드가 완료되었습니다.")
-            setImageURLFst(downloadURL);
-            
+            setImageURLFst(downloadURL);            
         })
         })
     };
@@ -314,10 +308,8 @@ const  Inventory = () =>{
             setImageURLSnd(downloadURL);
         })
         })
-    };
-
-    
-    //이미지는 바로 수정 할 수 있도록 한다.
+    };    
+    //이미지는 바로 수정 할 수 있도록 한다. 각각 첫번째 이미지 두번째 이미지
     const onChangeImgFst = async(id)=>{     
         console.log(imageURLFst);  
         const response = await AxiosFinal.productChangeImgFst(id,imageURLFst)
@@ -326,8 +318,8 @@ const  Inventory = () =>{
         console.log(imageURLSnd)
         const response = await AxiosFinal.productChangeImgSnd(id,imageURLSnd)
     }
-
-    const onFixOrder =(o)=>{  
+    //수정버튼
+    const onFixOrder =(productData)=>{  
         console.log(fixProductData);
         console.log(prodDetailImg);
         // if(fixProductData.orderStatus==='' && fixProductData.shipCode===''){
@@ -344,7 +336,11 @@ const  Inventory = () =>{
         //       })
         // }     
     }
+    //submit버튼
+    const submitProduct=async(id)=>{
+        const response = await AxiosFinal.productChangeImgSnd(id,fixProductData.itemStock,fixProductData.productSellStatus,imageURLFst)
 
+    }
 
     return(
         <Container>
@@ -389,7 +385,7 @@ const  Inventory = () =>{
                </div> 
                <div className="itemSubmit">
                 <button className="fixButton" onClick={()=>{onFixOrder(i)}}>fix</button>
-                <button>submit</button>
+                <button onClick={()=>submitProduct(i.productId)}>submit</button>
                </div>
             </div>
             <div className="parentContents" >
