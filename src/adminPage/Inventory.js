@@ -32,7 +32,6 @@ const Container=styled.div`
         height: 15px;
         display: flex;
         justify-content: center; 
-        border: 1px solid black;
     }
     .itemNm{
         width: 430px;
@@ -189,8 +188,8 @@ const ItemInfo=styled.div`
     }  
     .popUpImage{
         position:absolute;
-        height:100px;
-        width:100px;
+        width:80px;
+        height:90px;        
     }  
 `
 
@@ -201,15 +200,18 @@ const  Inventory = () =>{
     const context = useContext(UserContext);
     const {inventoryData} = context;
     //호버상태를 체크한다.
-    const [onHover,setOnHover] = useState(false);
+    const [onHover,setOnHover] = useState(0);
     //마우스를 올리면 해당 상품 이미지가 나타남.
-    const onPopUpImage=(e)=>{
-        setOnHover(true)   
+    const onPopUpImage=(props)=>{
+        console.log(props);
+        setOnHover(props);
     }
     //마우스 떼면 이미지가 사라짐
-    const onPopUpImageFalse=(e)=>{
-        setOnHover(false) 
+    const onPopUpImageFalse=(props)=>{
+        console.log(props);
+        setOnHover(props);
     }
+    
     //마우스 따라서 이미지가 움직임
     const [xy,setXY]=useState({x:0,y:0})
     const handleMouseMove=(e)=>{
@@ -359,9 +361,9 @@ const  Inventory = () =>{
            <ItemInfo key={i.productId} active={invenAccodian === i.productId}>
             <div className="itemInfoTop">
                 <div onMouseMove={(e)=>handleMouseMove(e)}>
-                <div className="itemId" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse}>
+                <div className="itemId" onMouseOver={()=>onPopUpImage(i.productId)} onMouseLeave={()=>onPopUpImageFalse(i.productId)}>
                     {i.productId}
-                     {onHover=== true &&  <img src={i.productImgFst} className="popUpImage" />}  
+                     {onHover ===i.productId && <img src={i.productImgFst} className="popUpImage" style={{left:xy.x,top:xy.y}}/>}
                 </div>
                </div>
                 <div className="itemNm"  onClick={()=>{onPopAccodian(i.productId)}}>                      
