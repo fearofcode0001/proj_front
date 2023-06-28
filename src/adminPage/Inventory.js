@@ -6,6 +6,7 @@ import { UserContext } from "../context/UserInfo";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "./FireBase";
 import AxiosFinal from "../api/AxiosFinal";
+import { async } from "q";
 
 
 
@@ -129,7 +130,7 @@ const ItemInfo=styled.div`
         flex-direction: column;
         justify-content: space-between;  
         ${props => props.active && css`   // *&* props가 active이면 css를 재정의 한다.
-          height: 500px;
+          height: 530px;
         `}     
     }
     .childContents{
@@ -189,7 +190,13 @@ const ItemInfo=styled.div`
         position:absolute;
         width:80px;
         height:90px;        
-    }  `
+    }
+    .submit-button{
+        width:100%;
+        height:30px;
+        border:1px solid black;
+    } 
+`
 
 const  Inventory = () =>{
     //아이템 정보 얻기
@@ -320,27 +327,24 @@ const  Inventory = () =>{
     }
     //수정버튼
     const onFixOrder =(productData)=>{  
+        console.log(productData);
         console.log(fixProductData);
         console.log(prodDetailImg);
-        // if(fixProductData.orderStatus==='' && fixProductData.shipCode===''){
-        //     setFixProductData({
-        //         ...fixProductData,
-        //         orderStatus: o.orderStatus,
-        //         shipCode: o.shipCode
-        //       })
-        // } else if(fixProductData.orderStatus==='' && fixProductData.shipCompany===''){
-        //     setFixProductData({
-        //         ...fixProductData,
-        //         orderStatus: o.orderStatus,
-        //         shipCompany: o.shipCompany
-        //       })
-        // }     
+    }
+    //contents수정버튼
+    const onChangeContents=async(id,productContent)=>{
+        if(fixProductData.content===''){
+            setFixProductData({
+                content:productContent
+            })}
+        const response = await AxiosFinal.productChangeImgDetail(id,fixProductData.content,prodDetailImg)
     }
     //submit버튼
     const submitProduct=async(id)=>{
-        const response = await AxiosFinal.productChangeImgSnd(id,fixProductData.itemStock,fixProductData.productSellStatus,imageURLFst)
-
+        const response = await AxiosFinal.productChangeImgSnd(
+            id,fixProductData.itemStock,fixProductData.productSellStatus)
     }
+
 
     return(
         <Container>
@@ -428,8 +432,9 @@ const  Inventory = () =>{
                             onFocus={(event, editor) => {
                             console.log('Focus.', editor);
                             }}
-                        />      
+                        />                        
                 </div>  
+                <button className="submit-button" onClick={()=>onChangeContents(i.productId,i.productContent)}>Contents upload</button> 
             </div>
            </ItemInfo>)}
         </Container>
