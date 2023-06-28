@@ -251,7 +251,6 @@ const [prodDetailImg, setProdDetailImg] = useState();
                                                      uploadProdData.color,
                                                      uploadProdData.size,
                                                      uploadProdData.category,
-                                                     uploadProdData.productImg,
                                                      uploadProdData.content,
                                                      imageURL[0],imageURL[1],
                                                      prodDetailImg)
