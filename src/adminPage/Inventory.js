@@ -5,6 +5,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { UserContext } from "../context/UserInfo";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "./FireBase";
+import { async } from "q";
+import AxiosFinal from "../api/AxiosFinal";
 
 
 
@@ -166,9 +168,6 @@ const ItemInfo=styled.div`
             outline: none;
         }
     }
-    /* .ck.ck-editor__editable:not(.ck-editor__nested-editable) {    
-    height: 500px;
-    } */
     //에디터 넓이
     .ck.ck-editor{
         min-width: 100%;
@@ -273,9 +272,9 @@ const  Inventory = () =>{
     }
     //이미지 수정
     //이미지 수정URL을 받을 값
-    const [imageURL,setImageURL] = useState([]);
+    const [imageURLFst,setImageURLFst] = useState();
     //URL을 추출할 컴포넌트
-    const onSelectFile = (e) => {
+    const onSelectFileFst = (e) => {
         e.preventDefault();
         e.persist();
         //선택한 파일
@@ -286,15 +285,39 @@ const  Inventory = () =>{
         uploadTask.then((snapshot) =>{
         getDownloadURL(snapshot.ref).then((downloadURL) =>{
             console.log("File avalable at",downloadURL);
-            setImageURL(prevURL=>[...prevURL,downloadURL]);
+            setImageURLFst(downloadURL);
         })
         })
     };
-  
+    //이미지 수정URL을 받을 값
+    const [imageURLSnd,setImageURLSnd] = useState();
+    //URL을 추출할 컴포넌트
+    const onSelectFileSnd = (e) => {
+        e.preventDefault();
+        e.persist();
+        //선택한 파일
+        const image = e.target.files;
+        if(!image) return null;
+        const storageRef = ref(storage, `uploadimg/${image.name}`);
+        const uploadTask = uploadBytes(storageRef, image);
+        uploadTask.then((snapshot) =>{
+        getDownloadURL(snapshot.ref).then((downloadURL) =>{
+            console.log("File avalable at",downloadURL);
+            setImageURLSnd(downloadURL);
+        })
+        })
+    };
+    //이미지는 바로 수정 할 수 있도록 한다.
+    const onChangeImgFst = async(id)=>{
+        const response = await AxiosFinal.productChangeImgFst(id,imageURLFst)
+    }
+    const onChangeImgSnd = async(id)=>{
+        const response = await AxiosFinal.productChangeImgSnd(id,imageURLSnd)
+    }
+    
     const onFixOrder =(o)=>{  
         console.log(fixProductData);
-        console.log(prodDetailImg);    
-        console.log(imageURL);
+        console.log(prodDetailImg);
         // if(fixProductData.orderStatus==='' && fixProductData.shipCode===''){
         //     setFixProductData({
         //         ...fixProductData,
@@ -362,11 +385,11 @@ const  Inventory = () =>{
                     <div className="productImgArea">
                         <div className="partitionImg">
                             <img src={i.productImgFst}></img>
-                            <input className="title-file2" type='file' onChange={(e)=>{getValue(e);onSelectFile(e);}} name='productImgFst'/>
+                            <input className="title-file2" type='file' onChange={(e)=>{onSelectFileFst(e);onChangeImgFst(i.productId);}} name='productImgFst'/>
                         </div>
                         <div className="partitionImg">
                             <img src={i.productImgSnd}></img>                            
-                            <input className="title-file2" type='file' onChange={(e)=>{getValue(e);onSelectFile(e);}} name='productImgSnd'/>
+                            <input className="title-file2" type='file' onChange={(e)=>{onSelectFileSnd(e);onChangeImgSnd(i.productId);}} name='productImgSnd'/>
                         </div>
                     </div>
                     <input className="title-input" type='text' placeholder='pleace enter fix name' name='productName' onChange={getValue}/>
