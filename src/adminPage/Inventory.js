@@ -200,16 +200,16 @@ const  Inventory = () =>{
     const context = useContext(UserContext);
     const {inventoryData} = context;
     //호버상태를 체크한다.
-    const [onHover,setOnHover] = useState(0);
+    const [onHover,setOnHover] = useState();
     //마우스를 올리면 해당 상품 이미지가 나타남.
     const onPopUpImage=(props)=>{
         console.log(props);
         setOnHover(props);
     }
     //마우스 떼면 이미지가 사라짐
-    const onPopUpImageFalse=(props)=>{
-        console.log(props);
-        setOnHover(props);
+    const onPopUpImageFalse=()=>{
+        console.log();
+        setOnHover();
     }
     
     //마우스 따라서 이미지가 움직임
@@ -361,7 +361,7 @@ const  Inventory = () =>{
            <ItemInfo key={i.productId} active={invenAccodian === i.productId}>
             <div className="itemInfoTop">
                 <div onMouseMove={(e)=>handleMouseMove(e)}>
-                <div className="itemId" onMouseOver={()=>onPopUpImage(i.productId)} onMouseLeave={()=>onPopUpImageFalse(i.productId)}>
+                <div className="itemId" onMouseOver={()=>onPopUpImage(i.productId)} onMouseLeave={()=>onPopUpImageFalse()}>
                     {i.productId}
                      {onHover ===i.productId && <img src={i.productImgFst} className="popUpImage" style={{left:xy.x,top:xy.y}}/>}
                 </div>
