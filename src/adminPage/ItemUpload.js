@@ -202,6 +202,7 @@ const [prodDetailImg, setProdDetailImg] = useState();
                 getDownloadURL(snapshot.ref).then((downloadURL) =>{
                   console.log("File avalable at",downloadURL);
                   setProdDetailImg(downloadURL);
+                  alert("이미지 업로드가 완료 되었습니다.")
                 })
               })
           });
