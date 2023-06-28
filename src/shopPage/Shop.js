@@ -140,7 +140,7 @@ const Shop = () => {
             <div className={isBlurred ? "blur" : ""}> 
                 <div className="view">
                     <img
-                        src={e.productMainImg}
+                        src={e.productImgFst}
                         />
                         <div className="logo">iMMUTABLE</div>    
                         <div className="info">{e.productName}</div>      

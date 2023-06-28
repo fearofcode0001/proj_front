@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import styled from "styled-components";
 import DropdownMenu from "./DropdownMenu";
 import { useNavigate, Link } from "react-router-dom";
 import DropFiter from "./DropFiter";
 import test from "../img/test.webp"
- 
+import { UserContext } from "../context/UserInfo"; 
 
 const Container = styled.div`
     width: 100%;
@@ -59,6 +59,7 @@ const Head = styled.div`
     }
 
     .nav2{
+        
         margin-left: 20%;
         width: 300px;
         display: flex;
@@ -69,7 +70,9 @@ const Head = styled.div`
     }
 
     .nav3{
+
         display: flex;
+        width: 300px;
         justify-content: flex-end;
         font-size: 13px;
         margin-top: auto;
@@ -78,14 +81,6 @@ const Head = styled.div`
         }
     }
 
-`
-
-const Filter = styled.div`
-    margin-top: 20px;
-    font-size: 11px;
-    color: black;
-    float: right;
-    cursor: pointer;    
 `
 
 
@@ -211,10 +206,10 @@ const IsLoginFalse = [
 
 const Header = ({ onClick }) => {
     const [selectedMenu, setSelectedMenu] = useState(null)
-    const [isLogin, setIsLogin] = useState(true);
+ 
     const [isMenuClicked, setIsMenuClicked] = useState(false);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    
+    const {isLogin, setIsLogin} = useContext(UserContext);
      //카트 토글 여는 컴포넌트
      const [openCart, setOpenCart] = useState(false);
    
@@ -324,16 +319,17 @@ const Header = ({ onClick }) => {
                      iMMUTABLE
                     </div></a>
                     <div className="nav3">
-                    {IsLoginFalse.map(s=>( isLogin===false &&
+                    {isLogin===false && IsLoginFalse.map(s=> (
                                         <TopButton key={s.name}>
                                             <Link to="/Login">{s.name}</Link>
                                         </TopButton>
                                     ))}
-                           {IsLoginTrue.map(s=>( isLogin===true &&
+                          {isLogin===true && IsLoginTrue.map(s=> ( 
                                         <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>
                                     ))}
+                            
                     </div>
                 </div>
                 {selectedMenu === "iMMUTABLE" && <DropdownMenu  />} 
