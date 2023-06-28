@@ -29,12 +29,10 @@ const Container=styled.div`
 
     .itemId{
         width: 50px;
+        height: 15px;
         display: flex;
-        justify-content: center;
-        img{
-            position: absolute;
-            width: 80px;
-        }   
+        justify-content: center; 
+        border: 1px solid black;
     }
     .itemNm{
         width: 430px;
@@ -188,7 +186,12 @@ const ItemInfo=styled.div`
         color: white;
       }
     }
-    }    
+    }  
+    .popUpImage{
+        position:absolute;
+        height:100px;
+        width:100px;
+    }  
 `
 
 
@@ -200,13 +203,12 @@ const  Inventory = () =>{
     //호버상태를 체크한다.
     const [onHover,setOnHover] = useState(false);
     //마우스를 올리면 해당 상품 이미지가 나타남.
-    const onPopUpImage=()=>{
-        setOnHover(true)
-        // console.log(onHover);
+    const onPopUpImage=(e)=>{
+        setOnHover(true)   
     }
     //마우스 떼면 이미지가 사라짐
-    const onPopUpImageFalse=()=>{
-        setOnHover(false)
+    const onPopUpImageFalse=(e)=>{
+        setOnHover(false) 
     }
     //마우스 따라서 이미지가 움직임
     const [xy,setXY]=useState({x:0,y:0})
@@ -353,13 +355,13 @@ const  Inventory = () =>{
                <div className="itemSell">STATUS</div>
                <div className="itemSubmit"></div>    
            </ItemInfoHead>
-           {inventoryData && inventoryData.map((i)=> 
+           {inventoryData && inventoryData.map((i,index)=> 
            <ItemInfo key={i.productId} active={invenAccodian === i.productId}>
             <div className="itemInfoTop">
                 <div onMouseMove={(e)=>handleMouseMove(e)}>
                 <div className="itemId" onMouseOver={onPopUpImage} onMouseLeave={onPopUpImageFalse}>
                     {i.productId}
-                    {onHover === true &&  <img src={i.productImgSnd} className="popUpImage" style={{left:xy.x,top:xy.y}} />}  
+                     {onHover=== true &&  <img src={i.productImgFst} className="popUpImage" />}  
                 </div>
                </div>
                 <div className="itemNm"  onClick={()=>{onPopAccodian(i.productId)}}>                      
