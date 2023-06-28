@@ -291,7 +291,7 @@ const  Inventory = () =>{
                             config={{
                                 extraPlugins: [uploadPlugin]          
                             }}
-                            data={i.productImgDetail +"내용 : "+ i.productName}
+                            data={"상세페이지: <br><br>"+ i.productImgDetail + "<br><br>상세 설명 : "+ i.productName}
                             onReady={editor => {
                             // You can store the "editor" and use when it is needed.
                             console.log('Editor is ready to use!', editor);
