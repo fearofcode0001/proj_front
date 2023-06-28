@@ -233,7 +233,8 @@ const  Inventory = () =>{
     }
    
     const onFixOrder =(o)=>{  
-        console.log(setFixProductData);      
+        console.log(fixProductData);
+        console.log(prodDetailImg);         
     }
 
 
