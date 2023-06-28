@@ -2,9 +2,10 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import Header from "../shopPage/Header";
 import Modal from "./Modal";
-import {FaRegHeart} from "react-icons/fa";
+import {FaRegHeart, FaHeart} from "react-icons/fa";
 import { UserContext } from "../context/UserInfo";
 import { useNavigate } from "react-router-dom";
+import AxiosFinal from "../api/AxiosFinal";
 
 
 const Container = styled.div`
@@ -86,6 +87,9 @@ const InnerContainer = styled.div`
                         width: 50px;
                         height: 50px;
                         font-size: 20px;
+                    }
+                    .faHeart {
+                        color: red;
                     }
                     .cart {  
                         width: 268px;
@@ -221,19 +225,38 @@ const ProductInfo = () => {
     
     const nav = useNavigate();
     const {item, isLogin} = useContext(UserContext);
-    console.log(item);
 
     const [click, setClick] = useState(false);
     const [qClick, setqClick] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     // const selectList = [item.sizes];     // DB에서 가져올 값
-    const [select, setSelect] = useState(item.sizes[0]);
+    const [select, setSelect] = useState();
+    const [clicked, setClicked] = useState([]);
+    const [likeClick, setlikeClick] = useState(false);
+    const [productId, setProductId] = useState(item.sizes["S"]);
+
+    const id = window.localStorage.getItem("userIdSuv");
+
     const handleSelect = (e) => {
-        setSelect(e.target.value);
+        const size = e.target.value;
+        const productId = item.sizes[size];
+        console.log(productId);
+        setSelect(size);
+        setProductId(productId);
     };
 
     const detailClick = () => {
         setClick(!click);
+    }
+
+    const clickLike = async(id, productId) => {
+        const productLike = await AxiosFinal.likeProduct(id, productId);
+        console.log(productId);
+        console.log(id);
+    }
+
+    const clickLikeDelete = async(id, productId) => {
+        
     }
 
     const onclick = () => {
@@ -252,7 +275,9 @@ const ProductInfo = () => {
     const closeModal = () => {
         setModalOpen(false);
     }
+
     
+
     return (
         <Container>
                 <Header />
@@ -269,16 +294,18 @@ const ProductInfo = () => {
                             <div className="productPrice">{item.productPrice}</div>
                             <div className="colorSize">
                                 <div className="productColor">Cement</div>
-                                <div className="productSize"><select onChange={handleSelect} value={select}>
-                                    {item.sizes.map((item)=> (
-                                        <option value={item} key={item}>
-                                            {item}
+                                <div className="productSize">
+                                    <select onChange={handleSelect} value={select}>
+                                        {Object.keys(item.sizes).map((size) => (
+                                        <option value={size} key={item.sizes[size]}>
+                                            {size}
                                         </option>
-                                    ))}
-                                    </select></div>
+                                        ))}
+                                    </select>
+                                </div>
                             </div>
                             <div className="addBtn">
-                                <button className="heart"><FaRegHeart/></button>
+                               {likeClick? <button className="heart" onClick={()=>clickLikeDelete(id, item.productName)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(id, productId)}><FaRegHeart/></button>}
                                 <button className="cart">ADD TO CART</button>
                             </div>
                             <div className="productDesc">product desc</div>

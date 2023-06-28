@@ -124,6 +124,9 @@ const OrderInfo=styled.tr`
                 color: white;
             }
         }
+        .fixButton{
+            border-right:none ;
+        }
     }
    
     
@@ -132,26 +135,7 @@ const  OrderCheck = () =>{
     //orderdata를 가져옴
     const context = useContext(UserContext);
     const {orderData} = context;
-    //송장을 설정하는 useState
-
-   
-
-    // const [orderTotalData, setOrderTotalData] = useState([]);
-    // const [onIndex, setOnIndex] = useState(0);
     
-    // const addItem = () => {
-    //     const orderStatue = { index: onIndex, orderStatus:'',shipCompany:'',shipCode:''};
-    //     setOrderTotalData(prevOrder=> [...prevOrder, orderStatue]);
-    //     setOnIndex(onIndex+1);
-    //   };
-
-
-    // const arrayMake=()=>{
-    //     orderData.map(e => {e.orderAddress})
-
-    // }
-
-  
     const [orderStatue, setOrderStatue] = useState({
         orderStatus: '',
         shipCode:'',
@@ -171,75 +155,81 @@ const  OrderCheck = () =>{
     }
 
 
-
-
-        
-    // const [orderTotalData, setOrderTotalData] = useState(Array.from({length:orderData.length}))
-    // const [onIndex, setOnIndex] = useState(0);
-    // const [orderStatue,SetOrderStatue] = useState({ orderStatus:'',shipCompany:'',shipCode:''});
-    // const addItem = () => {
-    //     setOrderTotalData(prevOrder=> [...prevOrder, orderStatue]);
-    //     setOnIndex(onIndex+1);
-    //     console.log(orderTotalData);
-    //   };
-
-    // const onChangeStatus = (e,index) => {
-    //     SetOrderStatue({...orderStatue, orderStatus: e.target.value});
-    // }
-    // const onChangeShipCompany = (e,index)=> {
-    //     SetOrderStatue({...orderStatue, shipCompany: e.target.value});
-    // }
-    // const onChangeShipCode=(e,index) =>{
-    //     SetOrderStatue({...orderStatue, shipCode: e.target.value});
-    // }
-    
   
-    //주문건 수정 전송 
+    //주문건 수정 
     const onFixOrder =(o)=>{  
         console.log(orderStatue.orderStatus);
-       if(orderStatue.orderStatus===''){
+        if(orderStatue.orderStatus==='' && orderStatue.shipCode===''){
+            setOrderStatue({
+                ...orderStatue,
+                orderStatus: o.orderStatus,
+                shipCode: o.shipCode
+              })
+        } else if(orderStatue.orderStatus==='' && orderStatue.shipCompany===''){
+            setOrderStatue({
+                ...orderStatue,
+                orderStatus: o.orderStatus,
+                shipCompany: o.shipCompany
+              })
+        } else if(orderStatue.shipCode==='' &&  orderStatue.shipCompany===''){
+            setOrderStatue({
+                ...orderStatue,
+                shipCode: o.shipCode,
+                shipCompany: o.shipCompany
+            })
+        } else if(orderStatue.orderStatus===''){
             setOrderStatue({
             ...orderStatue,
-            //name 키를 가진 값을 value로 설정
             orderStatus: o.orderStatus
           })
         } else if(orderStatue.shipCode===''){
             setOrderStatue({
             ...orderStatue,
-            //name 키를 가진 값을 value로 설정
             shipCode: o.shipCode
         })
         } else if(orderStatue.shipCompany===''){
             setOrderStatue({
             ...orderStatue,
-            //name 키를 가진 값을 value로 설정
             shipCompany: o.shipCompany
         })
         } 
-       
        console.log(orderStatue);
-   
     }
-
+    //주문건 제출 useState로 랜더링 되지 않은 함수들 한번 더 적용
     const onSubmitOrder=async(o)=>{
         console.log(o);
        
-        if(orderStatue.orderStatus===''){
+        if(orderStatue.orderStatus==='' && orderStatue.shipCode===''){
+            setOrderStatue({
+                ...orderStatue,
+                orderStatus: o.orderStatus,
+                shipCode: o.shipCode
+              })
+        } else if(orderStatue.orderStatus==='' && orderStatue.shipCompany===''){
+            setOrderStatue({
+                ...orderStatue,
+                orderStatus: o.orderStatus,
+                shipCompany: o.shipCompany
+              })
+        } else if(orderStatue.shipCode==='' &&  orderStatue.shipCompany===''){
+            setOrderStatue({
+                ...orderStatue,
+                shipCode: o.shipCode,
+                shipCompany: o.shipCompany
+            })
+        } else if(orderStatue.orderStatus===''){
             setOrderStatue({
             ...orderStatue,
-            //name 키를 가진 값을 value로 설정
             orderStatus: o.orderStatus
           })
         } else if(orderStatue.shipCode===''){
             setOrderStatue({
             ...orderStatue,
-            //name 키를 가진 값을 value로 설정
             shipCode: o.shipCode
         })
         } else if(orderStatue.shipCompany===''){
             setOrderStatue({
             ...orderStatue,
-            //name 키를 가진 값을 value로 설정
             shipCompany: o.shipCompany
         })
         } 
@@ -251,44 +241,19 @@ const  OrderCheck = () =>{
 
         <Container>
             <OrderInfo>
-                <div className="orderId">
-                    주문 ID
-                </div>
-                <div className="orderName">
-                    주문자
-                </div>
-                <div className="orderAddr">
-                    주문주소
-                </div>
-                <div className="orderDate">
-                    주문일
-                </div>
-                <div className="orderProduct">
-                    주문 상품
-                </div>
-                <div className="productColor">
-                    컬러
-                </div>
-                <div className="productSize">
-                    사이즈
-                </div>
-                <div className="orderPrice">
-                    가격
-                </div>
-                <div className="orderStatus">
-                    주문 상태
-                </div>
-                <div className="invoiceCom">
-                    택배회사
-                </div>
-                <div className="invoiceNum">
-                    송장 번호
-                </div>
-                <div className="invoiceTrace">
-                    
-                </div>
-                <div className="submitBtn">
-                </div>
+                <div className="orderId">주문 ID</div>
+                <div className="orderName">주문자</div>
+                <div className="orderAddr">주문주소</div>
+                <div className="orderDate">주문일</div>
+                <div className="orderProduct">주문 상품</div>
+                <div className="productColor">컬러</div>
+                <div className="productSize">사이즈</div>
+                <div className="orderPrice">가격</div>
+                <div className="orderStatus">주문 상태</div>
+                <div className="invoiceCom">택배회사</div>
+                <div className="invoiceNum">송장 번호</div>
+                <div className="invoiceTrace"></div>
+                <div className="submitBtn"></div>
             </OrderInfo> 
             {orderData && orderData.map((o,index)=> <OrderInfo>
                 <div className="orderId">
@@ -348,7 +313,7 @@ const  OrderCheck = () =>{
                     {o.shipCompany === "HANJIN" && <a href={'https://smile.hanjin.co.kr:9080/eksys/smartinfo/m.html?wbl='+ o.shipCode} target="blank">trace</a>}
                 </div>          
                 <div className="submitBtn">
-                    <button onClick={()=>{onFixOrder(o)}}>fix</button>
+                    <button className="fixButton" onClick={()=>{onFixOrder(o)}}>fix</button>
                     <button onClick={()=>{onSubmitOrder(o)}}>submit</button>
                 </div>
             </OrderInfo>)}
