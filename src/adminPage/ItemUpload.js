@@ -202,6 +202,7 @@ const [prodDetailImg, setProdDetailImg] = useState();
                 getDownloadURL(snapshot.ref).then((downloadURL) =>{
                   console.log("File avalable at",downloadURL);
                   setProdDetailImg(downloadURL);
+                  alert("이미지 업로드가 완료 되었습니다.")
                 })
               })
           });
@@ -250,7 +251,6 @@ const [prodDetailImg, setProdDetailImg] = useState();
                                                      uploadProdData.color,
                                                      uploadProdData.size,
                                                      uploadProdData.category,
-                                                     uploadProdData.productImg,
                                                      uploadProdData.content,
                                                      imageURL[0],imageURL[1],
                                                      prodDetailImg)
@@ -258,11 +258,6 @@ const [prodDetailImg, setProdDetailImg] = useState();
     
   }
 
-  const checklist=()=>{
-    console.log("selectedfiles",selectedFiles);
-    console.log(imageURL);
-
-  }
   const reset=()=>{
     setSelectedFiles([]);
     setSelectedImages([]);
@@ -304,7 +299,6 @@ const [prodDetailImg, setProdDetailImg] = useState();
                                                                             }} 
                     value={productImg} name='productImg'  multiple/>
                      {attachFile}
-                     <button onClick={checklist}>확인</button>
                   </div>
                  
               </div>

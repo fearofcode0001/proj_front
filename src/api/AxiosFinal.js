@@ -11,22 +11,24 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/auth/login", login);
     },
     
-    // // 전체 상품
-    // shop : async() => {
-    //     return await axios.get(Final_proj + `/product/items`);
-    // },
+    // 전체 상품
+    shop : async() => {
+        return await axios.get(Final_proj + `/product/items`);
+    },
 
 
     //아이템 업로드
-    productUpload : async(title,price,color,size,category,productImg,content)=>{
+    productUpload : async(title,price,color,size,category,content,imgFst,imgSnd,imgDetail)=>{
         const upLoad={
             productName:title,
             productPrice:price,
             productColor:color,
             productSize:size,
             productCategory:category,
-            productMainImg:productImg,
-            productDetail:content
+            productDetail:content,
+            productImgFst:imgFst,
+            productImgSnd:imgSnd,
+            productImgDetail:imgDetail
         };
         return await axios.post(Final_proj + "/product/upload", upLoad);
     },
