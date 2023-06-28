@@ -83,6 +83,15 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/product/changImgSnd", changeImgSnd);
      },
+     //어드민 페이지 상품 Detail이미지 수정
+     productChangeImgDetail:async(productId,content,DetailUrl)=>{
+        const changeImgDetail={
+            productId : productId,
+            productDetail:content,
+            productImgDetail : DetailUrl
+        };
+        return await axios.post(Final_proj + "/product/changImgDetail", changeImgDetail);
+     },
     //회원 조회
     memberGet: async(userId) => {
         return await axios.get(Final_proj + `/auth/users?userId=${userId}`);
