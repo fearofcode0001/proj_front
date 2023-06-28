@@ -154,7 +154,7 @@ const ItemInfo=styled.div`
         width:350px;
     }
     img{
-        height:200px;
+        height:180px;
         width:200px;
     }
     .FixButton{
@@ -279,13 +279,16 @@ const  Inventory = () =>{
         e.persist();
         //선택한 파일
         const image = e.target.files;
+        console.log(image);
         if(!image) return null;
-        const storageRef = ref(storage, `uploadimg/${image.name}`);
-        const uploadTask = uploadBytes(storageRef, image);
+        const storageRef = ref(storage, `uploadimg/${image[0].name}`);
+        const uploadTask = uploadBytes(storageRef, image[0]);
         uploadTask.then((snapshot) =>{
         getDownloadURL(snapshot.ref).then((downloadURL) =>{
             console.log("File avalable at",downloadURL);
+            alert("이미지 업로드가 완료되었습니다.")
             setImageURLFst(downloadURL);
+            
         })
         })
     };
@@ -298,23 +301,28 @@ const  Inventory = () =>{
         //선택한 파일
         const image = e.target.files;
         if(!image) return null;
-        const storageRef = ref(storage, `uploadimg/${image.name}`);
-        const uploadTask = uploadBytes(storageRef, image);
+        const storageRef = ref(storage, `uploadimg/${image[0].name}`);
+        const uploadTask = uploadBytes(storageRef, image[0]);
         uploadTask.then((snapshot) =>{
         getDownloadURL(snapshot.ref).then((downloadURL) =>{
             console.log("File avalable at",downloadURL);
+            alert("이미지 업로드가 완료되었습니다.")
             setImageURLSnd(downloadURL);
         })
         })
     };
+
+    
     //이미지는 바로 수정 할 수 있도록 한다.
-    const onChangeImgFst = async(id)=>{
+    const onChangeImgFst = async(id)=>{     
+        console.log(imageURLFst);  
         const response = await AxiosFinal.productChangeImgFst(id,imageURLFst)
     }
     const onChangeImgSnd = async(id)=>{
+        console.log(imageURLSnd)
         const response = await AxiosFinal.productChangeImgSnd(id,imageURLSnd)
     }
-    
+
     const onFixOrder =(o)=>{  
         console.log(fixProductData);
         console.log(prodDetailImg);
@@ -384,12 +392,14 @@ const  Inventory = () =>{
                 <div className="childContents">
                     <div className="productImgArea">
                         <div className="partitionImg">
-                            <img src={i.productImgFst}></img>
-                            <input className="title-file2" type='file' onChange={(e)=>{onSelectFileFst(e);onChangeImgFst(i.productId);}} name='productImgFst'/>
+                            <img src={i.productImgFst}/>
+                            <input className="title-file2" type='file' onChange={(e)=>{onSelectFileFst(e)}}/>
+                            <button onClick={(e)=>{onChangeImgFst(i.productId)}}>fix</button>
                         </div>
                         <div className="partitionImg">
-                            <img src={i.productImgSnd}></img>                            
-                            <input className="title-file2" type='file' onChange={(e)=>{onSelectFileSnd(e);onChangeImgSnd(i.productId);}} name='productImgSnd'/>
+                            <img src={i.productImgSnd}/>                          
+                            <input className="title-file2" type='file' onChange={(e)=>{onSelectFileSnd(e)}}/>
+                            <button onClick={(e)=>{onChangeImgSnd(i.productId)}}>fix</button>
                         </div>
                     </div>
                     <input className="title-input" type='text' placeholder='pleace enter fix name' name='productName' onChange={getValue}/>

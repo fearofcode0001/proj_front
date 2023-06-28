@@ -79,7 +79,7 @@ const AxiosFinal = {
      productChangeImgSnd : async(productId,sndUrl)=>{
         const changeImgSnd={
             productId : productId,
-            productImgFst : sndUrl
+            productImgSnd : sndUrl
         };
         return await axios.post(Final_proj + "/product/changImgSnd", changeImgSnd);
      },
