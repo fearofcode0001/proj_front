@@ -131,21 +131,7 @@ const Shop = () => {
                 </div>
             </Filter>  
             <Article >
-            {product.slice(offset, offset + limit).map((e) =>(      
-            <Container_in key={e.productName} onClick={()=>onclick(e)} > 
-            <div className={isBlurred ? "blur" : ""}> 
-                <div className="view">
-                    <img
-                        src={e.productMainImg}
-                        />
-                        <div className="logo">iMMUTABLE</div>    
-                        <div className="info">{e.productName}</div>      
-                        <div className="price">{e.productPrice.toLocaleString()}</div>
-                </div>  
-                </div>
-            </Container_in>
-            ))}
-            {/* {Object.values(mergeProduct).slice(offset, offset + limit).map((e)=> (
+            {Object.values(mergeProduct).slice(offset, offset + limit).map((e)=> (
                 <Container_in key={e.productName} onClick={()=>onclick(e)}>
                     <div className={isBlurred ? "blur" : ""}>
                         <div className="view">
