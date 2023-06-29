@@ -327,9 +327,25 @@ const  Inventory = () =>{
     }
     //수정버튼
     const onFixOrder =(productData)=>{  
-        console.log(productData);
-        console.log(fixProductData);
-        console.log(prodDetailImg);
+        if(fixProductData.productName==='' && fixProductData.productSellStatus==''){
+            setFixProductData({
+                ...fixProductData,
+                productName: productData.productName,
+                productSellStatus: productData.productSellStatus
+              })
+        }else if(fixProductData.productName==='' && fixProductData.itemStock==''){
+            setFixProductData({
+                ...fixProductData,
+                productName: productData.productName,
+                itemStock: productData.itemStock
+              })
+        }else if(fixProductData.productName===''){
+            setFixProductData({
+                ...fixProductData,
+                productName: productData.productName
+              })
+        }
+        console.log(fixProductData)    ;    
     }
     //contents수정버튼
     const onChangeContents=async(id,productContent)=>{
@@ -340,9 +356,27 @@ const  Inventory = () =>{
         const response = await AxiosFinal.productChangeImgDetail(id,fixProductData.content,prodDetailImg)
     }
     //submit버튼
-    const submitProduct=async(id)=>{
-        const response = await AxiosFinal.productChangeImgSnd(
-            id,fixProductData.itemStock,fixProductData.productSellStatus)
+    const submitProduct=async(id,productData)=>{
+        if(fixProductData.productName==='' && fixProductData.productSellStatus==''){
+            setFixProductData({
+                ...fixProductData,
+                productName: productData.productName,
+                productSellStatus: productData.productSellStatus
+              })
+        }else if(fixProductData.productName==='' && fixProductData.itemStock==''){
+            setFixProductData({
+                ...fixProductData,
+                productName: productData.productName,
+                itemStock: productData.itemStock
+              })
+        }else if(fixProductData.productName===''){
+            setFixProductData({
+                ...fixProductData,
+                productName: productData.productName
+              })
+        }        
+        const response = await AxiosFinal.productChangeData(
+            id,fixProductData.itemStock,fixProductData.productSellStatus,fixProductData.productName)
     }
 
 
@@ -389,7 +423,7 @@ const  Inventory = () =>{
                </div> 
                <div className="itemSubmit">
                 <button className="fixButton" onClick={()=>{onFixOrder(i)}}>fix</button>
-                <button onClick={()=>submitProduct(i.productId)}>submit</button>
+                <button onClick={()=>submitProduct(i.productId,i)}>submit</button>
                </div>
             </div>
             <div className="parentContents" >
@@ -412,7 +446,7 @@ const  Inventory = () =>{
                             config={{
                                 extraPlugins: [uploadPlugin]          
                             }}
-                            data={"상세페이지: <br><br>"+ i.productImgDetail + "<br><br>상세 설명 : "+ i.productName}
+                            data={"상세페이지: <br><br>"+ i.productImgDetail + "<br><br>상세 설명 : "+ i.productContent}
                             onReady={editor => {
                             // You can store the "editor" and use when it is needed.
                             console.log('Editor is ready to use!', editor);

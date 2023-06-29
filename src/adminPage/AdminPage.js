@@ -9,6 +9,7 @@ import Qna from "./Qna";
 import CustomerMan from "./CustomerMan";
 import AxiosFinal from "../api/AxiosFinal";
 import { UserContext } from "../context/UserInfo";
+import ChatList from "./ChatList";
 
 
 const Container=styled.div`
@@ -38,18 +39,12 @@ const Head = styled.div`
             font-size: 12px;
             border: none;
             background-color: white;
-            &:hover{
-                color: #CCC;
-            }
-        }
+            &:hover{color: #CCC;}}
         a{
             font-size: 12px;
             text-decoration: none;
             color: black;
-            &:hover{
-                color: #CCC;
-            }
-        }
+            &:hover{color: #CCC;}}
     }
     .headFooter{
         margin-top:5px;
@@ -71,19 +66,13 @@ const Head = styled.div`
             height: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
-           
-
+            align-items: center;           
         }
         span{
             color: red;
             font-size:20px;
             font-weight: bolder;
-            &:hover{
-                color: #CCC;
-            }
-    
-        }
+            &:hover{color: #CCC;}}
     }
 `
 const Sidemenu = [
@@ -94,7 +83,7 @@ const Sidemenu = [
     { name : "inventory"},
     { name : "qna"},
     { name : "customer Management"},
-    { name : "coming soon"}
+    { name : "chat list"}
   ]
 
 const MainBody = styled.div`
@@ -116,8 +105,7 @@ const MainBody = styled.div`
     .body{
         width: 100%;
         height: 100%;
-        border-top: 1px solid #CCC;
-        
+        border-top: 1px solid #CCC;        
     }
 `
 const SideBustton=styled.div`
@@ -129,21 +117,16 @@ const SideBustton=styled.div`
     align-items: center;
     font-size: 11px;
     cursor: pointer;
-    &:hover{
-        color: #CCC;
-    }
+    &:hover{color: #CCC;}
 
 `
 const AdminPage=()=>{
     
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
-    const {setCustomerData, setQnaData, setOrderData, setInventoryData} = context;
-
-
-    //임시 주문건 입력
-    const [neworder,setNewOrder] = useState(1);
-
+    const {setCustomerData, setQnaData, setOrderData, setInventoryData,
+        setTodayBefore,setOnedayBefore,setTwodayBefore,setThreedayBefore,
+        setFourdayBefore,setFivedayBefore,setSixdayBefore,setChatList} = context;
     //어드민 sideMenu를 바꾸는 useState
     const [changeMenu,setChangeMenu] =useState();
     //페이지값이 바뀌는 컴포넌트
@@ -175,7 +158,41 @@ const AdminPage=()=>{
         setInventoryData(response.data)
         console.log(response.data);
     }
-    //전체회원조회 컴포넌트
+    //saleDate 선택시 실행되는 엑시오스
+    const onLoadSaleDate=async()=>{
+        const date= new Date;
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);     
+        const todayBefore= year+"-"+ month +"-"+day;
+        const oneDayBefore= year+"-"+ month +"-"+(day-1);
+        const towDayBefore= year+"-"+ month +"-"+(day-2);
+        const threeDayBefore= year+"-"+ month +"-"+(day-3);
+        const fourDayBefore= year+"-"+ month +"-"+(day-4);
+        const fiveDayBefore= year+"-"+ month +"-"+(day-5);
+        const sixDayBefore = year+"-"+ month +"-"+(day-6);
+        //각 날짜 별 전달받기.
+        const today = await AxiosFinal.onLoadOrderDate(todayBefore);
+        setTodayBefore(today.data);
+        const onday = await AxiosFinal.onLoadOrderDate(oneDayBefore);
+        setOnedayBefore (onday.data);
+        const twoday = await AxiosFinal.onLoadOrderDate(towDayBefore);
+        setTwodayBefore (twoday.data);
+        const threeday = await AxiosFinal.onLoadOrderDate(threeDayBefore);
+        setThreedayBefore (threeday.data);
+        const fourday = await AxiosFinal.onLoadOrderDate(fourDayBefore);
+        setFourdayBefore (fourday.data);
+        const fiveday = await AxiosFinal.onLoadOrderDate(fiveDayBefore);        
+        setFivedayBefore (fiveday.data);
+        const sixday = await AxiosFinal.onLoadOrderDate(sixDayBefore);
+        setSixdayBefore(sixday.data);  
+    }
+    const onLoadChatList =async()=>{
+        const response = await AxiosFinal.onLoadChatList();
+        setChatList(response.data);
+        console.log(response.data);
+    }
+    //사이드메뉴 선택시 실행
     const onLoadCustomer=(e)=>{
         if(e==="customer Management"){
             onLoadCustomerData();
@@ -185,25 +202,43 @@ const AdminPage=()=>{
             onLoadOrderData();
         }else if(e==="inventory"){
             onLoadInventory();
+        }else if(e==="saleDate"){
+            onLoadSaleDate();
+        }else if(e==="chat list"){
+            onLoadChatList();
         }
+    }
+    //임시 주문건 입력
+    const [newOrder,setNewOrder] = useState(0);    
+    const [shipRrder,setShipOrder] = useState(0);    
+    const [newQna,setNewQna] = useState(0);
+    //헤드 주문상태창 신규 갱신
+    const onReLoadData=async()=>{
+        const newOrder = await AxiosFinal.newOrderCheck("CHECK");
+        const shipOrder = await AxiosFinal.shipOrderCheck("SHIP");
+        const newQna = await AxiosFinal.newQnaCheck("HOLD");     
+        setNewOrder(newOrder.data.length);
+        setShipOrder(shipOrder.data.length);
+        setNewQna(newQna.data.length);
     }
     return(
         <Container>
             <Head> 
                 <div className="headTop">
                     <button>logout</button>
+                    <button onClick={onReLoadData}>reload</button>
                     <Link to="/">home</Link>
                 </div>
                 
                 <div className="headFooter">
                     <div className="newOrder">
-                        신규 주문 &nbsp; <span>{neworder}</span>&nbsp;건
+                        신규 주문 &nbsp; <span>{newOrder}</span>&nbsp;건
                     </div>
                     <div className="shipTrack">
-                        배송 현황 &nbsp;<span>{neworder}</span>&nbsp;건  
+                        배송중 주문 &nbsp;<span>{shipRrder}</span>&nbsp;건  
                     </div>
                     <div className="customerAlert">
-                        고객 문의  &nbsp;<span>{neworder}</span>&nbsp;건 
+                        고객 문의  &nbsp;<span>{newQna}</span>&nbsp;건 
                     </div>
                 </div>
             </Head>
@@ -222,6 +257,7 @@ const AdminPage=()=>{
                     {changeMenu ==="inventory" &&<Inventory />}
                     {changeMenu ==="qna" &&<Qna/>}                    
                     {changeMenu ==="customer Management" &&<CustomerMan />}      
+                    {changeMenu ==="chat list" &&<ChatList />}    
                 </div>
             </MainBody>
         </Container>

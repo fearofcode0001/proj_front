@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../shopPage/Header";
 import Modal from "./Modal";
@@ -233,9 +233,7 @@ const ProductInfo = () => {
     const [click, setClick] = useState(false);
     const [qClick, setqClick] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
-    // const selectList = [item.sizes];     // DB에서 가져올 값
     const [select, setSelect] = useState();
-    const [clicked, setClicked] = useState([]);
     const [likeClick, setlikeClick] = useState(false);
     const [productId, setProductId] = useState(item.sizes["S"]);
 
@@ -244,7 +242,6 @@ const ProductInfo = () => {
     const handleSelect = (e) => {
         const size = e.target.value;
         const productId = item.sizes[size];
-        console.log(productId);
         setSelect(size);
         setProductId(productId);
     };
@@ -255,12 +252,12 @@ const ProductInfo = () => {
 
     const clickLike = async(id, productId) => {
         const productLike = await AxiosFinal.likeProduct(id, productId);
-        console.log(productId);
-        console.log(id);
+        setlikeClick(true);
     }
 
     const clickLikeDelete = async(id, productId) => {
-        
+        const productLikeDelete = await AxiosFinal.deleteLikeProduct(id, productId);
+        setlikeClick(false);
     }
 
     const onclick = () => {
@@ -276,12 +273,24 @@ const ProductInfo = () => {
         setModalOpen(true);
         
     }
+    
+    useEffect(()=> {
+        const heartView = async(id, productId) => {
+            const rsp = await AxiosFinal.viewHeart(id, productId);
+            if(rsp.data) {
+                setlikeClick(true);
+            } else { 
+                setlikeClick(false);
+            }
+        }
+        heartView(id, productId);
+    }, []);
+
+    
 
     const closeModal = () => {
         setModalOpen(false);
     }
-
-    
 
     return (
         <Container>
@@ -289,9 +298,9 @@ const ProductInfo = () => {
             <InnerContainer>
                 <div className="product">           
                     <div className="productImg">
-                            <img src={item.productMainImg} alt="" />
-                            <img src={item.productMainImg} alt="" />
-                            <img src={item.productMainImg} alt="" />
+                            <img src={item.productImgFst} alt="" />
+                            <img src={item.productImgSnd} alt="" />
+                            <img src={item.productImgDetail} alt="" />
                     </div>
                     <div className="wholeDesc">
                         <div className="descWrapper">
@@ -310,7 +319,7 @@ const ProductInfo = () => {
                                 </div>
                             </div>
                             <div className="addBtn">
-                               {likeClick? <button className="heart" onClick={()=>clickLikeDelete(id, item.productName)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(id, productId)}><FaRegHeart/></button>}
+                               {likeClick? <button className="heart" onClick={()=>clickLikeDelete(id, productId)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(id, productId)}><FaRegHeart/></button>}
                                 <button className="cart">ADD TO CART</button>
                             </div>
                             <div className="productDesc">product desc</div>
