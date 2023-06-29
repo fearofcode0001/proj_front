@@ -82,7 +82,7 @@ const Sidemenu = [
     { name : "inventory"},
     { name : "qna"},
     { name : "customer Management"},
-    { name : "coming soon"}
+    { name : "chat list"}
   ]
 
 const MainBody = styled.div`
@@ -125,7 +125,7 @@ const AdminPage=()=>{
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
     const {setCustomerData, setQnaData, setOrderData, setInventoryData,
         setTodayBefore,setOnedayBefore,setTwodayBefore,setThreedayBefore,
-        setFourdayBefore,setFivedayBefore,setSixdayBefore} = context;
+        setFourdayBefore,setFivedayBefore,setSixdayBefore,setChatList} = context;
     //어드민 sideMenu를 바꾸는 useState
     const [changeMenu,setChangeMenu] =useState();
     //페이지값이 바뀌는 컴포넌트
@@ -186,7 +186,11 @@ const AdminPage=()=>{
         const sixday = await AxiosFinal.onLoadOrderDate(sixDayBefore);
         setSixdayBefore(sixday.data);  
     }
-    //전체회원조회 컴포넌트
+    const onLoadChatList =async()=>{
+        const response = await AxiosFinal.onLoadChatList();
+        setChatList(response.data);
+    }
+    //사이드메뉴 선택시 실행
     const onLoadCustomer=(e)=>{
         if(e==="customer Management"){
             onLoadCustomerData();
@@ -198,6 +202,8 @@ const AdminPage=()=>{
             onLoadInventory();
         }else if(e==="saleDate"){
             onLoadSaleDate();
+        }else if(e==="schat list"){
+            onLoadChatList();
         }
     }
     //임시 주문건 입력
