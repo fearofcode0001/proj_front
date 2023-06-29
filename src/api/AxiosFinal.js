@@ -27,7 +27,7 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/adminPage/shipOrderList", shipOrder);
     },
-    memberLogin: async(qnaStatus) => {    
+    newQnaCheck: async(qnaStatus) => {    
         const newQna = {
             qnaStatus : qnaStatus
         };
