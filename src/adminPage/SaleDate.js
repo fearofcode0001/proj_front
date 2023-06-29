@@ -58,7 +58,7 @@ const SaleDate=()=>{
         
             <ResponsiveBar
                 /**
-                 * chart에 사용될 데이터
+                 * chart에 사용될 데이터 price는 만원단위로 나눈다.
                  */
                 data={[
                     { day: today, order: toDayBefore[0], price:toDayBefore[1]/10000},
