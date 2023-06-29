@@ -9,6 +9,7 @@ import Qna from "./Qna";
 import CustomerMan from "./CustomerMan";
 import AxiosFinal from "../api/AxiosFinal";
 import { UserContext } from "../context/UserInfo";
+import ChatList from "./ChatList";
 
 
 const Container=styled.div`
@@ -189,6 +190,7 @@ const AdminPage=()=>{
     const onLoadChatList =async()=>{
         const response = await AxiosFinal.onLoadChatList();
         setChatList(response.data);
+        console.log(response.data);
     }
     //사이드메뉴 선택시 실행
     const onLoadCustomer=(e)=>{
@@ -202,7 +204,7 @@ const AdminPage=()=>{
             onLoadInventory();
         }else if(e==="saleDate"){
             onLoadSaleDate();
-        }else if(e==="schat list"){
+        }else if(e==="chat list"){
             onLoadChatList();
         }
     }
@@ -218,7 +220,6 @@ const AdminPage=()=>{
         setNewOrder(newOrder.data.length);
         setShipOrder(shipOrder.data.length);
         setNewQna(newQna.data.length);
-
     }
     return(
         <Container>
@@ -256,6 +257,7 @@ const AdminPage=()=>{
                     {changeMenu ==="inventory" &&<Inventory />}
                     {changeMenu ==="qna" &&<Qna/>}                    
                     {changeMenu ==="customer Management" &&<CustomerMan />}      
+                    {changeMenu ==="chat list" &&<ChatList />}    
                 </div>
             </MainBody>
         </Container>

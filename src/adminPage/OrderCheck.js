@@ -8,7 +8,9 @@ const Container=styled.table`
     width: 100%;
     height: 100%;
     overflow-y: scroll;
-
+    ::-webkit-scrollbar {
+    display: none;
+ }
 `
 
 const OrderInfo=styled.tr`
