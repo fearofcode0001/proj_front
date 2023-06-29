@@ -6,6 +6,7 @@ import {FaRegHeart, FaHeart} from "react-icons/fa";
 import { UserContext } from "../context/UserInfo";
 import { useNavigate } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
+import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 
 
 const Container = styled.div`
@@ -199,6 +200,7 @@ const QnA = styled.div`
 
 const QnATable = styled.table`
     width: 100%;
+    table-layout: fixed; /* 테이블 크기 고정 */
     tr {
         width: 100%;
         th {
@@ -218,7 +220,9 @@ const QnATable = styled.table`
         }
         
     }
+    
 `;
+
 
 
 const ProductInfo = () => {
@@ -267,6 +271,7 @@ const ProductInfo = () => {
         //     nav("/Login");
         // }
         setModalOpen(true);
+        
     }
     
     useEffect(()=> {
@@ -341,6 +346,7 @@ const ProductInfo = () => {
                                     <th className="Date">Date</th>
                                 </tr>
                             </tbody>
+                              
                             <tbody>                             {/*DB 값 가져오기*/}
                                 <tr>
                                     <td className="number">1.</td>
@@ -349,6 +355,7 @@ const ProductInfo = () => {
                                     <td className="date">2023-06-10</td>
                                 </tr>
                             </tbody>
+                            
                         </ReviewTable>
                     </div>
                 </Review>
@@ -369,14 +376,20 @@ const ProductInfo = () => {
                                     <th className="Date">Date</th>
                                 </tr>
                             </tbody>
-                            <tbody>                             {/*DB 값 가져오기*/}
-                                <tr>
-                                    <td className="number">1.</td>
-                                    <td className="title" onClick={onclick}>문의작성</td>
-                                    <td className="user">이***</td>
-                                    <td className="date">2023-06-10</td>
-                                </tr>
-                            </tbody>
+                            <Accordion>
+                                <tbody style={{width: '100%'}}>                             {/*DB 값 가져오기*/}
+                                        <tr >
+                                            <td className="number"style={{ paddingBottom: '10px' }}>1.</td>
+                                            <td className="title" onClick={onclick} style={{ width: '50%' }}>문의작성</td>
+                                            <td className="user" style={{ width: '20%' }}>이***</td>
+                                            <td className="date" style={{width: '20%'}}>2023-06-10</td>
+                                        </tr>
+                                    </tbody>
+                                <AccordionItem>
+                                    
+                                </AccordionItem>
+                            </Accordion>
+                            
                         </QnATable>
                     </div>
                 </QnA>

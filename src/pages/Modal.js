@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import AxiosFinal from "../api/AxiosFinal";
 import { UserContext } from "../context/UserInfo";
 
 const Container = styled.div`
@@ -31,7 +32,7 @@ const Container = styled.div`
         border: 0;
     }
 
-    form {
+    .form {
         border: 1px solid black;
         border-radius: 10px;
         width: 100%;
@@ -151,12 +152,26 @@ const Container = styled.div`
 const Modal = (props) => {
     const { open, close} = props;
     const {item} = useContext(UserContext);
+    const [inputTitle, setInputTitle] = useState('');
+    const [inputContent, setInputContent] = useState('');
+
     console.log(item);
+    const onClickUpdate = async() => {
+        console.log("click");
+        const response = await AxiosFinal.qnaUpdate(inputTitle, inputContent);
+        props(inputTitle, inputContent);
+        if(response.data) {
+            alert("QnA 작성이 완료되었습니다.");
+        } else {
+            alert("QnA 작성에 실패하였습니다.");
+        }
+    }
+
     return (
         <Container>
             <div className={open ? 'openModal modal' : 'modal'}>
             {open &&
-               <form action="submit">
+               <div className="form">
                     <header>
                         <div className="header-title">iMMUTABLE</div>
                         <div className="close" onClick={close}>&times;</div>
@@ -178,10 +193,10 @@ const Modal = (props) => {
                         </div>
                         <div className="Btn">
                             <button className="cancle" onClick={close}>취소</button>
-                            <button type="submit" className="write">작성하기</button>
+                            <button type="submit" className="write" onClick={onClickUpdate}>작성하기</button>
                         </div>
                     </div>
-                </form>
+                </div>
             }   
             </div>
         </Container>
