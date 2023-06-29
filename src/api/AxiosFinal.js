@@ -276,6 +276,17 @@ const AxiosFinal = {
             productId : productId
         }
         return await axios.post(Final_proj + "/like/Heart", heart);
+    },
+
+    // qna 추가
+    qnaUpdate : async(productId, userEmail, qnaTitle, qnaContent) => {
+        const qna = {
+            productId : productId,
+            userEmail : userEmail,
+            qnaTitle : qnaTitle,
+            qnaContent : qnaContent
+        }
+        return await axios.post(Final_proj + "/qna/uploadQna", qna);
     }
 };
 

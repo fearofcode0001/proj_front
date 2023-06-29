@@ -155,10 +155,22 @@ const Modal = (props) => {
     const [inputTitle, setInputTitle] = useState('');
     const [inputContent, setInputContent] = useState('');
 
-    console.log(item);
-    const onClickUpdate = async() => {
+    const handelTitle = (e) => {
+        setInputTitle(e.target.value);
+    }
+
+    const handleContent = (e) => {
+        setInputContent(e.target.value);
+    }
+
+    const productId = item.productId;
+    const userEmail = window.localStorage.getItem("userIdSuv");
+    
+    const onClickUpdate = async(productId, userEmail, inputTitle, inputContent) => {
         console.log("click");
-        const response = await AxiosFinal.qnaUpdate(inputTitle, inputContent);
+        console.log(productId);
+        // console.log(userEmail);
+        const response = await AxiosFinal.qnaUpdate(productId, userEmail, inputTitle, inputContent);
         props(inputTitle, inputContent);
         if(response.data) {
             alert("QnA 작성이 완료되었습니다.");
@@ -179,17 +191,17 @@ const Modal = (props) => {
                     <div className="main">
                         <h2>상품문의</h2>
                         <div className="product">
-                            <img src="product.jpg"/>
+                            <img src={item.productImgFst}/>
                             <div className="productInfo">
-                                <div className="productName">Viscose Tricot Crewneck</div>
-                                <div className="productPrice">₩‌1,054,800</div>
+                                <div className="productName">{item.productName}</div>
+                                <div className="productPrice">{item.productPrice}</div>
                             </div>
                         </div>
                         <div className="mainTitle">
-                            <div className="title">제목</div> <input type="text" placeholder="제목 입력" /> 
+                            <div className="title">제목</div> <input onChange={handelTitle} type="text" placeholder="제목 입력" /> 
                         </div>
                         <div className="mainCon">
-                            <div className="content">내용</div> <textarea placeholder="내용 입력" />
+                            <div className="content">내용</div> <textarea onChange={handleContent} placeholder="내용 입력" />
                         </div>
                         <div className="Btn">
                             <button className="cancle" onClick={close}>취소</button>

@@ -327,7 +327,7 @@ const ProductInfo = () => {
                                 <p onClick={detailClick}>DETAILS  {click? "–" : "+"}</p>
                                 {click && (<div className="detail">
                                     <ul>
-                                        <li>{item.productDetail}</li>
+                                        <li>{item.productContent}</li>
                                     </ul></div>)}
                             </div>
                         </div>
