@@ -111,24 +111,12 @@ const  CustomerMan = () =>{
         <Container>
             <button onClick={onLoadCustomerData}> DATA RELOAD </button>
             <CustomerInfo>
-                <div className="customerId">
-                    CustomerID
-                </div>
-                <div className="customerName">
-                    Name
-                </div>
-                <div className="customerAddr">
-                    Address
-                </div>
-                <div className="customerPhone">
-                    Phone
-                </div>
-                <div className="customerGrade">
-                    Grade
-                </div>
-                <div className="customerDel">
-                    Del
-                </div>
+                <div className="customerId">CustomerID</div>
+                <div className="customerName">Name</div>
+                <div className="customerAddr">Address</div>
+                <div className="customerPhone"> Phone</div>
+                <div className="customerGrade">Grade</div>
+                <div className="customerDel">Del</div>
             </CustomerInfo>
             
             {customerData && customerData.map((x) =>

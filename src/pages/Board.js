@@ -68,7 +68,7 @@ const Inner = styled.div`
         font-size: 10px;
     }
 `;
-const Board = () => {
+const Board = ({onUpload}) => {
 
     const navigate = useNavigate();
 
@@ -77,7 +77,8 @@ const Board = () => {
 
     // 팝업
     const [modalOpen, setModalOpen] = useState(false);
-    const [modalText, setModelText] = useState("");
+    const [modalText, setModalText] = useState("");
+
 
      //모달 창 닫기 
     const closeModal = () =>{
@@ -96,17 +97,18 @@ const Board = () => {
         console.log("click");
         try {
             const response = await AxiosFinal.faqUpload(inputTitle, inputContent);
+            onUpload(inputTitle, inputContent);
             if(response.data) {
                 navigate("/FAQ");
                 setModalOpen(true);
-                setModelText("FAQ 업로드를 완료했습니다.");
+                setModalText("FAQ 업로드를 완료했습니다.");
 
             } else {
                 setModalOpen(true);
-                setModelText("FAQ 업로드에 실패했습니다.")
+                setModalText("FAQ 업로드에 실패했습니다.")
             }
         } catch(error) {
-            console.log("업로드를 하는 중 에러가 발생했습니다.");
+            alert("업로드를 하는 중 에러가 발생했습니다.");
         }
     };
 
@@ -116,12 +118,12 @@ const Board = () => {
                 <p>FAQ 글쓰기</p>
                 <div className="item">
                     <label className="title">제목</label>
-                    <textarea className="txtTitle" name="board" id="board" 
+                    <textarea className="txtTitle" name="board" id="title" 
                     cols="10" rows="30" onChange={handelTitle} placeholder="제목을 입력하세요"></textarea>
                 </div>
                 <div className="item2">
                 <label className="content">본문</label>
-                    <textarea className="txtContent" name="board" id="board" 
+                    <textarea className="txtContent" name="board" id="content" 
                     cols="60" rows="10" onChange={handleContent} placeholder="내용을 입력하세요"></textarea>
                 </div>
                 
