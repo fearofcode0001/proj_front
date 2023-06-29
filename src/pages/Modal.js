@@ -165,18 +165,23 @@ const Modal = (props) => {
 
     const productId = item.productId;
     const userEmail = window.localStorage.getItem("userIdSuv");
-    
-    const onClickUpdate = async(productId, userEmail, inputTitle, inputContent) => {
+
+    const onClickUpdate = async(props) => {
         console.log("click");
         console.log(productId);
         // console.log(userEmail);
-        const response = await AxiosFinal.qnaUpdate(productId, userEmail, inputTitle, inputContent);
-        props(inputTitle, inputContent);
-        if(response.data) {
-            alert("QnA 작성이 완료되었습니다.");
-        } else {
-            alert("QnA 작성에 실패하였습니다.");
+        try {
+            const response = await AxiosFinal.qnaUpdate(productId, userEmail, inputTitle, inputContent);
+            props(inputTitle, inputContent);
+            if(response.data) {
+                alert("QnA 작성이 완료되었습니다.");
+            } else {
+                alert("QnA 작성에 실패하였습니다.");
+            }
+        } catch(error) {
+            alert("error")
         }
+        
     }
 
     return (
