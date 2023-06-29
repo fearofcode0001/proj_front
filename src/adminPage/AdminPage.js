@@ -38,18 +38,12 @@ const Head = styled.div`
             font-size: 12px;
             border: none;
             background-color: white;
-            &:hover{
-                color: #CCC;
-            }
-        }
+            &:hover{color: #CCC;}}
         a{
             font-size: 12px;
             text-decoration: none;
             color: black;
-            &:hover{
-                color: #CCC;
-            }
-        }
+            &:hover{color: #CCC;}}
     }
     .headFooter{
         margin-top:5px;
@@ -71,19 +65,13 @@ const Head = styled.div`
             height: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
-           
-
+            align-items: center;           
         }
         span{
             color: red;
             font-size:20px;
             font-weight: bolder;
-            &:hover{
-                color: #CCC;
-            }
-    
-        }
+            &:hover{color: #CCC;}}
     }
 `
 const Sidemenu = [
@@ -116,8 +104,7 @@ const MainBody = styled.div`
     .body{
         width: 100%;
         height: 100%;
-        border-top: 1px solid #CCC;
-        
+        border-top: 1px solid #CCC;        
     }
 `
 const SideBustton=styled.div`
@@ -129,9 +116,7 @@ const SideBustton=styled.div`
     align-items: center;
     font-size: 11px;
     cursor: pointer;
-    &:hover{
-        color: #CCC;
-    }
+    &:hover{color: #CCC;}
 
 `
 const AdminPage=()=>{
@@ -139,11 +124,8 @@ const AdminPage=()=>{
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
     const {setCustomerData, setQnaData, setOrderData, setInventoryData} = context;
-
-
     //임시 주문건 입력
     const [neworder,setNewOrder] = useState(1);
-
     //어드민 sideMenu를 바꾸는 useState
     const [changeMenu,setChangeMenu] =useState();
     //페이지값이 바뀌는 컴포넌트
@@ -187,11 +169,23 @@ const AdminPage=()=>{
             onLoadInventory();
         }
     }
+    //헤드 주문상태창 신규 갱신
+    const onReLoadData=async()=>{
+        const newOrder = await AxiosFinal.newOrderCheck("CHECK");
+        const shipOrder = await AxiosFinal.shipOrderCheck("SHIP");
+        const newQna = await AxiosFinal.newQnaCheck("HOLD");
+        console.log(newOrder.data);
+        console.log(shipOrder.data);
+        console.log(newQna.data);
+
+
+    }
     return(
         <Container>
             <Head> 
                 <div className="headTop">
                     <button>logout</button>
+                    <button onClick={onReLoadData}>reload</button>
                     <Link to="/">home</Link>
                 </div>
                 
