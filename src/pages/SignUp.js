@@ -290,7 +290,7 @@ const SignUp = () => {
         const response = await AxiosFinal.memberRegCheck(inputEmail);
         const check = response.data;
 
-        if(!check) {
+        if(!check) { // 가입된 이메일이 없으면 다음단계 진행
             console.log("가입가능");
             // 가입 진행
             const memberReg = await AxiosFinal.memberReg(inputName, inputEmail, inputPw, addr, inputPhone);

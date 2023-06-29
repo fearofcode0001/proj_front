@@ -183,6 +183,7 @@ const FAQ = () => {
         const response = await AxiosFinal.faqDelete(props);
         if(response.data) {
             console.log("삭제되었습니다.");
+            setFaqList(faqList.filter((faq) => faq.faqId !== props)); // faq 삭제한 뒤 새로 고침 없이 새로운 faqList 반영
         } else {
             console.log("삭제에 실패하였습니다.");
         }
@@ -196,7 +197,7 @@ const FAQ = () => {
                      iMMUTABLE
                     </div></a>
                     <div className="nav2">
-                    {IsLoginFalse.map(s=>( isLogin===false &&
+                        {IsLoginFalse.map(s=>( isLogin===false &&
                                         <TopButton key={s.name}>
                                             <Link to="/Login">{s.name}</Link>
                                         </TopButton>

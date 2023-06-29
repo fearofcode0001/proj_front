@@ -98,17 +98,16 @@ const Board = ({onUpload}) => {
         try {
             const response = await AxiosFinal.faqUpload(inputTitle, inputContent);
             onUpload(inputTitle, inputContent);
-            if(response.data) {
+            if(response.data === true) {
                 navigate("/FAQ");
-                setModalOpen(true);
-                setModalText("FAQ 업로드를 완료했습니다.");
-
             } else {
-                setModalOpen(true);
                 setModalText("FAQ 업로드에 실패했습니다.")
+                setModalOpen(true);
+
             }
         } catch(error) {
-            alert("업로드를 하는 중 에러가 발생했습니다.");
+            setModalText("업로드를 하는 중 에러가 발생했습니다.");
+            setModalOpen(true);
         }
     };
 
