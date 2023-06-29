@@ -76,15 +76,15 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/product/changImgFst", changeImgFst);
     },
      //어드민 페이지 상품 Snd이미지 수정
-     productChangeImgSnd : async(productId,sndUrl)=>{
+    productChangeImgSnd : async(productId,sndUrl)=>{
         const changeImgSnd={
             productId : productId,
             productImgSnd : sndUrl
         };
         return await axios.post(Final_proj + "/product/changImgSnd", changeImgSnd);
-     },
+    },
      //어드민 페이지 상품 Detail이미지 수정
-     productChangeImgDetail:async(productId,content,DetailUrl)=>{
+    productChangeImgDetail:async(productId,content,DetailUrl)=>{
         const changeImgDetail={
             productId : productId,
             productDetail:content,
@@ -92,6 +92,15 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/product/changImgDetail", changeImgDetail);
      },
+    productChangeData:async(productId,productStock,productSellStatus,productName)=>{
+        const changeDetail={
+            productId : productId,
+            productStock:productStock,
+            productSellStatus:productSellStatus,
+            productName:productName
+        };
+        return await axios.post(Final_proj + "/product/changDetail", changeDetail);
+    },
     //회원 조회
     memberGet: async(userId) => {
         return await axios.get(Final_proj + `/auth/users?userId=${userId}`);
