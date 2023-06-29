@@ -124,8 +124,6 @@ const AdminPage=()=>{
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
     const {setCustomerData, setQnaData, setOrderData, setInventoryData} = context;
-    //임시 주문건 입력
-    const [neworder,setNewOrder] = useState(1);
     //어드민 sideMenu를 바꾸는 useState
     const [changeMenu,setChangeMenu] =useState();
     //페이지값이 바뀌는 컴포넌트
@@ -169,6 +167,10 @@ const AdminPage=()=>{
             onLoadInventory();
         }
     }
+    //임시 주문건 입력
+    const [newOrder,setNewOrder] = useState();    
+    const [shipRrder,setShipOrder] = useState();    
+    const [newQna,setNewQna] = useState();
     //헤드 주문상태창 신규 갱신
     const onReLoadData=async()=>{
         const newOrder = await AxiosFinal.newOrderCheck("CHECK");
@@ -176,8 +178,7 @@ const AdminPage=()=>{
         const newQna = await AxiosFinal.newQnaCheck("HOLD");
         console.log(newOrder.data);
         console.log(shipOrder.data);
-        console.log(newQna.data);
-
+        // setNewOrder(newOrder.data.length);
 
     }
     return(
@@ -191,13 +192,13 @@ const AdminPage=()=>{
                 
                 <div className="headFooter">
                     <div className="newOrder">
-                        신규 주문 &nbsp; <span>{neworder}</span>&nbsp;건
+                        신규 주문 &nbsp; <span>{newOrder}</span>&nbsp;건
                     </div>
                     <div className="shipTrack">
-                        배송 현황 &nbsp;<span>{neworder}</span>&nbsp;건  
+                        배송 현황 &nbsp;<span>{shipRrder}</span>&nbsp;건  
                     </div>
                     <div className="customerAlert">
-                        고객 문의  &nbsp;<span>{neworder}</span>&nbsp;건 
+                        고객 문의  &nbsp;<span>{newQna}</span>&nbsp;건 
                     </div>
                 </div>
             </Head>
