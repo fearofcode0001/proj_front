@@ -21,6 +21,8 @@ const UserStore = (props) => {
     const [fourDayBefore,setFourdayBefore] = useState("");
     const [fiveDayBefore,setFivedayBefore] = useState("");   
     const [sixDayBefore,setSixdayBefore] = useState("");
+    //어드민 페이지 채팅리스트
+    const [chatList,setChatList] = useState("");
     
     return (
         <UserContext.Provider value={{
@@ -40,7 +42,8 @@ const UserStore = (props) => {
             threeDayBefore,setThreedayBefore,
             fourDayBefore,setFourdayBefore,
             fiveDayBefore,setFivedayBefore,
-            sixDayBefore,setSixdayBefore}}>
+            sixDayBefore,setSixdayBefore,
+            chatList,setChatList}}>
             {props.children}
         </UserContext.Provider>   
     );
