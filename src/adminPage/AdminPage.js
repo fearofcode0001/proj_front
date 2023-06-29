@@ -168,9 +168,9 @@ const AdminPage=()=>{
         }
     }
     //임시 주문건 입력
-    const [newOrder,setNewOrder] = useState();    
-    const [shipRrder,setShipOrder] = useState();    
-    const [newQna,setNewQna] = useState();
+    const [newOrder,setNewOrder] = useState(0);    
+    const [shipRrder,setShipOrder] = useState(0);    
+    const [newQna,setNewQna] = useState(0);
     //헤드 주문상태창 신규 갱신
     const onReLoadData=async()=>{
         const newOrder = await AxiosFinal.newOrderCheck("CHECK");
@@ -195,7 +195,7 @@ const AdminPage=()=>{
                         신규 주문 &nbsp; <span>{newOrder}</span>&nbsp;건
                     </div>
                     <div className="shipTrack">
-                        배송 현황 &nbsp;<span>{shipRrder}</span>&nbsp;건  
+                        배송중 주문 &nbsp;<span>{shipRrder}</span>&nbsp;건  
                     </div>
                     <div className="customerAlert">
                         고객 문의  &nbsp;<span>{newQna}</span>&nbsp;건 
