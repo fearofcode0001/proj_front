@@ -220,6 +220,16 @@ const AxiosFinal = {
     // 좋아요 불러오기
     wishItem : async(id) => {
         return await axios.get(Final_proj + `/like/likeList?id=${id}`);
+    },
+
+    //qna 업데이트
+    qnaUpdate : async(userEmail, qnaTitle, qnaConten) => {
+        const qna = {
+            userEmail : userEmail,
+            qnaTitle : qnaTitle,
+            qnaConten : qnaConten
+        }
+        return await axios.post(Final_proj + "/qna/uploadQna", qna);
     }
 };
 
