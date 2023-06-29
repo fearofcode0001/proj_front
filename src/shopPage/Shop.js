@@ -99,7 +99,7 @@ const Shop = () => {
             productImgSnd: e.productImgSnd,
             productImgDetail: e.productImgDetail,
             productPrice: e.productPrice,
-            productDetail : e.productDetail,
+            productContent : e.productContent,
             sizes: [],
         };
     }

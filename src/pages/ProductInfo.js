@@ -261,11 +261,12 @@ const ProductInfo = () => {
     }
 
     const writeQna = () => {
-        if (isLogin == true) {
-            setModalOpen(true);
-        } else {
-            nav("/Login");
-        }
+        // if (isLogin == true) {
+        //     setModalOpen(true);
+        // } else {
+        //     nav("/Login");
+        // }
+        setModalOpen(true);
     }
     
     useEffect(()=> {
@@ -321,7 +322,7 @@ const ProductInfo = () => {
                                 <p onClick={detailClick}>DETAILS  {click? "–" : "+"}</p>
                                 {click && (<div className="detail">
                                     <ul>
-                                        <li>{item.productDetail}</li>
+                                        <li>{item.productContent}</li>
                                     </ul></div>)}
                             </div>
                         </div>

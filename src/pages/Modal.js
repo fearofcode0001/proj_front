@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { UserContext } from "../context/UserInfo";
 
 const Container = styled.div`
     .modal {
@@ -149,7 +150,8 @@ const Container = styled.div`
 
 const Modal = (props) => {
     const { open, close} = props;
-
+    const {item} = useContext(UserContext);
+    console.log(item);
     return (
         <Container>
             <div className={open ? 'openModal modal' : 'modal'}>
@@ -162,10 +164,10 @@ const Modal = (props) => {
                     <div className="main">
                         <h2>상품문의</h2>
                         <div className="product">
-                            <img src="product.jpg"/>
+                            <img src={item.productImgFst}/>
                             <div className="productInfo">
-                                <div className="productName">Viscose Tricot Crewneck</div>
-                                <div className="productPrice">₩‌1,054,800</div>
+                                <div className="productName">{item.productName}</div>
+                                <div className="productPrice">{item.productPrice}</div>
                             </div>
                         </div>
                         <div className="mainTitle">
