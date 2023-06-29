@@ -188,9 +188,27 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/like/likeInsert", like);
     },
 
-    // 좋아요 불러오기
+    // 좋아요 누른 상품목록 불러오기
     wishItem : async(id) => {
         return await axios.get(Final_proj + `/like/likeList?id=${id}`);
+    },
+
+    // 좋아요 삭제
+    deleteLikeProduct : async(id, productId) => {
+        const dislike = {
+            id : id,
+            productId : productId
+        }
+        return await axios.post(Final_proj + "/like/likeDelete", dislike)
+    },
+
+    // 상품 좋아요 표시
+    viewHeart : async(id, productId) => {
+        const heart = {
+            id : id,
+            productId : productId
+        }
+        return await axios.post(Final_proj + "/like/Heart", heart);
     }
 };
 
