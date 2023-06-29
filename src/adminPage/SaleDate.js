@@ -51,7 +51,7 @@ const SaleDate=()=>{
     return (
         <Container>
             <div className="cartCaption">
-            일주일 판매량(price : 1,000단위)    
+            일주일 판매량(price : 10,000단위)    
             </div> 
             {/*  chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height 설정 */}
         <div className="nivoChart">
@@ -61,13 +61,13 @@ const SaleDate=()=>{
                  * chart에 사용될 데이터
                  */
                 data={[
-                    { day: today, order: toDayBefore[0], price:toDayBefore[1]},
-                    { day: oneDay, order: oneDayBefore[0], price:oneDayBefore[1] },
-                    { day: towDay, order: twoDayBefore[0], price:twoDayBefore[1] },
-                    { day: threeDay, order: threeDayBefore[0], price:threeDayBefore[1]},
-                    { day: fourDay, order: fourDayBefore[0], price:fourDayBefore[1] },                    
-                    { day: fiveDay, order: fiveDayBefore[0], price:toDayBefore[1]},                    
-                    { day: sixDay, order: sixDayBefore[0], price:sixDayBefore[1] },
+                    { day: today, order: toDayBefore[0], price:toDayBefore[1]/10000},
+                    { day: oneDay, order: oneDayBefore[0], price:oneDayBefore[1]/10000},
+                    { day: towDay, order: twoDayBefore[0], price:twoDayBefore[1]/10000},
+                    { day: threeDay, order: threeDayBefore[0], price:threeDayBefore[1]/10000},
+                    { day: fourDay, order: fourDayBefore[0], price:fourDayBefore[1]/10000},                    
+                    { day: fiveDay, order: fiveDayBefore[0], price:toDayBefore[1]/10000},                    
+                    { day: sixDay, order: sixDayBefore[0], price:sixDayBefore[1]/10000},
                 ]}
                 /**
                  * chart에 보여질 데이터 key (측정되는 값)
