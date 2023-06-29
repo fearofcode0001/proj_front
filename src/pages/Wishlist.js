@@ -97,6 +97,7 @@ const IsLoginFalse = [
 const Wishlist = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [product, setProduct] = useState([]);
+    const [wish, setWish] = useState(false);
     const navigate = useNavigate();
     const onChangePage=(e)=>{
         if(e==="logout"){
@@ -126,9 +127,27 @@ const Wishlist = () => {
             console.log(rsp.data);
         };
         wishItem();
-    }, []);
+    }, [wish]);
 
-   
+    const deleteWish = async(id, productId) => {
+        const productLikeDelete = await AxiosFinal.deleteLikeProduct(id, productId);
+        setWish(!wish);
+    }
+
+   const mergeProduct = {};
+
+   product.forEach((e)=> {
+    const{productName, userId} = e;
+    if(!mergeProduct[productName]) {
+        mergeProduct[productName] = {
+            productName: e.productName,
+            productImgFst: e.productImgFst,
+            productPrice: e.productPrice
+        };
+    }
+   });
+
+
     return (
         <Container>
             <Head>
@@ -157,16 +176,28 @@ const Wishlist = () => {
                 <div className="wrapper">   
                     {product && product.map((e)=> (
                     <div className="product" key={e.productId}>
-                        <img src={e.productMainImg} alt="" />
+                        <img src={e.productImgFst} alt="" />
                         <div className="wrapProduct">
                             <div className="productInfo">
                                 <div className="name">{e.productName}</div>
                                 <div className="price">{e.productPrice}</div>
                             </div>
-                            <button>X</button> 
-                        </div> 
-                    </div>
+                            <button onClick={()=>deleteWish(id, e.productId)}>X</button> 
+                            </div> 
+                        </div>
                        ))}  
+                    {/* {Object.values(mergeProduct) && Object.values(mergeProduct).map((e)=> (
+                    <div className="product" key={e.userId}>
+                        <img src={e.productImgFst} alt="" />
+                        <div className="wrapProduct">
+                            <div className="productInfo">
+                                <div className="name">{e.productName}</div>
+                                <div className="price">{e.productPrice}</div>
+                            </div>
+                            <button onClick={()=> deleteWish(id, e.productId)}>X</button> 
+                            </div> 
+                        </div>
+                       ))}  */}
                 </div>
             </InnerContainer>
         </Container>

@@ -72,8 +72,6 @@ const Shop = () => {
     const [product, setProduct] = useState([]);
     const nav = useNavigate();
 
-    const id = window.localStorage.getItem("userIdSuv");
-    console.log(id);
 
     const handleHeaderClick = () => {
       setIsBlurred(!isBlurred);
@@ -83,6 +81,7 @@ const Shop = () => {
         const getProduct = async() => {
            const rsp = await AxiosFinal.sellitems();
            if(rsp.status === 200) setProduct(rsp.data);
+           console.log(rsp.data);
        };
        getProduct();
       }, []);
@@ -94,8 +93,11 @@ const Shop = () => {
 
     if (!mergeProduct[productName]) {
         mergeProduct[productName] = {
+            productId: e.productId,
             productName: e.productName,
-            productMainImg: e.productMainImg,
+            productImgFst: e.productImgFst,
+            productImgSnd: e.productImgSnd,
+            productImgDetail: e.productImgDetail,
             productPrice: e.productPrice,
             productDetail : e.productDetail,
             sizes: [],
@@ -111,11 +113,9 @@ const Shop = () => {
         setIsFilterOpen(!isFilterOpen);
       };
 
-    
     const onclick = (e) => {
         console.log(e);
         setItem(e);
-        console.log(item);
         nav("/ProductInfo");
     }
 
@@ -135,7 +135,7 @@ const Shop = () => {
                 <Container_in key={e.productName} onClick={()=>onclick(e)}>
                     <div className={isBlurred ? "blur" : ""}>
                         <div className="view">
-                            <img src={e.productMainImg} />
+                            <img src={e.productImgFst} />
                             <div className="logo">iMMUTABLE</div>
                             <div className="info">{e.productName}</div>
                             <div className="price">{e.productPrice}</div>
