@@ -111,6 +111,7 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/product/changImgDetail", changeImgDetail);
      },
+     //어드민 페이지 상품 Detail 수량 수정
     productChangeData:async(productId,productStock,productSellStatus,productName)=>{
         const changeDetail={
             productId : productId,
@@ -119,6 +120,11 @@ const AxiosFinal = {
             productName:productName
         };
         return await axios.post(Final_proj + "/product/changDetail", changeDetail);
+    },
+    //7일치 데이터 로드
+    onLoadOrderDate:async(date)=>{
+        const day={orderDate : date};
+        return await axios.post(Final_proj + "/admin/findOrderDay", day);
     },
     //회원 조회
     memberGet: async(userId) => {

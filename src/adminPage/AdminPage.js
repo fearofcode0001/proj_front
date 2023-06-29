@@ -123,7 +123,9 @@ const AdminPage=()=>{
     
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
-    const {setCustomerData, setQnaData, setOrderData, setInventoryData} = context;
+    const {setCustomerData, setQnaData, setOrderData, setInventoryData,
+        setTodayBefore,setOnedayBefore,setTwodayBefore,setThreedayBefore,
+        setFourdayBefore,setFivedayBefore,setSixdayBefore} = context;
     //어드민 sideMenu를 바꾸는 useState
     const [changeMenu,setChangeMenu] =useState();
     //페이지값이 바뀌는 컴포넌트
@@ -155,6 +157,35 @@ const AdminPage=()=>{
         setInventoryData(response.data)
         console.log(response.data);
     }
+    //saleDate 선택시 실행되는 엑시오스
+    const onLoadSaleDate=async()=>{
+        const date= new Date;
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);     
+        const todayBefore= year+"-"+ month +"-"+day;
+        const oneDayBefore= year+"-"+ month +"-"+(day-1);
+        const towDayBefore= year+"-"+ month +"-"+(day-2);
+        const threeDayBefore= year+"-"+ month +"-"+(day-3);
+        const fourDayBefore= year+"-"+ month +"-"+(day-4);
+        const fiveDayBefore= year+"-"+ month +"-"+(day-5);
+        const sixDayBefore = year+"-"+ month +"-"+(day-6);
+        //각 날짜 별 전달받기.
+        const today = await AxiosFinal.onLoadOrderDate(todayBefore);
+        setTodayBefore(today.data);
+        const onday = await AxiosFinal.onLoadOrderDate(oneDayBefore);
+        setOnedayBefore (onday.data);
+        const twoday = await AxiosFinal.onLoadOrderDate(towDayBefore);
+        setTwodayBefore (twoday.data);
+        const threeday = await AxiosFinal.onLoadOrderDate(threeDayBefore);
+        setThreedayBefore (threeday.data);
+        const fourday = await AxiosFinal.onLoadOrderDate(fourDayBefore);
+        setFourdayBefore (fourday.data);
+        const fiveday = await AxiosFinal.onLoadOrderDate(fiveDayBefore);        
+        setFivedayBefore (fiveday.data);
+        const sixday = await AxiosFinal.onLoadOrderDate(sixDayBefore);
+        setSixdayBefore(sixday.data);        
+    }
     //전체회원조회 컴포넌트
     const onLoadCustomer=(e)=>{
         if(e==="customer Management"){
@@ -165,6 +196,8 @@ const AdminPage=()=>{
             onLoadOrderData();
         }else if(e==="inventory"){
             onLoadInventory();
+        }else if(e==="saleDate"){
+            onLoadSaleDate();
         }
     }
     //임시 주문건 입력

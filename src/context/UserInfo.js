@@ -13,6 +13,15 @@ const UserStore = (props) => {
     const [qnaData, setQnaData] = useState("");
     const [orderData, setOrderData] = useState("");
     const [inventoryData, setInventoryData] = useState("");
+    //어드민페이지 salDate시 가져와야 할 요일 별 주문건 DATA
+    const [toDayBefore,setTodayBefore] = useState("");
+    const [oneDayBefore,setOnedayBefore] = useState("");
+    const [twoDayBefore,setTwodayBefore] = useState("");
+    const [threeDayBefore,setThreedayBefore] = useState("");
+    const [fourDayBefore,setFourdayBefore] = useState("");
+    const [fiveDayBefore,setFivedayBefore] = useState("");   
+    const [sixDayBefore,setSixdayBefore] = useState("");
+    
     return (
         <UserContext.Provider value={{
             userEmail, setUserEmail, 
@@ -24,7 +33,14 @@ const UserStore = (props) => {
             customerData, setCustomerData,
             qnaData, setQnaData,
             orderData, setOrderData,
-            inventoryData, setInventoryData}}>
+            inventoryData, setInventoryData,
+            toDayBefore,setTodayBefore,
+            oneDayBefore,setOnedayBefore,
+            twoDayBefore,setTwodayBefore,
+            threeDayBefore,setThreedayBefore,
+            fourDayBefore,setFourdayBefore,
+            fiveDayBefore,setFivedayBefore,
+            sixDayBefore,setSixdayBefore}}>
             {props.children}
         </UserContext.Provider>   
     );
