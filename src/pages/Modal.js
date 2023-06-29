@@ -150,7 +150,7 @@ const Container = styled.div`
 `;
 
 const Modal = (props) => {
-    const { open, close} = props;
+    const {open, close} = props;
     const {item} = useContext(UserContext);
     const [inputTitle, setInputTitle] = useState('');
     const [inputContent, setInputContent] = useState('');
@@ -163,25 +163,17 @@ const Modal = (props) => {
         setInputContent(e.target.value);
     }
 
-    const productId = item.productId;
     const userEmail = window.localStorage.getItem("userIdSuv");
-
-    const onClickUpdate = async(props) => {
-        console.log("click");
-        console.log(productId);
-        // console.log(userEmail);
-        try {
-            const response = await AxiosFinal.qnaUpdate(productId, userEmail, inputTitle, inputContent);
-            props(inputTitle, inputContent);
-            if(response.data) {
-                alert("QnA 작성이 완료되었습니다.");
-            } else {
-                alert("QnA 작성에 실패하였습니다.");
-            }
-        } catch(error) {
-            alert("error")
+    const productId = item.productId;
+    
+    const onClickUpdate = async(productId, userEmail, inputTitle, inputContent) => {
+        const response = await AxiosFinal.qnaUpdate(productId, userEmail, inputTitle, inputContent);
+        if(response.data) {
+            alert("QnA 작성이 완료되었습니다");
+            close();
+        } else {
+            alert("QnA 작성에 실패하였습니다");
         }
-        
     }
 
     return (
@@ -210,7 +202,7 @@ const Modal = (props) => {
                         </div>
                         <div className="Btn">
                             <button className="cancle" onClick={close}>취소</button>
-                            <button type="submit" className="write" onClick={onClickUpdate}>작성하기</button>
+                            <button type="submit" className="write" onClick={()=>onClickUpdate(productId, userEmail, inputTitle, inputContent)}>작성하기</button>
                         </div>
                     </div>
                 </div>
