@@ -70,7 +70,6 @@ const ChatList=()=>{
                 <div className="chatFooter">
 
                 </div>   
-
             </ChattingData>
           </ChatListView>
         
