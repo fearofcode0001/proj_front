@@ -175,10 +175,10 @@ const AdminPage=()=>{
     const onReLoadData=async()=>{
         const newOrder = await AxiosFinal.newOrderCheck("CHECK");
         const shipOrder = await AxiosFinal.shipOrderCheck("SHIP");
-        const newQna = await AxiosFinal.newQnaCheck("HOLD");
-        console.log(newOrder.data);
-        console.log(shipOrder.data);
-        // setNewOrder(newOrder.data.length);
+        const newQna = await AxiosFinal.newQnaCheck("HOLD");     
+        setNewOrder(newOrder.data.length);
+        setShipOrder(shipOrder.data.length);
+        setNewQna(newQna.data.length);
 
     }
     return(
