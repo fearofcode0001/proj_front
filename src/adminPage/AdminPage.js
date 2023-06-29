@@ -184,7 +184,7 @@ const AdminPage=()=>{
         const fiveday = await AxiosFinal.onLoadOrderDate(fiveDayBefore);        
         setFivedayBefore (fiveday.data);
         const sixday = await AxiosFinal.onLoadOrderDate(sixDayBefore);
-        setSixdayBefore(sixday.data);        
+        setSixdayBefore(sixday.data);  
     }
     //전체회원조회 컴포넌트
     const onLoadCustomer=(e)=>{

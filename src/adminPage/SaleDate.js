@@ -1,6 +1,7 @@
-import React from "react";
+import React,{useContext} from "react";
 import styled from "styled-components";
 import { ResponsiveBar } from '@nivo/bar';
+import { UserContext } from "../context/UserInfo";
 
 const Container=styled.div`
     width: 100%;
@@ -24,15 +25,28 @@ const Container=styled.div`
 
 
 const SaleDate=()=>{
+      //일자별 정보 얻기
+    const context = useContext(UserContext);
+    const {toDayBefore,oneDayBefore,twoDayBefore,threeDayBefore,
+            fourDayBefore,fiveDayBefore,sixDayBefore} = context;
     const handle = {
         padClick: (data) => {
             console.log(data);
         },
-
         legendClick: (data) => {
             console.log(data);
         },
     };
+    const date= new Date;
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);     
+    const today=month +"-"+day;
+    const oneDay=month +"-"+(day-1);
+    const towDay=month +"-"+(day-2);
+    const threeDay=month +"-"+(day-3);
+    const fourDay=month +"-"+(day-4);
+    const fiveDay=month +"-"+(day-5);
+    const sixDay=month +"-"+(day-6);
 
     return (
         <Container>
@@ -47,13 +61,13 @@ const SaleDate=()=>{
                  * chart에 사용될 데이터
                  */
                 data={[
-                    { day: 'mon', order: 25, price:250 },
-                    { day: 'tue', order: 21, price:210 },
-                    { day: 'wed', order: 20, price:200 },
-                    { day: 'thur', order: 30, price:300 },
-                    { day: 'fri', order: 10, price:100 },                    
-                    { day: 'sat', order: 24, price:240 },                    
-                    { day: 'sun', order: 4, price:400 },
+                    { day: today, order: toDayBefore[0], price:toDayBefore[1]},
+                    { day: oneDay, order: oneDayBefore[0], price:oneDayBefore[1] },
+                    { day: towDay, order: twoDayBefore[0], price:twoDayBefore[1] },
+                    { day: threeDay, order: threeDayBefore[0], price:threeDayBefore[1]},
+                    { day: fourDay, order: fourDayBefore[0], price:fourDayBefore[1] },                    
+                    { day: fiveDay, order: fiveDayBefore[0], price:toDayBefore[1]},                    
+                    { day: sixDay, order: sixDayBefore[0], price:sixDayBefore[1] },
                 ]}
                 /**
                  * chart에 보여질 데이터 key (측정되는 값)
