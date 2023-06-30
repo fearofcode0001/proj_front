@@ -237,6 +237,8 @@ const ProductInfo = () => {
     const [likeClick, setlikeClick] = useState(false);
     const [productId, setProductId] = useState(item.sizes["S"]);
 
+    const [qnaList, setQnaList] = useState("")
+
     const id = window.localStorage.getItem("userIdSuv");
 
     const handleSelect = (e) => {
@@ -286,7 +288,13 @@ const ProductInfo = () => {
         heartView(id, productId);
     }, []);
 
-    
+    useEffect(() => {
+        const getList = async() => {
+            const response = await AxiosFinal.qnaLoadManage();
+            setQnaList(response.data);
+        };
+        getList();
+    }, []);
 
     const closeModal = () => {
         setModalOpen(false);
@@ -385,9 +393,15 @@ const ProductInfo = () => {
                                             <td className="date" style={{width: '20%'}}>2023-06-10</td>
                                         </tr>
                                     </tbody>
-                                <AccordionItem>
-                                    
-                                </AccordionItem>
+                                    {qnaList && qnaList.map(qna => (
+                                        <AccordionItem key={qna.qnaId}>
+                                            <p>{qna.qnaId}</p>
+                                            <p>{qna.qnaTitle}</p>
+                                            <p>{qna.qnaContent}</p>
+                                            <p>{qna.userId}</p>
+                                        </AccordionItem>
+                                    ))}
+                                
                             </Accordion>
                             
                         </QnATable>
