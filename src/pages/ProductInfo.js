@@ -7,6 +7,7 @@ import { UserContext } from "../context/UserInfo";
 import { useNavigate } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
+import context from "react-bootstrap/esm/AccordionContext";
 
 
 const Container = styled.div`
@@ -239,6 +240,11 @@ const ProductInfo = () => {
 
     const [qnaList, setQnaList] = useState("")
 
+    const [qnaAccodian, setQnaAccodian] = useState("all");
+
+    const context = useContext(UserContext);
+    const {qnaData} = context;
+
     const id = window.localStorage.getItem("userIdSuv");
 
     const handleSelect = (e) => {
@@ -275,6 +281,15 @@ const ProductInfo = () => {
         setModalOpen(true);
         
     }
+
+    const onPopAccodian = (props) => {
+        if(props === qnaAccodian) {
+            setQnaAccodian(null);
+            console.log("click")
+        } else {
+            setQnaAccodian(props);
+        }
+    }
     
     useEffect(()=> {
         const heartView = async(id, productId) => {
@@ -290,7 +305,7 @@ const ProductInfo = () => {
 
     useEffect(() => {
         const getList = async() => {
-            const response = await AxiosFinal.qnaLoadManage();
+            const response = await AxiosFinal.memQnaList();
             setQnaList(response.data);
         };
         getList();
@@ -354,7 +369,6 @@ const ProductInfo = () => {
                                     <th className="Date">Date</th>
                                 </tr>
                             </tbody>
-                              
                             <tbody>                             {/*DB 값 가져오기*/}
                                 <tr>
                                     <td className="number">1.</td>
@@ -363,6 +377,8 @@ const ProductInfo = () => {
                                     <td className="date">2023-06-10</td>
                                 </tr>
                             </tbody>
+                            
+                            
                             
                         </ReviewTable>
                     </div>
@@ -375,7 +391,11 @@ const ProductInfo = () => {
                         </div>
                         <Modal open={modalOpen} close={closeModal} header="문의 작성"/>
                         <hr />
+
+                        
                         <QnATable>
+                            <div className="parentContents">
+                                <div className="childContents">
                             <tbody>
                                 <tr>
                                     <th className="Num">Num</th>
@@ -384,26 +404,19 @@ const ProductInfo = () => {
                                     <th className="Date">Date</th>
                                 </tr>
                             </tbody>
-                            {/* <Accordion style={{width: '100%'}}> */}
-                                <tbody style={{width: '100%'}}>                             {/*DB 값 가져오기*/}
-                                        <tr >
-                                            <td className="number"style={{ paddingBottom: '10px' }}>1.</td>
-                                            <td className="title" onClick={onclick} style={{ width: '50%' }}>문의작성</td>
-                                            <td className="user" style={{ width: '20%' }}>이***</td>
-                                            <td className="date" style={{width: '20%'}}>2023-06-10</td>
-                                        </tr>
-                                    </tbody>
-                                    {qnaList && qnaList.map(qna => (
-                                        <AccordionItem key={qna.qnaId}>
-                                            <p>{qna.qnaId}</p>
-                                            <p>{qna.qnaTitle}</p>
-                                            <p>{qna.qnaContent}</p>
-                                            <p>{qna.userName}</p>
-                                        </AccordionItem>
-                                    ))}
-                                
-                            {/* </Accordion> */}
                             
+                                    {qnaData && qnaData.map(qna => (
+                                        <tbody key={qna.qnaId} active={qnaAccodian === qna.qnaId}>                             {/*DB 값 가져오기*/}
+                                            <tr>
+                                                <td className="number">{qna.qnaId}</td>
+                                                <td className="title" onClick={() => onPopAccodian(qna.qnaId)}>{qna.qnaTitle}</td>
+                                                <td className="user">{qna.userName}</td>
+                                                <td className="date">{qna.qnaDate}</td>
+                                            </tr>
+                                        </tbody>
+                                    ))}  
+                                </div>
+                            </div>
                         </QnATable>
                     </div>
                 </QnA>

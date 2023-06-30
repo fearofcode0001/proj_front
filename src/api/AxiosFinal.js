@@ -287,6 +287,11 @@ const AxiosFinal = {
             qnaContent : qnaContent
         }
         return await axios.post(Final_proj + "/qna/uploadQna", qna);
+    },
+
+    // user QnA 가져오기
+    memQnaList : async() => {
+        return await axios.get(Final_proj + `/qna/memQnaLoad`);
     }
 };
 
