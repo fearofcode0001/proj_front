@@ -68,7 +68,7 @@ const Inner = styled.div`
         font-size: 10px;
     }
 `;
-const Board = ({onUpload}) => {
+const Board = () => {
 
     const navigate = useNavigate();
 
@@ -95,9 +95,7 @@ const Board = ({onUpload}) => {
 
     const onClickUpload = async() => {
         console.log("click");
-        try {
             const response = await AxiosFinal.faqUpload(inputTitle, inputContent);
-            onUpload(inputTitle, inputContent);
             if(response.data === true) {
                 navigate("/FAQ");
             } else {
@@ -105,10 +103,6 @@ const Board = ({onUpload}) => {
                 setModalOpen(true);
 
             }
-        } catch(error) {
-            setModalText("업로드를 하는 중 에러가 발생했습니다.");
-            setModalOpen(true);
-        }
     };
 
     return(
