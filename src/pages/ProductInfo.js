@@ -384,7 +384,7 @@ const ProductInfo = () => {
                                     <th className="Date">Date</th>
                                 </tr>
                             </tbody>
-                            <Accordion>
+                            {/* <Accordion style={{width: '100%'}}> */}
                                 <tbody style={{width: '100%'}}>                             {/*DB 값 가져오기*/}
                                         <tr >
                                             <td className="number"style={{ paddingBottom: '10px' }}>1.</td>
@@ -398,11 +398,11 @@ const ProductInfo = () => {
                                             <p>{qna.qnaId}</p>
                                             <p>{qna.qnaTitle}</p>
                                             <p>{qna.qnaContent}</p>
-                                            <p>{qna.userId}</p>
+                                            <p>{qna.userName}</p>
                                         </AccordionItem>
                                     ))}
                                 
-                            </Accordion>
+                            {/* </Accordion> */}
                             
                         </QnATable>
                     </div>
