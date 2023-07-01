@@ -6,8 +6,6 @@ import {FaRegHeart, FaHeart} from "react-icons/fa";
 import { UserContext } from "../context/UserInfo";
 import { useNavigate } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
-import { Accordion, AccordionItem } from '@szhsin/react-accordion';
-import context from "react-bootstrap/esm/AccordionContext";
 
 
 const Container = styled.div`

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
 import ModalEmail from "./ModalEmail";
 import { useNavigate } from "react-router-dom";
+import { Axios } from "axios";
 
 const Container = styled.div`
     height: 100vh;
@@ -79,6 +80,9 @@ const Board = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalText, setModalText] = useState("");
 
+    const [faq, setFaq] = useState([]);
+    const faqId = window.localStorage.getItem("faqList")
+
 
      //모달 창 닫기 
     const closeModal = () =>{
@@ -105,18 +109,27 @@ const Board = () => {
             }
     };
 
+    useEffect(() => {
+        const getFaqList = async() => {
+            const response = await AxiosFinal.faqList(faqId);
+            if(response.status === 200) setFaq(response.data);
+            console.log(response.data);
+        }
+        getFaqList();
+    },[])
+
     return(
         <Container>
             <Inner>
                 <p>FAQ 글쓰기</p>
                 <div className="item">
                     <label className="title">제목</label>
-                    <textarea className="txtTitle" name="board" id="title" 
+                    <textarea defaultValue={faq.faqTitle} value={faq.faqTitle} className="txtTitle" name="board" id="title" 
                     cols="10" rows="30" onChange={handelTitle} placeholder="제목을 입력하세요"></textarea>
                 </div>
                 <div className="item2">
                 <label className="content">본문</label>
-                    <textarea className="txtContent" name="board" id="content" 
+                    <textarea defaultValue={faq.faqContent} value={faq.faqContent} className="txtContent" name="board" id="content" 
                     cols="60" rows="10" onChange={handleContent} placeholder="내용을 입력하세요"></textarea>
                 </div>
                 
