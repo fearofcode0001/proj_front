@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import AxiosFinal from "../api/AxiosFinal";
 import { UserContext } from "../context/UserInfo";
@@ -154,6 +154,10 @@ const Modal = (props) => {
     const {item} = useContext(UserContext);
     const [inputTitle, setInputTitle] = useState('');
     const [inputContent, setInputContent] = useState('');
+    const [product, setProduct] = useState([]);
+
+    const productId = window.localStorage.getItem("heartProductId");
+    const userEmail = window.localStorage.getItem("userIdSuv");
 
     const handelTitle = (e) => {
         setInputTitle(e.target.value);
@@ -162,19 +166,25 @@ const Modal = (props) => {
     const handleContent = (e) => {
         setInputContent(e.target.value);
     }
-
-    const userEmail = window.localStorage.getItem("userIdSuv");
-    const productId = item.productId;
     
     const onClickUpdate = async(productId, userEmail, inputTitle, inputContent) => {
         const response = await AxiosFinal.qnaUpdate(productId, userEmail, inputTitle, inputContent);
         if(response.data) {
             alert("QnA 작성이 완료되었습니다");
+            window.location.reload();
             close();
         } else {
             alert("QnA 작성에 실패하였습니다");
         }
     }
+
+    useEffect(()=> {
+        const storedData = window.localStorage.getItem("productData");
+         if (storedData) {
+            setProduct(JSON.parse(storedData));
+        }
+    }, []);
+
 
     return (
         <Container>
@@ -188,10 +198,10 @@ const Modal = (props) => {
                     <div className="main">
                         <h2>상품문의</h2>
                         <div className="product">
-                            <img src={item.productImgFst}/>
+                            <img src={product[0].productImgFst}/>
                             <div className="productInfo">
-                                <div className="productName">{item.productName}</div>
-                                <div className="productPrice">{item.productPrice}</div>
+                                <div className="productName">{product[0].productName}</div>
+                                <div className="productPrice">{product[0].productPrice}</div>
                             </div>
                         </div>
                         <div className="mainTitle">
