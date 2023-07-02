@@ -252,6 +252,12 @@ const ProductInfo = () => {
     const [page, setPage] = useState(1);    // 페이지 번호
     const offset = (page - 1) * limit;      // 시작 인덱스
 
+    const [qnaList, setQnaList] = useState("")
+
+    const [qnaAccodian, setQnaAccodian] = useState("all");
+
+    const context = useContext(UserContext);
+
     const id = window.localStorage.getItem("userIdSuv");
     const heartProductId = window.localStorage.getItem("heartProductId");
 
@@ -438,13 +444,15 @@ const ProductInfo = () => {
                         </QnATable>
                     </div>
                     <Pagenation
-                        total={qnaData.length} // 전체 아이템 수
-                        limit={limit}          // 페이지 당 아이템 수
-                        page={page}            // 현재 페이지 번호
-                        setPage={setPage}      // 페이지 번호를 변경
+                                total={qnaData.length} // 전체 아이템 수
+                                limit={limit}          // 페이지 당 아이템 수
+                                page={page}            // 현재 페이지 번호
+                                setPage={setPage}      // 페이지 번호를 변경
                             />
                 </QnA>
+                
             </InnerContainer>
+                
         </Container>
     )
 

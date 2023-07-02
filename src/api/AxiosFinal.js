@@ -228,6 +228,16 @@ const AxiosFinal = {
         }
         return await axios.post(Final_proj + `/faq/deleteFaq`, deleteFaq);
     },
+
+    // faq 수정
+    faqEdit : async(faqId,faqTitle, faqContent) => {
+        const editFaq = {
+            faqId : faqId,
+            faqTitle : faqTitle,
+            faqContent : faqContent
+        }
+        return await axios.post(Final_proj + `/faq/editFaq`, editFaq);
+    },
   
     // 회원 정보 수정 저장
     saveUserInfo : async (userId, userName, userPwd, userAddr, userPhone) =>{
@@ -287,6 +297,11 @@ const AxiosFinal = {
             qnaContent : qnaContent
         }
         return await axios.post(Final_proj + "/qna/uploadQna", qna);
+    },
+
+    // user QnA 가져오기
+    memQnaList : async() => {
+        return await axios.get(Final_proj + `/qna/qnaList`);
     },
 
     // 제품이름으로 제품 정보 가져오기
