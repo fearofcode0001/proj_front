@@ -6,7 +6,6 @@ import {FaRegHeart, FaHeart} from "react-icons/fa";
 import { UserContext } from "../context/UserInfo";
 import { useNavigate } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
-import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import Pagenation from "./Pagenation";
 
 
@@ -251,12 +250,6 @@ const ProductInfo = () => {
     const [limit, setLimit] = useState(5);  // 한 페이지에 표시할 아이템 수
     const [page, setPage] = useState(1);    // 페이지 번호
     const offset = (page - 1) * limit;      // 시작 인덱스
-
-    const [qnaList, setQnaList] = useState("")
-
-    const [qnaAccodian, setQnaAccodian] = useState("all");
-
-    const context = useContext(UserContext);
 
     const id = window.localStorage.getItem("userIdSuv");
     const heartProductId = window.localStorage.getItem("heartProductId");
