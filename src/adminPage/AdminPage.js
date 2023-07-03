@@ -214,10 +214,10 @@ const AdminPage=()=>{
     const [newQna,setNewQna] = useState(0);
     //헤드 주문상태창 신규 갱신
     const onReLoadData=async()=>{
-        const newOrder = await AxiosFinal.newOrderCheck("CHECK");
+        // const newOrder = await AxiosFinal.newOrderCheck("CHECK");
         const shipOrder = await AxiosFinal.shipOrderCheck("SHIP");
         const newQna = await AxiosFinal.newQnaCheck("HOLD");     
-        setNewOrder(newOrder.data.length);
+        // setNewOrder(newOrder.data.length);
         setShipOrder(shipOrder.data.length);
         setNewQna(newQna.data.length);
     }
