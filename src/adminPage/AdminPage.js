@@ -160,31 +160,44 @@ const AdminPage=()=>{
     }
     //saleDate 선택시 실행되는 엑시오스
     const onLoadSaleDate=async()=>{
-        const date= new Date;
-        const year = date.getFullYear();
-        const month = ('0' + (date.getMonth() + 1)).slice(-2);
-        const day = ('0' + date.getDate()).slice(-2);     
-        const todayBefore= year+"-"+ month +"-"+day;
-        const oneDayBefore= year+"-"+ month +"-"+(day-1);
-        const towDayBefore= year+"-"+ month +"-"+(day-2);
-        const threeDayBefore= year+"-"+ month +"-"+(day-3);
-        const fourDayBefore= year+"-"+ month +"-"+(day-4);
-        const fiveDayBefore= year+"-"+ month +"-"+(day-5);
-        const sixDayBefore = year+"-"+ month +"-"+(day-6);
+        const currentDate = new Date();
+        const oneDay = 24 * 60 * 60 * 1000; // 1일을 밀리초로 표현
+        const todayBefore= new Date(currentDate.getTime());
+        const oneDayBefore= new Date(currentDate.getTime() - oneDay);
+        const twoDayBefore= new Date(currentDate.getTime() - oneDay * 2);
+        const threeDayBefore= new Date(currentDate.getTime() - oneDay * 3);
+        const fourDayBefore= new Date(currentDate.getTime() - oneDay * 4);
+        const fiveDayBefore= new Date(currentDate.getTime() - oneDay * 5);
+        const sixDayBefore = new Date(currentDate.getTime() - oneDay * 6);
+         
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        console.log(formatDate(todayBefore));
+        console.log(formatDate(oneDayBefore));
+        console.log(formatDate(twoDayBefore));
+        console.log(formatDate(threeDayBefore));
+        console.log(formatDate(fourDayBefore));
+        console.log(formatDate(fiveDayBefore));
+
         //각 날짜 별 전달받기.
-        const today = await AxiosFinal.onLoadOrderDate(todayBefore);
+        const today = await AxiosFinal.onLoadOrderDate(formatDate(todayBefore));
         setTodayBefore(today.data);
-        const onday = await AxiosFinal.onLoadOrderDate(oneDayBefore);
+        const onday = await AxiosFinal.onLoadOrderDate(formatDate(oneDayBefore));
         setOnedayBefore (onday.data);
-        const twoday = await AxiosFinal.onLoadOrderDate(towDayBefore);
+        const twoday = await AxiosFinal.onLoadOrderDate(formatDate(twoDayBefore));
         setTwodayBefore (twoday.data);
-        const threeday = await AxiosFinal.onLoadOrderDate(threeDayBefore);
+        const threeday = await AxiosFinal.onLoadOrderDate(formatDate(threeDayBefore));
         setThreedayBefore (threeday.data);
-        const fourday = await AxiosFinal.onLoadOrderDate(fourDayBefore);
+        const fourday = await AxiosFinal.onLoadOrderDate(formatDate(fourDayBefore));
         setFourdayBefore (fourday.data);
-        const fiveday = await AxiosFinal.onLoadOrderDate(fiveDayBefore);        
+        const fiveday = await AxiosFinal.onLoadOrderDate(formatDate(fiveDayBefore));        
         setFivedayBefore (fiveday.data);
-        const sixday = await AxiosFinal.onLoadOrderDate(sixDayBefore);
+        const sixday = await AxiosFinal.onLoadOrderDate(formatDate(sixDayBefore));
         setSixdayBefore(sixday.data);  
     }
     const onLoadChatList =async()=>{

@@ -37,16 +37,31 @@ const SaleDate=()=>{
             console.log(data);
         },
     };
-    const date= new Date;
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);     
-    const today=month +"-"+day;
-    const oneDay=month +"-"+(day-1);
-    const towDay=month +"-"+(day-2);
-    const threeDay=month +"-"+(day-3);
-    const fourDay=month +"-"+(day-4);
-    const fiveDay=month +"-"+(day-5);
-    const sixDay=month +"-"+(day-6);
+
+    const currentDate = new Date();
+    const DayOne = 24 * 60 * 60 * 1000; // 1일을 밀리초로 표현
+    const todayBefore= new Date(currentDate.getTime());
+    const oneDayBe= new Date(currentDate.getTime() - DayOne);
+    const twoDayBe= new Date(currentDate.getTime() - DayOne * 2);
+    const threeDayBe= new Date(currentDate.getTime() - DayOne * 3);
+    const fourDayBe= new Date(currentDate.getTime() - DayOne * 4);
+    const fiveDayBe= new Date(currentDate.getTime() - DayOne * 5);
+    const sixDayBe = new Date(currentDate.getTime() - DayOne * 6);
+     
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+   
+    const today=formatDate(todayBefore);
+    const oneDay=formatDate(oneDayBe);
+    const towDay=formatDate(twoDayBe);
+    const threeDay=formatDate(threeDayBe);
+    const fourDay=formatDate(fourDayBe);
+    const fiveDay=formatDate(fiveDayBe);
+    const sixDay=formatDate(sixDayBe);
 
     return (
         <Container>
@@ -66,7 +81,7 @@ const SaleDate=()=>{
                     { day: towDay, order: twoDayBefore[0], price:twoDayBefore[1]/10000},
                     { day: threeDay, order: threeDayBefore[0], price:threeDayBefore[1]/10000},
                     { day: fourDay, order: fourDayBefore[0], price:fourDayBefore[1]/10000},                    
-                    { day: fiveDay, order: fiveDayBefore[0], price:toDayBefore[1]/10000},                    
+                    { day: fiveDay, order: fiveDayBefore[0], price:fiveDayBefore[1]/10000},                    
                     { day: sixDay, order: sixDayBefore[0], price:sixDayBefore[1]/10000},
                 ]}
                 /**
