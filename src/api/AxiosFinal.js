@@ -103,7 +103,6 @@ const AxiosFinal = {
     memberGet: async(userId) => {
         return await axios.get(Final_proj + `/auth/users?userId=${userId}`);
     },
-
     // 아이디 찾기 
     searchUserEmail: async (email) => {
         return await axios.get(Final_proj+ `/auth/searchEmail?userEmail=${email}`);
@@ -118,39 +117,32 @@ const AxiosFinal = {
             };
         return await axios.post(Final_proj+ "/searchPw", searchPw);
      },
-
-
-   // 회원 가입 여부 확인
-   memberRegCheck : async(email) => {
-    return await axios.get(Final_proj + `/auth/check?email=${email}`);
-},
-
-   // 회원 가입
-   memberReg: async(name, email, pwd, addr, phone) => {
-    const member = {
-        userName: name,
-        userEmail: email,
-        userPwd: pwd,
-        userAddr: addr,
-        userPhone: phone,
-    };
-    return await axios.post(Final_proj + "/auth/signup", member);
-},
-
-
+    // 회원 가입 여부 확인
+    memberRegCheck : async(email) => {
+        return await axios.get(Final_proj + `/auth/check?email=${email}`);
+    },
+    // 회원 가입
+    memberReg: async(name, email, pwd, addr, phone) => {
+        const member = {
+            userName: name,
+            userEmail: email,
+            userPwd: pwd,
+            userAddr: addr,
+            userPhone: phone,
+        };
+        return await axios.post(Final_proj + "/auth/signup", member);
+    },
     //탈퇴
     memberSec : async(userPwd) =>{
         const sec ={
             userPwd : userPwd            
         };
         return await axios.post(Final_proj + "/auth/sec", sec);
-    },
-   
+    },   
     // 이메일 인증
     mailCode : async(email) => {
         return await axios.get(Final_proj + `/email/?email=${email}`);
     },
-
     // 이메일 인증 번호 
     mailCodeck : async(email, code) => {
         const check = {
@@ -158,8 +150,7 @@ const AxiosFinal = {
             code : code
         }
         return await axios.post(Final_proj + `/verify`, check);
-    },
-    
+    },    
     // 임시 비밀번호 (고치기)
     pwdReset : async(email, name) => {
         const reset = {
