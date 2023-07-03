@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React  from "react";
 import styled from "styled-components";
-import AxiosFinal from "../api/AxiosFinal";
-import { UserContext } from "../context/UserInfo";
 
 const Container = styled.div`
     .modal {
