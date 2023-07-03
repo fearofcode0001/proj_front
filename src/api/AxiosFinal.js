@@ -105,15 +105,9 @@ const AxiosFinal = {
     },
 
     // 아이디 찾기 
-    searchId: async (name, email) => {
-            const searchId = {
-                name : name,
-                email : email
-            };
-        return await axios.post(Final_proj+ "/searchId", searchId);
-      },
-
-
+    searchUserEmail: async (email) => {
+        return await axios.get(Final_proj+ `/auth/searchEmail?userEmail=${email}`);
+    },
     // 비밀번호 찾기 
     searchPw: async (name, email, id) => {
             const searchPw = {
