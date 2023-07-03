@@ -141,7 +141,7 @@ const AxiosFinal = {
                 name : name,
                 email : email
             };
-        return await axios.post(Final_proj+ "/searchId", searchId);
+        return await axios.post(Final_proj+ "/searchEmail", searchId);
       },
 
 
@@ -221,6 +221,11 @@ const AxiosFinal = {
         return await axios.get(Final_proj + `/faq/faqList`);
     },
 
+    // faq id로 list 불러오기
+    faqIdList : async(faqId) => {
+        return await axios.get(Final_proj + `/faq/faqIdList?faqId=${faqId}`);
+    },
+
      // faq삭제
     faqDelete : async(faqId) => {
         const deleteFaq = {
@@ -230,7 +235,7 @@ const AxiosFinal = {
     },
 
     // faq 수정
-    faqEdit : async(faqId,faqTitle, faqContent) => {
+    faqEdit : async(faqId, faqTitle, faqContent) => {
         const editFaq = {
             faqId : faqId,
             faqTitle : faqTitle,

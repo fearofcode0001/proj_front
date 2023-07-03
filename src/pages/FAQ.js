@@ -168,15 +168,10 @@ const FAQ = () => {
         }
 
     }
-    
-    // faq List 불러오기
-    useEffect(() => {
-         const getList = async() => {
-            const response = await AxiosFinal.faqList();
-            setFaqList(response.data);
-         };
-         getList();
-    }, []);
+
+    const onClickAddFaq = () => {
+        navigate("/Board");
+    }
 
     // faq 삭제
     const onClickDelete = async(props) => {
@@ -191,17 +186,19 @@ const FAQ = () => {
     }
 
     // faq 수정
-    const onClickEdit = async(faqTitle, faqContent) => {
-        console.log("click");
-        const response = await AxiosFinal.faqEdit(faqTitle, faqContent);
-        console.log(response.data);
-        if(response.data) {
-            navigate("/Board");
-        } else {
-            alert("error");
-        }
+    const onClickEdit = (faqId) => {
+        navigate(`/Board/${faqId}`);
     }
-    
+
+    // faq List 불러오기
+    useEffect(() => {
+        const getList = async() => {
+           const response = await AxiosFinal.faqList();
+           setFaqList(response.data);
+           console.log(response.data);
+        };
+        getList();
+   }, []);
 
     return (
         <Container>
@@ -242,9 +239,7 @@ const FAQ = () => {
                         </Accordion>
                     </div>
                     <Button>
-                        <Link to="/Board">
-                        FAQ추가
-                        </Link>
+                        <button onClick={onClickAddFaq}>FAQ 추가</button>
                     </Button>
                     </Body>
                 </InnerContainer>
