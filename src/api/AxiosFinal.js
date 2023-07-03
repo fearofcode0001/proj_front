@@ -10,28 +10,16 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/auth/login", login);
     },
+    //로그인시 로그인 유저 정보 저장
+    orderMemberData: async(email) =>{
+        const usrData = {
+            email : email
+        };
+        return await axios.post(Final_proj + "/auth/userData", usrData);
+    },
     // 전체 상품
     shop : async() => {
         return await axios.get(Final_proj + `/product/items`);
-    },
-    //어드민페이지 head상태창 신규조회
-    newOrderCheck: async(orderStatus) => {    
-        const newOrder = {
-            orderStatus : orderStatus
-        };
-        return await axios.post(Final_proj + "/adminPage/newOrderList", newOrder);
-    },
-    shipOrderCheck: async(orderStatus) => {    
-        const shipOrder = {
-            orderStatus : orderStatus
-        };
-        return await axios.post(Final_proj + "/adminPage/shipOrderList", shipOrder);
-    },
-    newQnaCheck: async(qnaStatus) => {    
-        const newQna = {
-            qnaStatus : qnaStatus
-        };
-        return await axios.post(Final_proj + "/adminPage/qnaLoadList", newQna);
     },
     //아이템 업로드
     productUpload : async(title,price,color,size,category,content,imgFst,imgSnd,imgDetail)=>{
@@ -95,15 +83,15 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/product/changImgFst", changeImgFst);
     },
      //어드민 페이지 상품 Snd이미지 수정
-    productChangeImgSnd : async(productId,sndUrl)=>{
+     productChangeImgSnd : async(productId,sndUrl)=>{
         const changeImgSnd={
             productId : productId,
             productImgSnd : sndUrl
         };
         return await axios.post(Final_proj + "/product/changImgSnd", changeImgSnd);
-    },
+     },
      //어드민 페이지 상품 Detail이미지 수정
-    productChangeImgDetail:async(productId,content,DetailUrl)=>{
+     productChangeImgDetail:async(productId,content,DetailUrl)=>{
         const changeImgDetail={
             productId : productId,
             productDetail:content,
@@ -111,40 +99,14 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/product/changImgDetail", changeImgDetail);
      },
-     //어드민 페이지 상품 Detail 수량 수정
-    productChangeData:async(productId,productStock,productSellStatus,productName)=>{
-        const changeDetail={
-            productId : productId,
-            productStock:productStock,
-            productSellStatus:productSellStatus,
-            productName:productName
-        };
-        return await axios.post(Final_proj + "/product/changDetail", changeDetail);
-    },
-    //7일치 데이터 로드
-    onLoadOrderDate:async(date)=>{
-        const day={orderDate : date};
-        return await axios.post(Final_proj + "/admin/findOrderDay", day);
-    },
-    // 어드민페이지 채팅 리스트 가져오기
-    onLoadChatList:async()=>{
-        return await axios.get(Final_proj + `/admin/chatList`);
-    },
     //회원 조회
     memberGet: async(userId) => {
         return await axios.get(Final_proj + `/auth/users?userId=${userId}`);
     },
-
     // 아이디 찾기 
-    searchId: async (name, email) => {
-            const searchId = {
-                name : name,
-                email : email
-            };
-        return await axios.post(Final_proj+ "/searchEmail", searchId);
-      },
-
-
+    searchUserEmail: async (email) => {
+        return await axios.get(Final_proj+ `/auth/searchEmail?userEmail=${email}`);
+    },
     // 비밀번호 찾기 
     searchPw: async (name, email, id) => {
             const searchPw = {
@@ -155,39 +117,32 @@ const AxiosFinal = {
             };
         return await axios.post(Final_proj+ "/searchPw", searchPw);
      },
-
-
-   // 회원 가입 여부 확인
-   memberRegCheck : async(email) => {
-    return await axios.get(Final_proj + `/auth/check?email=${email}`);
-},
-
-   // 회원 가입
-   memberReg: async(name, email, pwd, addr, phone) => {
-    const member = {
-        userName: name,
-        userEmail: email,
-        userPwd: pwd,
-        userAddr: addr,
-        userPhone: phone,
-    };
-    return await axios.post(Final_proj + "/auth/signup", member);
-},
-
-
+    // 회원 가입 여부 확인
+    memberRegCheck : async(email) => {
+        return await axios.get(Final_proj + `/auth/check?email=${email}`);
+    },
+    // 회원 가입
+    memberReg: async(name, email, pwd, addr, phone) => {
+        const member = {
+            userName: name,
+            userEmail: email,
+            userPwd: pwd,
+            userAddr: addr,
+            userPhone: phone,
+        };
+        return await axios.post(Final_proj + "/auth/signup", member);
+    },
     //탈퇴
     memberSec : async(userPwd) =>{
         const sec ={
             userPwd : userPwd            
         };
         return await axios.post(Final_proj + "/auth/sec", sec);
-    },
-   
+    },   
     // 이메일 인증
     mailCode : async(email) => {
         return await axios.get(Final_proj + `/email/?email=${email}`);
     },
-
     // 이메일 인증 번호 
     mailCodeck : async(email, code) => {
         const check = {
@@ -195,8 +150,7 @@ const AxiosFinal = {
             code : code
         }
         return await axios.post(Final_proj + `/verify`, check);
-    },
-    
+    },    
     // 임시 비밀번호 (고치기)
     pwdReset : async(email, name) => {
         const reset = {
@@ -262,36 +216,52 @@ const AxiosFinal = {
     },
 
     // 좋아요 Insert
-    likeProduct : async(id, productId) => {
+    likeProduct : async(id, heartProductId) => {
         const like = {
             id : id,
-            productId : productId
+            productId : heartProductId
         }
         return await axios.post(Final_proj + "/like/likeInsert", like);
     },
 
-    // 좋아요 누른 상품목록 불러오기
+
+    // 좋아요 불러오기
     wishItem : async(id) => {
         return await axios.get(Final_proj + `/like/likeList?id=${id}`);
     },
 
     // 좋아요 삭제
-    deleteLikeProduct : async(id, productId) => {
+    deleteLikeProduct : async(id, heartProductId) => {
         const dislike = {
             id : id,
-            productId : productId
+            productId : heartProductId
         }
         return await axios.post(Final_proj + "/like/likeDelete", dislike)
     },
 
     // 상품 좋아요 표시
-    viewHeart : async(id, productId) => {
+    viewHeart : async(id, heartProductId) => {
         const heart = {
             id : id,
-            productId : productId
+            productId : heartProductId
         }
-        return await axios.post(Final_proj + "/like/Heart", heart);
+        return await axios.post(Final_proj + "/like/Heart", heart)
     },
+
+    // 장바구니 담기
+     addCartItem : async(id, productId) =>{
+        const params = {
+            id : id,
+            productId: productId 
+        }
+        return await axios.post(Final_proj + "/cart/addCartItem", params)
+    },
+        
+    
+    // 장바구니 상품
+        cartItemList : async(id) => {
+            return await axios.get(Final_proj + `/cart/cartItemList?id=${id}`);
+        },
 
     // qna 추가
     qnaUpdate : async(productId, userEmail, qnaTitle, qnaContent) => {
@@ -307,7 +277,19 @@ const AxiosFinal = {
     // user QnA 가져오기
     memQnaList : async() => {
         return await axios.get(Final_proj + `/qna/qnaList`);
+    },
+
+    // 제품이름으로 제품 정보 가져오기
+    dataProduct : async(productName) => {
+        return await axios.get(Final_proj + `/product/getProductData?productName=${productName}`);
+    },
+
+    // Qna 불러오기
+    viewQna : async(heartProductId) => {
+        return await axios.get(Final_proj + `/qna/qnaList?heartProductId=${heartProductId}`);
     }
+
+    
 };
 
 export default AxiosFinal;

@@ -72,6 +72,8 @@ const Shop = () => {
     const [product, setProduct] = useState([]);
     const nav = useNavigate();
 
+    const id = window.localStorage.getItem("userIdSuv");
+    console.log(id);
 
     const handleHeaderClick = () => {
       setIsBlurred(!isBlurred);
@@ -81,7 +83,6 @@ const Shop = () => {
         const getProduct = async() => {
            const rsp = await AxiosFinal.sellitems();
            if(rsp.status === 200) setProduct(rsp.data);
-           console.log(rsp.data);
        };
        getProduct();
       }, []);
@@ -89,23 +90,21 @@ const Shop = () => {
     const mergeProduct = {};
 
     product.forEach((e) => {
-    const { productName, productSize, productId } = e;
+    const { productName } = e;
 
     if (!mergeProduct[productName]) {
         mergeProduct[productName] = {
-            productId: e.productId,
+            productId : e.productId,
             productName: e.productName,
+            productMainImg: e.productMainImg,
+            productPrice: e.productPrice,
+            productDetail : e.productDetail,
             productImgFst: e.productImgFst,
             productImgSnd: e.productImgSnd,
             productImgDetail: e.productImgDetail,
             productPrice: e.productPrice,
             productContent : e.productContent,
-            sizes: [],
         };
-    }
-
-    if (!mergeProduct[productName].sizes[productSize]) {
-        mergeProduct[productName].sizes[productSize] = productId;
     }
     });
 
@@ -113,9 +112,14 @@ const Shop = () => {
         setIsFilterOpen(!isFilterOpen);
       };
 
-    const onclick = (e) => {
-        console.log(e);
-        setItem(e);
+    const onclick = async(e) => {
+        const productName = e.productName;
+        const rsp = await AxiosFinal.dataProduct(productName);
+        const result = rsp.data;
+        setItem(result);
+        window.localStorage.setItem("heartProductId",result[0].productId);
+        window.localStorage.setItem("productData", JSON.stringify(rsp.data));
+
         nav("/ProductInfo");
     }
 
@@ -138,7 +142,7 @@ const Shop = () => {
                             <img src={e.productImgFst} />
                             <div className="logo">iMMUTABLE</div>
                             <div className="info">{e.productName}</div>
-                            <div className="price">{e.productPrice}</div>
+                            <div className="price">{e.productPrice.toLocaleString()}</div>
                         </div>
                     </div>
                 </Container_in>

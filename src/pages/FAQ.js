@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import AxiosFinal from "../api/AxiosFinal";
-import Board from "./Board";
-import { click } from "@testing-library/user-event/dist/click";
+import MyPageHeader from "../shopPage/MypageHeader";
 
 
 const Container = styled.div`
@@ -15,44 +14,6 @@ const Container = styled.div`
     align-items: center;
 `;
 
-const TopButton = styled.button`
-    border: none;
-    background-color: white;
-   
-    &:hover{
-        color: rgba(0,0,0,0.5);
-    }
-`  
-const Head = styled.div`
-    width: 100%;
-    display: flex;
-
-    a{
-        text-decoration: none;
-        color: black;
-    }
-    
-    .nav{
-        width: 100%;
-        padding: 0 20px 0 10px;
-        display: flex;
-        justify-content: space-between;
-    }
-   
-    .nav1{
-        height: 70px;
-        font-weight: bolder;
-        font-size: 50px;
-    }
-
-    .nav2{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: rgb(100,100,100);
-        font-size: 13px;
-    }
-`
 const Body = styled.div`
      width: 100%;
 
@@ -143,19 +104,9 @@ const Footer = styled.div`
 `
 
 
-const IsLoginFalse = [
-    { name : "login"}
-  ]
-  const IsLoginTrue = [
-    { name : "logout"}, 
-    { name : "mypage"}
-  ]
-
 const FAQ = () => {
 
     const navigate = useNavigate();
-
-    const [isLogin, setIsLogin] = useState(true);
     const [faqList, setFaqList] = useState(""); // faq 전체를 불러와서 제목과 내용만 추출
     
     const onChangePage=(e)=>{
@@ -202,26 +153,7 @@ const FAQ = () => {
 
     return (
         <Container>
-            <Head>
-                <div className="nav">
-                <a href="/"><div className="nav1" >
-                     iMMUTABLE
-                    </div></a>
-                    <div className="nav2">
-                        {IsLoginFalse.map(s=>( isLogin===false &&
-                                        <TopButton key={s.name}>
-                                            <Link to="/Login">{s.name}</Link>
-                                        </TopButton>
-                                    ))}
-                           {IsLoginTrue.map(s=>( isLogin===true &&
-                                        <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
-                                            {s.name}
-                                        </TopButton>
-                                    ))}
-                    </div>
-                </div>
-            </Head>
-         
+         <MyPageHeader />
             <InnerContainer>  
                 <Body>
                 <h1>FAQ</h1>

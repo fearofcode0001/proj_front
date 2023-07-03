@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../shopPage/Header";
 import Modal from "./Modal";
@@ -6,6 +6,7 @@ import {FaRegHeart, FaHeart} from "react-icons/fa";
 import { UserContext } from "../context/UserInfo";
 import { useNavigate } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
+import Pagenation from "./Pagenation";
 
 
 const Container = styled.div`
@@ -28,7 +29,7 @@ const InnerContainer = styled.div`
         .productImg {
             display: flex;
             flex-direction: column;
-            width: 70%;
+            width: 70%;         
             justify-content: center;
             align-items: center;
             img {
@@ -173,8 +174,7 @@ const ReviewTable = styled.table`
 
 const QnA = styled.div`
     width: 100%;
-    height: 300px;
-    margin-bottom: 100px;
+    padding-bottom: 20px;
     .qna {
         margin: 0 40px;
         .qnaBoard {
@@ -199,7 +199,6 @@ const QnA = styled.div`
 
 const QnATable = styled.table`
     width: 100%;
-    table-layout: fixed; /* 테이블 크기 고정 */
     tr {
         width: 100%;
         th {
@@ -216,144 +215,180 @@ const QnATable = styled.table`
         }
         td {
             text-align: center;
+            padding: 10px 0;
+        }
+        .title {
+            &:hover {
+                cursor: pointer;
+                color: gray;
+            }
         }
         
     }
-    
 `;
 
 
 
+
+
 const ProductInfo = () => {
-    
+    const [cartItems, setCartItems] = useState([]);
     const nav = useNavigate();
-    const {item, isLogin} = useContext(UserContext);
 
     const [click, setClick] = useState(false);
-    const [qClick, setqClick] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
-    const [select, setSelect] = useState();
     const [likeClick, setlikeClick] = useState(false);
-    const [productId, setProductId] = useState(item.sizes["S"]);
+    const [productId, setProductId] = useState();   // 사이즈에 따른 상품 아이디
+    const [product, setProduct] = useState([]);
+    const [qnaData, setQnaData] = useState([]); 
+    const [expanded, setExpanded] = useState([]); 
 
-    const [qnaList, setQnaList] = useState("")
+    // pagenation
+    const [limit, setLimit] = useState(5);  // 한 페이지에 표시할 아이템 수
+    const [page, setPage] = useState(1);    // 페이지 번호
+    const offset = (page - 1) * limit;      // 시작 인덱스
 
-    const [qnaAccodian, setQnaAccodian] = useState("all");
-
-    const context = useContext(UserContext);
-    const {qnaData} = context;
-
+    console.log(product);
     const id = window.localStorage.getItem("userIdSuv");
+    const isLogin = window.localStorage.getItem("isLoginSuv");
+    const heartProductId = window.localStorage.getItem("heartProductId");
 
     const handleSelect = (e) => {
-        const size = e.target.value;
-        const productId = item.sizes[size];
-        setSelect(size);
-        setProductId(productId);
+        const productId = e.target.value;
+        // console.log(productId);
+        setProductId(productId);    
     };
 
     const detailClick = () => {
         setClick(!click);
     }
 
-    const clickLike = async(id, productId) => {
-        const productLike = await AxiosFinal.likeProduct(id, productId);
-        setlikeClick(true);
+    const clickLike = async(id, heartProductId) => {
+        if(isLogin === "FALSE") {
+            nav("/Login");
+        } else {
+        const productLike = await AxiosFinal.likeProduct(id, heartProductId);
+        setlikeClick(true); 
+        }
     }
 
-    const clickLikeDelete = async(id, productId) => {
-        const productLikeDelete = await AxiosFinal.deleteLikeProduct(id, productId);
+    const clickLikeDelete = async(id, heartProductId) => {
+        const productLikeDelete = await AxiosFinal.deleteLikeProduct(id, heartProductId);
         setlikeClick(false);
     }
 
-    const onclick = () => {
-        setqClick(!qClick);
-    }
+
 
     const writeQna = () => {
-        // if (isLogin == true) {
-        //     setModalOpen(true);
-        // } else {
-        //     nav("/Login");
-        // }
-        setModalOpen(true);
-        
-    }
-
-    const onPopAccodian = (props) => {
-        if(props === qnaAccodian) {
-            setQnaAccodian(null);
-            console.log("click")
+        if (isLogin === "TRUE") {
+            setModalOpen(true);
         } else {
-            setQnaAccodian(props);
+            nav("/Login");
         }
     }
-    
+   
+
     useEffect(()=> {
-        const heartView = async(id, productId) => {
-            const rsp = await AxiosFinal.viewHeart(id, productId);
+        const storedData = window.localStorage.getItem("productData");
+         if (storedData) {
+            setProduct(JSON.parse(storedData));
+        }
+        const heartView = async(id, heartProductId) => {
+            const rsp = await AxiosFinal.viewHeart(id, heartProductId);
             if(rsp.data) {
                 setlikeClick(true);
             } else { 
                 setlikeClick(false);
             }
-        }
-        heartView(id, productId);
-    }, []);
+        } 
 
-    useEffect(() => {
-        const getList = async() => {
-            const response = await AxiosFinal.memQnaList();
-            setQnaList(response.data);
-        };
-        getList();
+        const qnaView = async(heartProductId) => {
+            const rsp = await AxiosFinal.viewQna(heartProductId);
+            console.log(rsp.data);
+            setQnaData(rsp.data);
+        }
+        
+
+        if (heartProductId) {
+            heartView(id, heartProductId);
+            qnaView(heartProductId);
+          }
     }, []);
+    
+    const insertCart = (productId) => {
+        console.log(productId);
+    }
+
+    const handleQna = (index) => {
+        if(expanded.includes(index)) {
+            setExpanded(expanded.filter((row)=> row !== index));
+        } else {
+            setExpanded([...expanded, index]);
+        }
+    }
 
     const closeModal = () => {
         setModalOpen(false);
     }
 
+    const clickCart = async(id, productId) => {
+        console.log("동규 >> " + productId); //요거는 email인뎁쇼,,,
+        console.log("동규 email>> " + id); //요거는 email인뎁쇼,,,
+
+        const params = await AxiosFinal.addCartItem(id, productId); 
+
+    }
+
+    const clickTest = (id, productId) => {
+        console.log(productId);
+        console.log(id);
+    }
+
+
+
+
     return (
         <Container>
                 <Header />
             <InnerContainer>
-                <div className="product">           
+                {product.length > 0 && (<div className="product">           
                     <div className="productImg">
-                            <img src={item.productImgFst} alt="" />
-                            <img src={item.productImgSnd} alt="" />
-                            <img src={item.productImgDetail} alt="" />
+                            <img src={product[0].productImgFst} alt="" />
+                            <img src={product[0].productImgSnd} alt="" />
+                            <img src={product[0].productImgDetail} alt="" />
                     </div>
                     <div className="wholeDesc">
                         <div className="descWrapper">
-                            <div className="productName">{item.productName}</div>
-                            <div className="productPrice">{item.productPrice}</div>
+                            <div className="productName">{product[0].productName}</div>
+                            <div className="productPrice">{product[0].productPrice}</div>
                             <div className="colorSize">
-                                <div className="productColor">Cement</div>
+                                <div className="productColor">{product[0].productColor}</div>
                                 <div className="productSize">
-                                    <select onChange={handleSelect} value={select}>
-                                        {Object.keys(item.sizes).map((size) => (
-                                        <option value={size} key={item.sizes[size]}>
-                                            {size}
-                                        </option>
+                                    <select onChange={handleSelect} defaultValue="default">
+                                        <option value="default">SIZE</option>
+                                        {product.map((data)=> (
+                                            <option key={data.productId} value={data.productId}>
+                                                {data.productSize}
+                                            </option>
                                         ))}
                                     </select>
                                 </div>
                             </div>
                             <div className="addBtn">
-                               {likeClick? <button className="heart" onClick={()=>clickLikeDelete(id, productId)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(id, productId)}><FaRegHeart/></button>}
-                                <button className="cart">ADD TO CART</button>
+                               {likeClick? <button className="heart" onClick={()=>clickLikeDelete(id, heartProductId)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(id, heartProductId)}><FaRegHeart/></button>}
+                                <button className="cart" onClick={()=>clickCart(id, productId)}>ADD TO CART</button>
                             </div>
                             <div className="productDesc">product desc</div>
                             <div className="detailWrapper">
                                 <p onClick={detailClick}>DETAILS  {click? "–" : "+"}</p>
                                 {click && (<div className="detail">
                                     <ul>
-                                        <li>{item.productContent}</li>
+                                        <li>{product[0].productContent}</li>
                                     </ul></div>)}
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>)}
                 <Review>
                     <div className="review"> 
                         <div className="reviewBoard">Review</div>
@@ -375,9 +410,6 @@ const ProductInfo = () => {
                                     <td className="date">2023-06-10</td>
                                 </tr>
                             </tbody>
-                            
-                            
-                            
                         </ReviewTable>
                     </div>
                 </Review>
@@ -389,11 +421,7 @@ const ProductInfo = () => {
                         </div>
                         <Modal open={modalOpen} close={closeModal} header="문의 작성"/>
                         <hr />
-
-                        
                         <QnATable>
-                            <div className="parentContents">
-                                <div className="childContents">
                             <tbody>
                                 <tr>
                                     <th className="Num">Num</th>
@@ -401,23 +429,38 @@ const ProductInfo = () => {
                                     <th className="User">User</th>
                                     <th className="Date">Date</th>
                                 </tr>
+                                {qnaData.length > 0 ? (
+                                qnaData.slice(offset, offset + limit).map((e, index) => (
+                                <React.Fragment key={index}>
+                                    <tr onClick={() => handleQna(index)}>
+                                    <td className="number">{offset + index + 1}</td>
+                                    <td className="title">{e.qnaTitle}</td>
+                                    <td className="user">{e.userName.substring(0,1)}**</td>
+                                    <td className="date">{e.qnaDate}</td>
+                                    </tr>
+                                    {expanded.includes(index) && (
+                                    <tr>
+                                        <td colSpan={4}>{e.qnaContent}</td>
+                                    </tr>
+                                    )}
+                                </React.Fragment>
+                                ))
+                                ) : (
+                                    <tr>
+                                    <td colSpan={4}>문의가 없습니다.</td>
+                                    </tr>
+                                )}
                             </tbody>
-                            
-                                    {qnaData && qnaData.map(qna => (
-                                        <tbody key={qna.qnaId} active={qnaAccodian === qna.qnaId}>                             {/*DB 값 가져오기*/}
-                                            <tr>
-                                                <td className="number">{qna.qnaId}</td>
-                                                <td className="title" onClick={() => onPopAccodian(qna.qnaId)}>{qna.qnaTitle}</td>
-                                                <td className="user">{qna.userName}</td>
-                                                <td className="date">{qna.qnaDate}</td>
-                                            </tr>
-                                        </tbody>
-                                    ))}  
-                                </div>
-                            </div>
                         </QnATable>
                     </div>
+                    <Pagenation
+                                total={qnaData.length} // 전체 아이템 수
+                                limit={limit}          // 페이지 당 아이템 수
+                                page={page}            // 현재 페이지 번호
+                                setPage={setPage}      // 페이지 번호를 변경
+                            />
                 </QnA>
+                
             </InnerContainer>
                 
         </Container>

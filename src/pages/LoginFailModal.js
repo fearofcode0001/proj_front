@@ -1,17 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React  from "react";
 import styled from "styled-components";
-import AxiosFinal from "../api/AxiosFinal";
-import { UserContext } from "../context/UserInfo";
 
 const Container = styled.div`
     .modal {
         display: none;  // 숨겨진 상태로 시작
         position: fixed;
-        width: 400px;
-        height: 600px;
-        top: 10%;  // 화면 전체를 덮도록 위치
+        width: 280px;
+        height: 70px;
+        top: 45%;  // 화면 전체를 덮도록 위치
         bottom: 0;
-        left: 35%;
+        left: 40%;
         z-index: 99; // 다른 모달 보다 위에 위치하도록 함
         background-color: white;
         border-radius: 10px;
@@ -57,6 +55,19 @@ const Container = styled.div`
             }
         }
         .main {
+           display: flex;
+           /* border: 1px solid black; */
+            .closeButton{
+                border: 1px solid black;
+                width: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                &:hover{
+                    background-color: black;
+                    color: white;
+                }
+            }
             margin: 10px 10px;
             .product {
                 margin: 40px 0;
@@ -126,8 +137,6 @@ const Container = styled.div`
             }
         }
     }
-
-
     @keyframes modal-show {
         from {
             opacity: 0;
@@ -149,41 +158,8 @@ const Container = styled.div`
 
 `;
 
-const Modal = (props) => {
+const LoginFailModal = (props) => {
     const {open, close} = props;
-    const {item} = useContext(UserContext);
-    const [inputTitle, setInputTitle] = useState('');
-    const [inputContent, setInputContent] = useState('');
-    const [product, setProduct] = useState([]);
-
-    const productId = window.localStorage.getItem("heartProductId");
-    const userEmail = window.localStorage.getItem("userIdSuv");
-
-    const handelTitle = (e) => {
-        setInputTitle(e.target.value);
-    }
-
-    const handleContent = (e) => {
-        setInputContent(e.target.value);
-    }
-    
-    const onClickUpdate = async(productId, userEmail, inputTitle, inputContent) => {
-        const response = await AxiosFinal.qnaUpdate(productId, userEmail, inputTitle, inputContent);
-        if(response.data) {
-            alert("QnA 작성이 완료되었습니다");
-            window.location.reload();
-            close();
-        } else {
-            alert("QnA 작성에 실패하였습니다");
-        }
-    }
-
-    useEffect(()=> {
-        const storedData = window.localStorage.getItem("productData");
-         if (storedData) {
-            setProduct(JSON.parse(storedData));
-        }
-    }, []);
 
 
     return (
@@ -192,33 +168,17 @@ const Modal = (props) => {
             {open &&
                <div className="form">
                     <header>
-                        <div className="header-title">iMMUTABLE</div>
+                        <div className="header-title">iMMUTABLE login Fail</div>                         
                         <div className="close" onClick={close}>&times;</div>
                     </header>
                     <div className="main">
-                        <h2>상품문의</h2>
-                        <div className="product">
-                            <img src={product[0].productImgFst}/>
-                            <div className="productInfo">
-                                <div className="productName">{product[0].productName}</div>
-                                <div className="productPrice">{product[0].productPrice}</div>
-                            </div>
-                        </div>
-                        <div className="mainTitle">
-                            <div className="title">제목</div> <input onChange={handelTitle} type="text" placeholder="제목 입력" /> 
-                        </div>
-                        <div className="mainCon">
-                            <div className="content">내용</div> <textarea onChange={handleContent} placeholder="내용 입력" />
-                        </div>
-                        <div className="Btn">
-                            <button className="cancle" onClick={close}>취소</button>
-                            <button type="submit" className="write" onClick={()=>onClickUpdate(productId, userEmail, inputTitle, inputContent)}>작성하기</button>
-                        </div>
+                        id 혹은 password 를 다시 확인해주세요. &nbsp;<div className="closeButton" onClick={close}>닫기</div>
                     </div>
-                </div>
+                    </div>
+             
             }   
             </div>
         </Container>
     );
 };
-export default Modal;
+export default LoginFailModal;

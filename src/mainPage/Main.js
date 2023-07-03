@@ -258,9 +258,11 @@ const ChatButton=styled.button`
 
 const Main= () =>{
     const [isOpen, setIsOpen] = useState(0);
-    // const [isLogin, setIsLogin] = useState(false);
     const [openChat, setOpenChat] = useState(0);
-    const {isLogin, setIsLogin} = useContext(UserContext);
+
+    const isLogin = window.localStorage.getItem("isLoginSuv");
+    const id = window.localStorage.getItem("userIdSuv");
+    console.log(id);
 
     //채팅 on/off 컴포넌트
     const onChat=()=>{
@@ -281,7 +283,9 @@ const Main= () =>{
             navigate("/FAQ")
         }
         else if(e==="logout"){
-            setIsLogin(false);
+            window.localStorage.setItem("isLoginSuv", "FALSE");
+            window.localStorage.setItem("userIdSuv", "");
+            window.location.reload();
         }
         else if(e==="SHOP"){
             navigate("/Shop");
@@ -301,8 +305,6 @@ const Main= () =>{
         }
         console.log(isOpen) ; 
       };
-
-      console.log(window.localStorage.getItem("userIdSuv"));
     
      
     return(
@@ -328,12 +330,12 @@ const Main= () =>{
                             iMMUTABLE
                         </div>
                         <div className="top2">
-                          {isLogin===false && IsLoginFalse.map(s=> (
+                          {isLogin==="FALSE" && IsLoginFalse.map(s=> (
                                         <TopButton key={s.name}>
                                             <Link to="/Login">{s.name}</Link>
                                         </TopButton>
                                     ))}
-                          {isLogin===true && IsLoginTrue.map(s=> ( 
+                          {isLogin==="TRUE" && IsLoginTrue.map(s=> ( 
                                         <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>
