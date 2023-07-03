@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import AxiosFinal from "../api/AxiosFinal";
 import Board from "./Board";
+import { click } from "@testing-library/user-event/dist/click";
 
 
 const Container = styled.div`
@@ -189,6 +190,19 @@ const FAQ = () => {
         }
     }
 
+    // faq 수정
+    const onClickEdit = async(faqTitle, faqContent) => {
+        console.log("click");
+        const response = await AxiosFinal.faqEdit(faqTitle, faqContent);
+        console.log(response.data);
+        if(response.data) {
+            navigate("/Board");
+        } else {
+            alert("error");
+        }
+    }
+    
+
     return (
         <Container>
             <Head>
@@ -221,7 +235,7 @@ const FAQ = () => {
                                 <AccordionItem key={faq.faqId} header={`Q. ${faq.faqTitle}`}> 
                                     <hr />
                                     <p>A.{faq.faqContent}</p>
-                                    <button className="deleteBtn">수정</button>
+                                    <button className="deleteBtn" onClick={() => onClickEdit(faq.faqId)}>수정</button>
                                     <button className="deleteBtn" onClick={() => onClickDelete(faq.faqId)}> 삭제</button>
                                 </AccordionItem>
                              ))}

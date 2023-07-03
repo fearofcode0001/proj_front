@@ -190,6 +190,16 @@ const AxiosFinal = {
         }
         return await axios.post(Final_proj + `/faq/deleteFaq`, deleteFaq);
     },
+
+    // faq 수정
+    faqEdit : async(faqId,faqTitle, faqContent) => {
+        const editFaq = {
+            faqId : faqId,
+            faqTitle : faqTitle,
+            faqContent : faqContent
+        }
+        return await axios.post(Final_proj + `/faq/editFaq`, editFaq);
+    },
   
     // 회원 정보 수정 저장
     saveUserInfo : async (userId, userName, userPwd, userAddr, userPhone) =>{
@@ -209,10 +219,10 @@ const AxiosFinal = {
     },
 
     // 좋아요 Insert
-    likeProduct : async(id, productId) => {
+    likeProduct : async(id, heartProductId) => {
         const like = {
             id : id,
-            productId : productId
+            productId : heartProductId
         }
         return await axios.post(Final_proj + "/like/likeInsert", like);
     },
@@ -223,19 +233,48 @@ const AxiosFinal = {
         return await axios.get(Final_proj + `/like/likeList?id=${id}`);
     },
 
-    
-    // 장바구니 추가 
-    addCartItem : async(id, productId) =>{
-        const params = {
+    // 좋아요 삭제
+    deleteLikeProduct : async(id, heartProductId) => {
+        const dislike = {
             id : id,
-            productId: productId 
+            productId : heartProductId
+        }
+        return await axios.post(Final_proj + "/like/likeDelete", dislike)
+    },
+
+    // 상품 좋아요 표시
+    viewHeart : async(id, heartProductId) => {
+        const heart = {
+            id : id,
+            productId : heartProductId
         }
         return await axios.post(Final_proj + "/cart/addCartItem", params)
     },
 
-     // 장바구니 상품
-     cartItemList : async(id) => {
-        return await axios.get(Final_proj + `/cart/cartItemList?id=${id}`);
+    // qna 추가
+    qnaUpdate : async(productId, userEmail, qnaTitle, qnaContent) => {
+        const qna = {
+            productId : productId,
+            userEmail : userEmail,
+            qnaTitle : qnaTitle,
+            qnaContent : qnaContent
+        }
+        return await axios.post(Final_proj + "/qna/uploadQna", qna);
+    },
+
+    // user QnA 가져오기
+    memQnaList : async() => {
+        return await axios.get(Final_proj + `/qna/qnaList`);
+    },
+
+    // 제품이름으로 제품 정보 가져오기
+    dataProduct : async(productName) => {
+        return await axios.get(Final_proj + `/product/getProductData?productName=${productName}`);
+    },
+
+    // Qna 불러오기
+    viewQna : async(heartProductId) => {
+        return await axios.get(Final_proj + `/qna/qnaList?heartProductId=${heartProductId}`);
     }
 
     

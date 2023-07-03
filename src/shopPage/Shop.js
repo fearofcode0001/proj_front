@@ -90,7 +90,7 @@ const Shop = () => {
     const mergeProduct = {};
 
     product.forEach((e) => {
-    const { productName, productSize, productId } = e;
+    const { productName } = e;
 
     if (!mergeProduct[productName]) {
         mergeProduct[productName] = {
@@ -100,12 +100,11 @@ const Shop = () => {
             productPrice: e.productPrice,
             productDetail : e.productDetail,
             productImgFst: e.productImgFst,
-            sizes: [],
+            productImgSnd: e.productImgSnd,
+            productImgDetail: e.productImgDetail,
+            productPrice: e.productPrice,
+            productContent : e.productContent,
         };
-    }
-
-    if (!mergeProduct[productName].sizes[productSize]) {
-        mergeProduct[productName].sizes[productSize] = productId;
     }
     });
 
@@ -113,10 +112,14 @@ const Shop = () => {
         setIsFilterOpen(!isFilterOpen);
       };
 
-    
-    const onclick = (e) => {
-        console.log(e);
-        setItem(e);
+    const onclick = async(e) => {
+        const productName = e.productName;
+        const rsp = await AxiosFinal.dataProduct(productName);
+        const result = rsp.data;
+        setItem(result);
+        window.localStorage.setItem("heartProductId",result[0].productId);
+        window.localStorage.setItem("productData", JSON.stringify(rsp.data));
+
         nav("/ProductInfo");
     }
 

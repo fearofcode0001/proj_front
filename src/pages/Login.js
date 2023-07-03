@@ -65,7 +65,7 @@ const Login =()=>{
     //id와 pw를 입력받는다.
     const [inputId,setInputId] = useState("");    
     const [inputPw,setInputPw] = useState("");
-    const {setIsLogin} = useContext(UserContext);
+    const {setIsLogin,setOrderUserData} = useContext(UserContext);
     //input창에서 id를 받아옴.
     const onChangeId = e => {
         setInputId(e.target.value);
@@ -77,6 +77,8 @@ const Login =()=>{
     //로그인 비동기통신
     const onClickLogin=  async() =>{ 
         const response = await AxiosFinal.memberLogin(inputId,inputPw);
+        const orderMemberData = await AxiosFinal.orderMemberData(inputId);
+        setOrderUserData(orderMemberData.data)
         console.log(response);
         if(response.data===true){
             //로그인시 유저아이디와 로그인여부에 값을 바꿔준다.
