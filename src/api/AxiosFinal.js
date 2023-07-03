@@ -21,6 +21,25 @@ const AxiosFinal = {
     shop : async() => {
         return await axios.get(Final_proj + `/product/items`);
     },
+    //어드민페이지 head상태창 신규조회
+    newOrderCheck: async(orderStatus) => {    
+         const newOrder = {
+                orderStatus : orderStatus
+        };
+        return await axios.post(Final_proj + "/adminPage/newOrderList", newOrder);
+    },
+    shipOrderCheck: async(orderStatus) => {    
+        const shipOrder = {
+                orderStatus : orderStatus
+        };
+        return await axios.post(Final_proj + "/adminPage/shipOrderList", shipOrder);
+    },
+    newQnaCheck: async(qnaStatus) => {    
+        const newQna = {
+                qnaStatus : qnaStatus
+        };
+        return await axios.post(Final_proj + "/adminPage/qnaLoadList", newQna);
+    },
     //아이템 업로드
     productUpload : async(title,price,color,size,category,content,imgFst,imgSnd,imgDetail)=>{
         const upLoad={
