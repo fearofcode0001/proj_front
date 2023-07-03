@@ -89,9 +89,6 @@ const Login =()=>{
     //로그인 비동기통신
     const onClickLogin=  async() =>{ 
         const response = await AxiosFinal.memberLogin(inputId,inputPw);
-        const orderMemberData = await AxiosFinal.orderMemberData(inputId);
-        console.log(orderMemberData.data);
-        setOrderUserData(orderMemberData.data);
         console.log(response);
         if(response.data===true){
             //로그인시 유저아이디와 로그인여부에 값을 바꿔준다.
@@ -99,7 +96,10 @@ const Login =()=>{
             window.localStorage.setItem("userIdSuv", inputId);
             setIsLogin(true);
             //로그인 성공시 home화면으로 돌아간다.
-            navigate ("/");  
+            navigate ("/");
+            const orderMemberData = await AxiosFinal.orderMemberData(inputId);
+            console.log(orderMemberData.data);
+            setOrderUserData(orderMemberData.data);  
         } else {
             setOnModal(true);
             setOnBlur(true);
