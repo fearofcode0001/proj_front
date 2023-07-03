@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PopupPostCode from "../api/PopupPostCode";
 import item from "../img/test.webp"
+import AxiosFinal from "../api/AxiosFinal";
 
 const Container=styled.div`
     width: 100%;
@@ -76,6 +77,7 @@ const Products = styled.div`
 
 `
 const Products_in=styled.div`
+    
     width: 100%;    
     height: 110px;
     display: flex;
@@ -196,25 +198,54 @@ const OrderInfo=styled.div`
 
 
 const Cart=()=>{
-    const[number,setNumber]=useState(1);
+
+    const[cartList, setCartList] = useState([]); 
+    const[count, setCount]=useState("");
     //가격 임의 설정
     const price = 1000;
     //토탈 가격 임의 설정
     const[totalPrice,setTotalPrice]=useState(1);
     //상품 수량 늘리는 버튼
-    const countPlus=()=>{
-        setNumber(number+1);
-        setTotalPrice(price*number);
-    }
-    //상품 수량 줄이는 버튼
-    const countMinus=()=>{
-        setNumber(number-1);
-        if(number <= 1){
-            setNumber(1);
-        }
-        setTotalPrice(price*number);
-    }  
+    // const countPlus=()=>{
+    //     setNumber(number+1);
+    //     setTotalPrice(price*number);
+    // }
+    // //상품 수량 줄이는 버튼
+    // const countMinus=()=>{
+    //     setNumber(number-1);
+    //     if(number <= 1){
+    //         setNumber(1); 
+    //     }
+    //     setTotalPrice(price*number);
+    // }  
+    const countUpChange= async(cartItemId,count)=> {
+        //CartItem 내의 수량이랑 값만 업데이트 되면 됨
+        console.log("==> cartItemId : " + cartItemId);
+        console.log("==> count : " + count);
 
+     
+            //cartItemID 를 넘겨줌
+            const rsp = await AxiosFinal.updateCartItem();
+
+    }
+
+    const countDownChange= async(cartItemId)=> {
+        //CartItem 내의 수량이랑 값만 업데이트 되면 됨
+        console.log("==> cartItemId : " + cartItemId);
+        //setNumber(number-1);
+        // if(number <= 1){
+        //     setNumber(1);
+        // }
+        //setTotalPrice(price*number);
+        const getCartList = async()=>{
+            //cartItemID 를 넘겨줌
+            const rsp = await AxiosFinal.updateCartItem();
+         };
+    }
+
+
+
+    
      //주소찾기 영역
      const [isPopupOpen, setIsPopupOpen] = useState(false);
     // 팝업창 열기
@@ -225,6 +256,20 @@ const Cart=()=>{
     const closePostCode = (e) => {
        setIsPopupOpen(false);    
     }
+
+    const id = window.localStorage.getItem("userIdSuv");
+    console.log("=Cart== > id " + id)
+
+    useEffect(() => {
+        const getCartList = async()=>{
+            if(!id) {
+                return;
+            }
+            const rsp = await AxiosFinal.cartItemList(id);
+            if(rsp.status === 200) setCartList(rsp.data);
+        };
+        getCartList();
+    }, []);
 
     return(
         <Container>
@@ -237,27 +282,30 @@ const Cart=()=>{
             </div>               
             <MainBody>
                 <Products>
-                <Products_in>
+                {cartList && cartList.map((e)=>(
+                <Products_in key={e.id}>
                         <div className="checkBox">
                             <input type="checkbox"/></div>
+                    
                         <div className="product_image">
-                            <img src ={item} /></div>                        
-                        <div className="itemName">Sweat Shirts</div>
+                            <img src ={e.productImgFst} /></div>                        
+                        <div className="itemName">{e.productName}</div>
                         <div className="count">
-                            <input type="text" value={number}/>
+                            <input id="countBox" type="text" value={e.count}/>
                             <div className="countbutton">
-                                <button className="plus" onClick={countPlus}>∧</button>
-                                <button className="minus" onClick={countMinus}>∨</button>
+                                <button className="plus" onClick={() => countUpChange(e.cartItemId, e.count)}>∧</button>
+                                <button className="minus" onClick={() => countDownChange(e.cartItemId)}>∨</button>
                             </div>
                         </div>
-                        <div className="price">{totalPrice} won</div>
+                        <div className="price">{e.productPrice.toLocaleString()} won</div>
                     </Products_in>  
+                         ))}
                 </Products>
                 <Total>
                     <div>
                     {totalPrice}
                     </div>
-                    - 
+                    +
                     <div>
                         6000원
                     </div>

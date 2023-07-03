@@ -72,6 +72,8 @@ const Shop = () => {
     const [product, setProduct] = useState([]);
     const nav = useNavigate();
 
+    const id = window.localStorage.getItem("userIdSuv");
+    console.log(id);
 
     const handleHeaderClick = () => {
       setIsBlurred(!isBlurred);
@@ -94,6 +96,9 @@ const Shop = () => {
         mergeProduct[productName] = {
             productId : e.productId,
             productName: e.productName,
+            productMainImg: e.productMainImg,
+            productPrice: e.productPrice,
+            productDetail : e.productDetail,
             productImgFst: e.productImgFst,
             productImgSnd: e.productImgSnd,
             productImgDetail: e.productImgDetail,
@@ -137,7 +142,7 @@ const Shop = () => {
                             <img src={e.productImgFst} />
                             <div className="logo">iMMUTABLE</div>
                             <div className="info">{e.productName}</div>
-                            <div className="price">{e.productPrice}</div>
+                            <div className="price">{e.productPrice.toLocaleString()}</div>
                         </div>
                     </div>
                 </Container_in>
