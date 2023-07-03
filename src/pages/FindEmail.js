@@ -99,7 +99,7 @@ const FindEmail = () => {
                     <input type="email" value={inputEmail} onChange={handleEmailChange} placeholder="EMAIL"/>
                 </div>
                 <div className="item">
-                    <ModalEmail open={modalOpen} close={closeModal} header="오류">{modalText}</ModalEmail>
+                    <ModalEmail open={modalOpen} close={closeModal}>{modalText}</ModalEmail>
                     <button className="findBtn" onClick={handleSearchId}>FIND</button>
                     <Link to="/FindPwd"><button className="findPwdBtn">FORGOT PASSWORD</button></Link>
                 </div>
