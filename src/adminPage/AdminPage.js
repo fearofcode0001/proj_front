@@ -177,13 +177,6 @@ const AdminPage=()=>{
             return `${year}-${month}-${day}`;
         }
 
-        console.log(formatDate(todayBefore));
-        console.log(formatDate(oneDayBefore));
-        console.log(formatDate(twoDayBefore));
-        console.log(formatDate(threeDayBefore));
-        console.log(formatDate(fourDayBefore));
-        console.log(formatDate(fiveDayBefore));
-
         //각 날짜 별 전달받기.
         const today = await AxiosFinal.onLoadOrderDate(formatDate(todayBefore));
         setTodayBefore(today.data);
