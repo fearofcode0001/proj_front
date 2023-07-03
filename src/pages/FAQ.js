@@ -108,17 +108,6 @@ const FAQ = () => {
 
     const navigate = useNavigate();
     const [faqList, setFaqList] = useState(""); // faq 전체를 불러와서 제목과 내용만 추출
-    
-    const onChangePage=(e)=>{
-       if(e==="logout"){
-            setIsLogin(false);
-            navigate("/")
-        }
-        else if (e==="mypage") {
-            navigate("/mypage")
-        }
-
-    }
 
     const onClickAddFaq = () => {
         navigate("/Board");
