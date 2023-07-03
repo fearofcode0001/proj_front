@@ -78,7 +78,8 @@ const Login =()=>{
     const onClickLogin=  async() =>{ 
         const response = await AxiosFinal.memberLogin(inputId,inputPw);
         const orderMemberData = await AxiosFinal.orderMemberData(inputId);
-        setOrderUserData(orderMemberData.data)
+        console.log(orderMemberData.data);
+        setOrderUserData(orderMemberData.data);
         console.log(response);
         if(response.data===true){
             //로그인시 유저아이디와 로그인여부에 값을 바꿔준다.
