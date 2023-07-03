@@ -79,7 +79,7 @@ const FindEmail = () => {
         console.log("click")
         // 비동기 요청을 통해 서버로 부터 userEmail 검색 요청 
         console.log(inputEmail);
-        const response = await AxiosFinal.searchId(inputEmail);
+        const response = await AxiosFinal.searchUserEmail(inputEmail);
         if (response.data) {
             setModalOpen(true)
             setModelText("존재하는 이메일 입니다.")
