@@ -259,6 +259,7 @@ const Cart=()=>{
 
     const id = window.localStorage.getItem("userIdSuv");
     console.log("=Cart== > id " + id)
+
     useEffect(() => {
         const getCartList = async()=>{
             if(!id) {

@@ -255,8 +255,23 @@ const AxiosFinal = {
             id : id,
             productId : heartProductId
         }
+        return await axios.post(Final_proj + "/like/Heart", heart)
+    },
+
+    // 장바구니 담기
+     addCartItem : async(id, productId) =>{
+        const params = {
+            id : id,
+            productId: productId 
+        }
         return await axios.post(Final_proj + "/cart/addCartItem", params)
     },
+        
+    
+    // 장바구니 상품
+        cartItemList : async(id) => {
+            return await axios.get(Final_proj + `/cart/cartItemList?id=${id}`);
+        },
 
     // qna 추가
     qnaUpdate : async(productId, userEmail, qnaTitle, qnaContent) => {
