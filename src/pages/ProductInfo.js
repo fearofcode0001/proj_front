@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../shopPage/Header";
 import Modal from "./Modal";
@@ -29,7 +29,7 @@ const InnerContainer = styled.div`
         .productImg {
             display: flex;
             flex-direction: column;
-            width: 70%;
+            width: 70%;         
             justify-content: center;
             align-items: center;
             img {
@@ -296,7 +296,7 @@ const ProductInfo = () => {
             } else { 
                 setlikeClick(false);
             }
-        }
+        } 
 
         const qnaView = async(heartProductId) => {
             const rsp = await AxiosFinal.viewQna(heartProductId);
@@ -332,8 +332,13 @@ const ProductInfo = () => {
         console.log("동규 >> " + productId); //요거는 email인뎁쇼,,,
         console.log("동규 email>> " + id); //요거는 email인뎁쇼,,,
 
-        const addCart = await AxiosFinal.addCartItem(id, productId); 
+        const params = await AxiosFinal.addCartItem(id, productId); 
 
+    }
+
+    const clickTest = (id, productId) => {
+        console.log(productId);
+        console.log(id);
     }
 
 
@@ -356,7 +361,8 @@ const ProductInfo = () => {
                             <div className="colorSize">
                                 <div className="productColor">{product[0].productColor}</div>
                                 <div className="productSize">
-                                    <select onChange={handleSelect}>
+                                    <select onChange={handleSelect} defaultValue="default">
+                                        <option value="default">SIZE</option>
                                         {product.map((data)=> (
                                             <option key={data.productId} value={data.productId}>
                                                 {data.productSize}
@@ -367,7 +373,7 @@ const ProductInfo = () => {
                             </div>
                             <div className="addBtn">
                                {likeClick? <button className="heart" onClick={()=>clickLikeDelete(id, heartProductId)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(id, heartProductId)}><FaRegHeart/></button>}
-                                <button className="cart" onClick={()=>insertCart()}>ADD TO CART</button>
+                                <button className="cart" onClick={()=>clickCart(id, productId)}>ADD TO CART</button>
                             </div>
                             <div className="productDesc">product desc</div>
                             <div className="detailWrapper">
