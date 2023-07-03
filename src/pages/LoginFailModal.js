@@ -7,7 +7,7 @@ const Container = styled.div`
         position: fixed;
         width: 280px;
         height: 70px;
-        top: 27%;  // 화면 전체를 덮도록 위치
+        top: 45%;  // 화면 전체를 덮도록 위치
         bottom: 0;
         left: 40%;
         z-index: 99; // 다른 모달 보다 위에 위치하도록 함

@@ -20,6 +20,12 @@ const Body = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;  
+    .blur {
+        filter: blur(5px);
+        width: 100%;
+        display: flex;
+        flex-direction: column;  
+    }
     .login{        
         width: 100%;
         display: flex;
@@ -68,6 +74,8 @@ const Login =()=>{
     const [inputPw,setInputPw] = useState("");
     //로그인 실패시 띄워질 모달 창에 대한 값을 저장한다.
     const [onModal, setOnModal] = useState(false);
+    //배경화면 블러를 관리함
+    const [onBlur, setOnBlur] = useState(false);
     //로그인 여부 , 로그인한 회원의 주문정보를 저장할 conText
     const {setIsLogin,setOrderUserData} = useContext(UserContext);
     //input창에서 id를 받아옴.
@@ -94,21 +102,23 @@ const Login =()=>{
             navigate ("/");  
         } else {
             setOnModal(true);
+            setOnBlur(true);
         }  
     }
     const closeModal = () => {
         setOnModal(false);
+        setOnBlur(false);
     }
 
     return(
         <Container>
-            <Body>
+            <Body >
+            <LoginFailModal open={onModal} close={closeModal}/>
                 LOGIN
-                <div className="login">
+                <div className={onBlur ? "blur" : "login"}>
                     <input type="text" placeholder="ID" value ={inputId} onChange={onChangeId}/>
                     <input type="password" placeholder="PASSWORD" value ={inputPw} onChange={onChangePw}/>                 
                     <button onClick={onClickLogin}>SIGN IN</button>
-                    <LoginFailModal open={onModal} close={closeModal}/>
                     <div className="otherOption">
                         <Link to="/FindEmail">FORGOT YOUR PASSWORD?</Link>
                         <Link to="/">home</Link>
