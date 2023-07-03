@@ -332,7 +332,6 @@ const ProductInfo = () => {
     }
 
     const clickCart = async(id, productId) => {
-        console.log("동규 >> " + item.productId);
         console.log("동규 >> " + productId); //요거는 email인뎁쇼,,,
         console.log("동규 email>> " + id); //요거는 email인뎁쇼,,,
 
