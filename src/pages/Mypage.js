@@ -174,13 +174,18 @@ const IsLoginFalse = [
 const Mypage = () =>{
     
     const nav = useNavigate();
-    const {isLogin, setIsLogin} = useContext(UserContext);
+    // const {isLogin, setIsLogin} = useContext(UserContext);
+
+    const isLogin = window.localStorage.getItem("isLoginSuv");
+    const id = window.localStorage.getItem("userIdSuv");
+    console.log(id);
 
 
     const navigate = useNavigate();
     const onChangePage=(e)=>{
        if(e==="logout"){
-            setIsLogin(false);
+            window.localStorage.setItem("isLoginSuv", "FALSE");
+            window.localStorage.setItem("userIdSuv", "");
             nav("/");
         }
         else if (e==="FAQ") {
@@ -205,12 +210,12 @@ const Mypage = () =>{
                      iMMUTABLE
                     </div></a>
                     <div className="nav2">
-                    {IsLoginFalse.map(s=>( isLogin===false &&
+                    {IsLoginFalse.map(s=>( isLogin==="FALSE" &&
                                         <TopButton key={s.name}>
                                             <Link to="/Login">{s.name}</Link>
                                         </TopButton>
                                     ))}
-                           {IsLoginTrue.map(s=>( isLogin===true &&
+                           {IsLoginTrue.map(s=>( isLogin==="TRUE" &&
                                         <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>

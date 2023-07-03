@@ -72,6 +72,7 @@ const Shop = () => {
     const [product, setProduct] = useState([]);
     const nav = useNavigate();
 
+    console.log(window.localStorage.getItem("userIdSuv"));
 
     const handleHeaderClick = () => {
       setIsBlurred(!isBlurred);
