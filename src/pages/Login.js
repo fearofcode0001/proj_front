@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate,Link } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
 import { UserContext } from "../context/UserInfo";
+import LoginFailModal from "./LoginFailModal";
 
 const Container =styled.div`
     width: 100%;
@@ -65,6 +66,9 @@ const Login =()=>{
     //id와 pw를 입력받는다.
     const [inputId,setInputId] = useState("");    
     const [inputPw,setInputPw] = useState("");
+    //로그인 실패시 띄워질 모달 창에 대한 값을 저장한다.
+    const [onModal, setOnModal] = useState(false);
+    //로그인 여부 , 로그인한 회원의 주문정보를 저장할 conText
     const {setIsLogin,setOrderUserData} = useContext(UserContext);
     //input창에서 id를 받아옴.
     const onChangeId = e => {
@@ -89,10 +93,12 @@ const Login =()=>{
             //로그인 성공시 home화면으로 돌아간다.
             navigate ("/");  
         } else {
-            console.log("로그인 에러");
+            setOnModal(true);
         }  
     }
-
+    const closeModal = () => {
+        setOnModal(false);
+    }
 
     return(
         <Container>
@@ -102,6 +108,7 @@ const Login =()=>{
                     <input type="text" placeholder="ID" value ={inputId} onChange={onChangeId}/>
                     <input type="password" placeholder="PASSWORD" value ={inputPw} onChange={onChangePw}/>                 
                     <button onClick={onClickLogin}>SIGN IN</button>
+                    <LoginFailModal open={onModal} close={closeModal}/>
                     <div className="otherOption">
                         <Link to="/FindEmail">FORGOT YOUR PASSWORD?</Link>
                         <Link to="/">home</Link>
