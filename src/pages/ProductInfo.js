@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import Header from "../shopPage/Header";
 import Modal from "./Modal";
@@ -6,7 +6,6 @@ import {FaRegHeart, FaHeart} from "react-icons/fa";
 import { UserContext } from "../context/UserInfo";
 import { useNavigate } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
-import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 
 
 const Container = styled.div`
@@ -200,7 +199,6 @@ const QnA = styled.div`
 
 const QnATable = styled.table`
     width: 100%;
-    table-layout: fixed; /* 테이블 크기 고정 */
     tr {
         width: 100%;
         th {
@@ -220,30 +218,29 @@ const QnATable = styled.table`
         }
         
     }
-    
 `;
 
 
-
 const ProductInfo = () => {
-    
+    const [cartItems, setCartItems] = useState([]);
     const nav = useNavigate();
     const {item, isLogin} = useContext(UserContext);
 
     const [click, setClick] = useState(false);
     const [qClick, setqClick] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
+    // const selectList = [item.sizes];     // DB에서 가져올 값
     const [select, setSelect] = useState();
+    const [clicked, setClicked] = useState([]);
     const [likeClick, setlikeClick] = useState(false);
     const [productId, setProductId] = useState(item.sizes["S"]);
 
-    const [qnaList, setQnaList] = useState("")
-
     const id = window.localStorage.getItem("userIdSuv");
-
+    console.log(id)
     const handleSelect = (e) => {
         const size = e.target.value;
         const productId = item.sizes[size];
+        console.log(productId);
         setSelect(size);
         setProductId(productId);
     };
@@ -252,14 +249,16 @@ const ProductInfo = () => {
         setClick(!click);
     }
 
+
+
     const clickLike = async(id, productId) => {
         const productLike = await AxiosFinal.likeProduct(id, productId);
-        setlikeClick(true);
+        console.log(productId);
+        console.log(id);
     }
 
     const clickLikeDelete = async(id, productId) => {
-        const productLikeDelete = await AxiosFinal.deleteLikeProduct(id, productId);
-        setlikeClick(false);
+        
     }
 
     const onclick = () => {
@@ -267,38 +266,29 @@ const ProductInfo = () => {
     }
 
     const writeQna = () => {
-        // if (isLogin == true) {
-        //     setModalOpen(true);
-        // } else {
-        //     nav("/Login");
-        // }
-        setModalOpen(true);
+        if (isLogin == true) {
+            setModalOpen(true);
+        } else {
+            nav("/Login");
+        }
         
     }
-    
-    useEffect(()=> {
-        const heartView = async(id, productId) => {
-            const rsp = await AxiosFinal.viewHeart(id, productId);
-            if(rsp.data) {
-                setlikeClick(true);
-            } else { 
-                setlikeClick(false);
-            }
-        }
-        heartView(id, productId);
-    }, []);
-
-    useEffect(() => {
-        const getList = async() => {
-            const response = await AxiosFinal.qnaLoadManage();
-            setQnaList(response.data);
-        };
-        getList();
-    }, []);
 
     const closeModal = () => {
         setModalOpen(false);
     }
+
+    const clickCart = async(id, productId) => {
+        console.log("동규 >> " + item.productId);
+        console.log("동규 >> " + productId); //요거는 email인뎁쇼,,,
+        console.log("동규 email>> " + id); //요거는 email인뎁쇼,,,
+
+        const addCart = await AxiosFinal.addCartItem(id, productId); 
+
+    }
+
+
+
 
     return (
         <Container>
@@ -306,15 +296,15 @@ const ProductInfo = () => {
             <InnerContainer>
                 <div className="product">           
                     <div className="productImg">
-                            <img src={item.productImgFst} alt="" />
-                            <img src={item.productImgSnd} alt="" />
-                            <img src={item.productImgDetail} alt="" />
+                            <img src={item.productMainImg} alt="" />
+                            <img src={item.productMainImg} alt="" />
+                            <img src={item.productMainImg} alt="" />
                     </div>
                     <div className="wholeDesc">
                         <div className="descWrapper">
                             <div className="productName">{item.productName}</div>
                             <div className="productPrice">{item.productPrice}</div>
-                            <div className="colorSize">
+                            <div className="colorSize"> 
                                 <div className="productColor">Cement</div>
                                 <div className="productSize">
                                     <select onChange={handleSelect} value={select}>
@@ -327,15 +317,15 @@ const ProductInfo = () => {
                                 </div>
                             </div>
                             <div className="addBtn">
-                               {likeClick? <button className="heart" onClick={()=>clickLikeDelete(id, productId)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(id, productId)}><FaRegHeart/></button>}
-                                <button className="cart">ADD TO CART</button>
+                               {likeClick? <button className="heart" onClick={()=>clickLikeDelete(id, item.productName)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(id, productId)}><FaRegHeart/></button>}
+                                <button className="cart" onClick={()=>clickCart(id, item.productId)} >ADD TO CART</button>
                             </div>
                             <div className="productDesc">product desc</div>
                             <div className="detailWrapper">
                                 <p onClick={detailClick}>DETAILS  {click? "–" : "+"}</p>
                                 {click && (<div className="detail">
                                     <ul>
-                                        <li>{item.productContent}</li>
+                                        <li>{item.productDetail}</li>
                                     </ul></div>)}
                             </div>
                         </div>
@@ -354,7 +344,6 @@ const ProductInfo = () => {
                                     <th className="Date">Date</th>
                                 </tr>
                             </tbody>
-                              
                             <tbody>                             {/*DB 값 가져오기*/}
                                 <tr>
                                     <td className="number">1.</td>
@@ -363,7 +352,6 @@ const ProductInfo = () => {
                                     <td className="date">2023-06-10</td>
                                 </tr>
                             </tbody>
-                            
                         </ReviewTable>
                     </div>
                 </Review>
@@ -384,26 +372,14 @@ const ProductInfo = () => {
                                     <th className="Date">Date</th>
                                 </tr>
                             </tbody>
-                            {/* <Accordion style={{width: '100%'}}> */}
-                                <tbody style={{width: '100%'}}>                             {/*DB 값 가져오기*/}
-                                        <tr >
-                                            <td className="number"style={{ paddingBottom: '10px' }}>1.</td>
-                                            <td className="title" onClick={onclick} style={{ width: '50%' }}>문의작성</td>
-                                            <td className="user" style={{ width: '20%' }}>이***</td>
-                                            <td className="date" style={{width: '20%'}}>2023-06-10</td>
-                                        </tr>
-                                    </tbody>
-                                    {qnaList && qnaList.map(qna => (
-                                        <AccordionItem key={qna.qnaId}>
-                                            <p>{qna.qnaId}</p>
-                                            <p>{qna.qnaTitle}</p>
-                                            <p>{qna.qnaContent}</p>
-                                            <p>{qna.userName}</p>
-                                        </AccordionItem>
-                                    ))}
-                                
-                            {/* </Accordion> */}
-                            
+                            <tbody>                             {/*DB 값 가져오기*/}
+                                <tr>
+                                    <td className="number">1.</td>
+                                    <td className="title" onClick={onclick}>문의작성</td>
+                                    <td className="user">이***</td>
+                                    <td className="date">2023-06-10</td>
+                                </tr>
+                            </tbody>
                         </QnATable>
                     </div>
                 </QnA>

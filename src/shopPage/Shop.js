@@ -72,6 +72,8 @@ const Shop = () => {
     const [product, setProduct] = useState([]);
     const nav = useNavigate();
 
+    const id = window.localStorage.getItem("userIdSuv");
+    console.log(id);
 
     const handleHeaderClick = () => {
       setIsBlurred(!isBlurred);
@@ -81,7 +83,6 @@ const Shop = () => {
         const getProduct = async() => {
            const rsp = await AxiosFinal.sellitems();
            if(rsp.status === 200) setProduct(rsp.data);
-           console.log(rsp.data);
        };
        getProduct();
       }, []);
@@ -93,13 +94,12 @@ const Shop = () => {
 
     if (!mergeProduct[productName]) {
         mergeProduct[productName] = {
-            productId: e.productId,
+            productId : e.productId,
             productName: e.productName,
-            productImgFst: e.productImgFst,
-            productImgSnd: e.productImgSnd,
-            productImgDetail: e.productImgDetail,
+            productMainImg: e.productMainImg,
             productPrice: e.productPrice,
-            productContent : e.productContent,
+            productDetail : e.productDetail,
+            productImgFst: e.productImgFst,
             sizes: [],
         };
     }
@@ -113,6 +113,7 @@ const Shop = () => {
         setIsFilterOpen(!isFilterOpen);
       };
 
+    
     const onclick = (e) => {
         console.log(e);
         setItem(e);
@@ -138,7 +139,7 @@ const Shop = () => {
                             <img src={e.productImgFst} />
                             <div className="logo">iMMUTABLE</div>
                             <div className="info">{e.productName}</div>
-                            <div className="price">{e.productPrice}</div>
+                            <div className="price">{e.productPrice.toLocaleString()}</div>
                         </div>
                     </div>
                 </Container_in>
