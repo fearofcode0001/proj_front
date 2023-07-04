@@ -102,6 +102,7 @@ const MainBody = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+    
     }
     .body{
         width: calc(100vw - 200px);
