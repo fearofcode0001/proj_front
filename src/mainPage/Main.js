@@ -1,4 +1,4 @@
-import React ,{useState}from "react";
+import React ,{useState,css}from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import bckimg from "../img/fog.jpg"
@@ -28,7 +28,7 @@ const SideButton = styled.button`
     display:flex;
     align-items: center;
     justify-content: center;
-    width:300px;
+    width:400px;
     height: 90px;
     min-height: 40px;
     background-color:rgba(255,255,255,0);
@@ -37,6 +37,9 @@ const SideButton = styled.button`
     &:hover{
         background-color: rgba(190,190,190,0.5);
     }
+    ${props => props.active && css`   // *&* props가 active이면 css를 재정의 한다.
+        background-color: rgba(190,190,190,0.5);        
+     `}
 `
 const TopButton = styled.button`
     border: none;
@@ -57,9 +60,12 @@ const Container =styled.div`
             color: rgba(0,0,0,0.5);
         }
     } 
+
 `
+
+
 const Side=styled.div`
-    width: 300px;
+    width: 400px;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -69,11 +75,11 @@ const Side=styled.div`
     z-index: 1;
     position: fixed;
     transition: transform 0.4s ease-in-out;
-    left: -300px;
-    @media only screen and (max-width: 500px) {
-        width: 600px;
-    }
+    left: -400px;
 `
+
+
+
 const MainBody=styled.div`
     width: 100%;
     height: 100vh;
@@ -291,10 +297,10 @@ const Main= () =>{
     
     //해당 값만큼(300) 너비를 주어 사이드 바가 올라올 수 있게 한다.
     const toggleSidebar = () => {
-        if(isOpen===300){
+        if(isOpen===400){
             setIsOpen(0);
         }else if(isOpen=== 0){
-            setIsOpen(300);
+            setIsOpen(400);
         }
         console.log(isOpen) ; 
       };
@@ -309,10 +315,12 @@ const Main= () =>{
                             {s.name}
                         </SideButton>
                     ))}
-                </div>                
+                </div>
+                
                 <div className="closeButton">
                     <ToggleButton ToggleButton onClick={toggleSidebar}>close</ToggleButton> 
-                </div>                
+                </div>
+                
             </Side>
             <MainBody>
                 <Head>
