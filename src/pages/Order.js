@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import {Link , useNavigate} from 'react-router-dom';
+import MyPageHeader from "../shopPage/MypageHeader";
 
 const Container = styled.div`
     width: 100%;
@@ -8,44 +9,6 @@ const Container = styled.div`
     
 `;
 
-const Head = styled.div`
-    width: 100%;
-    display: flex;
-    
-    a{
-        text-decoration: none;
-        color: black;
-    }
-    .nav{
-        width: 100%;
-        padding: 0 20px 0 10px;
-        display: flex;
-        justify-content: space-between;
-    }
-   
-    .nav1{
-        height: 70px;
-        font-weight: bolder;
-        font-size: 50px;
-    }
-
-    .nav2{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: rgb(100,100,100);
-        font-size: 13px;
-    }
-`;
-
-const TopButton = styled.button`
-    border: none;
-    background-color: white;
-   
-    &:hover{
-        color: rgba(0,0,0,0.5);
-    }
-` ;
 
 const InnerContainer = styled.div`
     width: 100%;
@@ -104,34 +67,10 @@ const OrderTable = styled.div`
     }
 `;
 
-const IsLoginFalse = [
-    { name : "login"}
-  ]
-  const IsLoginTrue = [
-    { name : "logout"},
-    { name : "mypage"}, 
-    { name : "cart"},    
-    { name : "FAQ"}
-  ]
+
 
 const Order = () => {
-    const [isLogin, setIsLogin] = useState(true);
     const navigate = useNavigate();
-    const onChangePage=(e)=>{
-        if(e==="logout"){
-             setIsLogin(false);
-             navigate("/")
-         }
-         else if (e==="FAQ") {
-             navigate("/FAQ")
-         }
-         else if (e==="cart") {
-             navigate("/Cart")
-         }
-         else if(e==="mypage"){
-             navigate("/Mypage")
-         }
-     }
 
     const onClick = () => {
         navigate("/Review");
@@ -139,25 +78,7 @@ const Order = () => {
 
     return (
         <Container>
-            <Head>
-            <div className="nav">
-                <a href="/"><div className="nav1" >
-                     iMMUTABLE
-                    </div></a>
-                    <div className="nav2">
-                    {IsLoginFalse.map(s=>( isLogin===false &&
-                                        <TopButton key={s.name}>
-                                            <Link to="/Login">{s.name}</Link>
-                                        </TopButton>
-                                    ))}
-                           {IsLoginTrue.map(s=>( isLogin===true &&
-                                        <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
-                                            {s.name}
-                                        </TopButton>
-                                    ))}
-                    </div>
-                </div>
-            </Head>
+            <MyPageHeader />
             <InnerContainer>
                 <div className="header">주문내역 조회
                 <hr />

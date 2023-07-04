@@ -234,7 +234,6 @@ const QnATable = styled.table`
 const ProductInfo = () => {
     const [cartItems, setCartItems] = useState([]);
     const nav = useNavigate();
-    const {isLogin, item} = useContext(UserContext);
 
     const [click, setClick] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -249,12 +248,14 @@ const ProductInfo = () => {
     const [page, setPage] = useState(1);    // 페이지 번호
     const offset = (page - 1) * limit;      // 시작 인덱스
 
+    console.log(product);
     const id = window.localStorage.getItem("userIdSuv");
+    const isLogin = window.localStorage.getItem("isLoginSuv");
     const heartProductId = window.localStorage.getItem("heartProductId");
 
     const handleSelect = (e) => {
         const productId = e.target.value;
-        console.log(productId);
+        // console.log(productId);
         setProductId(productId);    
     };
 
@@ -263,8 +264,12 @@ const ProductInfo = () => {
     }
 
     const clickLike = async(id, heartProductId) => {
+        if(isLogin === "FALSE") {
+            nav("/Login");
+        } else {
         const productLike = await AxiosFinal.likeProduct(id, heartProductId);
-        setlikeClick(true);
+        setlikeClick(true); 
+        }
     }
 
     const clickLikeDelete = async(id, heartProductId) => {
@@ -275,12 +280,11 @@ const ProductInfo = () => {
 
 
     const writeQna = () => {
-        // if (isLogin == true) {
-        //     setModalOpen(true);
-        // } else {
-        //     nav("/Login");
-        // }
-        setModalOpen(true);
+        if (isLogin === "TRUE") {
+            setModalOpen(true);
+        } else {
+            nav("/Login");
+        }
     }
    
 
@@ -311,7 +315,7 @@ const ProductInfo = () => {
           }
     }, []);
     
-    const insertCart = () => {
+    const insertCart = (productId) => {
         console.log(productId);
     }
 
@@ -328,7 +332,6 @@ const ProductInfo = () => {
     }
 
     const clickCart = async(id, productId) => {
-
         console.log("동규 >> " + productId); //요거는 email인뎁쇼,,,
         console.log("동규 email>> " + id); //요거는 email인뎁쇼,,,
 

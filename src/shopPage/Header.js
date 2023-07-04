@@ -209,15 +209,11 @@ const Header = ({ onClick }) => {
  
     const [isMenuClicked, setIsMenuClicked] = useState(false);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const {isLogin, setIsLogin} = useContext(UserContext);
+    // const {isLogin, setIsLogin} = useContext(UserContext);
      //카트 토글 여는 컴포넌트
      const [openCart, setOpenCart] = useState(false);
-   
-    
 
-
-
-
+    const isLogin = window.localStorage.getItem("isLoginSuv");
 
     const navigate = useNavigate();
     const onChangePage=(e)=>{
@@ -230,7 +226,9 @@ const Header = ({ onClick }) => {
             navigate("/FAQ")
         }
         else if(e==="logout"){
-            setIsLogin(false);
+            window.localStorage.setItem("isLoginSuv", "FALSE");
+            window.localStorage.setItem("userIdSuv", "");
+            window.location.reload();
         }
         else if(e==="SHOP"){
             navigate("/Shop");
@@ -319,12 +317,12 @@ const Header = ({ onClick }) => {
                      iMMUTABLE
                     </div></a>
                     <div className="nav3">
-                    {isLogin===false && IsLoginFalse.map(s=> (
+                    {isLogin==="FALSE" && IsLoginFalse.map(s=> (
                                         <TopButton key={s.name}>
                                             <Link to="/Login">{s.name}</Link>
                                         </TopButton>
                                     ))}
-                          {isLogin===true && IsLoginTrue.map(s=> ( 
+                          {isLogin==="TRUE" && IsLoginTrue.map(s=> ( 
                                         <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>

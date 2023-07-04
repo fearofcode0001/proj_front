@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate,Link } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
 import { UserContext } from "../context/UserInfo";
+import LoginFailModal from "./LoginFailModal";
 
 const Container =styled.div`
     width: 100%;
@@ -19,6 +20,12 @@ const Body = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;  
+    .blur {
+        filter: blur(5px);
+        width: 100%;
+        display: flex;
+        flex-direction: column;  
+    }
     .login{        
         width: 100%;
         display: flex;
@@ -65,6 +72,11 @@ const Login =()=>{
     //id와 pw를 입력받는다.
     const [inputId,setInputId] = useState("");    
     const [inputPw,setInputPw] = useState("");
+    //로그인 실패시 띄워질 모달 창에 대한 값을 저장한다.
+    const [onModal, setOnModal] = useState(false);
+    //배경화면 블러를 관리함
+    const [onBlur, setOnBlur] = useState(false);
+    //로그인 여부 , 로그인한 회원의 주문정보를 저장할 conText
     const {setIsLogin,setOrderUserData} = useContext(UserContext);
     //input창에서 id를 받아옴.
     const onChangeId = e => {
@@ -77,9 +89,6 @@ const Login =()=>{
     //로그인 비동기통신
     const onClickLogin=  async() =>{ 
         const response = await AxiosFinal.memberLogin(inputId,inputPw);
-        const orderMemberData = await AxiosFinal.orderMemberData(inputId);
-        console.log(orderMemberData.data);
-        setOrderUserData(orderMemberData.data);
         console.log(response);
         if(response.data===true){
             //로그인시 유저아이디와 로그인여부에 값을 바꿔준다.
@@ -87,18 +96,26 @@ const Login =()=>{
             window.localStorage.setItem("userIdSuv", inputId);
             setIsLogin(true);
             //로그인 성공시 home화면으로 돌아간다.
-            navigate ("/");  
+            navigate ("/");
+            const orderMemberData = await AxiosFinal.orderMemberData(inputId);
+            console.log(orderMemberData.data);
+            setOrderUserData(orderMemberData.data);  
         } else {
-            console.log("로그인 에러");
+            setOnModal(true);
+            setOnBlur(true);
         }  
     }
-
+    const closeModal = () => {
+        setOnModal(false);
+        setOnBlur(false);
+    }
 
     return(
         <Container>
-            <Body>
+            <Body >
+            <LoginFailModal open={onModal} close={closeModal}/>
                 LOGIN
-                <div className="login">
+                <div className={onBlur ? "blur" : "login"}>
                     <input type="text" placeholder="ID" value ={inputId} onChange={onChangeId}/>
                     <input type="password" placeholder="PASSWORD" value ={inputPw} onChange={onChangePw}/>                 
                     <button onClick={onClickLogin}>SIGN IN</button>

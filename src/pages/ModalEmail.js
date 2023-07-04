@@ -26,9 +26,19 @@ const Container = styled.div`
         margin-right: 10px;
         border: 0;
     }
-
+    header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 30px;
+            font-size: 11px;
+            background-color: #E6E6E6;
+            margin-left: 5px;
+            font-weight: bold;
+    }
     section {
-        width: 90%;
+        width: 250px;
         max-width: 450px;
         margin: 0 auto;
         border-radius: 0.3rem;
@@ -51,22 +61,19 @@ const Container = styled.div`
     }
 
     section > main {
+        font-size: 12px;
         padding: 16px;
         border-bottom: 1px solid #dee2e6;
         border-top: 1px solid #dee2e6;
     }
 
-    section > footer {
-        padding: 12px 16px;
-        text-align: right;
-    }
+    section > main > button {
+        font-size: 12px;
+        &:hover{
+            background-color: black;
+            color: white;
+        }
 
-    section > footer button {
-        padding: 6px 12px;
-        color: #fff;
-        background-color: #6c757d;
-        border-radius: 5px;
-        font-size: 13px;
     }
 
     @keyframes modal-show {
@@ -101,16 +108,13 @@ const ModalEmail = (props) => {
             {open &&
                 <section>
                     <header>
-                        {header}
+                        iMMUTABLE
                         <button onClick={close}>
                             &times;
                         </button>
                     </header>
-                    <main>{children}</main>
-                    <footer>
-                        {type && <button onClick={close}>확인</button>}
-                        <button onClick={close}>취소</button>
-                    </footer>
+                    <main>{children}&nbsp; <button onClick={close}>닫기</button></main>
+               
                 </section>
             }   
             </div>

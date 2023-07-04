@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PopupPostCode from "../api/PopupPostCode";
-import item from "../img/test.webp"
 import AxiosFinal from "../api/AxiosFinal";
 import { isCompositeComponent } from "react-dom/test-utils";
 
@@ -199,19 +198,15 @@ const OrderInfo=styled.div`
 
 
 const Cart=()=>{
-    const [count, setCount] = useState([]);
+
+    const navigate = useNavigate();
+
     const[cartList, setCartList] = useState([]); 
 
-    //가격 임의 설정
+    // 가격 임의 설정
     const price = 1000;
-    //토탈 가격 임의 설정
+    // 토탈 가격 임의 설정
     const[totalPrice,setTotalPrice]=useState(1);
-
-
-
-   
-
-
 
 
     // const countUpChange= async(cartItemId,count)=> {
@@ -240,8 +235,13 @@ const Cart=()=>{
     // }
 
 
-
+    // 주문창으로 이동
+    const onClickCartOrder = () => {
+        navigate("/CartOrder");
+    }
     
+
+
      //주소찾기 영역
      const [isPopupOpen, setIsPopupOpen] = useState(false);
     // 팝업창 열기
@@ -272,7 +272,7 @@ const Cart=()=>{
  
        
         
-        // 수량을 증가시키는 함수
+        // 수량을 증가
         const countPlus = (idx) => { 
             setCount(prevCount => {
               const newCount = [...prevCount];
@@ -283,7 +283,7 @@ const Cart=()=>{
           };
 
 
-        // 수량을 감소시키는 함수
+        // 수량을 감소
         const countMinus = (idx) => {
             setCount(prevCount => {
               const newCount = [...prevCount];
@@ -296,8 +296,6 @@ const Cart=()=>{
           };
           
           
-     
-
 
     return(
         <Container>
@@ -340,7 +338,7 @@ const Cart=()=>{
                         <PopupPostCode onClose={closePostCode} />
                  )} 
                 </OrderInfo>
-                <button className="paymentBtn">{totalPrice-6000}won payment</button>
+                <button className="paymentBtn" onClick={onClickCartOrder}>{totalPrice-6000}won payment</button>
             </MainBody>        
         </Container>
     );

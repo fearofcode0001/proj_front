@@ -20,6 +20,8 @@ import Order from './pages/Order';
 import Review from './pages/Review';
 import Wishlist from './pages/Wishlist';
 import UserStore from './context/UserInfo';
+import CartOrder from './pages/CartOrder';
+import OrderComplete from './pages/OrderComplete';
 
 function App() {
   return (
@@ -35,7 +37,7 @@ function App() {
           <Route path="/Shop" element={<Shop/>}/>
           <Route path="/Top" element={<TOP/>}/>
           <Route path="/FAQ" element={<FAQ/>}/>
-          <Route path="/Board" element={<Board/>}/>
+          <Route path="/Board/:faqId" element={<Board/>}/>
           <Route path="/Mypage" element={<Mypage/>}/>        
           <Route path="/AdminPage" element={<AdminPage/>}/>
           <Route path="ProductInfo" element={<ProductInfo/>}/> 
@@ -46,6 +48,8 @@ function App() {
           <Route path="/Mypost" element={<Mypost/>} />
           <Route path="/Review" element={<Review/>} />
           <Route path="/Wishlist" element={<Wishlist/>} />
+          <Route path="/CartOrder" element={<CartOrder/>} />
+          <Route path="/OrderComplete" element={<OrderComplete/>} />
         </Routes>
       </Router>
     </UserStore>

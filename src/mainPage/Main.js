@@ -1,11 +1,9 @@
-import React ,{css, useContext, useState}from "react";
+import React ,{useState,css}from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import bckimg from "../img/fog.jpg"
 import side from "../img/side.png"
 import chat from "../img/chat.png"
-import Mypage from "../pages/Mypage";
-import { UserContext } from "../context/UserInfo";
 
 const Sidemenu = [
     //버튼을 카테고리로 분류하여 값을 쉽게 가져오기 위해 name으로 설정한다.
@@ -30,7 +28,7 @@ const SideButton = styled.button`
     display:flex;
     align-items: center;
     justify-content: center;
-    width:300px;
+    width:400px;
     height: 90px;
     min-height: 40px;
     background-color:rgba(255,255,255,0);
@@ -62,11 +60,12 @@ const Container =styled.div`
             color: rgba(0,0,0,0.5);
         }
     } 
+
 `
 
 
 const Side=styled.div`
-    width: 300px;
+    width: 400px;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -76,7 +75,7 @@ const Side=styled.div`
     z-index: 1;
     position: fixed;
     transition: transform 0.4s ease-in-out;
-    left: -300px;
+    left: -400px;
 `
 
 
@@ -258,9 +257,11 @@ const ChatButton=styled.button`
 
 const Main= () =>{
     const [isOpen, setIsOpen] = useState(0);
-    // const [isLogin, setIsLogin] = useState(false);
     const [openChat, setOpenChat] = useState(0);
-    const {isLogin, setIsLogin} = useContext(UserContext);
+
+    const isLogin = window.localStorage.getItem("isLoginSuv");
+    const id = window.localStorage.getItem("userIdSuv");
+    console.log(id);
 
     //채팅 on/off 컴포넌트
     const onChat=()=>{
@@ -281,7 +282,9 @@ const Main= () =>{
             navigate("/FAQ")
         }
         else if(e==="logout"){
-            setIsLogin(false);
+            window.localStorage.setItem("isLoginSuv", "FALSE");
+            window.localStorage.setItem("userIdSuv", "");
+            window.location.reload();
         }
         else if(e==="SHOP"){
             navigate("/Shop");
@@ -294,15 +297,13 @@ const Main= () =>{
     
     //해당 값만큼(300) 너비를 주어 사이드 바가 올라올 수 있게 한다.
     const toggleSidebar = () => {
-        if(isOpen===300){
+        if(isOpen===400){
             setIsOpen(0);
         }else if(isOpen=== 0){
-            setIsOpen(300);
+            setIsOpen(400);
         }
         console.log(isOpen) ; 
       };
-
-      console.log(window.localStorage.getItem("userIdSuv"));
     
      
     return(
@@ -328,12 +329,12 @@ const Main= () =>{
                             iMMUTABLE
                         </div>
                         <div className="top2">
-                          {isLogin===false && IsLoginFalse.map(s=> (
+                          {isLogin==="FALSE" && IsLoginFalse.map(s=> (
                                         <TopButton key={s.name}>
                                             <Link to="/Login">{s.name}</Link>
                                         </TopButton>
                                     ))}
-                          {isLogin===true && IsLoginTrue.map(s=> ( 
+                          {isLogin==="TRUE" && IsLoginTrue.map(s=> ( 
                                         <TopButton key={s.name} onClick={()=>onChangePage(s.name)}>
                                             {s.name}
                                         </TopButton>
