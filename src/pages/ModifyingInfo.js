@@ -88,6 +88,31 @@ const Info = styled.div`
         display: flex;
         font-size: 12px;
     }
+    .profileChangBtn{
+        border: 1px solid black;
+        background-color: white;
+        font-size: 11px;
+        width: 100px;
+        &:hover{
+            background-color: black;
+            color: white;
+        }
+    }
+    input{
+      width: 110px;
+      margin-right: 10px;
+      ::file-selector-button {  
+      margin-left: 10px;
+      width: 100px;
+      background: #fff;
+      border: 1px solid black;
+      font-size: 11px;
+      &:hover{
+        background-color: black;
+        color: white;
+      }
+    }
+    }
 `
 
 const InnerContainer = styled.div`
@@ -354,10 +379,10 @@ const ModifyingInfo = () => {
                 </Title>
               
                 <Info>
-                <div className="userInfo">
+                    <div className="userInfo">
                         <img src={user.userImg} className="profileImg"/>
-                        <input type="file" onChange={(e)=>{onSelectProfileImg(e)}}/>
-                        <button onClick={()=>onChangeProfileImg(user.userEmail)}>이미지 변경</button>
+                        <input type="file" onChange={(e)=>{onSelectProfileImg(e)}} />
+                        <button onClick={()=>onChangeProfileImg(user.userEmail)} className="profileChangBtn">이미지 수정</button>
                         <div className="line"></div>
                         <div className="content">
                         저희 쇼핑몰을 이용해 주셔서 감사합니다. 
