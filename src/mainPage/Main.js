@@ -1,11 +1,9 @@
-import React ,{css, useContext, useState}from "react";
+import React ,{useState}from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import bckimg from "../img/fog.jpg"
 import side from "../img/side.png"
 import chat from "../img/chat.png"
-import Mypage from "../pages/Mypage";
-import { UserContext } from "../context/UserInfo";
 
 const Sidemenu = [
     //버튼을 카테고리로 분류하여 값을 쉽게 가져오기 위해 name으로 설정한다.
@@ -39,9 +37,6 @@ const SideButton = styled.button`
     &:hover{
         background-color: rgba(190,190,190,0.5);
     }
-    ${props => props.active && css`   // *&* props가 active이면 css를 재정의 한다.
-        background-color: rgba(190,190,190,0.5);        
-     `}
 `
 const TopButton = styled.button`
     border: none;
@@ -63,8 +58,6 @@ const Container =styled.div`
         }
     } 
 `
-
-
 const Side=styled.div`
     width: 300px;
     height: 100vh;
@@ -77,10 +70,10 @@ const Side=styled.div`
     position: fixed;
     transition: transform 0.4s ease-in-out;
     left: -300px;
+    @media only screen and (max-width: 500px) {
+        width: 600px;
+    }
 `
-
-
-
 const MainBody=styled.div`
     width: 100%;
     height: 100vh;
@@ -316,12 +309,10 @@ const Main= () =>{
                             {s.name}
                         </SideButton>
                     ))}
-                </div>
-                
+                </div>                
                 <div className="closeButton">
                     <ToggleButton ToggleButton onClick={toggleSidebar}>close</ToggleButton> 
-                </div>
-                
+                </div>                
             </Side>
             <MainBody>
                 <Head>

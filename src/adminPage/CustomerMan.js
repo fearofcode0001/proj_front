@@ -29,7 +29,7 @@ const CustomerInfo = styled.div`
     align-items: center;
     font-size: 11px;
     border-bottom: 1px solid #CCC;
-    .customerId{
+    .userId{
         width: 100px;
         display: flex;
         justify-content: center;
@@ -50,7 +50,7 @@ const CustomerInfo = styled.div`
         justify-content: center;
     }
     .customerGrade{
-        width: 50px;
+        width: 80px;
         display: flex;
         justify-content: center;
     }
@@ -60,7 +60,6 @@ const CustomerInfo = styled.div`
         justify-content: center;
     }
     button{
-        width: 70px;
         border: 1px solid black;
         background-color: white;
         font-size: 11px;
@@ -111,7 +110,7 @@ const  CustomerMan = () =>{
         <Container>
             <button onClick={onLoadCustomerData}> DATA RELOAD </button>
             <CustomerInfo>
-                <div className="customerId">CustomerID</div>
+                <div className="userId">UserID</div>
                 <div className="customerName">Name</div>
                 <div className="customerAddr">Address</div>
                 <div className="customerPhone"> Phone</div>
@@ -121,7 +120,7 @@ const  CustomerMan = () =>{
             
             {customerData && customerData.map((x) =>
                 <CustomerInfo>
-                    <div className="customerId">
+                    <div className="userId">
                         {x.userId}
                     </div>
                     <div className="customerName">

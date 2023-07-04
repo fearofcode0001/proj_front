@@ -58,6 +58,12 @@ const ChatList=()=>{
             <ChatListData>
                 대화
             </ChatListData>
+            <ChatListData>
+                대화
+            </ChatListData>
+            <ChatListData>
+                대화
+            </ChatListData>
           </ChatListView>
           <ChatListView>
             <ChattingData>  
