@@ -62,7 +62,6 @@ const Container = styled.div`
         margin-top: 10px;
         width: 400px;   
         height: 40px;
-        font-size: 13px;
         background-color: white;
         border: 1px solid black;
         &:hover{
@@ -77,7 +76,7 @@ const Container = styled.div`
         color: black;
         justify-content: center;
         text-align: center;
-        
+        line-height: 40px;
     }
 `;
 
@@ -206,9 +205,9 @@ const CartOrder = () => {
                 quantity: 30,
                 total_amount: 1000, // 결제 금액
                 tax_free_amount: 0,
-                approval_url: 'http://localhost:3000/PayResult', // 결제 성공 시 리다이렉트할 URL
-                cancel_url: 'http://localhost:3000/kakaoPay', // 결제 취소 시 리다이렉트할 URL
-                fail_url: 'http://localhost:3000/kakaoPay', // 결제 실패 시 리다이렉트할 URL
+                approval_url: 'http://localhost:3000/OrderComplete', // 결제 성공 시 리다이렉트할 URL
+                cancel_url: 'http://localhost:3000/CartOrder', // 결제 취소 시 리다이렉트할 URL
+                fail_url: 'http://localhost:3000/CartOrder', // 결제 실패 시 리다이렉트할 URL
               },   
               {
                 headers: {
