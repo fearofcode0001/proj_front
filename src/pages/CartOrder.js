@@ -62,7 +62,6 @@ const Container = styled.div`
         margin-top: 10px;
         width: 400px;   
         height: 40px;
-        font-size: 13px;
         background-color: white;
         border: 1px solid black;
         &:hover{
@@ -77,7 +76,7 @@ const Container = styled.div`
         color: black;
         justify-content: center;
         text-align: center;
-        
+        line-height: 40px;
     }
 `;
 
