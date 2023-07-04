@@ -77,7 +77,7 @@ const Login =()=>{
     //배경화면 블러를 관리함
     const [onBlur, setOnBlur] = useState(false);
     //로그인 여부 , 로그인한 회원의 주문정보를 저장할 conText
-    const {setIsLogin,setOrderUserData} = useContext(UserContext);
+    const {setIsLogin,setOrderUserData,orderUserData} = useContext(UserContext);
     //input창에서 id를 받아옴.
     const onChangeId = e => {
         setInputId(e.target.value);
@@ -99,11 +99,14 @@ const Login =()=>{
             navigate ("/");
             const orderMemberData = await AxiosFinal.orderMemberData(inputId);
             console.log(orderMemberData.data);
-            setOrderUserData(orderMemberData.data);  
+            setOrderUserData(orderMemberData.data); 
         } else {
             setOnModal(true);
             setOnBlur(true);
         }  
+       
+
+
     }
     const closeModal = () => {
         setOnModal(false);

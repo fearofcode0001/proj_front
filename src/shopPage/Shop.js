@@ -83,6 +83,7 @@ const Shop = () => {
         const getProduct = async() => {
            const rsp = await AxiosFinal.sellitems();
            if(rsp.status === 200) setProduct(rsp.data);
+           console.log(rsp.data);
        };
        getProduct();
       }, []);

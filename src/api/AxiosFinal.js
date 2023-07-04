@@ -118,6 +118,16 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/product/changImgDetail", changeImgDetail);
      },
+     //어드민 페이지 상품 재고 상태 수정
+     productChangeData:async(productId,productStock,productSellStatus,productName)=>{
+        const changeDetail={
+            productId : productId,
+            productStock:productStock,
+            productSellStatus:productSellStatus,
+            productName:productName
+        };
+        return await axios.post(Final_proj + "/product/changDetail", changeDetail);
+    },
     //7일치 데이터 로드
     onLoadOrderDate:async(date)=>{
         const day={orderDate : date};
@@ -237,7 +247,14 @@ const AxiosFinal = {
         }
         return await axios.post(Final_proj +"/auth/saveInfo", userInfo)
     },
-
+    //회원 프로필사진 정보 수정 저장
+    changeUserImg : async (userEmail, userImg) =>{
+        const userImgInfo = {
+            userEmail : userEmail,
+            userImg : userImg
+        }
+        return await axios.post(Final_proj +"/auth/saveUserImgInfo", userImgInfo)
+    },
     // SELL 상품
     sellitems : async() => {
         return await axios.get(Final_proj + `/product/sellitems`);

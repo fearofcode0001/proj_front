@@ -6,7 +6,7 @@ import { UserContext } from "../context/UserInfo";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "./FireBase";
 import AxiosFinal from "../api/AxiosFinal";
-import { async } from "q";
+
 
 
 
@@ -391,7 +391,7 @@ const  Inventory = () =>{
                <div className="itemSell">STATUS</div>
                <div className="itemSubmit"></div>    
            </ItemInfoHead>
-           {inventoryData && inventoryData.map((i,index)=> 
+           {inventoryData && inventoryData.map((i)=> 
            <ItemInfo key={i.productId} active={invenAccodian === i.productId}>
             <div className="itemInfoTop">
                 <div onMouseMove={(e)=>handleMouseMove(e)}>
