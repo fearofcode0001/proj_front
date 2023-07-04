@@ -20,6 +20,7 @@ import Order from './pages/Order';
 import Review from './pages/Review';
 import Wishlist from './pages/Wishlist';
 import UserStore from './context/UserInfo';
+import CartOrder from './pages/CartOrder';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="/Mypost" element={<Mypost/>} />
           <Route path="/Review" element={<Review/>} />
           <Route path="/Wishlist" element={<Wishlist/>} />
+          <Route path="/CartOrder" element={<CartOrder/>} />
         </Routes>
       </Router>
     </UserStore>
