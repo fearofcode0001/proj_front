@@ -96,6 +96,7 @@ const MainBody = styled.div`
     margin-bottom: 10px;
     .sideMenu{
         width: 200px;
+        min-width: 80px;
         height: 100%;
         margin-right: 10px;
         display: flex;
@@ -103,7 +104,7 @@ const MainBody = styled.div`
         justify-content: space-between;
     }
     .body{
-        width: 100%;
+        width: calc(100vw - 200px);
         height: 100%;
         border-top: 1px solid #CCC;        
     }
