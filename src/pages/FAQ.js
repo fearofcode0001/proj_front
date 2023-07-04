@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import AxiosFinal from "../api/AxiosFinal";
 import MyPageHeader from "../shopPage/MypageHeader";
-
 
 const Container = styled.div`
     height: 100vh;
@@ -102,7 +101,6 @@ const Footer = styled.div`
     }
 
 `
-
 
 const FAQ = () => {
 

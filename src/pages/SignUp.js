@@ -152,7 +152,6 @@ const SignUp = () => {
     const [inputPw, setInputPw] = useState("")
     const [inputConPw, setInputConPw] = useState("");
     const [inputPhone, setInputPhone] = useState("");
-    const [inputAddr, setInputAddr] = useState("")
 
     // 오류 메세지
     const [emailMessage, setEmailMessage] = useState("")
@@ -169,10 +168,10 @@ const SignUp = () => {
     const [isConPw, setIsConPw] = useState(false);
     const [isPhone, setIsPhone] = useState(false);
 
-     //저장된 주소값을 설정하여 주소는 받아온다.
-     const context = useContext(UserContext);
-     const {addr, setAddr} = context;
-     
+    //저장된 주소값을 설정하여 주소는 받아온다.
+    const context = useContext(UserContext);
+    const {addr, setAddr} = context;
+    
 
 
      //주소찾기 영역

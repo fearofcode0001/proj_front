@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PopupPostCode from "../api/PopupPostCode";
-import item from "../img/test.webp"
 import AxiosFinal from "../api/AxiosFinal";
 
 const Container=styled.div`
@@ -199,6 +198,8 @@ const OrderInfo=styled.div`
 
 const Cart=()=>{
 
+    const navigate = useNavigate();
+
     const[cartList, setCartList] = useState([]); 
     const[count, setCount]=useState("");
     //가격 임의 설정
@@ -244,7 +245,10 @@ const Cart=()=>{
     }
 
 
-
+    // 주문창으로 이동
+    const onClickCartOrder = () => {
+        navigate("/CartOrder");
+    }
     
      //주소찾기 영역
      const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -327,7 +331,7 @@ const Cart=()=>{
                         <PopupPostCode onClose={closePostCode} />
                  )} 
                 </OrderInfo>
-                <button className="paymentBtn">{totalPrice-6000}won payment</button>
+                <button className="paymentBtn" onClick={onClickCartOrder}>{totalPrice-6000}won payment</button>
             </MainBody>        
         </Container>
     );
