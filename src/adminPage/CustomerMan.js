@@ -50,7 +50,7 @@ const CustomerInfo = styled.div`
         justify-content: center;
     }
     .customerGrade{
-        width: 50px;
+        width: 80px;
         display: flex;
         justify-content: center;
     }
@@ -60,7 +60,6 @@ const CustomerInfo = styled.div`
         justify-content: center;
     }
     button{
-        width: 70px;
         border: 1px solid black;
         background-color: white;
         font-size: 11px;
