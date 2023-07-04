@@ -98,24 +98,24 @@ const Board = () => {
 
     const onClickUpload = async () => {
         console.log("click");
-        let response
+        let response;
         if (faqId) {
             // Update existing FAQ post
             response = await AxiosFinal.faqEdit(faqId, inputTitle, inputContent);
-          } else {
+        } else {
             // Create new FAQ post
             response = await AxiosFinal.faqUpload(inputTitle, inputContent);
-          }
-        
-          if (response.data === true) {
+        }
+
+        if (response.data === true) {
             // FAQ 업로드 또는 수정 성공 시
             navigate("/FAQ");
-          } else {
+        } else {
             // FAQ 업로드 또는 수정 실패 시
             setModalText("FAQ 업로드 또는 수정에 실패했습니다.");
             setModalOpen(true);
-          }
-      };
+        }
+    };
       
 
     // faq Id로 리스트 불러오기
@@ -126,6 +126,8 @@ const Board = () => {
             if(response.status === 200) {
                 setFaq(response.data);
                 console.log(response.data);
+                setInputTitle(response.data.title); // 수정하지 않아도 null 값이 들어가지 않도록 기존 faq title 불러오기
+                setInputContent(response.data.content);
             }      
         }
         getFaqList();
