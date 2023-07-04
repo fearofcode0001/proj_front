@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import PopupPostCode from "../api/PopupPostCode";
 import item from "../img/test.webp"
 import AxiosFinal from "../api/AxiosFinal";
+import { isCompositeComponent } from "react-dom/test-utils";
 
 const Container=styled.div`
     width: 100%;
@@ -77,7 +78,7 @@ const Products = styled.div`
 
 `
 const Products_in=styled.div`
-    
+  
     width: 100%;    
     height: 110px;
     display: flex;
@@ -198,50 +199,45 @@ const OrderInfo=styled.div`
 
 
 const Cart=()=>{
-
+    const [count, setCount] = useState([]);
     const[cartList, setCartList] = useState([]); 
-    const[count, setCount]=useState("");
+
     //가격 임의 설정
     const price = 1000;
     //토탈 가격 임의 설정
     const[totalPrice,setTotalPrice]=useState(1);
-    //상품 수량 늘리는 버튼
-    // const countPlus=()=>{
-    //     setNumber(number+1);
-    //     setTotalPrice(price*number);
-    // }
-    // //상품 수량 줄이는 버튼
-    // const countMinus=()=>{
-    //     setNumber(number-1);
-    //     if(number <= 1){
-    //         setNumber(1); 
-    //     }
-    //     setTotalPrice(price*number);
-    // }  
-    const countUpChange= async(cartItemId,count)=> {
-        //CartItem 내의 수량이랑 값만 업데이트 되면 됨
-        console.log("==> cartItemId : " + cartItemId);
-        console.log("==> count : " + count);
+
+
+
+   
+
+
+
+
+    // const countUpChange= async(cartItemId,count)=> {
+    //     //CartItem 내의 수량이랑 값만 업데이트 되면 됨
+    //     console.log("==> cartItemId : " + cartItemId);
+    //     console.log("==> count : " + count);
 
      
-            //cartItemID 를 넘겨줌
-            const rsp = await AxiosFinal.updateCartItem();
+    //         //cartItemID 를 넘겨줌
+    //         const rsp = await AxiosFinal.updateCartItem();
 
-    }
+    // }
 
-    const countDownChange= async(cartItemId)=> {
-        //CartItem 내의 수량이랑 값만 업데이트 되면 됨
-        console.log("==> cartItemId : " + cartItemId);
-        //setNumber(number-1);
-        // if(number <= 1){
-        //     setNumber(1);
-        // }
-        //setTotalPrice(price*number);
-        const getCartList = async()=>{
-            //cartItemID 를 넘겨줌
-            const rsp = await AxiosFinal.updateCartItem();
-         };
-    }
+    // const countDownChange= async(cartItemId)=> {
+    //     //CartItem 내의 수량이랑 값만 업데이트 되면 됨
+    //     console.log("==> cartItemId : " + cartItemId);
+    //     //setNumber(number-1);
+    //     // if(number <= 1){
+    //     //     setNumber(1);
+    //     // }
+    //     //setTotalPrice(price*number);
+    //     const getCartList = async()=>{
+    //         //cartItemID 를 넘겨줌
+    //         const rsp = await AxiosFinal.updateCartItem();
+    //      };
+    // }
 
 
 
@@ -258,18 +254,50 @@ const Cart=()=>{
     }
 
     const id = window.localStorage.getItem("userIdSuv");
-    console.log("=Cart== > id " + id)
-
+    // console.log("=Cart== > id " + id)
     useEffect(() => {
         const getCartList = async()=>{
             if(!id) {
                 return;
             }
             const rsp = await AxiosFinal.cartItemList(id);
-            if(rsp.status === 200) setCartList(rsp.data);
+            if(rsp.status === 200) {
+                const copyCnt = rsp.data.map(e => e.count);
+                setCartList(rsp.data);
+                setCount(copyCnt);
+            } 
         };
         getCartList();
     }, []);
+ 
+       
+        
+        // 수량을 증가시키는 함수
+        const countPlus = (idx) => { 
+            setCount(prevCount => {
+              const newCount = [...prevCount];
+              newCount[idx] += 1;
+ 
+              return newCount;
+            });
+          };
+
+
+        // 수량을 감소시키는 함수
+        const countMinus = (idx) => {
+            setCount(prevCount => {
+              const newCount = [...prevCount];
+              if (newCount[idx] > 1) {
+                newCount[idx] -= 1;
+       
+              }
+              return newCount;
+            });
+          };
+          
+          
+     
+
 
     return(
         <Container>
@@ -282,39 +310,24 @@ const Cart=()=>{
             </div>               
             <MainBody>
                 <Products>
-                {cartList && cartList.map((e)=>(
-                <Products_in key={e.id}>
+                {cartList && cartList.map((e, index)=>(
+                <Products_in key={e.cartItemId}>
                         <div className="checkBox">
                             <input type="checkbox"/></div>
-                    
                         <div className="product_image">
                             <img src ={e.productImgFst} /></div>                        
                         <div className="itemName">{e.productName}</div>
-                        <div className="count">
-                            <input id="countBox" type="text" value={e.count}/>
-                            <div className="countbutton">
-                                <button className="plus" onClick={() => countUpChange(e.cartItemId, e.count)}>∧</button>
-                                <button className="minus" onClick={() => countDownChange(e.cartItemId)}>∨</button>
-                            </div>
-                        </div>
-                        <div className="price">{e.productPrice.toLocaleString()} won</div>
+                            <div className="count">
+                                            <input type="text" Value={count[index]}/>
+                                            <div className="countbutton">
+                                                <button className="plus" onClick={()=>countPlus(index)}>∧</button>
+                                                <button className="minus" onClick={()=>countMinus(index)}>∨</button>
+                                            </div>
+                                        </div>    
+                        <div className="price">{(count[index] * e.productPrice).toLocaleString()} won</div>
                     </Products_in>  
-                         ))}
-                </Products>
-                <Total>
-                    <div>
-                    {totalPrice}
-                    </div>
-                    +
-                    <div>
-                        6000원
-                    </div>
-                    = 
-                    <div>
-                    {totalPrice-6000}
-                    </div>
-                    
-                </Total>
+                            ))}
+                </Products>     
                 <OrderInfo>                    
                     <div className="shippingInfo">
                             ACCOUNT DETAIL
