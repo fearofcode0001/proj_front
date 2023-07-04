@@ -131,7 +131,7 @@ const AdminLoginModal = (props) => {
     };
 
     const onClickLogin=  async() =>{ 
-        const response = await AxiosFinal.memberLogin(inputId,inputPw);
+        const response = await AxiosFinal.adminrLogin(inputId,inputPw);
         console.log(response);
         if(response.data===true){
             close();
@@ -139,7 +139,7 @@ const AdminLoginModal = (props) => {
             alert("id와 pw를 확인해주세요");
         }
     }
-    
+
     return (
         <Container>
             <div className={open ? 'openModal modal' : 'modal'}>
