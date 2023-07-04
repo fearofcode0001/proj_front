@@ -10,6 +10,14 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/auth/login", login);
     },
+    // 어드민 로그인
+     adminrLogin: async(email, pw) => {    
+        const adminLogin = {
+            email : email,
+            pwd : pw 
+        };
+        return await axios.post(Final_proj + "/auth/adminLogin", adminLogin);
+    },
     //로그인시 로그인 유저 정보 저장
     orderMemberData: async(email) =>{
         const usrData = {

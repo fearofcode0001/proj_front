@@ -121,6 +121,7 @@ const AdminLoginModal = (props) => {
 
     const [inputId,setInputId] = useState("");    
     const [inputPw,setInputPw] = useState("");
+
     const onChangeId = e => {
         setInputId(e.target.value);
     };
@@ -133,20 +134,19 @@ const AdminLoginModal = (props) => {
         const response = await AxiosFinal.memberLogin(inputId,inputPw);
         console.log(response);
         if(response.data===true){
-            //로그인 성공시 home화면으로 돌아간다.
-
-        } else {
-      
-        }  
+            close();
+        }else{
+            alert("id와 pw를 확인해주세요");
+        }
     }
+    
     return (
         <Container>
             <div className={open ? 'openModal modal' : 'modal'}>
             {open &&
                <div className="form">
                     <header>
-                        <div className="header-title">iMMUTABLE admin login</div>                         
-                        <div className="close" onClick={close}>&times;</div>
+                        <div className="header-title">iMMUTABLE admin login</div>     
                     </header>
                     <div className="main">
                         <input type="text" placeholder="ID" value ={inputId} onChange={onChangeId}/>
