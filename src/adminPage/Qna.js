@@ -9,8 +9,8 @@ width: 100%;
 height: calc(100vh - 180px);
 overflow-y: scroll;
 ::-webkit-scrollbar {
-        display: none;
-        }
+display: none;
+ }
     .qnaHead{
         width: 100%;
         height: 27px;
@@ -38,7 +38,7 @@ overflow-y: scroll;
     .qnaNm{
         width: 420px;
         display: flex;
-        justify-content: center;      
+        justify-content: center;  
     }
     .answer{
         width: 100px;
@@ -78,6 +78,7 @@ const QnaInfo = styled.div`
         white-space : nowrap;        
         // 넘침 숨기기
         overflow : hidden;
+        justify-content: center;
         cursor: pointer;
     }
     .parentContents{
@@ -187,10 +188,10 @@ const Qna = () =>{
                         {q.qnaId}
                     </div>
                     <div className="itemId">
-                        {q.product}
+                        {q.productId}
                     </div>
                     <div className="userId">
-                        {q.user}
+                        {q.userId}
                     </div>
                     <div className="qnaNmList" onClick={()=>{onPopAccodian(q.qnaId)}}>
                         {q.qnaTitle}

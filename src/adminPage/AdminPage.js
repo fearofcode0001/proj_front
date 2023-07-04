@@ -144,7 +144,7 @@ const AdminPage=()=>{
     //qna 선택시 샐행되는 엑시오스
     const onLoadQnaData = async() =>{ 
         const response = await AxiosFinal.qnaLoadManage();
-        // console.log(response.data);
+        console.log(response.data);
         setQnaData(response.data);
         // console.log("qnadata",qnaData);
     }
@@ -195,6 +195,8 @@ const AdminPage=()=>{
         const sixday = await AxiosFinal.onLoadOrderDate(formatDate(sixDayBefore));
         setSixdayBefore(sixday.data);  
     }
+
+
     const onLoadChatList =async()=>{
         const response = await AxiosFinal.onLoadChatList();
         setChatList(response.data);
@@ -222,10 +224,10 @@ const AdminPage=()=>{
     const [newQna,setNewQna] = useState(0);
     //헤드 주문상태창 신규 갱신
     const onReLoadData=async()=>{
-        // const newOrder = await AxiosFinal.newOrderCheck("CHECK");
+        const newOrder = await AxiosFinal.newOrderCheck("CHECK");
         const shipOrder = await AxiosFinal.shipOrderCheck("SHIP");
         const newQna = await AxiosFinal.newQnaCheck("HOLD");     
-        // setNewOrder(newOrder.data.length);
+        setNewOrder(newOrder.data.length);
         setShipOrder(shipOrder.data.length);
         setNewQna(newQna.data.length);
     }
