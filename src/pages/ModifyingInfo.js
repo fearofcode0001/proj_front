@@ -4,6 +4,8 @@ import PopupPostCode from "../api/PopupPostCode";
 import { UserContext } from "../context/UserInfo";
 import AxiosFinal from "../api/AxiosFinal";
 import { useNavigate } from "react-router-dom";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { storage } from "../adminPage/FireBase";
 
 
 const Container = styled.div`
@@ -315,7 +317,28 @@ const ModifyingInfo = () => {
         getUser();
     }, []);
 
-    
+
+    const [imageURL,setImageURL] = useState();
+    const onSelectProfileImg = (e) => {
+        e.preventDefault();
+        e.persist();
+        //선택한 파일
+        const image = e.target.files;
+        if(!image) return null;
+        const storageRef = ref(storage, `uploadimg/${image[0].name}`);
+        const uploadTask = uploadBytes(storageRef, image[0]);
+        uploadTask.then((snapshot) =>{
+        getDownloadURL(snapshot.ref).then((downloadURL) =>{
+            console.log("File avalable at",downloadURL);
+            alert("이미지 업로드가 완료되었습니다.")
+            setImageURL(downloadURL);
+        })
+        })
+    }; 
+    const onChangeProfileImg =async(userEmail)=>{
+        console.log(userEmail,imageURL)
+        const response = await AxiosFinal.changeUserImg(userEmail,imageURL);
+    }
     return(
         <Container>
             <MainBody>
@@ -332,7 +355,9 @@ const ModifyingInfo = () => {
               
                 <Info>
                 <div className="userInfo">
-                        <input className="profileImg" placeholder="프로필사진자리"/> 
+                        <img src={user.userImg} className="profileImg"/>
+                        <input type="file" onChange={(e)=>{onSelectProfileImg(e)}}/>
+                        <button onClick={()=>onChangeProfileImg(user.userEmail)}>이미지 변경</button>
                         <div className="line"></div>
                         <div className="content">
                         저희 쇼핑몰을 이용해 주셔서 감사합니다. 

@@ -247,7 +247,14 @@ const AxiosFinal = {
         }
         return await axios.post(Final_proj +"/auth/saveInfo", userInfo)
     },
-
+    //회원 프로필사진 정보 수정 저장
+    changeUserImg : async (userEmail, userImg) =>{
+        const userImgInfo = {
+            userEmail : userEmail,
+            userImg : userImg
+        }
+        return await axios.post(Final_proj +"/auth/saveUserImgInfo", userImgInfo)
+    },
     // SELL 상품
     sellitems : async() => {
         return await axios.get(Final_proj + `/product/sellitems`);
