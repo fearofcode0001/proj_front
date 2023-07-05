@@ -10,7 +10,7 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/auth/login", login);
     },
-    adminSignup: async(email, pw) => {    
+    adminSignUp: async(email, pw) => {    
         const signUpToken = {
             email : email,
             pwd : pw 
