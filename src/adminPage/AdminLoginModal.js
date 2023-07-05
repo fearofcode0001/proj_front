@@ -1,8 +1,14 @@
 import React , { useState } from "react";
 import styled from "styled-components";
 import AxiosFinal from "../api/AxiosFinal";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
+    a{
+        color: black;
+        text-decoration: none;
+        font-size: 11px;
+    }
     .modal {
         display: none;  // 숨겨진 상태로 시작
         position: fixed;
@@ -75,7 +81,7 @@ const Container = styled.div`
             border: 1px solid #CCC;
             margin: 16px 0 0 0;
             width: 200px;
-            height: 24px;
+            height: 22px;
             &::placeholder{
                 padding: 5px;
                 font-size: 10px;
@@ -84,7 +90,7 @@ const Container = styled.div`
             button{
             width: 210px;
             margin: 20px 0 0 0;
-            height: 28px;
+            height: 25px;
             font-size: 10px;
             border: 1px solid #CCC;
             background-color: white;
@@ -153,7 +159,8 @@ const AdminLoginModal = (props) => {
                     <div className="main">
                         <input type="text" placeholder="ID" value ={inputId} onChange={onChangeId}/>
                         <input type="password" placeholder="PASSWORD" value ={inputPw} onChange={onChangePw}/>                 
-                        <button onClick={onClickLogin}>SIGN IN</button>                
+                        <button onClick={onClickLogin}>SIGN IN</button>
+                        <Link to="/AdminSignup">admin join</Link>                
                     </div>
                 </div>            
             }   

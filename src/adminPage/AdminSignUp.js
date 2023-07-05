@@ -15,12 +15,13 @@ const Container = styled.div`
     align-items: center;
     text-align: center;
     overflow-y: scroll;
+
 `;
 const InerContainer = styled.div`
 display: flex;
 flex-direction:column;
 width: 400px;
-height: 750px;
+height: 500px;
 a{  
     width: 398px;
     height: 40px;
@@ -158,47 +159,17 @@ const AdminSignUp = () => {
     const [codeMessage, setCodeMessage] = useState("")
     const [pwMessage, setPwMessage] = useState("");
     const [conPwMessage, setConPwMessage] = useState("");
-    const [phoneMessage, setPhoneMessage] = useState("");
 
     //유효성 검사
-    const [isName, setIsName] = useState(false);
     const [isEmail, setIsEmail] = useState(false);
     const [isCode, setIsCode] = useState(false);
     const [isPw, setIsPw] = useState(false)
     const [isConPw, setIsConPw] = useState(false);
-    const [isPhone, setIsPhone] = useState(false);
 
     //저장된 주소값을 설정하여 주소는 받아온다.
     const context = useContext(UserContext);
     const {addr, setAddr} = context;
     
-
-
-     //주소찾기 영역
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-    // 팝업창 열기
-    const openPostCode = () => {
-        setIsPopupOpen(true);
-    }
-     
-	// 팝업창 닫기
-    const closePostCode = (e) => {
-        setIsPopupOpen(false);
-    }
-    
-
-    // 이름 정규식
-    const onChangeName = (e) => {
-        const inputNameRegex = /^[가-힣]{2,5}$/ // 이름은 한글로만 2자리 이상 5자리 미만
-        const nameCurrent = e.target.value;
-        setInputName(nameCurrent);
-        if (!inputNameRegex.test(nameCurrent)) { // 이름은 잘못 입력 되었을 때
-            setIsName(false);
-        } else {
-            setIsName(true);
-        }
-    }
 
      //메일 정규식
      const onChangeMail = (e) => {
@@ -241,22 +212,6 @@ const AdminSignUp = () => {
         }      
     }
 
-     //전화번호 정규식
-     const onChangePhone = (e) => {
-        const inputPhoneRegex = /^\d{3}\d{4}\d{4}$/;
-        const phoneCurrent = e.target.value;
-        setInputPhone(phoneCurrent);
-        if (!inputPhoneRegex.test(e.target.value)) { // 전화번호 입력이 잘 못 되었을 때
-            setPhoneMessage('전화번호 형식이 올바르지 않습니다.');
-            setIsPhone(false);
-        } else {
-            setPhoneMessage('올바른 전화번호 형식입니다.');
-            setIsPhone(true);
-        } 
-    }
-    console.log(isPhone);
-
-
     const onClickEmailAuth = async() => { 
         console.log("이메일 인증 호출 : " + inputEmail);
         const res = await AxiosFinal.mailCode(inputEmail);
@@ -265,8 +220,6 @@ const AdminSignUp = () => {
         console.log(res.data);
 
     }   
-
-
        // 이메일 인증코드 유효성 검사
        const onClickCode = async() => {
         console.log(inputEmail, code, code.length);
@@ -303,8 +256,6 @@ const AdminSignUp = () => {
             alert("이미 가입된 회원입니다");
         }
      }
-
-
 
 
    
