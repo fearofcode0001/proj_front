@@ -149,40 +149,48 @@ const Container = styled.div`
 
 `;
 
-const Modal = (props) => {
-    const {open, close} = props;
+const EditQnaModal = (props) => {
+    const {open, close, productId, qnaId} = props;
     const [inputTitle, setInputTitle] = useState('');
     const [inputContent, setInputContent] = useState('');
     const [product, setProduct] = useState([]);
 
-    const productId = window.localStorage.getItem("heartProductId");
-    const userEmail = window.localStorage.getItem("userIdSuv");
+    useEffect(()=> {
+        const editProductInfo = async(productId) => {
+            const response = await AxiosFinal.myQnaProductInfo(productId);
+            setProduct(response.data);
+        }
+        editProductInfo(productId);
 
-    const handelTitle = (e) => {
+        const getMyQna = async(qnaId) => {
+            const response = await AxiosFinal.editViewMyQna(qnaId);
+            setInputTitle(response.data.qnaTitle);
+            setInputContent(response.data.qnaContent);
+        }
+        getMyQna(qnaId);
+
+
+    }, [productId, qnaId]);
+
+    const editTitle = (e) => {
         setInputTitle(e.target.value);
     }
 
-    const handleContent = (e) => {
+    const editContent = (e) => {
         setInputContent(e.target.value);
     }
-    
-    const onClickUpdate = async(productId, userEmail, inputTitle, inputContent) => {
-        const response = await AxiosFinal.qnaUpdate(productId, userEmail, inputTitle, inputContent);
+
+    const editMyQna = async(qnaId, title, content) => {
+        const response = await AxiosFinal.editMyQna(qnaId, title, content);
         if(response.data) {
-            alert("QnA 작성이 완료되었습니다");
+            alert("문의 수정이 완료되었습니다");
             close();
+            window.location.reload();
         } else {
-            alert("QnA 작성에 실패하였습니다");
+            alert("문의 수정이 실패하였습니다");
+            close();
         }
     }
-
-    useEffect(()=> {
-        const storedData = window.localStorage.getItem("productData");
-         if (storedData) {
-            setProduct(JSON.parse(storedData));
-        }
-    }, []);
-
 
     return (
         <Container>
@@ -194,23 +202,23 @@ const Modal = (props) => {
                         <div className="close" onClick={close}>&times;</div>
                     </header>
                     <div className="main">
-                        <h2>상품문의</h2>
+                        <h2>문의수정</h2>
                         <div className="product">
-                            <img src={product[0].productImgFst}/>
+                            <img src={product.productImgFst}/>
                             <div className="productInfo">
-                                <div className="productName">{product[0].productName}</div>
-                                <div className="productPrice">{product[0].productPrice}</div>
+                                <div className="productName">{product.productName}</div>
+                                <div className="productPrice">{product.productPrice}</div>
                             </div>
                         </div>
                         <div className="mainTitle">
-                            <div className="title">제목</div> <input onChange={handelTitle} type="text" placeholder="제목 입력" /> 
+                            <div className="title">제목</div> <input type="text" defaultValue={inputTitle} onChange={editTitle} /> 
                         </div>
                         <div className="mainCon">
-                            <div className="content">내용</div> <textarea onChange={handleContent} placeholder="내용 입력" />
+                            <div className="content">내용</div> <textarea defaultValue={inputContent} onChange={editContent} />
                         </div>
                         <div className="Btn">
                             <button className="cancle" onClick={close}>취소</button>
-                            <button type="submit" className="write" onClick={()=>onClickUpdate(productId, userEmail, inputTitle, inputContent)}>작성하기</button>
+                            <button type="submit" className="write" onClick={()=>editMyQna(qnaId, inputTitle, inputContent)}>수정하기</button>
                         </div>
                     </div>
                 </div>
@@ -219,4 +227,4 @@ const Modal = (props) => {
         </Container>
     );
 };
-export default Modal;
+export default EditQnaModal;
