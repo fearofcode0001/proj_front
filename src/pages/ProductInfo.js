@@ -204,26 +204,33 @@ const QnATable = styled.table`
         th {
             padding-bottom: 10px;
         }
-        .Num {
+        .Num, .Status {
             width: 10%;
         }
         .Title {
-            width: 50%;
+            width: 40%;
         }
         .User, .Date {
-            width: 20%;
+            width: 15%;
         }
         td {
             text-align: center;
             padding: 10px 0;
+            font-size: 14px;
         }
         .title {
             &:hover {
                 cursor: pointer;
                 color: gray;
             }
+        }   
+    }
+    .qnaContent {
+        height: 40px;
+        font-size: 14px;
+        .content {
+            margin: 0 80px;
         }
-        
     }
 `;
 
@@ -267,13 +274,13 @@ const ProductInfo = () => {
         if(isLogin === "FALSE") {
             nav("/Login");
         } else {
-        const productLike = await AxiosFinal.likeProduct(id, heartProductId);
+        await AxiosFinal.likeProduct(id, heartProductId);
         setlikeClick(true); 
         }
     }
 
     const clickLikeDelete = async(id, heartProductId) => {
-        const productLikeDelete = await AxiosFinal.deleteLikeProduct(id, heartProductId);
+        await AxiosFinal.deleteLikeProduct(id, heartProductId);
         setlikeClick(false);
     }
 
@@ -313,11 +320,8 @@ const ProductInfo = () => {
             heartView(id, heartProductId);
             qnaView(heartProductId);
           }
-    }, []);
+    }, [modalOpen]);
     
-    const insertCart = (productId) => {
-        console.log(productId);
-    }
 
     const handleQna = (index) => {
         if(expanded.includes(index)) {
@@ -339,10 +343,6 @@ const ProductInfo = () => {
 
     }
 
-    const clickTest = (id, productId) => {
-        console.log(productId);
-        console.log(id);
-    }
 
 
 
@@ -396,10 +396,10 @@ const ProductInfo = () => {
                         <ReviewTable>
                             <tbody>
                                 <tr>
-                                    <th className="Num">Num</th>
-                                    <th className="Title">Title</th>
-                                    <th className="User">User</th>
-                                    <th className="Date">Date</th>
+                                    <th className="Num">NUM</th>
+                                    <th className="Title">TITLE</th>
+                                    <th className="User">USER</th>
+                                    <th className="Date">DATE</th>
                                 </tr>
                             </tbody>
                             <tbody>                             {/*DB 값 가져오기*/}
@@ -424,24 +424,26 @@ const ProductInfo = () => {
                         <QnATable>
                             <tbody>
                                 <tr>
-                                    <th className="Num">Num</th>
-                                    <th className="Title">Title</th>
-                                    <th className="User">User</th>
-                                    <th className="Date">Date</th>
+                                    <th className="Num">NUM</th>
+                                    <th className="Status">STATUS</th>
+                                    <th className="Title">TITLE</th>
+                                    <th className="User">USER</th>
+                                    <th className="Date">DATE</th>
                                 </tr>
                                 {qnaData.length > 0 ? (
                                 qnaData.slice(offset, offset + limit).map((e, index) => (
                                 <React.Fragment key={index}>
                                     <tr onClick={() => handleQna(index)}>
-                                    <td className="number">{offset + index + 1}</td>
+                                    <td className="number">{offset + index + 1}.</td>
+                                    <td className="status">{e.qnaStatus === "HOLD" ? '답변대기' : '답변완료'}</td>
                                     <td className="title">{e.qnaTitle}</td>
                                     <td className="user">{e.userName.substring(0,1)}**</td>
                                     <td className="date">{e.qnaDate}</td>
                                     </tr>
                                     {expanded.includes(index) && (
-                                    <tr>
-                                        <td colSpan={4}>{e.qnaContent}</td>
-                                    </tr>
+                                    <td colSpan={4} className="qnaContent">
+                                        <p className="content">{e.qnaContent}</p>
+                                    </td>
                                     )}
                                 </React.Fragment>
                                 ))
