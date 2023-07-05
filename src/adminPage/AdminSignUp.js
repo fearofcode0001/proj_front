@@ -304,7 +304,7 @@ const AdminSignUp = () => {
                     <button className="disable-button">INPUT INFORMATION</button> }
                     </div>                                     
                 </div>
-                <Link to="/Login">LOGIN</Link>
+                <Link to="/AdminPage">LOGIN</Link>
             </InerContainer>
         </Container>
     );
