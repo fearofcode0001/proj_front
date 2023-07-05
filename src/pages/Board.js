@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
 import ModalEmail from "./ModalEmail";
 import { useNavigate } from "react-router-dom";
-import { Axios } from "axios";
 
 const Container = styled.div`
     height: 100vh;
@@ -80,8 +79,8 @@ const Board = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalText, setModalText] = useState("");
 
-    const [faq, setFaq] = useState([]);
-    const faqId = window.localStorage.getItem("faqList")
+    const [faq, setFaq] = useState("");
+    const {faqId} = useParams();
 
 
      //모달 창 닫기 
@@ -97,39 +96,57 @@ const Board = () => {
         setInputContent(e.target.value);
     };
 
-    const onClickUpload = async() => {
+    const onClickUpload = async () => {
         console.log("click");
-            const response = await AxiosFinal.faqUpload(inputTitle, inputContent);
-            if(response.data === true) {
-                navigate("/FAQ");
-            } else {
-                setModalText("FAQ 업로드에 실패했습니다.")
-                setModalOpen(true);
+        let response;
+        if (faqId) {
+            // Update existing FAQ post
+            response = await AxiosFinal.faqEdit(faqId, inputTitle, inputContent);
+        } else {
+            // Create new FAQ post
+            response = await AxiosFinal.faqUpload(inputTitle, inputContent);
+        }
 
-            }
+        if (response.data === true) {
+            // FAQ 업로드 또는 수정 성공 시
+            navigate("/FAQ");
+        } else {
+            // FAQ 업로드 또는 수정 실패 시
+            setModalText("FAQ 업로드 또는 수정에 실패했습니다.");
+            setModalOpen(true);
+        }
     };
+      
 
+    // faq Id로 리스트 불러오기
     useEffect(() => {
+        console.log(faqId);
         const getFaqList = async() => {
-            const response = await AxiosFinal.faqList(faqId);
-            if(response.status === 200) setFaq(response.data);
-            console.log(response.data);
+            const response = await AxiosFinal.faqIdList(faqId);
+            if(response.status === 200) {
+                setFaq(response.data);
+                console.log(response.data);
+                setInputTitle(response.data.title); // 수정하지 않아도 null 값이 들어가지 않도록 기존 faq title 불러오기
+                setInputContent(response.data.content);
+            }      
         }
         getFaqList();
-    },[])
+    },[]);
+
 
     return(
         <Container>
             <Inner>
+      
                 <p>FAQ 글쓰기</p>
                 <div className="item">
                     <label className="title">제목</label>
-                    <textarea defaultValue={faq.faqTitle} value={faq.faqTitle} className="txtTitle" name="board" id="title" 
+                    <textarea defaultValue={faq.title}  className="txtTitle" name="board" id="title" 
                     cols="10" rows="30" onChange={handelTitle} placeholder="제목을 입력하세요"></textarea>
                 </div>
                 <div className="item2">
                 <label className="content">본문</label>
-                    <textarea defaultValue={faq.faqContent} value={faq.faqContent} className="txtContent" name="board" id="content" 
+                    <textarea defaultValue={faq.content}  className="txtContent" name="board" id="content" 
                     cols="60" rows="10" onChange={handleContent} placeholder="내용을 입력하세요"></textarea>
                 </div>
                 

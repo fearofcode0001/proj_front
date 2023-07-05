@@ -25,6 +25,8 @@ const UserStore = (props) => {
     const [chatList,setChatList] = useState("");
     //주문자 주소 번호를 저장
     const [orderUserData, setOrderUserData] = useState("");
+    //kakao pay url
+    const [payUrl, setPayUrl] = useState(""); 
     
     return (
         <UserContext.Provider value={{
@@ -46,7 +48,8 @@ const UserStore = (props) => {
             fiveDayBefore,setFivedayBefore,
             sixDayBefore,setSixdayBefore,
             chatList,setChatList,
-            orderUserData, setOrderUserData}}>
+            orderUserData, setOrderUserData,
+            payUrl, setPayUrl}}>
             {props.children}
         </UserContext.Provider>   
     );
