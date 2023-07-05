@@ -287,9 +287,9 @@ const AxiosFinal = {
         
     
     // 장바구니 상품
-        cartItemList : async(id) => {
-            return await axios.get(Final_proj + `/cart/cartItemList?id=${id}`);
-        },
+    cartItemList : async(id) => {
+        return await axios.get(Final_proj + `/cart/cartItemList?id=${id}`);
+    },
 
     // qna 추가
     qnaUpdate : async(productId, userEmail, qnaTitle, qnaContent) => {
@@ -315,6 +315,15 @@ const AxiosFinal = {
     // Qna 불러오기
     viewQna : async(heartProductId) => {
         return await axios.get(Final_proj + `/qna/qnaList?heartProductId=${heartProductId}`);
+    },
+
+    // 장바구니 상품 주문
+    getCartList : async(userEmail, cartId) => {
+        const cartList = {
+            userEmail : userEmail,
+            cartId : cartId
+        }
+        return await axios.post(Final_proj + "/order/cartOrder", cartList);
     }
 
     
