@@ -11,7 +11,7 @@ const AxiosFinal = {
         return await axios.post(Final_proj + "/auth/login", login);
     },
     // 어드민 로그인
-     adminrLogin: async(email, pw) => {    
+     adminLogin: async(email, pw) => {    
         const adminLogin = {
             email : email,
             pwd : pw 
