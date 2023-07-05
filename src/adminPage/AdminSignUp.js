@@ -245,10 +245,10 @@ const AdminSignUp = () => {
         if(!check) { // 가입된 이메일이 없으면 다음단계 진행
             console.log("가입가능");
             // 가입 진행
-            const memberReg = await AxiosFinal.adminSignup(inputEmail, inputPw);
-            setAddr("");
+            const memberReg = await AxiosFinal.adminSignUp(inputEmail, inputPw);
+        
             if(memberReg.data === true) {
-                navigate("/Login");
+                navigate("/AdminPage");
             } else {
                 alert("회원 가입에 실패했습니다");
             }
