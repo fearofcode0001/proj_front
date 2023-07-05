@@ -263,7 +263,7 @@ const AdminSignUp = () => {
         <Container>
             <InerContainer>
                 <div className="top">
-                    SIGNUP
+                    ADMIN SIGNUP
                 </div>
                 <div className="input">
                 
