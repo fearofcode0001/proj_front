@@ -132,7 +132,9 @@ const AdminLoginModal = (props) => {
 
     const onClickLogin=  async() =>{ 
         const response = await AxiosFinal.adminLogin(inputId,inputPw);
+        const responseToken = await AxiosFinal.adminTokenLogin(inputId,inputPw);
         console.log(response);
+        console.log(responseToken);
         if(response.data===true){
             close();
         }else{

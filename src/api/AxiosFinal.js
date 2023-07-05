@@ -18,6 +18,14 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/auth/adminLogin", adminLogin);
     },
+      // 어드민 토큰로그인
+      adminTokenLogin: async(email, pw) => {    
+        const adminTokenLogin = {
+            email : email,
+            pwd : pw 
+        };
+        return await axios.post(Final_proj + "/auth/loginToken", adminTokenLogin);
+    },
     //로그인시 로그인 유저 정보 저장
     orderMemberData: async(email) =>{
         const usrData = {
