@@ -241,7 +241,7 @@ const Cart=()=>{
     }
     
 
-
+    const [count,setCount] = useState([]);
      //주소찾기 영역
      const [isPopupOpen, setIsPopupOpen] = useState(false);
     // 팝업창 열기
