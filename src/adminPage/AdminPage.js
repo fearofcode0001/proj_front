@@ -246,9 +246,9 @@ const AdminPage=()=>{
     }
     
     //어드민페이지 로그인 창 모달
-    const [onModal, setOnModal] = useState(true);
+    const [onModal, setOnModal] = useState(false);
     //배경화면 블러를 관리함
-    const [onBlur, setOnBlur] = useState(true);
+    const [onBlur, setOnBlur] = useState(false);
     const closeModal = () => {
         setOnModal(false);
         setOnBlur(false);
