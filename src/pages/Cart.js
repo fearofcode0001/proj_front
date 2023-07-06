@@ -68,6 +68,7 @@ const MainBody=styled.div`
     }
 `
 const Products = styled.div`
+ 
     width: 100%;
     height: 100%;
     overflow-y:scroll;
@@ -77,7 +78,7 @@ const Products = styled.div`
 
 `
 const Products_in=styled.div`
-  
+   
     width: 100%;    
     height: 110px;
     display: flex;
@@ -145,6 +146,12 @@ const Products_in=styled.div`
     img{
         width: 80px;
     }
+
+    .total{
+    
+        display: flex;
+        position: reltive;
+    }
 `
 const Total=styled.div`
     display: flex;
@@ -198,6 +205,7 @@ const OrderInfo=styled.div`
 
 
 const Cart=()=>{
+    const [count, setCount] = useState([]);
 
     const navigate = useNavigate();
 
@@ -207,32 +215,6 @@ const Cart=()=>{
     const price = 1000;
     // 토탈 가격 임의 설정
     const[totalPrice,setTotalPrice]=useState(1);
-
-
-    // const countUpChange= async(cartItemId,count)=> {
-    //     //CartItem 내의 수량이랑 값만 업데이트 되면 됨
-    //     console.log("==> cartItemId : " + cartItemId);
-    //     console.log("==> count : " + count);
-
-     
-    //         //cartItemID 를 넘겨줌
-    //         const rsp = await AxiosFinal.updateCartItem();
-
-    // }
-
-    // const countDownChange= async(cartItemId)=> {
-    //     //CartItem 내의 수량이랑 값만 업데이트 되면 됨
-    //     console.log("==> cartItemId : " + cartItemId);
-    //     //setNumber(number-1);
-    //     // if(number <= 1){
-    //     //     setNumber(1);
-    //     // }
-    //     //setTotalPrice(price*number);
-    //     const getCartList = async()=>{
-    //         //cartItemID 를 넘겨줌
-    //         const rsp = await AxiosFinal.updateCartItem();
-    //      };
-    // }
 
 
     // 주문창으로 이동
@@ -254,7 +236,8 @@ const Cart=()=>{
     }
 
     const id = window.localStorage.getItem("userIdSuv");
-    // console.log("=Cart== > id " + id)
+
+
     useEffect(() => {
         const getCartList = async()=>{
             if(!id) {
@@ -270,18 +253,44 @@ const Cart=()=>{
         getCartList();
     }, []);
  
-       
+
+
+    // 토탈 가격 
+
+    const calculateTotalPrice = () => {
+        let totalPrice = 0; 
+        for(let i = 0; i< cartList.length; i++){
+            totalPrice += cartList[i].setOriginProductPrice * count[i];
+            console.log("total" + totalPrice)
+        }
+        return totalPrice.toLocaleString();
         
+    }
+
+
+    const updateCount = async (count, cartList, idx) => {
+        const response = await AxiosFinal.updateCount( count, cartList, idx);
+        const result = response.data;
+        console.log(result)
+    };
+    console.log(cartList)
+   
+      
+
+
         // 수량을 증가
         const countPlus = (idx) => { 
+            console.log(idx);
             setCount(prevCount => {
               const newCount = [...prevCount];
               newCount[idx] += 1;
- 
+
+              updateCount(newCount[idx], cartList, idx);
               return newCount;
             });
           };
 
+          
 
         // 수량을 감소
         const countMinus = (idx) => {
@@ -289,13 +298,14 @@ const Cart=()=>{
               const newCount = [...prevCount];
               if (newCount[idx] > 1) {
                 newCount[idx] -= 1;
-       
+                updateCount(newCount[idx], cartList, idx);
               }
               return newCount;
             });
           };
-          
-          
+
+          console.log(cartList)
+
 
     return(
         <Container>
@@ -307,6 +317,7 @@ const Cart=()=>{
                 <Link to="/">home</Link>   
             </div>               
             <MainBody>
+            
                 <Products>
                 {cartList && cartList.map((e, index)=>(
                 <Products_in key={e.cartItemId}>
@@ -316,16 +327,23 @@ const Cart=()=>{
                             <img src ={e.productImgFst} /></div>                        
                         <div className="itemName">{e.productName}</div>
                             <div className="count">
-                                            <input type="text" Value={count[index]}/>
+                                            <input type="text" Value={count[index]} />
                                             <div className="countbutton">
                                                 <button className="plus" onClick={()=>countPlus(index)}>∧</button>
                                                 <button className="minus" onClick={()=>countMinus(index)}>∨</button>
                                             </div>
                                         </div>    
-                        <div className="price">{(count[index] * e.productPrice).toLocaleString()} won</div>
-                    </Products_in>  
-                            ))}
+                        <div className="price">{(e.setOriginProductPrice * count[index]).toLocaleString()} won</div>
+                    </Products_in> 
+                             ))}
                 </Products>     
+          
+                <Total>
+            
+                   {calculateTotalPrice()} won
+        
+                </Total>
+   
                 <OrderInfo>                    
                     <div className="shippingInfo">
                             ACCOUNT DETAIL
@@ -338,7 +356,7 @@ const Cart=()=>{
                         <PopupPostCode onClose={closePostCode} />
                  )} 
                 </OrderInfo>
-                <button className="paymentBtn" onClick={onClickCartOrder}>{totalPrice-6000}won payment</button>
+                <button className="paymentBtn" onClick={onClickCartOrder}>payMent</button>
             </MainBody>        
         </Container>
     );
