@@ -223,7 +223,7 @@ const  Inventory = () =>{
     //css에 active를 넘겨줄 값
     const[invenAccodian, setinvenAccodian] = useState("all"); 
     const onPopAccodian =(props)=>{
-        console.log(props);
+        // console.log(props);
         //같은 버튼 클릭시 null로 바꿔주어 모든 css를 초기화한다
         if(props===invenAccodian){
             setinvenAccodian(null);
@@ -326,7 +326,8 @@ const  Inventory = () =>{
         const response = await AxiosFinal.productChangeImgSnd(id,imageURLSnd)
     }
     //수정버튼
-    const onFixOrder =(productData)=>{  
+    const onFixInventory =(productData)=>{  
+        console.log(productData);
         if(fixProductData.productName==='' && fixProductData.productSellStatus==''){
             setFixProductData({
                 ...fixProductData,
@@ -337,7 +338,7 @@ const  Inventory = () =>{
             setFixProductData({
                 ...fixProductData,
                 productName: productData.productName,
-                itemStock: productData.itemStock
+                itemStock: productData.productStock
               })
         }else if(fixProductData.productName===''){
             setFixProductData({
@@ -345,7 +346,13 @@ const  Inventory = () =>{
                 productName: productData.productName
               })
         }
-        console.log(fixProductData)    ;    
+        else if(fixProductData.itemStock===''){
+            setFixProductData({
+                ...fixProductData,
+                itemStock: productData.productStock
+              })
+        }
+        console.log(fixProductData);    
     }
     //contents수정버튼
     const onChangeContents=async(id,productContent)=>{
@@ -422,7 +429,7 @@ const  Inventory = () =>{
                 </select>
                </div> 
                <div className="itemSubmit">
-                <button className="fixButton" onClick={()=>{onFixOrder(i)}}>fix</button>
+                <button className="fixButton" onClick={()=>{onFixInventory(i)}}>fix</button>
                 <button onClick={()=>submitProduct(i.productId,i)}>submit</button>
                </div>
             </div>
