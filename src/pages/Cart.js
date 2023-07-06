@@ -276,9 +276,7 @@ const Cart=()=>{
     console.log(cartList)
    
       
-
-
-        // 수량을 증가
+        // 수량 증가
         const countPlus = (idx) => { 
             console.log(idx);
             setCount(prevCount => {
@@ -290,9 +288,8 @@ const Cart=()=>{
             });
           };
 
-          
 
-        // 수량을 감소
+        // 수량 감소
         const countMinus = (idx) => {
             setCount(prevCount => {
               const newCount = [...prevCount];
