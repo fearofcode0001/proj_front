@@ -275,6 +275,9 @@ const Cart=()=>{
     };
     console.log(cartList)
    
+
+
+    
       
         // 수량 증가
         const countPlus = (idx) => { 
