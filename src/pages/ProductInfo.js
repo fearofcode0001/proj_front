@@ -226,10 +226,16 @@ const QnATable = styled.table`
         }   
     }
     .qnaContent {
-        height: 40px;
         font-size: 14px;
         .content {
-            margin: 0 80px;
+            margin: 10px 60px;
+        }
+    }
+    .qnaReply {
+        background-color: whitesmoke;
+        .reply {
+            margin: 0 60px;
+            padding: 10px 0;
         }
     }
 `;
@@ -378,7 +384,6 @@ const ProductInfo = () => {
                                {likeClick? <button className="heart" onClick={()=>clickLikeDelete(id, heartProductId)}><FaHeart className="faHeart"/></button> : <button className="heart" onClick={()=>clickLike(id, heartProductId)}><FaRegHeart/></button>}
                                 <button className="cart" onClick={()=>clickCart(id, productId)}>ADD TO CART</button>
                             </div>
-                            <div className="productDesc">product desc</div>
                             <div className="detailWrapper">
                                 <p onClick={detailClick}>DETAILS  {click? "–" : "+"}</p>
                                 {click && (<div className="detail">
@@ -435,21 +440,26 @@ const ProductInfo = () => {
                                 <React.Fragment key={index}>
                                     <tr onClick={() => handleQna(index)}>
                                     <td className="number">{offset + index + 1}.</td>
-                                    <td className="status">{e.qnaStatus === "HOLD" ? '답변대기' : '답변완료'}</td>
+                                    <td className="status" style={{fontWeight:"bold"}}>{e.qnaStatus === "HOLD" ? '답변대기' : '답변완료'}</td>
                                     <td className="title">{e.qnaTitle}</td>
                                     <td className="user">{e.userName.substring(0,1)}**</td>
                                     <td className="date">{e.qnaDate}</td>
                                     </tr>
                                     {expanded.includes(index) && (
-                                    <td colSpan={4} className="qnaContent">
+                                    <td colSpan={5} className="qnaContent">
                                         <p className="content">{e.qnaContent}</p>
+                                        {e.reply && 
+                                           <div className="qnaReply">
+                                            <p className="reply">{e.reply}</p>
+                                           </div>
+                                        }
                                     </td>
                                     )}
                                 </React.Fragment>
                                 ))
                                 ) : (
                                     <tr>
-                                    <td colSpan={4}>문의가 없습니다.</td>
+                                    <td colSpan={5}>문의가 없습니다.</td>
                                     </tr>
                                 )}
                             </tbody>
