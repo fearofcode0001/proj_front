@@ -1,5 +1,5 @@
-import React ,{useState,css}from "react";
-import styled from "styled-components";
+import React ,{useState }from "react";
+import styled,{css} from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import bckimg from "../img/fog.jpg"
 import side from "../img/side.png"
