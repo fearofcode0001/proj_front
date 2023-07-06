@@ -373,6 +373,15 @@ const AxiosFinal = {
             qnaId : qnaId
         }
         return await axios.post(Final_proj + "/qna/deleteMyQna", deleteQna);
+    }, 
+
+    // cart에서 상품 목록 가져오기
+    getCartList : async(userEmail, cartId) => {
+        const getList = {
+            userEmail : userEmail,
+            cartId : cartId
+        }
+        return await axios.post(Final_proj + "/order/cartOrder", getList);
     }
     
 };

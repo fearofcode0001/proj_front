@@ -236,7 +236,8 @@ const Cart=()=>{
 
 
     // 주문창으로 이동
-    const onClickCartOrder = () => {
+    const onClickCartOrder = async() => {
+        const getList = await AxiosFinal.getCartList()
         navigate("/CartOrder");
     }
     
@@ -264,7 +265,7 @@ const Cart=()=>{
             if(rsp.status === 200) {
                 const copyCnt = rsp.data.map(e => e.count);
                 setCartList(rsp.data);
-                setCount(copyCnt);
+                // setCount(copyCnt);
             } 
         };
         getCartList();
@@ -273,27 +274,27 @@ const Cart=()=>{
        
         
         // 수량을 증가
-        const countPlus = (idx) => { 
-            setCount(prevCount => {
-              const newCount = [...prevCount];
-              newCount[idx] += 1;
+        // const countPlus = (idx) => { 
+        //     setCount(prevCount => {
+        //       const newCount = [...prevCount];
+        //       newCount[idx] += 1;
  
-              return newCount;
-            });
-          };
+        //       return newCount;
+        //     });
+        //   };
 
 
         // 수량을 감소
-        const countMinus = (idx) => {
-            setCount(prevCount => {
-              const newCount = [...prevCount];
-              if (newCount[idx] > 1) {
-                newCount[idx] -= 1;
+        // const countMinus = (idx) => {
+        //     setCount(prevCount => {
+        //       const newCount = [...prevCount];
+        //       if (newCount[idx] > 1) {
+        //         newCount[idx] -= 1;
        
-              }
-              return newCount;
-            });
-          };
+        //       }
+        //       return newCount;
+        //     });
+        //   };
           
           
 
@@ -315,14 +316,14 @@ const Cart=()=>{
                         <div className="product_image">
                             <img src ={e.productImgFst} /></div>                        
                         <div className="itemName">{e.productName}</div>
-                            <div className="count">
+                            {/* <div className="count">
                                             <input type="text" Value={count[index]}/>
                                             <div className="countbutton">
                                                 <button className="plus" onClick={()=>countPlus(index)}>∧</button>
                                                 <button className="minus" onClick={()=>countMinus(index)}>∨</button>
                                             </div>
                                         </div>    
-                        <div className="price">{(count[index] * e.productPrice).toLocaleString()} won</div>
+                        <div className="price">{(count[index] * e.productPrice).toLocaleString()} won</div> */}
                     </Products_in>  
                             ))}
                 </Products>     
