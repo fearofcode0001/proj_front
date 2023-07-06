@@ -22,6 +22,7 @@ import Wishlist from './pages/Wishlist';
 import UserStore from './context/UserInfo';
 import CartOrder from './pages/CartOrder';
 import OrderComplete from './pages/OrderComplete';
+import AdminSignUp from './adminPage/AdminSignUp';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
           <Route path="/Wishlist" element={<Wishlist/>} />
           <Route path="/CartOrder" element={<CartOrder/>} />
           <Route path="/OrderComplete" element={<OrderComplete/>} />
+          <Route path="/AdminSignUp" element={<AdminSignUp/>} />
         </Routes>
       </Router>
     </UserStore>
