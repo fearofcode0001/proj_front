@@ -237,7 +237,7 @@ const Cart=()=>{
 
     // 주문창으로 이동
     const onClickCartOrder = async() => {
-        const getList = await AxiosFinal.getCartList()
+        // const getList = await AxiosFinal.getCartList()
         navigate("/CartOrder");
     }
     
