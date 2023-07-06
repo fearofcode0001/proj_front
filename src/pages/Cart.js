@@ -211,18 +211,12 @@ const Cart=()=>{
 
     const[cartList, setCartList] = useState([]); 
 
-    // 가격 임의 설정
-    const price = 1000;
-    // 토탈 가격 임의 설정
-    const[totalPrice,setTotalPrice]=useState(1);
-
 
     // 주문창으로 이동
     const onClickCartOrder = () => {
         navigate("/CartOrder");
     }
     
-
 
      //주소찾기 영역
      const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -247,7 +241,8 @@ const Cart=()=>{
             if(rsp.status === 200) {
                 const copyCnt = rsp.data.map(e => e.count);
                 setCartList(rsp.data);
-                setCount(copyCnt);
+                console.log(rsp.data);
+                // setCount(copyCnt);
             } 
         };
         getCartList();
@@ -256,7 +251,6 @@ const Cart=()=>{
 
 
     // 토탈 가격 
-
     const calculateTotalPrice = () => {
         let totalPrice = 0; 
         for(let i = 0; i< cartList.length; i++){
@@ -339,9 +333,8 @@ const Cart=()=>{
                 </Products>     
           
                 <Total>
-            
                    {calculateTotalPrice()} won
-        
+
                 </Total>
    
                 <OrderInfo>                    

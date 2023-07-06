@@ -10,6 +10,29 @@ const AxiosFinal = {
         };
         return await axios.post(Final_proj + "/auth/login", login);
     },
+    adminSignUp: async(email, pw) => {    
+        const signUpToken = {
+            email : email,
+            pwd : pw 
+        };
+        return await axios.post(Final_proj + "/auth/signupToken", signUpToken);
+    },
+    // 어드민 로그인
+     adminLogin: async(email, pw) => {    
+        const adminLogin = {
+            email : email,
+            pwd : pw 
+        };
+        return await axios.post(Final_proj + "/auth/adminLogin", adminLogin);
+    },
+      // 어드민 토큰로그인
+      adminTokenLogin: async(email, pw) => {    
+        const adminTokenLogin = {
+            email : email,
+            pwd : pw 
+        };
+        return await axios.post(Final_proj + "/auth/loginToken", adminTokenLogin);
+    },
     //로그인시 로그인 유저 정보 저장
     orderMemberData: async(email) =>{
         const usrData = {
@@ -304,9 +327,9 @@ const AxiosFinal = {
         
     
     // 장바구니 상품
-        cartItemList : async(id) => {
-            return await axios.get(Final_proj + `/cart/cartItemList?id=${id}`);
-        },
+    cartItemList : async(id) => {
+        return await axios.get(Final_proj + `/cart/cartItemList?id=${id}`);
+    },
 
     // qna 추가
     qnaUpdate : async(productId, userEmail, qnaTitle, qnaContent) => {
@@ -332,8 +355,40 @@ const AxiosFinal = {
     // Qna 불러오기
     viewQna : async(heartProductId) => {
         return await axios.get(Final_proj + `/qna/qnaList?heartProductId=${heartProductId}`);
-    }
+    },
 
+    // 나의 Qna 불러오기
+    myQna : async(id) => {
+        return await axios.get(Final_proj + `/qna/myQnaList?id=${id}`);
+    },
+
+    // 나의 Qna 수정에서 제품정보 불러오기
+    myQnaProductInfo : async(productId) => {
+        return await axios.get(Final_proj + `/qna/myQnaProductInfo?productId=${productId}`);
+    },
+
+    // 나의 Qna 수정에서 내가 쓴 내용 가져오기
+    editViewMyQna : async(qnaId) => {
+        return await axios.get(Final_proj + `/qna/editViewMyQna?qnaId=${qnaId}`);
+    },
+
+    // 내가 쓴 Qna 수정
+    editMyQna : async(qnaId, title, content) => {
+        const editData = {
+            qnaId : qnaId,
+            title : title,
+            content : content
+        }
+        return await axios.post(Final_proj + "/qna/editMyQna", editData);
+    },
+
+    // 내가 쓴 Qna 삭제
+    deleteMyQna : async(qnaId) => {
+        const deleteQna = {
+            qnaId : qnaId
+        }
+        return await axios.post(Final_proj + "/qna/deleteMyQna", deleteQna);
+    }
     
 };
 

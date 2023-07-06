@@ -284,7 +284,7 @@ const Main= () =>{
         else if(e==="logout"){
             window.localStorage.setItem("isLoginSuv", "FALSE");
             window.localStorage.setItem("userIdSuv", "");
-            window.location.reload();
+            
         }
         else if(e==="SHOP"){
             navigate("/Shop");

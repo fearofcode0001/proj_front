@@ -10,16 +10,29 @@ import CustomerMan from "./CustomerMan";
 import AxiosFinal from "../api/AxiosFinal";
 import { UserContext } from "../context/UserInfo";
 import ChatList from "./ChatList";
+import AdminLoginModal from "./AdminLoginModal";
 
 
 const Container=styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    position: fixed;
+    .holebody{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+    }
+    .blur {
+        filter: blur(5px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+    }
 `
 const Head = styled.div`
     display: flex;
@@ -231,8 +244,21 @@ const AdminPage=()=>{
         setShipOrder(shipOrder.data.length);
         setNewQna(newQna.data.length);
     }
+    
+    //어드민페이지 로그인 창 모달
+    const [onModal, setOnModal] = useState(false);
+    //배경화면 블러를 관리함
+    const [onBlur, setOnBlur] = useState(false);
+    const closeModal = () => {
+        setOnModal(false);
+        setOnBlur(false);
+    }
+
+
     return(
-        <Container>
+        <Container > 
+            <AdminLoginModal open={onModal} close={closeModal}/>
+             <div className={onBlur ? "blur" : "holebody"}>         
             <Head> 
                 <div className="headTop">
                     <button>logout</button>
@@ -270,6 +296,7 @@ const AdminPage=()=>{
                     {changeMenu ==="chat list" &&<ChatList />}    
                 </div>
             </MainBody>
+            </div>
         </Container>
     );
 };
