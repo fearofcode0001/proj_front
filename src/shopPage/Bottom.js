@@ -3,21 +3,22 @@ import styled from "styled-components";
 import Header from "./Header";
 import DropFiter from "./DropFiter";
 import AxiosFinal from "../api/AxiosFinal";
-import Pagenation from "../pages/Pagenation";
 import { UserContext } from "../context/UserInfo";
 import { useNavigate } from "react-router-dom";
+import Pagenation from "../pages/Pagenation";
 
 
 
 const Container = styled.div`
     width: 100%;
     height: 100vh;
-    display: flex;    
+    display: flex;
     flex-direction: column;
 `
 
 const Mainboby=styled.div`
     margin: 0px 40px 0px 40px;
+
 `
 
 
@@ -25,13 +26,13 @@ const Article = styled.div`
     display: flex;
     width: 100%;
     flex-wrap: wrap;
-
 `
 
 const Container_in = styled.div`
     height: 500px;
     width: 300px;
     margin-left: 10px;
+
 
 
     .blur {
@@ -60,7 +61,8 @@ const Container_in = styled.div`
         width: 200px;
         font-size: 10px;
     }
-`;  
+`;
+
 
 const Filter = styled.div`
     width: 250px;
@@ -90,9 +92,11 @@ const Filter = styled.div`
     }
 `
 
-const Shop = () => {
 
 
+
+
+const Bottom = () => {
 
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
@@ -109,12 +113,13 @@ const Shop = () => {
     const handleHeaderClick = () => {
       setIsBlurred(!isBlurred);
     };
-
     useEffect(() => {
         const getProduct = async() => {
            const rsp = await AxiosFinal.sellitems();
-           if(rsp.status === 200) setProduct(rsp.data);
-           console.log(rsp.data);
+           if (rsp.status === 200) {
+            const filteredProduct = rsp.data.filter((item) => item.productCategory === 'BOTTOM');
+             setProduct(filteredProduct);
+        };
        };
        getProduct();
       }, []);
@@ -141,24 +146,9 @@ const Shop = () => {
     }
     });
 
-    // 가격 높은순
-    const priceHigh = () => {
-        const sortedProduct = [...product].sort((a, b) => b.productPrice - a.productPrice);
-        setProduct(sortedProduct);
-    };
-
-    // 가격 낮은 순
-    const priceLow = () => {
-        const sortedProduct = [...product].sort((a, b) => a.productPrice - b.productPrice);
-        setProduct(sortedProduct);
-    };
-
-    // 이름 순
-    const sortByName = () => {
-        const sortedProduct = [...product].sort((a, b) => a.productName.localeCompare(b.productName));
-        setProduct(sortedProduct);
+    const handleFilter = () => {
+        setIsFilterOpen(!isFilterOpen);
       };
-
 
     const onclick = async(e) => {
         const productName = e.productName;
@@ -167,12 +157,29 @@ const Shop = () => {
         setItem(result);
         window.localStorage.setItem("heartProductId",result[0].productId);
         window.localStorage.setItem("productData", JSON.stringify(rsp.data));
+
         nav("/ProductInfo");
-    };
+    }
 
 
 
+        // 가격 높은순
+        const priceHigh = () => {
+            const sortedProduct = [...product].sort((a, b) => b.productPrice - a.productPrice);
+            setProduct(sortedProduct);
+        };
 
+        // 가격 낮은 순
+        const priceLow = () => {
+            const sortedProduct = [...product].sort((a, b) => a.productPrice - b.productPrice);
+            setProduct(sortedProduct);
+        };
+
+        // 이름 순
+        const sortByName = () => {
+            const sortedProduct = [...product].sort((a, b) => a.productName.localeCompare(b.productName));
+            setProduct(sortedProduct);
+        };
 
     return(
       <Container>
@@ -205,10 +212,8 @@ const Shop = () => {
                 setPage={setPage}
                 />
         </Mainboby>
-      </Container>  
-      
+      </Container>
     )
 };
 
-
-export default Shop;        
+export default Bottom;

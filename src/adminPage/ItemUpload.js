@@ -5,7 +5,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import AxiosFinal from "../api/AxiosFinal";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "./FireBase";
-
+import { useNavigate } from "react-router-dom";
 
 const Container=styled.div`
 width: 100%;
@@ -130,6 +130,8 @@ const DivImg = styled.div`
     }
   }`;
 const  ItemUpload = () =>{
+  const navigate = useNavigate();
+
   //이미지
   const [selectedImages, setSelectedImages] = useState([]);
   //서버에 보내지는 파일
@@ -238,7 +240,8 @@ const [prodDetailImg, setProdDetailImg] = useState();
     })
     console.log(setUploadProdData)
   };
-
+  //토큰을 담을 상수
+  const tokenAdmin = window.localStorage.getItem("AdminToken")
   const onCheck = async() =>{ 
     setUploadProdData({ ...uploadProdData});
     //여러 이미지 업로드 데이터.
@@ -251,9 +254,12 @@ const [prodDetailImg, setProdDetailImg] = useState();
                                                      uploadProdData.category,
                                                      uploadProdData.content,
                                                      imageURL[0],imageURL[1],
-                                                     prodDetailImg)
+                                                     prodDetailImg,tokenAdmin)
                                                
-    
+
+   if(response===401){
+            navigate("/Admin401Error")
+       }
   }
 
   const reset=()=>{

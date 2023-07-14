@@ -72,7 +72,7 @@ const Article = styled.div`
             width: 10%;
         }
     }
-   
+
     .textTable{
         width: 100%;
         td{
@@ -122,7 +122,7 @@ const Article = styled.div`
             }
     }
 
-    }  
+    }
 `
 
 
@@ -149,7 +149,7 @@ const Mypost = () => {
         }
         viewMyQna(id);
 
-    }, [deleteCount]);
+    }, [deleteCount, modalOpen]);
 
     const handleQna = (index) => {
         if(expanded.includes(index)) {
@@ -233,7 +233,7 @@ const Mypost = () => {
                                     <td className="textWriter">{e.userName}</td>
                                     <td className="textStatus" style={{fontWeight:"bold"}}>{e.qnaStatus === "HOLD" ? '답변대기' : '답변완료'}</td>
                                     <td className="Btn">
-                                    {e.qnaStatus === "HOLD" ? 
+                                    {e.qnaStatus === "HOLD" ?
                                         (<button onClick={() => editQna(e.productId, e.qnaId)}>수정</button>
                                         ) : (
                                             '수정불가'
@@ -244,7 +244,7 @@ const Mypost = () => {
                                 {expanded.includes(index) && (
                                 <td colSpan={6} className="qnaContent">
                                     <p className="content">{e.qnaContent}</p>
-                                    {e.reply && 
+                                    {e.reply &&
                                        <div className="qnaReply">
                                         <p className="reply">{e.reply}</p>
                                        </div>
@@ -257,12 +257,12 @@ const Mypost = () => {
                                     <tr>
                                         <td colSpan={6}>문의 내역이 없습니다.</td>
                                     </tr>
-                                )} 
+                                )}
                             </table>
                             {modalOpen && (
                                 <EditQnaModal open={modalOpen} close={closeModal} productId={productId} qnaId={qnaId} />
                             )}
-                        </div>  
+                        </div>
                     </Article>
                     <Pagenation
                                 total={qnaData.length} // 전체 아이템 수

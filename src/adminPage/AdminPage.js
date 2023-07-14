@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect  } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SaleDate from "./SaleDate";
 import OrderCheck from "./OrderCheck";
 import ItemUpload from "./ItemUpload";
@@ -136,12 +136,31 @@ const SideBustton=styled.div`
 
 `
 const AdminPage=()=>{
-    
+    const navigate = useNavigate();
+    //로그인 정보를 가져 올 로컬스토리지(새로고침을 방지해준다)
+    const isAdminLogin = window.localStorage.getItem("isLoginAdminPage");
+    //토큰을 받아온다
+    const tokenAdmin = window.localStorage.getItem("AdminToken")
+    //배경화면의 블러를 처리한다.
+    const [onBlur, setOnBlur] = useState(true);
+    //유즈 이펙트를 통해서 isAdminLogin이 TRUE값으로 바뀌면 블러를 숨겨준다!
+    useEffect(()=>{
+        if(isAdminLogin==="TRUE"){
+            setOnBlur(false);
+            setIsLogin(true);
+        }else if(isAdminLogin==="FALSE"){
+            setOnBlur(true);
+            setIsLogin(false);
+            setOnModal(true);
+        }
+    },[isAdminLogin])
+    console.log(isAdminLogin);
+
     const context = useContext(UserContext);
     //어드민페이지에서 사이드메뉴에서 받아온 data 넘길 contextAPI
     const {setCustomerData, setQnaData, setOrderData, setInventoryData,
         setTodayBefore,setOnedayBefore,setTwodayBefore,setThreedayBefore,
-        setFourdayBefore,setFivedayBefore,setSixdayBefore,setChatList} = context;
+        setFourdayBefore,setFivedayBefore,setSixdayBefore,setChatList ,isLogin, setIsLogin} = context;
     //어드민 sideMenu를 바꾸는 useState
     const [changeMenu,setChangeMenu] =useState();
     //페이지값이 바뀌는 컴포넌트
@@ -149,27 +168,40 @@ const AdminPage=()=>{
         setChangeMenu(e);   
     }
     //customermanagement선택시 실행되는 엑시오스
-    const onLoadCustomerData = async() =>{ 
-        const response = await AxiosFinal.customerManage();
-        // console.log(response.data);
+    const onLoadCustomerData = async() =>{
+        const response = await AxiosFinal.customerManage(tokenAdmin);
+        if(response === 401){
+           navigate("/Admin401Error")
+        }
+//        console.log(response);
+//        console.log(response.data);
         setCustomerData(response.data);
     }
     //qna 선택시 샐행되는 엑시오스
-    const onLoadQnaData = async() =>{ 
-        const response = await AxiosFinal.qnaLoadManage();
+    const onLoadQnaData = async() =>{
+        const response = await AxiosFinal.qnaLoadManage(tokenAdmin);
+        if(response.status===401){
+           navigate("/Admin401Error")
+        }
         console.log(response.data);
         setQnaData(response.data);
         // console.log("qnadata",qnaData);
     }
     //orderCheck 선택시 실행되는 엑시오스
     const onLoadOrderData = async()=>{
-        const response = await AxiosFinal.orderLoadManage();
+        const response = await AxiosFinal.orderLoadManage(tokenAdmin);
+        if(response.status===401){
+           navigate("/Admin401Error")
+        }
         setOrderData(response.data);
         console.log(response.data);
     }
     //inventory 선택시 실행되는 엑시오스
     const onLoadInventory=async()=>{
-        const response = await AxiosFinal.shop();
+        const response = await AxiosFinal.onLoadInventory(tokenAdmin);
+        if(response.status===401){
+           navigate("/Admin401Error")
+        }
         setInventoryData(response.data)
         console.log(response.data);
     }
@@ -193,25 +225,28 @@ const AdminPage=()=>{
         }
 
         //각 날짜 별 전달받기.
-        const today = await AxiosFinal.onLoadOrderDate(formatDate(todayBefore));
+        const today = await AxiosFinal.onLoadOrderDate(formatDate(todayBefore),tokenAdmin);
         setTodayBefore(today.data);
-        const onday = await AxiosFinal.onLoadOrderDate(formatDate(oneDayBefore));
-        setOnedayBefore (onday.data);
-        const twoday = await AxiosFinal.onLoadOrderDate(formatDate(twoDayBefore));
-        setTwodayBefore (twoday.data);
-        const threeday = await AxiosFinal.onLoadOrderDate(formatDate(threeDayBefore));
-        setThreedayBefore (threeday.data);
-        const fourday = await AxiosFinal.onLoadOrderDate(formatDate(fourDayBefore));
-        setFourdayBefore (fourday.data);
-        const fiveday = await AxiosFinal.onLoadOrderDate(formatDate(fiveDayBefore));        
-        setFivedayBefore (fiveday.data);
-        const sixday = await AxiosFinal.onLoadOrderDate(formatDate(sixDayBefore));
+        const onday = await AxiosFinal.onLoadOrderDate(formatDate(oneDayBefore),tokenAdmin);
+        setOnedayBefore(onday.data);
+        const twoday = await AxiosFinal.onLoadOrderDate(formatDate(twoDayBefore),tokenAdmin);
+        setTwodayBefore(twoday.data);
+        const threeday = await AxiosFinal.onLoadOrderDate(formatDate(threeDayBefore),tokenAdmin);
+        setThreedayBefore(threeday.data);
+        const fourday = await AxiosFinal.onLoadOrderDate(formatDate(fourDayBefore),tokenAdmin);
+        setFourdayBefore(fourday.data);
+        const fiveday = await AxiosFinal.onLoadOrderDate(formatDate(fiveDayBefore),tokenAdmin);
+        setFivedayBefore(fiveday.data);
+        const sixday = await AxiosFinal.onLoadOrderDate(formatDate(sixDayBefore),tokenAdmin);
         setSixdayBefore(sixday.data);  
     }
 
 
     const onLoadChatList =async()=>{
-        const response = await AxiosFinal.onLoadChatList();
+        const response = await AxiosFinal.onLoadChatList(tokenAdmin);
+        if(response.status===401){
+           navigate("/Admin401Error")
+        }
         setChatList(response.data);
         console.log(response.data);
     }
@@ -239,29 +274,37 @@ const AdminPage=()=>{
     const onReLoadData=async()=>{
         const newOrder = await AxiosFinal.newOrderCheck("CHECK");
         const shipOrder = await AxiosFinal.shipOrderCheck("SHIP");
-        const newQna = await AxiosFinal.newQnaCheck("HOLD");     
+        const newQna = await AxiosFinal.newQnaCheck("HOLD");
+         if(newOrder.status===401){
+           navigate("/Admin401Error")
+         }
         setNewOrder(newOrder.data.length);
         setShipOrder(shipOrder.data.length);
         setNewQna(newQna.data.length);
     }
     
     //어드민페이지 로그인 창 모달
-    const [onModal, setOnModal] = useState(false);
-    //배경화면 블러를 관리함
-    const [onBlur, setOnBlur] = useState(false);
+    const [onModal, setOnModal] = useState(true);
     const closeModal = () => {
         setOnModal(false);
-        setOnBlur(false);
     }
-
+    //어드민페이지 로그아웃
+    const logoutPage =()=>{
+        window.localStorage.setItem("isLoginAdminPage", "FALSE");
+        window.localStorage.removeItem("userIdSuv");
+        window.localStorage.removeItem("AdminToken")
+        setOnBlur(true);
+        setOnModal(true);
+        setIsLogin(false);
+    }
 
     return(
         <Container > 
-            <AdminLoginModal open={onModal} close={closeModal}/>
+           {isLogin === false && <AdminLoginModal open={onModal} close={closeModal}/>}
              <div className={onBlur ? "blur" : "holebody"}>         
             <Head> 
                 <div className="headTop">
-                    <button>logout</button>
+                    <button onClick={logoutPage}>logout</button>
                     <button onClick={onReLoadData}>reload</button>
                     <Link to="/">home</Link>
                 </div>

@@ -1,9 +1,21 @@
-import React , { useState } from "react";
+import React , {useContext, useState } from "react";
 import styled from "styled-components";
 import AxiosFinal from "../api/AxiosFinal";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserInfo";
 
 const Container = styled.div`
+    .normalBackground{
+
+    }
+    .blockBackground{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    }
     a{
         color: black;
         text-decoration: none;
@@ -125,23 +137,30 @@ const Container = styled.div`
 const AdminLoginModal = (props) => {
     const {open, close} = props;
 
-    const [inputId,setInputId] = useState("");    
+    const [inputId,setInputId] = useState("");
     const [inputPw,setInputPw] = useState("");
-
+    //토큰을 담을 contextAPI
+    const context = useContext(UserContext);
+    const { setRefreshTokenAdmin } = context;
+    //id 입력
     const onChangeId = e => {
         setInputId(e.target.value);
     };
-    //input창에서 pw를 받아옴.
+    //pw 입력
     const onChangePw = (e) => {
         setInputPw(e.target.value)
     };
-
-    const onClickLogin=  async() =>{ 
-        const response = await AxiosFinal.adminLogin(inputId,inputPw);
+    //로그인 axios
+    const onClickLogin=  async() =>{
         const responseToken = await AxiosFinal.adminTokenLogin(inputId,inputPw);
-        console.log(response);
-        console.log(responseToken);
-        if(response.data===true){
+        console.log(responseToken)
+        console.log(responseToken.data);
+        //토큰을 넣는다.
+        window.localStorage.setItem("AdminToken", responseToken.data.accessToken);
+        setRefreshTokenAdmin(responseToken.data.refreshToken)
+        if(responseToken.data.accessToken!==null){
+            window.localStorage.setItem("userIdSuv", inputId);
+            window.localStorage.setItem("isLoginAdminPage", "TRUE");
             close();
         }else{
             alert("id와 pw를 확인해주세요");
@@ -150,6 +169,7 @@ const AdminLoginModal = (props) => {
 
     return (
         <Container>
+            <div className={open? 'blockBackground' : 'normalBackground'}>
             <div className={open ? 'openModal modal' : 'modal'}>
             {open &&
                <div className="form">
@@ -164,6 +184,7 @@ const AdminLoginModal = (props) => {
                     </div>
                 </div>            
             }   
+            </div>
             </div>
         </Container>
     );

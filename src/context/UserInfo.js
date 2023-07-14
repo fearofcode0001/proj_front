@@ -26,7 +26,13 @@ const UserStore = (props) => {
     //주문자 주소 번호를 저장
     const [orderUserData, setOrderUserData] = useState("");
     //kakao pay url
-    const [payUrl, setPayUrl] = useState(""); 
+    const [payUrl, setPayUrl] = useState("");
+    const [totalPrice, setTotalPrice] = useState(0);
+    //admin 토큰
+    const [tokenAdmin, setTokenAdmin] = useState("");
+    const [refreshTokenAdmin, setRefreshTokenAdmin] = useState("");
+
+    const [orderId, setOrderId] = useState("");
     
     return (
         <UserContext.Provider value={{
@@ -49,7 +55,11 @@ const UserStore = (props) => {
             sixDayBefore,setSixdayBefore,
             chatList,setChatList,
             orderUserData, setOrderUserData,
-            payUrl, setPayUrl}}>
+            payUrl, setPayUrl,
+            totalPrice, setTotalPrice,
+            tokenAdmin, setTokenAdmin,
+            refreshTokenAdmin, setRefreshTokenAdmin,
+            orderId, setOrderId}}>
             {props.children}
         </UserContext.Provider>   
     );

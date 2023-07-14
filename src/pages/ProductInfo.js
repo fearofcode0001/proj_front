@@ -2,11 +2,14 @@ import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../shopPage/Header";
 import Modal from "./Modal";
-import {FaRegHeart, FaHeart} from "react-icons/fa";
+import {FaRegHeart, FaHeart, FaFontAwesome} from "react-icons/fa";
 import { UserContext } from "../context/UserInfo";
 import { useNavigate } from "react-router-dom";
 import AxiosFinal from "../api/AxiosFinal";
 import Pagenation from "./Pagenation";
+import ReviewPagenation from "./Pagenation";
+import { FaStar } from 'react-icons/fa';
+
 
 
 const Container = styled.div`
@@ -22,14 +25,14 @@ const InnerContainer = styled.div`
     width: 100%;
     height: 100vh;
     margin-top: 50px;
-    
+
     .product {
         margin: 0 40px;
         display: flex;
         .productImg {
             display: flex;
             flex-direction: column;
-            width: 70%;         
+            width: 70%;
             justify-content: center;
             align-items: center;
             img {
@@ -38,7 +41,7 @@ const InnerContainer = styled.div`
                 width: 500px;
                 height: 100%;
             }
-           
+
         }
         .wholeDesc {
             width: 30%;
@@ -92,7 +95,7 @@ const InnerContainer = styled.div`
                     .faHeart {
                         color: red;
                     }
-                    .cart {  
+                    .cart {
                         width: 268px;
                         height: 50px;
                         margin: 20px 0;
@@ -111,7 +114,7 @@ const InnerContainer = styled.div`
                 }
                 .detailWrapper {
                     p {
-                        font-size: 12px; 
+                        font-size: 12px;
                         &:hover {
                             cursor: pointer;
                             color: gray;
@@ -135,6 +138,7 @@ const InnerContainer = styled.div`
 const Review = styled.div`
     width: 100%;
     height: 300px;
+    padding-bottom: 20px;
     margin-bottom: 30px;
     .review {
         margin: 0 40px;
@@ -151,12 +155,13 @@ const Review = styled.div`
 
 const ReviewTable = styled.table`
     width: 100%;
+    margin-bottom: 50px;
     tr {
         width: 100%;
         th {
             padding-bottom: 10px;
         }
-        .Num {
+        .Num, .Rate {
             width: 10%;
         }
         .Title {
@@ -167,9 +172,26 @@ const ReviewTable = styled.table`
         }
         td {
             text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
         }
-        
+        .title {
+            &:hover {
+                cursor: pointer;
+                color: gray;
+            }
+        }
     }
+    .reviewContent {
+        font-size: 14px;
+        .content {
+            margin: 10px 60px;
+        }
+    }
+    .noReview {
+        padding: 50px 0;
+    }
+
 `;
 
 const QnA = styled.div`
@@ -199,6 +221,7 @@ const QnA = styled.div`
 
 const QnATable = styled.table`
     width: 100%;
+    margin-bottom: 50px;
     tr {
         width: 100%;
         th {
@@ -223,7 +246,7 @@ const QnATable = styled.table`
                 cursor: pointer;
                 color: gray;
             }
-        }   
+        }
     }
     .qnaContent {
         font-size: 14px;
@@ -237,6 +260,9 @@ const QnATable = styled.table`
             margin: 0 60px;
             padding: 10px 0;
         }
+    }
+    .noQna {
+        padding: 50px 0;
     }
 `;
 
@@ -253,23 +279,28 @@ const ProductInfo = () => {
     const [likeClick, setlikeClick] = useState(false);
     const [productId, setProductId] = useState();   // 사이즈에 따른 상품 아이디
     const [product, setProduct] = useState([]);
-    const [qnaData, setQnaData] = useState([]); 
-    const [expanded, setExpanded] = useState([]); 
+    const [qnaData, setQnaData] = useState([]);
+    const [expanded, setExpanded] = useState([]);       // qna
+    const [rvExpanded, setRvExpanded] = useState([]);   // review
+    const [reviewData, setReviewData] = useState([]);
 
-    // pagenation
+    // qna pagenation
     const [limit, setLimit] = useState(5);  // 한 페이지에 표시할 아이템 수
     const [page, setPage] = useState(1);    // 페이지 번호
     const offset = (page - 1) * limit;      // 시작 인덱스
 
-    console.log(product);
+    // review pagenation
+    const [reviewLimit, setReviewLimit] = useState(5);
+    const [reviewPage, setReviewPage] = useState(1);
+    const reviewOffset = (reviewPage - 1) * reviewLimit;
+
     const id = window.localStorage.getItem("userIdSuv");
     const isLogin = window.localStorage.getItem("isLoginSuv");
     const heartProductId = window.localStorage.getItem("heartProductId");
 
     const handleSelect = (e) => {
         const productId = e.target.value;
-        // console.log(productId);
-        setProductId(productId);    
+        setProductId(productId);
     };
 
     const detailClick = () => {
@@ -281,7 +312,7 @@ const ProductInfo = () => {
             nav("/Login");
         } else {
         await AxiosFinal.likeProduct(id, heartProductId);
-        setlikeClick(true); 
+        setlikeClick(true);
         }
     }
 
@@ -299,35 +330,48 @@ const ProductInfo = () => {
             nav("/Login");
         }
     }
-   
+
+
 
     useEffect(()=> {
         const storedData = window.localStorage.getItem("productData");
          if (storedData) {
             setProduct(JSON.parse(storedData));
         }
+    }, []);
+
+    useEffect(()=> {
         const heartView = async(id, heartProductId) => {
             const rsp = await AxiosFinal.viewHeart(id, heartProductId);
             if(rsp.data) {
                 setlikeClick(true);
-            } else { 
+            } else {
                 setlikeClick(false);
             }
-        } 
+        }
 
         const qnaView = async(heartProductId) => {
             const rsp = await AxiosFinal.viewQna(heartProductId);
-            console.log(rsp.data);
             setQnaData(rsp.data);
         }
-        
+
 
         if (heartProductId) {
             heartView(id, heartProductId);
             qnaView(heartProductId);
           }
     }, [modalOpen]);
-    
+
+    useEffect(()=> {
+        if(product.length > 0) {
+            const reviewView = async() => {
+                const rsp = await AxiosFinal.viewReview(product[0].productName);
+                console.log(rsp.data); setReviewData(rsp.data);
+            }
+            reviewView();
+        }
+    }, [product]);
+
 
     const handleQna = (index) => {
         if(expanded.includes(index)) {
@@ -337,27 +381,58 @@ const ProductInfo = () => {
         }
     }
 
+    const handleReview = (index) => {
+        if(rvExpanded.includes(index)) {
+            setRvExpanded(rvExpanded.filter((row)=> row !== index));
+        } else {
+            setRvExpanded([...rvExpanded, index]);
+        }
+    }
+
     const closeModal = () => {
         setModalOpen(false);
     }
 
     const clickCart = async(id, productId) => {
-        console.log("동규 >> " + productId); //요거는 email인뎁쇼,,,
-        console.log("동규 email>> " + id); //요거는 email인뎁쇼,,,
+        if(!productId) {
+            alert("사이즈를 선택해주세요.");
+            return;
+        }
+        try {
+            const params = await AxiosFinal.addCartItem(id, productId);
+            console.log(params.data);
+            if (params) {
+                  alert("장바구니에 상품이 담겼습니다.")
+                }
+            } catch (error) {
+                console.error("상품 추가 중 에러 발생 : ", error);
+            }
+    }
 
-        const params = await AxiosFinal.addCartItem(id, productId); 
-
+    const StarRating = ({rating}) => {
+        const stars = [];
+        for(let i = 0; i < 5; i++) {
+            stars.push(
+                <FaStar
+                icon = {FaStar}
+                key={i}
+                style={{color: i < rating ? 'black' : 'gray'}}
+                />
+            );
+        }
+        return <div>{stars}</div>
     }
 
 
-
+    const sortedQnaData = qnaData.slice().reverse();            // qnaData 역순으로 정렬(최근에 쓴 문의가 위로 오도록)
+    const sortedReviewData = reviewData.slice().reverse();      // reviewData 역순으로 정렬(최근에 쓴 리뷰가 위로 오도록)
 
 
     return (
         <Container>
                 <Header />
             <InnerContainer>
-                {product.length > 0 && (<div className="product">           
+                {product.length > 0 && (<div className="product">
                     <div className="productImg">
                             <img src={product[0].productImgFst} alt="" />
                             <img src={product[0].productImgSnd} alt="" />
@@ -366,7 +441,7 @@ const ProductInfo = () => {
                     <div className="wholeDesc">
                         <div className="descWrapper">
                             <div className="productName">{product[0].productName}</div>
-                            <div className="productPrice">{product[0].productPrice}</div>
+                            <div className="productPrice">{product[0].productPrice.toLocaleString()}</div>
                             <div className="colorSize">
                                 <div className="productColor">{product[0].productColor}</div>
                                 <div className="productSize">
@@ -395,29 +470,55 @@ const ProductInfo = () => {
                     </div>
                 </div>)}
                 <Review>
-                    <div className="review"> 
+                    <div className="review">
                         <div className="reviewBoard">Review</div>
                         <hr />
                         <ReviewTable>
                             <tbody>
                                 <tr>
                                     <th className="Num">NUM</th>
+                                    <th className="Rate">RATE</th>
                                     <th className="Title">TITLE</th>
                                     <th className="User">USER</th>
                                     <th className="Date">DATE</th>
                                 </tr>
                             </tbody>
-                            <tbody>                             {/*DB 값 가져오기*/}
+                            <tbody>
+                                {sortedReviewData.length > 0 ?
+                                (sortedReviewData.slice(reviewOffset, reviewOffset+reviewLimit).map((e, index) => (
+                                <React.Fragment key={index}>
                                 <tr>
-                                    <td className="number">1.</td>
-                                    <td className="title">리뷰 작성</td>
-                                    <td className="user">이***</td>
-                                    <td className="date">2023-06-10</td>
+                                    <td className="number">{reviewOffset+index+1}.</td>
+                                    <td className="rate">
+                                       <StarRating rating= {e.reviewRate} />
+                                    </td>
+                                    <td className="title" onClick={()=>handleReview(index)}>{e.reviewTitle}</td>
+                                    <td className="user">{e.userName.substring(0,1)}**</td>
+                                    <td className="date">{e.reviewDate}</td>
                                 </tr>
+                                {rvExpanded.includes(index) && (
+                                    <td colSpan={5} className="reviewContent">
+                                        <p className="content">{e.reviewContent}</p>
+                                    </td>
+                                )}
+                                </React.Fragment>
+                                ))
+                                ) : (
+                                    <tr>
+                                        <td className="noReview" colSpan={5}>리뷰가 없습니다.</td>
+                                    </tr>
+                                )}
                             </tbody>
                         </ReviewTable>
                     </div>
                 </Review>
+                <ReviewPagenation
+                        total={reviewData.length}
+                        limit={reviewLimit}
+                        page={reviewPage}
+                        setPage={setReviewPage}
+                    />
+
                 <QnA>
                     <div className="qna">
                         <div className="qnaWrapper">
@@ -435,20 +536,20 @@ const ProductInfo = () => {
                                     <th className="User">USER</th>
                                     <th className="Date">DATE</th>
                                 </tr>
-                                {qnaData.length > 0 ? (
-                                qnaData.slice(offset, offset + limit).map((e, index) => (
+                                {sortedQnaData.length > 0 ? (
+                                sortedQnaData.slice(offset, offset+limit).map((e, index) => (
                                 <React.Fragment key={index}>
-                                    <tr onClick={() => handleQna(index)}>
+                                    <tr>
                                     <td className="number">{offset + index + 1}.</td>
                                     <td className="status" style={{fontWeight:"bold"}}>{e.qnaStatus === "HOLD" ? '답변대기' : '답변완료'}</td>
-                                    <td className="title">{e.qnaTitle}</td>
+                                    <td className="title" onClick={() => handleQna(index)}>{e.qnaTitle}</td>
                                     <td className="user">{e.userName.substring(0,1)}**</td>
                                     <td className="date">{e.qnaDate}</td>
                                     </tr>
                                     {expanded.includes(index) && (
                                     <td colSpan={5} className="qnaContent">
                                         <p className="content">{e.qnaContent}</p>
-                                        {e.reply && 
+                                        {e.reply &&
                                            <div className="qnaReply">
                                             <p className="reply">{e.reply}</p>
                                            </div>
@@ -459,25 +560,27 @@ const ProductInfo = () => {
                                 ))
                                 ) : (
                                     <tr>
-                                    <td colSpan={5}>문의가 없습니다.</td>
+                                    <td className="noQna" colSpan={5}>문의가 없습니다.</td>
                                     </tr>
                                 )}
                             </tbody>
                         </QnATable>
                     </div>
                     <Pagenation
-                                total={qnaData.length} // 전체 아이템 수
-                                limit={limit}          // 페이지 당 아이템 수
-                                page={page}            // 현재 페이지 번호
-                                setPage={setPage}      // 페이지 번호를 변경
+                        total={qnaData.length} // 전체 아이템 수
+                        limit={limit}          // 페이지 당 아이템 수
+                        page={page}            // 현재 페이지 번호
+                        setPage={setPage}      // 페이지 번호를 변경
                             />
                 </QnA>
-                
+
+
             </InnerContainer>
-                
+
         </Container>
     )
 
 }
+
 
 export default ProductInfo;

@@ -70,19 +70,10 @@ const Wishlist = () => {
         setWish(!wish);
     }
 
-   const mergeProduct = {};
-
-   product.forEach((e)=> {
-    const{productName, userId} = e;
-    if(!mergeProduct[productName]) {
-        mergeProduct[productName] = {
-            productName: e.productName,
-            productImgFst: e.productImgFst,
-            productPrice: e.productPrice
-        };
+    const clickLikeProduct = (productId) => {
+        console.log(productId);
+        navigate(`/product/${productId}`);
     }
-   });
-
 
     return (
         <Container>
@@ -91,14 +82,14 @@ const Wishlist = () => {
                 <div className="header">나의 위시리스트
                 <hr />
                 </div>
-                <div className="wrapper">   
+                <div className="wrapper">
                     {product && product.map((e)=> (
                     <div className="product" key={e.productId}>
-                        <img src={e.productImgFst} alt="" />
+                        <img src={e.productImgFst} alt="" onClick={()=>clickLikeProduct(e.productId)}/>
                         <div className="wrapProduct">
                             <div className="productInfo">
                                 <div className="name">{e.productName}</div>
-                                <div className="price">{e.productPrice}</div>
+                                <div className="price">{e.productPrice.toLocaleString()}</div>
                             </div>
                             <button onClick={()=>deleteWish(id, e.productId)}>X</button> 
                             </div> 
@@ -109,5 +100,7 @@ const Wishlist = () => {
         </Container>
     );
 }
+
+
 
 export default Wishlist;
