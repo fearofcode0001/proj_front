@@ -16,7 +16,7 @@ const Container=styled.div`
 }
 .chatContentArea{
     border: 1px solid black;
-    height: 560px;
+    height: 100%;
     overflow-y: scroll;
        .otherUser{
             margin-bottom: 10px;
@@ -99,19 +99,10 @@ const Container=styled.div`
      border:none;
      background-color: #CCC;
 }
-.chatClose {
-     width: 100%;
-     height: 40px;
-     font-size: 11px;
-     background-color: white;
-     border: none;
-     &:hover{
-     background-color:black;
-     color:white;
-     }
-}
+
 `
-const ChatSocket = () => {
+const AdminChatSocket = (props) => {
+    console.log(props);
     const [socketConnected, setSocketConnected] = useState(false);
     const [inputMsg, setInputMsg] = useState("");
     const [rcvMsg, setRcvMsg] = useState("");
@@ -194,7 +185,6 @@ const ChatSocket = () => {
         <Container>
             <div className="bodyArea">
                 <div className="chatHeadArea">
-                    <button className="chatClose" onClick={()=>{onClickMsgClose();onMsgClose();}}>chat close</button>
                     <div>Chatting Connected : {`${socketConnected}`}</div>
                 </div>
                 <div className="chatContentArea">
@@ -223,4 +213,4 @@ const ChatSocket = () => {
       );
     };
 
-    export default ChatSocket;
+    export default AdminChatSocket;

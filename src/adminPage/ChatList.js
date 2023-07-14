@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../context/UserInfo";
+import AdminChatSocket from "../chatPage/AdminChatSocket";
 
 //전체 컨테이너 CSS
 const Container=styled.div`
@@ -35,29 +36,19 @@ const ChattingData=styled.div`
     border-left:1px solid #CCC;
     border-bottom: 1px solid #CCC;
     border-right: 1px solid #CCC;
-    .chatHead{
-        width: 100%;
-        height: 100px;
-        border-bottom:1px solid #CCC;
-        background-color: aliceblue;
-    }
-    .chatMiddle{
-        width: 100%;
-        height: 547px;
-        border-bottom:1px solid #CCC;
-    }
-    .chatFooter{
-        width: 100%;
-        height: 70px;
-        border-bottom:1px solid #CCC;
-        background-color: aliceblue;
-    }
 `
 const ChatList=()=>{
 
     const context = useContext(UserContext);
     const {chatList} = context;
     console.log(chatList);
+    
+    //방ID를 담을 useState
+    const [onRoomId,setOnRoomId]=useState();
+    const onFindRoomId=(roomId)=>{
+        console.log(roomId);
+        setOnRoomId(roomId);
+    }
 
     return(
         <Container> 
@@ -65,7 +56,7 @@ const ChatList=()=>{
           
 
             {chatList && chatList.map((l,index)=>
-            <ChatListData key={l.roomName}>
+            <ChatListData key={l.roomName} onClick={()=>onFindRoomId(l.roomName)}>
                 {l.userId}             
             </ChatListData>)}  
 
@@ -73,15 +64,7 @@ const ChatList=()=>{
 
           <ChatListView>
             <ChattingData>  
-                <div className="chatHead">
-
-                </div>
-                <div className="chatMiddle">
-
-                </div>
-                <div className="chatFooter">
-
-                </div>   
+                <AdminChatSocket setRoomId={onRoomId}/>
             </ChattingData>
           </ChatListView>
         
