@@ -219,9 +219,16 @@ const Cart=()=>{
     const[cartList, setCartList] = useState([]);
 
 
+<<<<<<< HEAD
     // 주문창으로 이동, order에 장바구니 정보 저장
     const onClickCartOrder = async(cartId) => {
         navigate(`/CartOrder/${cartId}`);
+=======
+    // 주문창으로 이동
+    const onClickCartOrder = async() => {
+        // const getList = await AxiosFinal.getCartList()
+        navigate("/CartOrder");
+>>>>>>> 3eedeca71e1c33698bd2e5759e43908573f50c5d
     }
 
     // 장바구니에 제품이 없을경우 shop 페이지로 이동
@@ -294,6 +301,7 @@ const Cart=()=>{
     };
 
 
+<<<<<<< HEAD
     // 수량 감소
     const countMinus = (idx) => {
         setCount(prevCount => {
@@ -318,6 +326,21 @@ console.log(" ::"  + cartItemId);
         setCartList(rsp.data);
     }
 
+=======
+        // 수량을 감소
+        const countMinus = (idx) => {
+            setCount(prevCount => {
+              const newCount = [...prevCount];
+              if (newCount[idx] > 1) {
+                newCount[idx] -= 1;
+       
+              }
+              return newCount;
+            });
+          };
+          
+          
+>>>>>>> 3eedeca71e1c33698bd2e5759e43908573f50c5d
 
     return(
         <Container>
@@ -337,17 +360,28 @@ console.log(" ::"  + cartItemId);
                         <div className="itemName">{e.productName}</div>
                                  <div className="itemSize">{e.sizeStatus}</div>
                             <div className="count">
-                                            <input type="text" Value={count[index]} />
+                                            <input type="text" Value={count[index]}/>
                                             <div className="countbutton">
                                                 <button className="plus" onClick={()=>countPlus(index)}>∧</button>
                                                 <button className="minus" onClick={()=>countMinus(index)}>∨</button>
                                             </div>
+<<<<<<< HEAD
                                         </div>
                         <div className="price">{(e.setOriginProductPrice * count[index]).toLocaleString()} won</div>
                         <button className="delete_item" onClick={() => deleteCartItem(id, index)}>x</button>
                     </Products_in>
                              ))}
                 </Products>
+=======
+                                        </div>    
+                        <div className="price">{(count[index] * e.productPrice).toLocaleString()} won</div>
+                    </Products_in>  
+                            ))}
+                </Products>     
+          
+                <Total>
+                   {calculateTotalPrice()} won
+>>>>>>> 3eedeca71e1c33698bd2e5759e43908573f50c5d
 
 
                 <Total>
