@@ -300,8 +300,8 @@ const AdminPage=()=>{
 
     return(
         <Container > 
-           {isLogin === false && <AdminLoginModal open={onModal} close={closeModal}/>}
-             <div className={onBlur ? "blur" : "holebody"}>         
+           {/* {isLogin === false && <AdminLoginModal open={onModal} close={closeModal}/>} */}
+             <div className={onBlur ? "holebody" : "blur"}>         
             <Head> 
                 <div className="headTop">
                     <button onClick={logoutPage}>logout</button>
