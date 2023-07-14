@@ -489,7 +489,7 @@ const AxiosFinal = {
             qnaId : qnaId
         }
         return await axios.post(Final_proj + "/qna/deleteMyQna", deleteQna);
-<<<<<<< HEAD
+
     },
 
     // 오더페이지에서 카트 목록 가져오기
@@ -559,7 +559,7 @@ const AxiosFinal = {
     // 제품 별 리뷰 불러오기
     viewReview : async(productName) => {
         return await axios.get(Final_proj + `/review/viewReview?productName=${productName}`);
-=======
+
     }, 
 
     // cart에서 상품 목록 가져오기
@@ -569,7 +569,6 @@ const AxiosFinal = {
             cartId : cartId
         }
         return await axios.post(Final_proj + "/order/cartOrder", getList);
->>>>>>> 3eedeca71e1c33698bd2e5759e43908573f50c5d
     }
     
 };
