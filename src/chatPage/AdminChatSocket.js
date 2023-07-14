@@ -5,7 +5,7 @@ import ChatAxios from "../api/ChatAxios.js";
 const Container=styled.div`
 .bodyArea{
     width:100%;
-    height:100%;
+    height:calc(100vh - 180px);
     display:flex;
     flex-direction: column;
 }
