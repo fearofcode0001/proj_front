@@ -138,21 +138,21 @@ const ToggleButton = styled.button`
 `;
 
 const Body = styled.div`
-    width: 100%;
+    width: 900px;
     height: 100%;
     //이미지를 사용 하려면  ${0}양식 사용
     background-image:url(${bckimg});
-    background-size: contain;
-    background-repeat: none;
+    background-size: cover;
+    /* background-repeat: no-repeat; */
     animation: transX 15s linear; 
     //애니메이션 무한반복
     animation-iteration-count: infinite;
     @keyframes transX {
         0% {
-          transform: translateX(800px); // 이 top 기준으로 400px 내려간 곳에서 시작
+          transform: translateX(1000px); // 이 top 기준으로 400px 내려간 곳에서 시작
         }
         100% {
-          transform: translateX(-800px);   // 그리고 도착지는 원래 지점
+          transform: translateX(-1000px);   // 그리고 도착지는 원래 지점
         }
       } 
     overflow:scroll;
